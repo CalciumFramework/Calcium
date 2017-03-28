@@ -15,7 +15,6 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platfor
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\bin\Release\Codon.UI.Data.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\bin\Release\Codon.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\bin\Release\Codon.xml
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\bin\Release\Codon.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.Android.csprojResolveAssemblyReference.cache
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.pdb

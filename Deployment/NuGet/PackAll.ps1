@@ -1,4 +1,4 @@
-﻿$packageVersion = "1.0.0-beta01";
+﻿$packageVersion = "1.0.0";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM application framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";

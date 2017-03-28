@@ -21,9 +21,8 @@ $Desc$
 		<summary>This package consists of a .NET Standard library that brings in data-binding features for non-XAML based frameworks such as Xamarin Android and Xamarin iOS.</summary>
 		
     <dependencies>
-      <group targetFramework=".NETStandard1.4">
+      <group>
         <dependency id="Codon" version="$version$" exclude="Build,Analyzers" />
-        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

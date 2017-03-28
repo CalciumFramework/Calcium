@@ -20,11 +20,6 @@ $Desc$
 		</description>
 		<summary>This package consists of a .NET Standard library that provides undo/redo support.</summary>
 		
-    <dependencies>
-      <group targetFramework=".NETStandard1.4">
-        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
-      </group>
-    </dependencies>
   </metadata>
 	<files>
 		<file src="bin\Release\netstandard1.4\Codon.UndoModel.dll" target="lib\netstandard1.4" />

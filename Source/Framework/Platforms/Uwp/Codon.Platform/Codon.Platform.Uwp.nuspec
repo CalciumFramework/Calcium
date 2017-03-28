@@ -8,7 +8,7 @@
 		<authors>$Authors$</authors>
 		<owners>$Owners$</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<licenseUrl>http://www.outcoder.com/AppContent/Codon/License.txt</licenseUrl>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
 	  <iconUrl>$IconUrl$</iconUrl>
 		<projectUrl>http://codonfx.com</projectUrl>
 		<copyright>Copyright © $Owners$ 2017</copyright>
