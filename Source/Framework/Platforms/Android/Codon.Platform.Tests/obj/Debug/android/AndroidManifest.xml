@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Framework.Android.Tests.Framework.Android.Tests" android:versionCode="1" android:versionName="1.0">
+  <!--suppress UsesMinSdkAttributes-->
+  <uses-sdk android:minSdkVersion="16" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <application android:label="Framework.Android.Tests" android:name="android.app.Application" android:allowBackup="true" android:icon="@drawable/icon" android:debuggable="true">
+    <activity android:icon="@drawable/icon" android:label="Framework.Android.Tests" android:name="md50346ab3072b5d8a9cd2d50bcaf2cdd9a.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:label="NUnitLite runner" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.TestSuiteActivity" />
+    <activity android:label="Test Result" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.TestResultActivity" />
+    <activity android:configChanges="keyboardHidden|orientation" android:label="Options" android:windowSoftInputMode="stateUnspecified|adjustPan" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.OptionsActivity" />
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="Framework.Android.Tests.Framework.Android.Tests.mono.MonoRuntimeProvider.__mono_init__" />
+    <!--suppress ExportedReceiver-->
+    <receiver android:name="mono.android.Seppuku">
+      <intent-filter>
+        <action android:name="mono.android.intent.action.SEPPUKU" />
+        <category android:name="mono.android.intent.category.SEPPUKU.Framework.Android.Tests.Framework.Android.Tests" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>

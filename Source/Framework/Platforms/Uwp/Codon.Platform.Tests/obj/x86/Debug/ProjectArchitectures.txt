@@ -1,0 +1,2 @@
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Uwp\Codon.Platform.Tests\Codon.Platform.Uwp.Tests.csproj;x86
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.csproj;neutral

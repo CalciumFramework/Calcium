@@ -1,0 +1,7 @@
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\bin\Debug\netstandard1.4\Codon.UndoModel.deps.json
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\bin\Debug\netstandard1.4\Codon.UndoModel.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\bin\Debug\netstandard1.4\Codon.UndoModel.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Debug\netstandard1.4\Codon.UndoModel.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Debug\netstandard1.4\Codon.UndoModel.AssemblyInfo.cs
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Debug\netstandard1.4\Codon.UndoModel.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Debug\netstandard1.4\Codon.UndoModel.pdb

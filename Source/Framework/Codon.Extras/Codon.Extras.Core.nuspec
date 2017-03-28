@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Codon.Extras.Core</id>
+		<title>Codon Extras' shared code base in a .NET Standard library</title>
+
+		<version>$version$</version>
+		<authors>$Authors$</authors>
+		<owners>$Owners$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
+	  <iconUrl>$IconUrl$</iconUrl>
+		<projectUrl>http://codonfx.com</projectUrl>
+		<copyright>Copyright © $Owners$ 2017</copyright>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+		
+    <description>Codon Extras' core functionality is a shared code base in a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Extras.Android, Codon.Extras.Ios, Codon.Extras.Uwp, and Codon.Extras.Wpf.
+
+Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
+
+$Desc$</description>
+		<summary>Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
+
+Codon Extras' core functionality is a shared code base in a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Extras.Android, Codon.Extras.Ios, Codon.Extras.Uwp, and Codon.Extras.Wpf.</summary>
+    <dependencies>
+	    <group>
+		    <dependency id="Codon" version="$version$" exclude="Build,Analyzers" />
+	    </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard1.4\Codon.Extras.dll" target="lib\netstandard1.4" />
+		<file src="bin\Release\netstandard1.4\Codon.Extras.pdb" target="lib\netstandard1.4" />
+		<file src="bin\Release\netstandard1.4\Codon.Extras.xml" target="lib\netstandard1.4" />
+  </files>
+</package>

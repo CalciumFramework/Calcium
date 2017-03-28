@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Codon.Extras</id>
+    <title>Codon Extras</title>
+
+		<version>$version$</version>
+		<authors>$Authors$</authors>
+		<owners>$Owners$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
+	  <iconUrl>$IconUrl$</iconUrl>
+		<projectUrl>http://codonfx.com</projectUrl>
+		<copyright>Copyright © $Owners$ 2017</copyright>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+		
+				<description>Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. 
+
+This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.
+
+$Desc$
+		</description>
+		<summary>Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
+		
+		<dependencies>
+			<group>
+				<dependency id="Codon" version="$version$" />
+				<dependency id="Codon.Extras.Core" version="$version$" />
+			</group>
+			<group targetFramework="MonoAndroid1.0">
+				<dependency id="Codon.Extras.Android" version="$version$" />
+			</group>
+			<group targetFramework="Xamarin.iOS10">
+				<dependency id="Codon.Extras.Ios" version="$version$" />
+			</group>
+			<group targetFramework="net45">
+				<dependency id="Codon.Extras.Wpf" version="$version$" />
+			</group>
+			<group targetFramework="uap">
+				<dependency id="Codon.Extras.Uwp" version="$version$" />
+			</group>
+    </dependencies>
+  </metadata>
+</package>

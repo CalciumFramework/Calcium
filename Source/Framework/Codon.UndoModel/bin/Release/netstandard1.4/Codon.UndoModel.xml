@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.UndoModel</name>
+    </assembly>
+    <members>
+        <member name="T:Codon.UndoModel.CompositeUnit`1">
+            <summary>
+            Provides the ability to group units for execution
+            either sequentially or in parallel. 
+            <see cref="P:Codon.UndoModel.CompositeUnit`1.Parallel"/>
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.CompositeUnit`1.Parallel">
+            <summary>
+            Gets or sets a value indicating whether the composite units
+            are to be performed sequentially, one after the other, or in parallel.
+            </summary>
+            <value><c>true</c> if parallel; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Codon.UndoModel.DelegateUnit`1">
+            <summary>
+            Represents a <see cref="T:Codon.UndoModel.IUnit"/> that is provided with an action 
+            to be executed when the unit is performed.
+            </summary>
+            <typeparam name="T">The type of argument provided 
+            when the unit is performed.</typeparam>
+        </member>
+        <member name="M:Codon.UndoModel.DelegateUnit`1.#ctor(System.Action{Codon.UndoModel.UnitEventArgs{`0}},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codon.UndoModel.DelegateUnit`1"/> class.
+            </summary>
+            <param name="execute">The execution handler. 
+            This will be invoked when the unit is performed.</param>
+            <param name="descriptionForUser">The description for the user.</param>
+        </member>
+        <member name="T:Codon.UndoModel.IInternalUndoService">
+            <summary>
+            Allows a <see cref="T:Codon.UndoModel.UnitBase`1"/> to indicate 
+            to the <see cref="T:Codon.UndoModel.UndoService"/>
+            that its <see cref="!:IInternalUnit.Repeatable"/> property has changed.
+            </summary>
+        </member>
+        <member name="M:Codon.UndoModel.IInternalUndoService.NotifyUnitRepeatableChanged(Codon.UndoModel.IInternalUnit)">
+            <summary>
+            Notifies the service that the repeatable property has changed.
+            </summary>
+            <param name="unit">The unit.</param>
+        </member>
+        <member name="T:Codon.UndoModel.IInternalUnit">
+            <summary>
+            Provides functionality to perform and repeat 
+            a unit within the <see cref="T:Codon.UndoModel.UndoService"/>.
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.IInternalUnit.Argument">
+            <summary>
+            Gets the argument that is used during unit execution.
+            </summary>
+            <value>The argument used during execution.</value>
+        </member>
+        <member name="M:Codon.UndoModel.IInternalUnit.PerformUnit(System.Object,Codon.UndoModel.UnitMode)">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Codon.UndoModel.IInternalUnit"/> 
+            can be executed more than once.
+            </summary>
+            <value><c>true</c> if repeatable; otherwise, <c>false</c>.</value>
+            <summary>
+            Performs the unit, raising events to allowing user code to execute.
+            </summary>
+            <param name="argument">The argument used during execution.</param>
+            <param name="unitMode">Indicates whether the unit is being performed
+            for the first time, whether it is being redone, or whether it is being repeated.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Codon.UndoModel.IUnit">
+            <summary>
+            An unit performs an application unit.
+            An unit may be a command behaviour, that is, it may encapsulate 
+            the logic performed when a command is initiated.
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.IUnit.DescriptionForUser">
+            <summary>
+            Gets the user friendly description of the unit.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:Codon.UndoModel.IUnit.Undoable">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Codon.UndoModel.IUnit"/> can be undone.
+            This means that the unit is able to roll back changes made during its execution.
+            </summary>
+            <value><c>true</c> if undoable; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Codon.UndoModel.IUnit.Repeatable">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Codon.UndoModel.IInternalUnit"/> 
+            can be executed more than once.
+            </summary>
+            <value><c>true</c> if repeatable; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Codon.UndoModel.CompositeUndoableUnit`1">
+            <summary>
+            Provides the ability to group units for sequential or parallel execution 
+            with undo and redo capabilities.
+            </summary>
+        </member>
+        <member name="T:Codon.UndoModel.IUndoableUnit">
+            <summary>
+            Defines the contract for an unit that can be undone. 
+            <seealso cref="T:Codon.UndoModel.IUnit"/>
+            </summary>
+        </member>
+        <member name="M:Codon.UndoModel.IUndoableUnit.Undo">
+            <summary>
+            Undoes the unit using the specified argument.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Codon.UndoModel.UndoableUnit`1">
+            <summary>
+            Represents a <see cref="T:Codon.UndoModel.IUnit"/> that is provided with an action 
+            to be executed when the unit is performed.
+            </summary>
+            <typeparam name="T">The type of argument provided 
+            when the unit is performed.</typeparam>
+        </member>
+        <member name="M:Codon.UndoModel.UndoableUnit`1.#ctor(System.Action{Codon.UndoModel.UnitEventArgs{`0}},System.Action{Codon.UndoModel.UnitEventArgs{`0}},System.String)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="!:UndoableUnitUnit&lt;T&gt;"/> class.
+            </summary>
+            <param name="execute">The execution handler. 
+            This will be performed when the unit is performed.</param>
+            <param name="undo">The undo handler. 
+            This will be performed when the unit is undone.</param>
+            <param name="descriptionForUser">
+            The description for the user.</param>
+        </member>
+        <member name="T:Codon.UndoModel.UndoableUnitBase`1">
+            <summary>
+            The base class for <see cref="T:Codon.UndoModel.IUndoableUnit"/>s.
+            <seealso cref="T:Codon.UndoModel.IUndoableUnit"/>
+            </summary>
+        </member>
+        <member name="T:Codon.UndoModel.UndoableUnitEventArgs`1">
+            <summary>
+            This class is used during the evaluation 
+            of an <see cref="T:Codon.UndoModel.IUndoableUnit"/>'s CanUndo property.
+            </summary>
+        </member>
+        <member name="M:Codon.UndoModel.UndoableUnitEventArgs`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codon.UndoModel.UndoableUnitEventArgs`1"/> class.
+            </summary>
+            <param name="argument">The argument used by the concrete
+            <code>UnitBase</code> implementation, which is propagated during 
+            the can and perform events.</param>
+        </member>
+        <member name="M:Codon.UndoModel.UndoableUnitEventArgs`1.#ctor(`0,Codon.UndoModel.UnitMode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codon.UndoModel.UndoableUnitEventArgs`1"/> class.
+            </summary>
+            <param name="argument">The argument used by the concrete
+            <code>UnitBase</code> implementation, which is propagated during 
+            the can and perform events.</param>
+            <param name="unitMode">Indicates whether this unit is being performed 
+            for the fist time, if it is being redone, or if it is being repeated.</param>
+        </member>
+        <member name="P:Codon.UndoModel.UndoableUnitEventArgs`1.Enabled">
+            <summary>
+            Gets or sets a value indicating whether this instance can undo or redo.
+            </summary>
+            <value><c>true</c> if this instance can undo; otherwise, <c>false</c>. 
+            Default is <c>true</c></value>
+        </member>
+        <member name="T:Codon.UndoModel.UndoService">
+            <summary>
+            Default implementation of the <see cref="T:Codon.Services.IUndoService"/> interface.
+            This class provides for execution, undoing, and redoing
+            of <see cref="T:Codon.UndoModel.IUnit"/> instances.
+            See the interface for API documentation.
+            </summary>
+        </member>
+        <member name="M:Codon.UndoModel.UndoService.PerformUnit``1(Codon.UndoModel.UnitBase{``0},``0,System.Object)">
+            <summary>Executes the specified unit.</summary>
+            <param name="unit">The command to execute.</param>
+            <param name="argument">The argument passed to the unit on execution.</param>
+            <param name="ownerKey">An object identifying the owner of the unit.</param>
+        </member>
+        <member name="M:Codon.UndoModel.UndoService.PerformUnit``1(Codon.UndoModel.UndoableUnitBase{``0},``0,System.Object)">
+            <summary>Executes the specified unit.</summary>
+            <param name="unit">The command to execute.</param>
+            <param name="argument">The argument passed to the unit on execution.</param>
+            <param name="ownerKey">An object identifying the owner of the unit.</param>
+        </member>
+        <member name="M:Codon.UndoModel.UndoService.Undo(System.Object)">
+            <summary>
+            Undoes the execution of a previous <see cref="T:Codon.UndoModel.IUnit"/>.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+            Occurs if there are no previously executed units to undo.</exception>
+        </member>
+        <member name="M:Codon.UndoModel.UndoService.Redo(System.Object)">
+            <summary>
+            Performs the execution of a <see cref="T:Codon.UndoModel.IUnit"/>
+            instance that has been undone, then places it back
+            into the command stack.
+            </summary>
+        </member>
+        <member name="M:Codon.UndoModel.UndoService.Clear(System.Object)">
+            <summary>
+            Clears the undo and redo stacks.
+            </summary>
+        </member>
+        <member name="T:Codon.UndoModel.UndoServiceEventArgs">
+            <summary>
+            Used to communicated with implementations 
+            of the <see cref="T:Codon.UndoModel.UndoService"/> class.
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.UndoServiceEventArgs.Unit">
+            <summary>
+            Gets or sets the unit the is being executed/undone etc.
+            </summary>
+            <value>The unit.</value>
+        </member>
+        <member name="M:Codon.UndoModel.UndoServiceEventArgs.#ctor(Codon.UndoModel.IUnit)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UndoModel.UndoServiceEventArgs"/> class.
+            </summary>
+            <param name="unit">The unit. Can be <c>null</c>.</param>
+        </member>
+        <member name="T:Codon.UndoModel.CancellableUndoServiceEventArgs">
+            <summary>
+            Used to communicated with implementations 
+            of the <see cref="T:Codon.UndoModel.UndoService"/> class,
+            and to provide the means to cancel an operation.
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.CancellableUndoServiceEventArgs.Cancel">
+            <summary>
+            Gets or sets a value indicating whether 
+            this <see cref="T:Codon.UndoModel.CancellableUndoServiceEventArgs"/> 
+            has been cancelled by a handler. 
+            This means that the operation will not proceed, 
+            e.g., the unit will not be executed.
+            </summary>
+            <value><c>true</c> if cancel; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Codon.UndoModel.CancellableUndoServiceEventArgs.#ctor(Codon.UndoModel.IUnit)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UndoModel.UndoServiceEventArgs"/> class.
+            </summary>
+            <param name="unit">The unit. Can be <c>null</c>.</param>
+        </member>
+        <member name="T:Codon.UndoModel.UnitBase`1">
+            <summary>
+            The base class for <see cref="T:Codon.UndoModel.IUnit"/>s.
+            An unit performs an application unit.
+            An unit may be a command behaviour, that is, it may encapsulate 
+            the logic performed when a command is initiated.
+            </summary>
+        </member>
+        <member name="E:Codon.UndoModel.UnitBase`1.Execute">
+            <summary>
+            Occurs when the unit is being performed. 
+            This is the event to handler for your unit logic.
+            </summary>
+        </member>
+        <member name="T:Codon.UndoModel.UnitEventArgs`1">
+            <summary>
+            Used during unit execution.
+            </summary>
+        </member>
+        <member name="P:Codon.UndoModel.UnitEventArgs`1.Argument">
+            <summary>
+            Gets or sets the argument used by the concrete 
+            <seealso cref="T:Codon.UndoModel.UnitBase`1"/> implementation.
+            </summary>
+            <value>The argument.</value>
+        </member>
+        <member name="P:Codon.UndoModel.UnitEventArgs`1.UnitResult">
+            <summary>
+            Gets or sets the unit result.
+            </summary>
+            <value>The unit result.</value>
+        </member>
+        <member name="M:Codon.UndoModel.UnitEventArgs`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codon.UndoModel.UnitEventArgs`1"/> class.
+            </summary>
+            <param name="argument">The argument used by the concrete 
+            <code>UnitBase</code> implementation.</param>
+        </member>
+        <member name="M:Codon.UndoModel.UnitEventArgs`1.#ctor(`0,Codon.UndoModel.UnitMode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codon.UndoModel.UnitEventArgs`1"/> class.
+            </summary>
+            <param name="argument">The argument used by the concrete 
+            <code>UnitBase</code> implementation.</param>
+            <param name="unitMode">Indicates whether this unit is being performed 
+            for the fist time, if it is being redone, or if it is being repeated.</param>
+        </member>
+        <member name="T:Codon.UndoModel.UnitMode">
+            <summary>
+            Indicates why a unit is being performed.
+            </summary>
+        </member>
+        <member name="T:Codon.UndoModel.UnitResult">
+            <summary>
+            Is used to indicate the execution result of an <see cref="T:Codon.UndoModel.IUnit"/>.
+            </summary>
+        </member>
+        <member name="F:Codon.UndoModel.UnitResult.Completed">
+            <summary>
+            The unit completed successfully.
+            </summary>
+        </member>
+        <member name="F:Codon.UndoModel.UnitResult.Cancelled">
+            <summary>
+            The unit was cancelled by the instance, or nested instance.
+            </summary>
+        </member>
+        <member name="F:Codon.UndoModel.UnitResult.Failed">
+            <summary>
+            Unit handled failure.
+            </summary>
+        </member>
+        <member name="F:Codon.UndoModel.UnitResult.NoUnit">
+            <summary>
+            State changed in that the unit was deemed no longer executable.
+            </summary>
+        </member>
+        <member name="T:Codon.Services.IUndoService">
+            <summary>
+            This interface describes a service that 
+            is able to execute <see cref="T:Codon.UndoModel.IUnit"/>s.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IUndoService.PerformUnit``1(Codon.UndoModel.UnitBase{``0},``0,System.Object)">
+            <summary>
+            Executes the specified unit.
+            </summary>
+            <param name="unit">The command to execute.</param>
+            <param name="argument">The argument passed to the unit on execution.</param>
+            <param name="contextKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <returns>The result of performing the unit.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.CanUndo(System.Object)">
+            <summary>
+            Gets a value indicating whether this instance can undo an unit.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <value><c>true</c> if this instance can undo; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Codon.Services.IUndoService.Undo(System.Object)">
+            <summary>
+            Undoes the last unit.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <returns>The result of the unit. <see cref="T:Codon.UndoModel.UnitResult"/></returns>
+            <exception cref="T:System.InvalidOperationException">
+            Occurs if there are no previously executed units to undo.</exception>
+            <returns>The result of undoing the unit.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.Undo(System.Int32,System.Object)">
+            <summary>Undoes the last number of units. 
+            If any single unit does not complete the process is halted.
+            </summary>
+            <param name="undoCount">The number of units to undo.</param>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <returns>The result of the unit. <see cref="T:Codon.UndoModel.UnitResult"/></returns>
+            <exception cref="T:System.InvalidOperationException">
+            Occurs if there are no previously executed units to undo.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Occurs if the list of undoable units 
+            is smaller in length than the specified undoCount.</exception>
+            <returns>The result of undoing the unit.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.CanRedo(System.Object)">
+            <summary>
+            Gets a value indicating whether an unit can be redone, 
+            after it has been undone.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <value><c>true</c> if this instance can redo the last unit; 
+            otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Codon.Services.IUndoService.Redo(System.Object)">
+            <summary>
+            Executes the unit that was previously undone.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <returns>The result of redoing the unit.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.Repeat(System.Object)">
+            <summary>
+            Causes the last <see cref="T:Codon.UndoModel.IUnit"/> that was performed to be performed again.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <returns>The result of repeating the last unit.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.CanRepeat(System.Object)">
+            <summary>
+            Gets a value indicating whether this instance can execute the last unit executed.
+            </summary>
+            <param name="ownerKey">A key representing the owner of the unit. 
+            This might be, for example, a text editor.
+            This allows for a set of units to be associated with a control. 
+            Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+            <value>
+            	<c>true</c> if this instance can execute the last unit executed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Codon.Services.IUndoService.GetUndoableUnits(System.Object)">
+            <summary>
+            Gets the units which are deemed undoable.
+            </summary>
+            <param name="ownerKey">The owner associated with a set of units. 
+            For example, a text editor. Can be <c>null</c>. 
+            If <c>null</c> those units not associated with an ownerKey (global units) are returned.</param>
+            <returns>The undoable units.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.GetRedoableUnits(System.Object)">
+            <summary>
+            Gets the units which are deemed redoable.
+            </summary>
+            <param name="ownerKey">The owner associated with a set of units. 
+            For example, a text editor. Can be <c>null</c>. 
+            If <c>null</c> those units not associated with an ownerKey (global units) are returned.</param>
+            <returns>The redoable units.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.GetRepeatableUnits(System.Object)">
+            <summary>
+            Gets the units which are deemed repeatable.
+            </summary>
+            <param name="ownerKey">The owner associated with a set of units. 
+            For example, a text editor. Can be <c>null</c>. 
+            If <c>null</c> those units not associated with an ownerKey (global units) are returned.</param>
+            <returns>The undoable units.</returns>
+        </member>
+        <member name="M:Codon.Services.IUndoService.Clear(System.Object)">
+            <summary>
+            Clears the unit list for a particular owner.
+            </summary>
+            <param name="ownerKey">The owner associated with a set of units. 
+            For example, a text editor. Can be <c>null</c>. 
+            If <c>null</c> those units not associated with an ownerKey (global units) are cleared.</param>
+        </member>
+        <member name="M:Codon.Services.IUndoService.SetMaximumUndoCount(System.Int32,System.Object)">
+            <summary>
+            Limits the number of units that can be undone to the specified value.
+            This can help to reduce memory usage in some scenarios.
+            </summary>
+            <param name="count">The maximum number of undo units to be retained.</param>
+            <param name="ownerKey">The context key. Can be <c>null</c>.</param>
+        </member>
+    </members>
+</doc>

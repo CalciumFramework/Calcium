@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.UI.Data</name>
+    </assembly>
+    <members>
+        <member name="P:Codon.UI.Data.BindingExpression.View">
+            <summary>
+            Not for public use. Should be internal.
+            The assembly's strong name, however, prevents Xamarin 
+            based libraries, namely Codon.Extras.Platform.Android, 
+            from opening up visibility with the InternalsVisibleTo. 
+            Xamarin based libraries can't be strong named, 
+            and InternalsVisibleTo requires a strong named assembly 
+            name if the assembly where the attribute is declared 
+            is strong named.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Data.InternalBindingApplicator">
+            <summary>
+            This class is not intended to be consumed publicly.
+            This class should be internal. 
+            The assembly's strong name, however, prevents Xamarin 
+            based libraries, namely Codon.Extras.Platform.Android, 
+            from opening up visibility with the InternalsVisibleTo. 
+            Xamarin based libraries can't be strong named, 
+            and InternalsVisibleTo requires a strong named assembly 
+            name if the assembly where the attribute is declared 
+            is strong named.</summary>
+        </member>
+        <member name="T:Codon.UI.Data.IViewBinder">
+            <summary>
+            This interface represents an extensibility point for adding support 
+            for different types of views that may, or may not, already be included 
+            in the <seealso cref="T:Codon.UI.Data.ViewBinderRegistry"/>.
+            </summary>
+        </member>
+        <member name="M:Codon.UI.Data.DelegateUtility.AddHandler(System.Object,System.String,System.Action)">
+            <summary>
+            Dynamically adds an event handler to a control.
+            Source: http://stackoverflow.com/questions/5658765/create-a-catch-all-handler-for-all-events-and-delegates-in-c-sharp
+            </summary>
+            <param name="target">The control on which we want to add the event handler.</param>
+            <param name="eventName">The name of the event on which we want to add a handler.</param>
+            <param name="methodToExecute">The code we want to execute when the handler is raised.</param>
+            <returns>An action that can be used to remove the subscription.</returns>
+        </member>
+        <member name="M:Codon.UI.Data.DelegateUtility.BuildDynamicHandler(System.Type,System.Action)">
+            <summary>
+            Build a delegate for a particular type.
+            Code by Thomas Lebrun http://bit.ly/1OQsD8L
+            </summary>
+            <param name="delegateType">The type of the object for which we want the delegate.</param>
+            <param name="methodToExecute">The code we want to execute when the handler is raised.</param>
+            <returns>A delegate object for the dedicated type, used the execute the specified code.</returns>
+        </member>
+        <member name="M:Codon.UI.Elements.StaticExtension.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="member">A string that identifies the member to make a reference to. 
+            This string uses the format prefix:typeName.fieldOrPropertyName. 
+            prefix is the mapping prefix for a XAML namespace, and is only required 
+            to reference static values that are not mapped to the default XAML namespace.</param>
+        </member>
+    </members>
+</doc>

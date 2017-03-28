@@ -1,0 +1,16 @@
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform.apk
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform-Signed.apk
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\Codon.Platform.Android.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\Codon.Platform.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\Codon.Platform.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\android\bin\Codon.Platform.apk
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\res\values\strings.xml
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\R.cs.flag
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\uploadflags.txt
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Debug\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Debug\Codon.Platform.dll.mdb

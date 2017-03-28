@@ -1,0 +1,245 @@
+﻿#if __ANDROID__
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Codon (http://codonfx.com), 
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2013-01-01 11:32:08Z</CreationDate>
+</File>
+*/
+#endregion
+
+using Android.App;
+using Android.Content;
+using Android.Net;
+using Android.Net.Wifi;
+
+using System;
+using System.Net;
+
+using Codon.ComponentModel;
+using Codon.Services;
+
+namespace Codon.Networking
+{
+	/// <summary>
+	/// Android implementation of <see cref="INetworkConnectionService"/>.
+	/// </summary>
+	public class NetworkConnectionService : ObservableBase, 
+		INetworkConnectionService
+	{
+		const int DefaultSampleRateMs = 1000;
+		WifiReceiver wifiReceiver;
+		int sampleRateMs;
+
+		public int SampleRateMs => sampleRateMs;
+
+		bool approachingDataLimit;
+
+		public bool ApproachingDataLimit
+		{
+			get => approachingDataLimit;
+			private set
+			{
+				bool temp = LimitData;
+				if (Set(ref approachingDataLimit, value) 
+							== AssignmentResult.Success)
+				{
+					if (temp != LimitData)
+					{
+						OnPropertyChanged(nameof(LimitData));
+					}
+				}
+			}
+		}
+
+		bool roaming;
+
+		public bool Roaming
+		{
+			get => roaming;
+			private set
+			{
+				bool temp = LimitData;
+				if (Set(ref roaming, value) == AssignmentResult.Success)
+				{
+					if (temp != LimitData)
+					{
+						OnPropertyChanged(nameof(LimitData));
+					} 
+				}
+			}
+		}
+
+		public virtual bool LimitData => Roaming || ApproachingDataLimit;
+
+		public NetworkConnectionType NetworkConnectionType { get; private set; }
+		public event EventHandler<EventArgs> NetworkConnectionChanged;
+
+		bool connected;
+
+		public bool Connected
+		{
+			get => connected;
+			set => Set(ref connected, value);
+		}
+
+		bool IsConnected(ConnectivityManager connectivityManager)
+		{
+			NetworkInfo info = connectivityManager.ActiveNetworkInfo;
+			return info != null && info.IsConnected;
+		}
+
+		public NetworkConnectionService(int sampleRateMs = DefaultSampleRateMs)
+		{
+			this.sampleRateMs = sampleRateMs;
+
+			Update();
+
+			try
+			{
+				wifiReceiver = new WifiReceiver(this);
+				var context = Application.Context;
+				context.RegisterReceiver(wifiReceiver, new IntentFilter(WifiManager.NetworkStateChangedAction));
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Unable to start NetworkConnectionService. " +
+									"Please ensure that you have set the permission in your manifest. " +
+									"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />", ex);
+			}
+		}
+
+		internal void HandleNetworkStatusChanged(object sender)
+		{
+			Update();
+
+			UIContext.Instance.Post(() =>
+			{
+				NetworkConnectionChanged?.Invoke(this, EventArgs.Empty);
+
+				IMessenger messenger;
+				if (Dependency.TryResolve<IMessenger>(out messenger))
+				{
+					messenger.PublishAsync(new NetworkAvailabilityChangedMessage(
+						this, new NetworkConnectionInfo(NetworkConnectionType, LimitData)));
+				}
+			});
+		}
+
+		string ssid;
+
+		public string Ssid
+		{
+			get => ssid;
+			set => Set(ref ssid, value);
+		}
+
+		string GetSsid(WifiManager wifiManager = null)
+		{
+			if (wifiManager == null)
+			{
+				var context = Application.Context;
+				wifiManager = (WifiManager)context.GetSystemService(Context.WifiService);
+			}
+
+			WifiInfo wifiInfo = wifiManager.ConnectionInfo;
+			var result = wifiInfo.ToString();
+
+			return result;
+		}
+
+		public void Update()
+		{
+			var context = Application.Context;
+			var wifi = (WifiManager)context.GetSystemService(Context.WifiService);
+			ConnectivityManager cm = (ConnectivityManager)context.GetSystemService(Context.ConnectivityService);
+			Connected = IsConnected(cm);
+			NetworkInfo info = cm.ActiveNetworkInfo;
+			Roaming = info?.IsRoaming ?? false;
+			Ssid = GetSsid(wifi);
+			IPAddress = GetIPAddress();
+
+			if (info != null && info.IsConnected)
+			{
+				if (info.Type == ConnectivityType.Wifi)
+				{
+					NetworkConnectionType = NetworkConnectionType.Lan;
+				}
+				else
+				{
+					NetworkConnectionType = NetworkConnectionType.MobileBroadband;
+				}
+			}
+			else
+			{
+				NetworkConnectionType = NetworkConnectionType.None;
+			}
+		}
+
+		string GetIPAddress()
+		{
+			IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+			string ipAddress = null;
+			if (addresses != null && addresses[0] != null)
+			{
+				ipAddress = addresses[0].ToString();
+			}
+
+			return ipAddress;
+		}
+
+		string iPAddress;
+
+		public string IPAddress
+		{
+			get => iPAddress;
+			private set => Set(ref iPAddress, value);
+		}
+	}
+
+	public class WifiReceiver : BroadcastReceiver
+	{
+		NetworkConnectionService networkConnectionService;
+
+		public WifiReceiver(NetworkConnectionService networkConnectionService)
+		{
+			this.networkConnectionService = AssertArg.IsNotNull(networkConnectionService, nameof(networkConnectionService));
+		}
+
+		public override void OnReceive(Context context, Intent intent)
+		{
+			networkConnectionService.HandleNetworkStatusChanged(this);
+
+			//var wifi = (WifiManager)context.GetSystemService(Context.WifiService);
+			//var state = wifi.WifiState;
+			//			int wifiState = intent.GetIntExtra(WifiManager.ExtraWifiState, WifiState.Unknown);
+			//		string wifiStateText = "No State";
+			//
+			//		switch (wifiState)
+			//		{
+			//			case WifiManager.WifiStateDisabling:
+			//				wifiStateText = "WIFI_STATE_DISABLING";
+			//				break;
+			//			case WifiManager.WIFI_STATE_DISABLED:
+			//				wifiStateText = "WIFI_STATE_DISABLED";
+			//				break;
+			//			case WifiManager.WIFI_STATE_ENABLING:
+			//				wifiStateText = "WIFI_STATE_ENABLING";
+			//				break;
+			//			case WifiManager.WIFISTATEENABLED:
+			//				wifiStateText = "WIFI_STATE_ENABLED";
+			//				break;
+			//			case WifiManager.WifiStateUnknown:
+			//				wifiStateText = "WIFI_STATE_UNKNOWN";
+			//				break;
+			//			default:
+			//				break;
+		}
+	}
+}
+#endif

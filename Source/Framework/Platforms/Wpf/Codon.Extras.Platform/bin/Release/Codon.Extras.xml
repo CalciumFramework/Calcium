@@ -1,0 +1,1608 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.Extras</name>
+    </assembly>
+    <members>
+        <member name="T:Codon.ApplicationModel.ApplicationLifeCycleMessage">
+            <summary>
+            This message is dispatched by the <see cref="T:Codon.Services.IMessenger"/>
+            when a corresponding applicatation lifecycle event occurs.
+            <seealso cref="T:Codon.ApplicationModel.ApplicationLifeCycleState"/>
+            </summary>
+        </member>
+        <member name="T:Codon.ApplicationModel.ApplicationLifeCycleState">
+            <summary>
+            This enum represents the various life cycle states 
+            of an application.
+            For example, when the application is launching, 
+            the <see cref="T:Codon.Services.IMessenger"/>
+            may dispatch a <see cref="T:Codon.ApplicationModel.ApplicationLifeCycleMessage"/> 
+            with the value <see cref="F:Codon.ApplicationModel.ApplicationLifeCycleState.Launching"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.Collections.AdaptiveCollection`2">
+            <summary>
+            An adaptive collection allows you to combine two different collection types.
+            It allows you to materialize the objects in the inner collection,
+            which are of type <c>TInner</c> as objects of type <c>T</c>
+            using a <see cref="T:Codon.ComponentModel.IAttachObject`1"/> implementation.
+            This class is useful, for example, in materializing a collection 
+            of <c>ICommand</c> objects as a set of <c>DropDownMenuItem</c> objects.
+            </summary>
+            <typeparam name="T">
+            The type of objects that can be bound to a list.
+            </typeparam>
+            <typeparam name="TInner">
+            The type of objects contained in the source collection.</typeparam>
+        </member>
+        <member name="T:Codon.Collections.DuplicateItemException`1">
+            <summary>
+            Occurs when an attempt is made to add 
+            a duplicate item to a set of items.
+            </summary>
+            <typeparam name="TItem">
+            The type of the collection item.</typeparam>
+        </member>
+        <member name="T:Codon.Collections.DuplicateItemException">
+            <summary>
+            Occurs when an attempt is made to add 
+            a duplicate item to a set of items.
+            </summary>
+        </member>
+        <member name="T:Codon.Collections.CollectionExtensions">
+            <summary>
+            This class provides extension methods for collections types. 
+            </summary>
+        </member>
+        <member name="M:Codon.Collections.CollectionExtensions.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether the collection is null or contains no elements.
+            </summary>
+            <typeparam name="T">The IEnumerable type.</typeparam>
+            <param name="enumerable">The enumerable, which may be null or empty.</param>
+            <returns>
+            	<c>true</c> if the IEnumerable is null or empty; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Codon.Collections.CollectionExtensions.IsNullOrEmpty``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Determines whether the collection is null or contains no elements.
+            </summary>
+            <typeparam name="T">The IEnumerable type.</typeparam>
+            <param name="collection">The collection, which may be null or empty.</param>
+            <returns>
+            	<c>true</c> if the IEnumerable is null or empty; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Codon.Collections.CollectionExtensions.GetIndexOfGreatest(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Examines each item in the double collection 
+            and returns the index of the greatest value.
+            </summary>
+            <param name="values">The values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Codon.Collections.CollectionExtensions.RemoveAllAndReturnItems``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Removes all items from the list that do not pass the filter condition.
+            </summary>
+            <typeparam name="T">The generic type of the list.</typeparam>
+            <param name="list">The list to remove from.</param>
+            <param name="filter">The filter to evaluate each item with.</param>
+            <returns>The removed items.</returns>
+        </member>
+        <member name="T:Codon.Collections.ObservableCollectionExtensions">
+            <summary>
+            This class provides extension methods for 
+            <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.Collections.RangeExtensions">
+            <summary>
+            This class contains extension methods for manipulating 
+            a range (more than one item) in a collection at the same time.
+            Note that to avoid multiple change notifications,
+            a collection may implement <seealso cref="T:Codon.Collections.IRangeOperations"/>,
+            such as the <c>ObservableList</c> collection.
+            </summary>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.AddRange``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds the items from one set of items to the specified list.
+            </summary>
+            <typeparam name="T">The item type.</typeparam>
+            <param name="toList">The destination list.</param>
+            <param name="fromList">The source list.</param>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.AddRange(System.Collections.IList,System.Collections.IEnumerable)">
+            <summary>
+            Adds the items from one set of items to the specified list.
+            </summary>
+            <param name="toList">The destination list.</param>
+            <param name="fromList">The source list.</param>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.InsertRange(System.Collections.IList,System.Collections.IEnumerable,System.Int32)">
+            <summary>
+            Inserts items from the specified fromList collection
+            at the specified location in the toList collection.
+            </summary>
+            <param name="toList"></param>
+            <param name="fromList"></param>
+            <param name="startIndex"></param>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.RemoveRange``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Removes the specified items from the specified list.
+            </summary>
+            <typeparam name="T">The item type.</typeparam>
+            <param name="fromList">The list from which items will be removed.</param>
+            <param name="removeItems">The list of items to remove.</param>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.RemoveRange(System.Collections.IList,System.Collections.IEnumerable)">
+            <summary>
+            Removes the specified items from the specified list.
+            </summary>
+            <param name="fromList">The list from which items will be removed.</param>
+            <param name="removeItems">The list of items to remove.</param>
+        </member>
+        <member name="M:Codon.Collections.RangeExtensions.ReplaceRange(System.Collections.IList,System.Collections.IEnumerable,System.Collections.IEnumerable)">
+            <summary>
+            Replaces the items in the fromList collection that
+            are present in the oldItems collection with the items
+            in the newItems collection.
+            </summary>
+            <param name="fromList">The list to have items replaced.</param>
+            <param name="oldItems">The items in the fromList to be replaced.</param>
+            <param name="newItems">The items to replace the oldItems collection.</param>
+        </member>
+        <member name="T:Codon.Collections.GroupedList`1">
+            <summary>
+            This class is used to group a set of objects within, 
+            for example, a <c>LongListSelector</c>.
+            </summary>
+            <typeparam name="TElement">The type of the element 
+            that is group by an object key.</typeparam>
+        </member>
+        <member name="T:Codon.Collections.GroupedList`2">
+            <summary>
+            This class is used to group a set of objects within, for example, a LongListSelector.
+            </summary>
+            <typeparam name="TElement">The type of the element 
+            that is group by an object key.</typeparam>
+            <typeparam name="TKey">The type of the key object.</typeparam>
+        </member>
+        <member name="T:Codon.Collections.IRangeOperations">
+            <summary>
+            Range operations allow you to add, remove, or replace
+            items from a collection whilst not raising collection
+            changed events.
+            </summary>
+        </member>
+        <member name="T:Codon.Collections.KeyEqualityComparer`1">
+            <summary>
+            An implementation of <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>
+            that allows comparison of two items using a Func.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Codon.Collections.KeyEqualityComparer`1.#ctor(System.Func{`0,System.Object})">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.Collections.KeyEqualityComparer`1"/> class.
+            </summary>
+            <param name="resolveKeyFunc">
+            A Func to resolve the key of the instance.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Occurs if the specified resolveKeyFunc is <c>null</c>.</exception>
+        </member>
+        <member name="T:Codon.Collections.Map`2">
+            <summary>
+            This class provides an efficient reverse lookup mechanism.
+            </summary>
+            <typeparam name="TKey1">First key type.</typeparam>
+            <typeparam name="TKey2">Second key type.</typeparam>
+        </member>
+        <member name="T:Codon.Collections.ObservableList`1">
+            <summary>
+            This class extends <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/>
+            to provide range operations. 
+            <see cref="T:Codon.Collections.IRangeOperations"/>
+            </summary>
+            <typeparam name="T">
+            The type of items contained within the collection.</typeparam>
+        </member>
+        <member name="M:Codon.Collections.ObservableList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds the specified range of items
+            to the list.
+            </summary>
+            <param name="items">
+            The list of items to add. Cannot be <c>null</c>.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Occurs if <c>items</c> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Codon.Collections.ObservableList`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Removes the specified range of items
+            from the list.
+            </summary>
+            <param name="items">
+            The list of items to remove. Cannot be <c>null</c>.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Occurs if <c>items</c> is <c>null</c>.</exception>
+        </member>
+        <member name="T:Codon.ComponentModel.IAttachObject`1">
+            <summary>
+            A class implementing this interface is able to accept
+            an object, via its <see cref="M:Codon.ComponentModel.IAttachObject`1.AttachObject(`0)"/> method,
+            and retrieve and detach the object.
+            This interface is useful for attaching commands
+            to UI elements. See also the <c>AdaptiveCollection</c>
+            class in the Extras library.
+            </summary>
+            <typeparam name="T">The type of object 
+            that can be attached.</typeparam>
+        </member>
+        <member name="M:Codon.ComponentModel.IAttachObject`1.AttachObject(`0)">
+            <summary>
+            Attach the specified item
+            so that it is hosted by another component.
+            For example, a menu item might know how to 
+            host a command object.
+            </summary>
+            <param name="item">The item to attach.</param>
+        </member>
+        <member name="M:Codon.ComponentModel.IAttachObject`1.DetachObject">
+            <summary>
+            Detach the object so that it is no longer referenced
+            by the instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Codon.ComponentModel.IAttachObject`1.GetObject">
+            <summary>
+            Gets the attached object.
+            The object remains attached.
+            </summary>
+            <returns>The attached object,
+            or <c>null</c> if no object is attached.</returns>
+        </member>
+        <member name="T:Codon.ComponentModel.InpcWrapper`1">
+            <summary>
+            This class raises a 
+            <see cref="E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/>
+            for its <see cref="P:Codon.ComponentModel.InpcWrapper`1.Instance"/> property
+            when its <see cref="M:Codon.ComponentModel.InpcWrapper`1.RaisePropertyChanged"/> method is called.
+            It allows you to update the UI eventhough an object
+            does not implement <seealso cref="T:System.ComponentModel.INotifyPropertyChanged"/>.
+            </summary>
+            <typeparam name="T">
+            The Instance type.</typeparam>
+        </member>
+        <member name="M:Codon.ComponentModel.InpcWrapper`1.RaisePropertyChanged">
+            <summary>
+            Calling this method raises the <see cref="E:Codon.ComponentModel.InpcWrapper`1.PropertyChanged"/>
+            event for this class; indicating that the Instance object
+            has changed. If the InpcWrapper is the source of a data-binding
+            then the target is refreshed. Its equivalent to rebinding
+            to the Instance object.
+            </summary>
+        </member>
+        <member name="T:Codon.Concurrency.ReaderWriterLockSlimExtensions">
+            <summary>
+            Extension methods for the <see cref="T:System.Threading.ReaderWriterLockSlim"/>
+            class. These extension methods allow you to replace
+            the verbose <c>ReaderWriterLockSlim</c> Enter* and Exit* calls.
+            </summary>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.ReadLock(System.Threading.ReaderWriterLockSlim,System.Action)">
+            <summary>
+            Executes the specified <c>Action</c> 
+            within a <c>EnterReadLock</c> and <c>ExitReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="action">
+            The action to execute using the lock.</param>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.ReadLockAsync(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Executes the specified asynchronous <c>Action</c> 
+            within a <c>EnterReadLock</c> and <c>ExitReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="action">
+            The action to execute using the lock.</param>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.ReadLock``1(System.Threading.ReaderWriterLockSlim,System.Func{``0})">
+            <summary>
+            Executes the specified <c>Func</c> 
+            within a <c>EnterReadLock</c> and <c>ExitReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified func being invoked.</param>
+            <param name="func">
+            The action to execute using the lock.</param>
+            <returns>The result of the Func.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.ReadLockAsync``1(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Executes the specified asynchronous <c>Func</c> 
+            within a <c>EnterReadLock</c> and <c>ExitReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified func being invoked.</param>
+            <param name="func">
+            The action to execute using the lock.</param>
+            <returns>The result of the Func.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.WriteLock(System.Threading.ReaderWriterLockSlim,System.Action)">
+            <summary>
+            Executes the specified <c>Action</c> 
+            within a <c>EnterWriteLock</c> and <c>ExitWriteLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="action">
+            The action to execute using the lock.</param>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.WriteLockAsync(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Executes the specified asynchronous <c>Action</c> 
+            within a <c>EnterWriteLock</c> and <c>ExitWriteLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.WriteLock``1(System.Threading.ReaderWriterLockSlim,System.Func{``0})">
+            <summary>
+            Executes the specified <c>Action</c> 
+            within a <c>EnterWriteLock</c> and <c>ExitWriteLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+            <returns>The result of the invoked <c>Func</c>.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.WriteLockAsync``1(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Executes the specified asychronous <c>Action</c> 
+            within a <c>EnterWriteLock</c> and <c>ExitWriteLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+            <returns>The result of the invoked <c>Func</c>.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.UpgradeableReadLock(System.Threading.ReaderWriterLockSlim,System.Action)">
+            <summary>
+            Executes the specified <c>Action</c> 
+            within a <c>EnterUpgradeableReadLock</c> 
+            and <c>ExitUpgradeableReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="action">
+            The <c>Action</c> to invoke within the lock.</param>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.UpgradeableReadLockAsync(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Executes the specified <c>Func</c> 
+            within a <c>EnterUpgradeableReadLock</c> 
+            and <c>ExitUpgradeableReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+            <returns>The result of the invoked <c>Func</c>.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.UpgradeableReadLock``1(System.Threading.ReaderWriterLockSlim,System.Func{``0})">
+            <summary>
+            Executes the specified <c>Func</c> 
+            within a <c>EnterUpgradeableReadLock</c> 
+            and <c>ExitUpgradeableReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+            <returns>The result of the invoked <c>Func</c>.</returns>
+        </member>
+        <member name="M:Codon.Concurrency.ReaderWriterLockSlimExtensions.UpgradeableReadLockAsync``1(System.Threading.ReaderWriterLockSlim,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Executes the specified asychronous <c>Func</c> 
+            within a <c>EnterUpgradeableReadLock</c> 
+            and <c>ExitUpgradeableReadLock</c>
+            block using the specified <c>ReaderWriterLockSlim</c>.
+            </summary>
+            <param name="readerWriterLockSlim">
+            The lock that is used to prevent access 
+            when the specified action being invoked.</param>
+            <param name="func">
+            The <c>Func</c> to invoke within the lock.</param>
+            <returns>The result of the invoked <c>Func</c>.</returns>
+        </member>
+        <member name="T:Codon.Services.IClipboardService">
+            <summary>
+            This interface allows the abstraction of the platform
+            specific clipboard APIs.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IClipboardService.CopyToClipboard(System.Object,System.String)">
+            <summary>
+            Copy the specified text to the clipboard.
+            A description may be used if the platform supports it.
+            </summary>
+            <param name="content">
+            The text or object to copy to the clipboard.</param>
+            <param name="description">
+            A description of the origin or purpose of the text.
+            Can be <c>null</c>.</param>
+        </member>
+        <member name="M:Codon.Services.IClipboardService.GetClipboardContentsAsync">
+            <summary>
+            Gets the contents of the clipboard.
+            </summary>
+            <returns>The clipboard contents.</returns>
+        </member>
+        <member name="T:Codon.Services.IVibrateController">
+            <summary>
+            This interface allows the abstraction of the platform
+            specific device vibration APIs.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IVibrateController.Start(System.TimeSpan)">
+            <summary>
+            Start vibrating for the specified duration.
+            </summary>
+            <param name="duration">
+            The vibration duration.</param>
+        </member>
+        <member name="M:Codon.Services.IVibrateController.Stop">
+            <summary>
+            Cancel all in progress vibrations.
+            </summary>
+        </member>
+        <member name="T:Codon.Services.IMarketplaceService">
+            <summary>
+            The marketplace service is able to interact with a platform
+            specific marketplace, such as Google Play or the Microsoft App Store.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.IMarketplaceService.Trial">
+            <summary>
+            Gets a value indicating whether the app 
+            is a trial version.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IMarketplaceService.PurchaseAppAsync">
+            <summary>
+            Launches the built-in marketplace experience
+            and shows the purchase page for the app.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IMarketplaceService.Review">
+            <summary>
+            Launches the built-in marketplace experience
+            and shows the review page for the app.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IMarketplaceService.ShowDetails(System.Object)">
+            <summary>
+            Launches the built-in marketplace experience
+            and shows the page for the specified content
+            or the app if <c>contentId</c> is <c>null</c>.
+            </summary>
+            <param name="contentId">
+            A marketplace specific resource identifier.
+            For example, on Android the <c>contentId</c>
+            is appended to the end of market://details?id= </param>
+        </member>
+        <member name="T:Codon.Services.INetworkConnectionService">
+            <summary>
+            This class allows you to monitor the status of the current network connection.
+            When the connection changes an event is raised. In addition a <c>NetworkAvailabilityChangedMessage</c>
+            is disptached using the <seealso cref="T:Codon.Services.IMessenger"/> implementation if registered with the IoC container.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.Connected">
+            <summary>
+            Gets a value indicating if the application 
+            has a network connection for transmitting data.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.NetworkConnectionType">
+            <summary>
+            The type of network connection. It can be 
+            none, lan, or mobile broadband.
+            </summary>
+        </member>
+        <member name="E:Codon.Services.INetworkConnectionService.NetworkConnectionChanged">
+            <summary>
+            This event is raised on the UI thread when the connection changes. 
+            In addition, when using the default implementation, a <c>NetworkAvailabilityChangedMessage</c>
+            is disptached using the <seealso cref="T:Codon.Services.IMessenger"/> implementation if registered with the IoC container.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.ApproachingDataLimit">
+            <summary>
+            Gets a value indicating whether the mobile broadband account
+            is approaching a data limit. In which case, usage should
+            be minimized.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.Roaming">
+            <summary>
+            Gets a value indicating whether the mobile broadband account
+            is relying on a third-party telecom; which may mean increased
+            data usage costs for the user. If <c>true</c>, usage should
+            be minimized.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.LimitData">
+            <summary>
+            Gets a value indicating whether application data usage should
+            be minimized.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.INetworkConnectionService.Update">
+            <summary>
+            Refreshes network information.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.INetworkConnectionService.Ssid">
+            <summary>
+            The Service Set Identifier. 
+            SSID is a case sensitive, 32 alphanumeric character 
+            unique identifier attached to the header of packets 
+            sent over a wireless local-area network (WLAN).
+            </summary>
+        </member>
+        <member name="T:Codon.Services.IUserOptionsService">
+            <summary>
+            A user options service is sits on top of the 
+            <see cref="T:Codon.Services.ISettingsService"/> and allows the user
+            to configure the application via a view that displays
+            all user options. User options are also exportable
+            and importable.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.IUserOptionsService.UserOptionGroupings">
+            <summary>
+            Gets the user options grouped into categories.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.NullVibrateController">
+            <summary>
+            An implementation of the <see cref="T:Codon.Services.IVibrateController"/>
+            interface that does nothing. If a platform has a vibration
+            API, then it should be implementated as 
+            <c>Codon.Device.VibrateController</c> 
+            in a platform specific assembly.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.ILauncher`1">
+            <summary>
+            A chooser launches an external activity
+            and returns a result. For example, see
+            <see cref="T:Codon.LauncherModel.Launchers.IPhotoLauncher"/>
+            </summary>
+            <typeparam name="T">
+            The type of object received by the <see cref="E:Codon.LauncherModel.ILauncher`1.Completed"/>
+            event handler.</typeparam>
+        </member>
+        <member name="M:Codon.LauncherModel.ILauncher`1.Show">
+            <summary>
+            Launch the external activity.
+            </summary>
+        </member>
+        <member name="E:Codon.LauncherModel.ILauncher`1.Completed">
+            <summary>
+            Raised when the external activity completes
+            and returns control to the application.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.Launchers.LauncherResult">
+            <summary>
+            This enum indicates the result 
+            of an <see cref="T:Codon.LauncherModel.ILauncher`1"/>;
+            in particular it indicates if the user cancelled
+            or dismissed the operation, or if the operation
+            completed successfully.
+            </summary>
+        </member>
+        <member name="F:Codon.LauncherModel.Launchers.LauncherResult.None">
+            <summary>
+            No result. The user may have dismissed
+            the operation.
+            </summary>
+        </member>
+        <member name="F:Codon.LauncherModel.Launchers.LauncherResult.OK">
+            <summary>
+            The launcher completed.
+            </summary>
+        </member>
+        <member name="F:Codon.LauncherModel.Launchers.LauncherResult.Cancel">
+            <summary>
+            The operation was cancelled, 
+            either by the user or the operating system.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.Launchers.IPhotoLauncher">
+            <summary>
+            Launchers an external activity to retrieve a photo.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.Launchers.IPhotoResult">
+            <summary>
+            This interface represents the result of an 
+            <see cref="T:Codon.LauncherModel.Launchers.IPhotoLauncher"/>.
+            It includes a <c>Stream</c> containing the selected
+            photo data, and the file name of the selected photo.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.MockLauncherBase`1">
+            <summary>
+            The base class for a unit testable <see cref="T:Codon.LauncherModel.ILauncher`1"/>.
+            </summary>
+            <typeparam name="T">
+            The type of object provided 
+            by the <see cref="E:Codon.LauncherModel.MockLauncherBase`1.Completed"/> event.
+            </typeparam>
+        </member>
+        <member name="T:Codon.LauncherModel.MockLauncherBase">
+            <summary>
+            The base class for a unit testable <see cref="T:Codon.LauncherModel.ILauncher`1"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.MarketplaceModel.MockMarketplaceService">
+            <summary>
+            This class is a unit testable mock implementation of
+            <see cref="T:Codon.Services.IMarketplaceService"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NetworkAvailabilityChangedMessage">
+            <summary>
+            This message is dispatched via the <see cref="T:Codon.Services.IMessenger"/>
+            and indicates that the network availability has changed.
+            Perhaps there is now no network connection. Or perhaps
+            the device now has a usable connection.
+            <seealso cref="T:Codon.Networking.NetworkConnectionInfo"/>"/>
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NetworkConnectionInfo">
+            <summary>
+            Provides information about the network connection,
+            such as if a usable connection is available,
+            and whether is a LAN or mobile broadband connection.
+            </summary>
+        </member>
+        <member name="P:Codon.Networking.NetworkConnectionInfo.NetworkConnectionType">
+            <summary>
+            The type of network connection. It can be 
+            none, lan, or mobile broadband.
+            </summary>
+        </member>
+        <member name="P:Codon.Networking.NetworkConnectionInfo.LimitData">
+            <summary>
+            Gets a value indicating whether application data usage should
+            be minimized.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NetworkConnectionServiceMock">
+            <summary>
+            This class is an implementation of 
+            <see cref="T:Codon.Services.INetworkConnectionService"/>
+            designed for unit testing purposes.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NetworkConnectionType">
+            <summary>
+            Indicates the type of internet connection 
+            available to the application.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NamespaceDoc">
+            <summary>
+            The <see cref="N:Codon.Networking"/> namespace 
+            contains types related to internet connectivity and web data.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.WebUtilityExtended">
+            <summary>
+            This class provides URL encoding and decoding capabilities,
+            and is able to process a query string 
+            into an <c>IDictionary{string, string}</c>.
+            </summary>
+        </member>
+        <member name="M:Codon.Networking.WebUtilityExtended.ParseQueryString(System.String)">
+            <summary>
+            Parses the specified query string, and populates
+            a dictionary with its key value pairs.
+            </summary>
+            <param name="queryString">The URL query string
+            containing key value pairs.</param>
+            <returns>A dictionary containing the key value 
+            pairs from the specified query string.</returns>
+        </member>
+        <member name="T:Codon.StatePreservation.ApplicationStateType">
+            <summary>
+            Used by the state preservation subsystem.
+            </summary>
+        </member>
+        <member name="T:Codon.StatePreservation.IStateful">
+            <summary>
+            Classes implementing this interface are able
+            to load and restore state.
+            </summary>
+        </member>
+        <member name="M:Codon.StatePreservation.IStateful.LoadState(System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Load or restore state using the specified
+            state dictionaries. If <c>loadTransientStateRequired</c>
+            is <c>true</c> state should be loaded from the 
+            <c>transientStateDictionary</c>.
+            </summary>
+            <param name="persistentStateDictionary">
+            A state dictionary whose contents survives
+            across app launch and exit cycles.</param>
+            <param name="transientStateDictionary">
+            A state dictionary whose contents survives
+            while the application is not exited.
+            Its contents may also be persisted if the application
+            is tombstoned.</param>
+            <param name="loadTransientStateRequired">
+            If <c>true</c>, state should be loaded from the
+            <c>transientStateDictionary</c>.</param>
+        </member>
+        <member name="M:Codon.StatePreservation.IStateful.SaveState(System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Saves state to the specified state dictionaries.
+            </summary>
+            <param name="persistentStateDictionary">
+            A state dictionary whose contents survives
+            across app launch and exit cycles.</param>
+            <param name="transientStateDictionary">
+            A state dictionary whose contents survives
+            while the application is not exited.
+            Its contents may also be persisted if the application
+            is tombstoned.</param>
+        </member>
+        <member name="T:Codon.StatePreservation.IStateManager">
+            <summary>
+            This interface is the code contract for a class 
+            that monitors application life-cycle 
+            and page navigation events. When such an event occurs,
+            the state manager identifies the active <see cref="T:Codon.StatePreservation.IStateful"/>
+            instances and instructs them to save or restore state.
+            For example, if the application navigates
+            away from a page and that page's view-model
+            implements <see cref="T:Codon.StatePreservation.IStateful"/>, then
+            the state manager informs that object that is should
+            save its state. Conversely, if the app navigates to
+            a page whose view-model implements <see cref="T:Codon.StatePreservation.IStateful"/>
+            then the state manager provides the view-model
+            with an opportunity to restore its state.
+            </summary>
+        </member>
+        <member name="M:Codon.StatePreservation.IStateManager.Initialize">
+            <summary>
+            Call this once to have the state manager begin 
+            monitoring for navigation and application life-cycle events.
+            </summary>
+        </member>
+        <member name="T:Codon.StatePreservation.SaveStateRequest">
+            <summary>
+            This class is used to broadcast a message 
+            via the <see cref="T:Codon.Services.IMessenger"/>
+            to notify subscribers that they should save their state.
+            </summary>
+        </member>
+        <member name="T:Codon.StatePreservation.NamespaceDoc">
+            <summary>
+            The <see cref="N:Codon.StatePreservation"/> namespace 
+            contains types to preserve object state across app deactivations.
+            </summary>
+        </member>
+        <member name="T:Codon.StatePreservation.StatePreservationStrategy">
+            <summary>
+            This class provides a component to save and restore
+            its state. A component may register its properties
+            for state preservation, either by using 
+            <see cref="M:Codon.StatePreservation.StatePreservationStrategy.RegisterStatefulProperty``1(System.String,System.Func{``0},System.Action{``0},Codon.StatePreservation.ApplicationStateType)"/>
+            or by decorating properties with <see cref="T:Codon.StatePreservation.StatefulAttribute"/>.
+            It is the responsibility of a component, 
+            such as the <see cref="T:Codon.StatePreservation.IStateManager"/> implementation,
+            to signal to the owner of the <c>StatePreservationStrategy</c>
+            that state should be saved or loaded. A view-model may
+            implement <see cref="T:Codon.StatePreservation.IStateful"/> to indicate that it supports
+            state preservation.
+            </summary>
+        </member>
+        <member name="P:Codon.StatePreservation.StatePreservationStrategy.StatePreservationEnabled">
+            <summary>
+            If <c>true</c> this object will have automatic state persistence applied.
+            If <c>false</c> no state persistence is performed and state attributes 
+            are not read. 
+            The default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Codon.StatePreservation.StatePreservationStrategy.StatefulAttributesEnabled">
+            <summary>
+            Enables reading of the <seealso cref="T:Codon.StatePreservation.StatefulAttribute"/>
+            for class properties.
+            Setting this property to <c>false</c> may improve performance
+            because there is a cost to reading the state attributes for the object.
+            The default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="T:Codon.ComparableExtensions">
+            <summary>
+            Extension methods for classes 
+            implementing <see cref="T:System.IComparable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Codon.ComparableExtensions.Clamp``1(``0,``0,``0)">
+            <summary>
+            Constrains a value to be within an
+            upper and lower boundary.
+            </summary>
+            <typeparam name="T">The <c>Type</c> of value.</typeparam>
+            <param name="value">The value to constrain.</param>
+            <param name="minimum">The minimum value.
+            If the specified value is less than the minimum,
+            the specified minimum is returned.</param>
+            <param name="maximum">The maximum value.
+            If the specified value is greater than the maximum,
+            the specified maximum is returned.</param>
+            <returns>If the value falls within the specified range, 
+            then the specified value is returned. 
+            If the value is less than the specified minimum, 
+            then minimum is returned.
+            If the value is greater than the specified maximum, 
+            then maximum is returned.</returns>
+        </member>
+        <member name="T:Codon.Text.StringExtensions">
+            <summary>
+            Extension methods for the <c>string</c> class.
+            </summary>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ContainsIgnoreCase(System.String,System.String)">
+            <summary>
+            Determines whether the specified text contains 
+            the specified substring.
+            </summary>
+            <param name="text">The text.</param>
+            <param name="substring">The substring.</param>
+            <returns>
+            <c>true</c> if the specified text contains 
+            the specified substring; 
+            otherwise, <c>false</c>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            Occurs if either parameter is <c>null</c>.</exception>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertToUnencodedBytes(System.String)">
+            <summary>
+            Converts the specified string to a byte array using 
+            its raw character values.
+            This is the companion method of <see cref="M:Codon.Text.StringExtensions.ConvertToUnencodedString(System.Byte[])"/>.
+            </summary>
+            <param name="text">The string value. Cannot be null.</param>
+            <returns>The bytes of the characters in the string.</returns>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertToUnencodedString(System.Byte[])">
+            <summary>
+            Converts the specified byte array to a string.
+            This is the companion method of <see cref="M:Codon.Text.StringExtensions.ConvertToUnencodedBytes(System.String)"/>.
+            Do not use this if you wish to store the value in an XML file. 
+            It may result in high-end character values that are incompatible 
+            with XML. Instead use <see cref="M:Codon.Text.StringExtensions.ConvertToUtf8String(System.Byte[])"/>.
+            </summary>
+            <param name="bytes"></param>
+            <returns>The string containing character made up of the byte array values.</returns>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertUtf8StringToBytes(System.String)">
+            <summary>
+            Converts the specified string to a byte array 
+            using UTF8 character encoding.
+            This is the companion method of <see cref="M:Codon.Text.StringExtensions.ConvertToUtf8String(System.Byte[])"/>.
+            </summary>
+            <param name="text">The string value. Cannot be null.</param>
+            <returns>The bytes of the characters in the string.</returns>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertToUtf8String(System.Byte[])">
+            <summary>
+            Converts a byte array to a UTF8 encoded string.
+            This is the companion method of <see cref="M:Codon.Text.StringExtensions.ConvertUtf8StringToBytes(System.String)"/>.
+            </summary>
+            <param name="bytes">
+            The bytes containing UTF8 encoded character values.</param>
+            <returns>A UTF8 encoded string.</returns>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertUtf16StringToBytes(System.String)">
+            <summary>
+            Converts the specified string to a byte array 
+            using UTF16 character encoding.
+            This is the companion method of <see cref="M:Codon.Text.StringExtensions.ConvertToUtf16String(System.Byte[])"/>.
+            </summary>
+            <param name="text">The string value. Cannot be null.</param>
+            <returns>The bytes of the characters in the string.</returns>
+        </member>
+        <member name="M:Codon.Text.StringExtensions.ConvertToUtf16String(System.Byte[])">
+            <summary>
+            Converts a byte array to a UTF16 encoded string.
+            This is the companion method 
+            of <see cref="M:Codon.Text.StringExtensions.ConvertUtf16StringToBytes(System.String)"/>.
+            </summary>
+            <param name="bytes">
+            The bytes containing UTF16 encoded character values.</param>
+            <returns>A UTF16 encoded string.</returns>
+        </member>
+        <member name="T:Codon.UIModel.Input.AsyncActionCommand">
+            <summary>
+            A command that uses delegates to perform its action 
+            and determine its enabled state, both asynchronously. 
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Input.AsyncActionCommand.#ctor(System.Func{System.Object,System.Threading.Tasks.Task},System.Func{System.Object,System.Threading.Tasks.Task{System.Boolean}},System.String,System.Int32)">
+            <summary>
+            Creates an awaitable asynchronous command. 
+            </summary>
+            <param name="executeAsyncFunc">The func to execute when the command is performed.</param>
+            <param name="canExecuteAsyncFunc">A func that determines if the command 
+            may be performed. Can be <c>null</c>.</param>
+            <param name="filePath">The path to the file that is instantiating this class. 
+            This should only be explicitly specified  by classes that subclass this class.</param>
+            <param name="lineNumber">The line number of the file that is instantiating this class. 
+            This should only be explicitly specified  by classes that subclass this class.</param>
+        </member>
+        <member name="T:Codon.UIModel.Input.AsyncActionCommand`1">
+            <summary>
+            A command that uses delegates to perform its action 
+            and determine its enabled state, both asynchronously. 
+            </summary>
+            <typeparam name="TParameter">The parameter type,
+            which may be used when executing the command
+            or evaluating if the command can execute.</typeparam>
+        </member>
+        <member name="M:Codon.UIModel.Input.AsyncActionCommand`1.#ctor(System.Func{`0,System.Threading.Tasks.Task},System.Func{`0,System.Threading.Tasks.Task{System.Boolean}},System.String,System.Int32)">
+            <summary>
+            Creates an awaitable asynchronous command. 
+            </summary>
+            <param name="executeAsyncFunc">The func to execute when the command is performed.</param>
+            <param name="canExecuteAsyncFunc">A func that determines if the command 
+            may be performed. Can be <c>null</c>.</param>
+            <param name="filePath">
+            The path to the file that is instantiating 
+            this class. This should only be explicitly specified 
+            by classes that subclass this class.</param>
+            <param name="lineNumber">
+            The line number of the file that is instantiating 
+            this class. This should only be explicitly specified 
+            by classes that subclass this class.</param>
+        </member>
+        <member name="P:Codon.UIModel.Input.AsyncActionCommand`1.CanExecuteFunc">
+            <summary>
+            The <c>func</c> that is used to determine
+            if the command can execute.
+            If <c>null</c>, it is assumed the command
+            can execute.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Input.AsyncUICommand">
+            <summary>
+            A command that includes various auxiliary properties
+            such as <c>Text</c> and <c>Visibility</c>, 
+            and that uses delegates to perform its action 
+            and determine its enabled state, both asynchronously. 
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Input.AsyncUICommand`1">
+            <summary>
+            A command that includes various auxiliary properties
+            such as <c>Text</c> and <c>Visibility</c>, 
+            and that uses delegates to perform its action 
+            and determine its enabled state, both asynchronously. 
+            </summary>
+            <typeparam name="TParameter">The parameter type,
+            which may be used when executing the command,
+            evaluating if the command can execute,
+            and evaluting the various properties.</typeparam>
+        </member>
+        <member name="M:Codon.UIModel.Input.AsyncUICommand`1.#ctor(System.Func{`0,System.Threading.Tasks.Task},System.Func{`0,System.Threading.Tasks.Task{System.Boolean}},System.String,System.Int32)">
+            <summary>
+            Creates an asynchronous command. 
+            </summary>
+            <param name="executeAsyncFunc">
+            The action to invoke when the command is executed.</param>
+            <param name="canExecuteAsyncFunc">
+            A func that determines if the command 
+            may be performed. Can be <c>null</c>.</param>
+            <param name="filePath">
+            The path to the file that is instantiating this class. 
+            This should only be explicitly specified 
+            by classes that subclass this class.</param>
+            <param name="lineNumber">
+            The line number of the file that is instantiating this class. 
+            This should only be explicitly specified 
+            by classes that subclass this class.</param>
+        </member>
+        <member name="P:Codon.UIModel.Input.AsyncUICommand`1.Text">
+            <summary>
+            The title of this command that may be displayed to the user.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Input.AsyncUICommand`1.TextFunc">
+            <summary>
+            A func to retrieve the text of the command.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Input.AsyncUICommand`1.IconUrlFunc">
+            <summary>
+            A func to retrieve the icon URL of the command.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Input.AsyncUICommand`1.IconFontFunc">
+            <summary>
+            A func to retrieve the icon URL of the command.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Input.IAsynchronousCommand">
+            <summary>
+            This interface represents an
+            <see cref="T:System.Windows.Input.ICommand"/>
+            that is able to be refreshed asynchronously.
+            <seealso cref="!:ISynchronousCommand"/>
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Input.IAsynchronousCommand.RefreshAsync(System.Object)">
+            <summary>
+            Refresh the command state using the specified
+            command parameter.
+            </summary>
+            <param name="commandParameter">
+            Auxiliary information used by the command.</param>
+        </member>
+        <member name="T:Codon.UIModel.ComputedObservable`1">
+             <summary>
+             This class is analagous to the Knockout JS style computed observables. 
+             It is used to wrap a value and provides change notification for bindings 
+             without adding plumbing to a viewmodel. 
+             This class allows you to provide an expression that is parsed to locate associated objects 
+             that implement <c>INotifyPropertyChanged</c>. When a change notification is received 
+             from any such objects, the value of the expression is recomputed.
+             Disposing of this object removes subscriptions to all associated objects.
+             <see cref="!:http://danielvaughan.org/post/Knockout-Style-Observables-in-XAML.aspx" />
+             <seealso cref="T:Codon.UIModel.Observable`1"/>
+             </summary>
+             <example>
+             class MainWindowViewModel
+            {
+                public MainWindowViewModel()
+            	   {
+            			fullName = new ComputedValue&lt;string&gt;(() => FirstName.Value + " " + ToUpper(LastName.Value));
+            	   }
+             ...
+             }
+             Bind to the value in XAML using:
+             &lt;TextBlock Text="{Binding Path=FullName.Value}" /&gt;
+             </example>
+             <typeparam name="T">The type of result returned from executing the specified expression.</typeparam>
+        </member>
+        <member name="P:Codon.UIModel.ComputedObservable`1.Value">
+            <summary>
+            Gets the value by executing the Lambda Expression that was supplied to the constructor.
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.ComputedObservable`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0}})">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UIModel.ComputedObservable`1"/> class.
+            </summary>
+            <param name="expression">
+            The expression that is evaluated when the value 
+            of this object is requested. Any associated objects 
+            that implement <c>INotifyPropertyChanged</c> 
+            are automatically subscribed to.
+            </param>
+        </member>
+        <member name="T:Codon.UIModel.Observable`1">
+             <summary>
+             This class is analagous to the Knockout JS style observables. 
+             It is used to wrap a value and provides change notification 
+             for bindings without adding plumbing to a viewmodel.
+             <see cref="!:http://danielvaughan.org/post/Knockout-Style-Observables-in-XAML.aspx" />
+             </summary>
+             <example>
+             class MainWindowViewModel
+            {
+                readonly ObservableValue&lt;string&gt; firstName = new ObservableValue&lt;string&gt;("Alan");
+            
+                public ObservableValue&lt;string&gt; FirstName
+                {
+                    get
+                    {
+                       return firstName;
+                    }
+                }
+             ...
+             }
+             Bind to the value in XAML using:
+             &lt;TextBox Text="{Binding Path=FirstName.Value, UpdateSourceTrigger=PropertyChanged}" /&gt;
+             </example>
+             <typeparam name="T">
+             The type of field that is managed by this object.</typeparam>
+        </member>
+        <member name="P:Codon.UIModel.Observable`1.Value">
+            <summary>
+            Gets or sets the value that is wrapped by this object.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="M:Codon.UIModel.Observable`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UIModel.Observable`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="E:Codon.UIModel.Observable`1.PropertyChanged">
+            <summary>
+            Occurs when the <seealso cref="P:Codon.UIModel.Observable`1.Value"/> property changes.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Validation.DataErrorNotifier">
+            <summary>
+            This class is used to validate forms,
+            and to provide a list of validation errors
+            that can be displayed in the UI.
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.#ctor(System.ComponentModel.INotifyPropertyChanged,Codon.UIModel.Validation.IValidateData)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UIModel.Validation.DataErrorNotifier"/> class.
+            </summary>
+            <param name="owner">The instance for which validation 
+            is being provided.</param>
+            <param name="validator">The validator.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.AddValidationProperty(System.String,System.Func{System.Object})">
+            <summary>
+            Adds the property to the list of known class properties, 
+            which is used, for example, when performing validation 
+            of the whole class instance.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="property">The <c>Func</c> to 
+            retrieve the property.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.ValidateAllAsync">
+            <summary>
+            Validates all registered validatable properties.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.DataErrorNotifier.ValidationErrors">
+            <summary>
+            A dictionary of validation errors that is populated 
+            when one of the validation methods is called.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.DataErrorNotifier.Errors">
+            <summary>
+            Gets the validation errors for all properties.
+            </summary>
+            <value>The errors.</value>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.GetErrors(System.String)">
+            <summary>
+            Gets the validation errors for a specified property 
+            or for the entire object.
+            </summary>
+            <param name="propertyName">The name of the property 
+            to retrieve validation errors for, 
+            or null or <see cref="F:System.String.Empty"/> 
+            to retrieve errors for the entire object.</param>
+            <returns>
+            The validation errors for the property or object.
+            </returns>
+        </member>
+        <member name="P:Codon.UIModel.Validation.DataErrorNotifier.HasErrors">
+            <summary>
+            Gets a value that indicates whether the object has validation errors.
+            </summary>
+            <value></value>
+            <returns><c>true</c> if the object currently has validation errors; 
+            otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.GetDataValidationErrors(System.String)">
+            <summary>
+            Gets the validation errors for a specified property 
+            or for the entire object.
+            </summary>
+            <param name="propertyName">The name of the property 
+            to retrieve validation errors for, 
+            or null or <see cref="F:System.String.Empty"/> 
+            to retrieve errors for the entire object.</param>
+            <returns>
+            The validation errors for the property or object.
+            </returns>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.OnErrorsChanged(System.String)">
+            <summary>
+            Raises the <see cref="E:Codon.UIModel.Validation.DataErrorNotifier.ErrorsChanged"/> event.
+            </summary>
+            <param name="property">The property 
+            for which the list of errors changed.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.RaiseErrorsChanged">
+            <summary>
+            Raises the ErrorsChanged event.
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.RemovePropertyError(System.String,System.Int32)">
+            <summary>
+            Removes the property error from the properties list 
+            of validation errors.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="errorCode">The error code.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.AddPropertyError(System.String,Codon.UIModel.Validation.DataValidationError)">
+            <summary>
+            Adds a property error for the specified propertyName.
+            This may produce a prompt in the UI to correct 
+            the error before proceeding.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="dataValidationError">The data validation error.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.AddValidationProperty(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+            <summary>
+            Adds the specified property expression 
+            to the list of validated properties.
+            </summary>
+            <param name="expression">The property expression.</param>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataErrorNotifier.SetPropertyErrors(System.String,System.Collections.Generic.IEnumerable{Codon.UIModel.Validation.DataValidationError})">
+            <summary>
+            Sets the known validation errors for a property.
+            This may produce a prompt in the UI to correct 
+            the error before proceeding.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="dataErrors">The data errors.</param>
+        </member>
+        <member name="T:Codon.UIModel.Validation.DataValidationError">
+            <summary>
+            Provides information about an object member that
+            has failed validation.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.DataValidationError.ErrorMessage">
+            <summary>
+            Gets or sets the error message that is displayed to the user.
+            </summary>
+            <value>The error message.</value>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataValidationError.#ctor">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UIModel.Validation.DataValidationError"/> class.
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Validation.DataValidationError.#ctor(System.Int32,System.String)">
+            <summary>
+            Initializes a new instance 
+            of the <see cref="T:Codon.UIModel.Validation.DataValidationError"/> class.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="errorMessage">The error message.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Occurs if the specified error message is <c>null</c>.</exception>
+        </member>
+        <member name="T:Codon.UIModel.Validation.IValidateData">
+            <summary>
+            A class that implements this method is able to validate
+            a member.
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.Validation.IValidateData.ValidateAsync(System.String,System.Object)">
+            <summary>
+            Validate the class member with the specified name.
+            </summary>
+            <param name="propertyName">
+            The name of the property to be validated.</param>
+            <param name="value">
+            The proposed new value for the member.</param>
+            <returns>A <see cref="T:Codon.UIModel.Validation.ValidationCompleteEventArgs"/> 
+            indicating whether the property has validation errors.
+            </returns>
+        </member>
+        <member name="T:Codon.UIModel.Validation.ValidateAttribute">
+            <summary>
+            Decorate properties with this attribute
+            for input validation.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Validation.ValidationCompleteEventArgs">
+            <summary>
+            Contains the result of a property validation.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.ValidationCompleteEventArgs.Exception">
+            <summary>
+            If an exception occurs during validation, 
+            this property is populated with that exception.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.ValidationCompleteEventArgs.PropertyName">
+            <summary>
+            The property to which this validation was performed.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.Validation.ValidationCompleteEventArgs.Errors">
+            <summary>
+            The list of validation errors discovered
+            during validation. This list can be displayed
+            to the user.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.PageViewModelBase">
+            <summary>
+            A feature rich view-model base class that supports
+            property state preservation, input validation,
+            and navigation awareness.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.PageViewModelBase.DataErrorNotifier">
+            <summary>
+            Gets the error notifier that is used for input validation.
+            <see cref="P:Codon.UIModel.PageViewModelBase.DataErrorNotifier"/>
+            </summary>
+        </member>
+        <member name="M:Codon.UIModel.PageViewModelBase.ValidateAsync(System.String,System.Object)">
+            <summary>
+            Gets the property errors. This should be overriden in a subclass
+            to provide property validation.
+            </summary>
+            <param name="propertyName">Name of the property to validate.</param>
+            <param name="value">The proposed value of a property.</param>
+            <returns>A list of validation errors; 
+            an empty list if no errors are found.</returns>
+        </member>
+        <member name="T:Codon.UIModel.StatefulViewModelBase">
+            <summary>
+            A view-model that includes built-in support
+            for property state preservation.
+            </summary>
+        </member>
+        <member name="P:Codon.UIModel.StatefulViewModelBase.State">
+            <summary>
+            Gets the <see cref="T:Codon.StatePreservation.StatePreservationStrategy"/>
+            that is used to register and persist property state.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.NamespaceDoc">
+            <summary>
+            The <see cref="N:Codon.UserOptionsModel"/> namespace contains types
+            that allow the user to modify application settings. 
+            Types within this namespace are intended to be materialized within
+            an options screen within the application. 
+            The <c>UserOptionsModel</c> sits on top of the <seealso cref="N:Codon.SettingsModel"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.IReaderWriterCreationStrategy">
+            <summary>
+            Provides an <see cref="T:Codon.UserOptionsModel.IUserOptionReaderWriter"/>.
+            </summary>
+        </member>
+        <member name="M:Codon.UserOptionsModel.IReaderWriterCreationStrategy.Create(Codon.UserOptionsModel.IUserOption)">
+            <summary>
+            Provides an <see cref="T:Codon.UserOptionsModel.IUserOptionReaderWriter"/>
+            that is able to retrieve or persist a user option.
+            </summary>
+            <param name="userOption">
+            The user option that this reader writer will
+            attend to.</param>
+            <returns>A user option reader writer.</returns>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptionReaderWriter">
+            <summary>
+            This non-generic <see cref="T:Codon.UserOptionsModel.IUserOptionReaderWriter"/>
+            is able to serialize and retrieve a setting for a 
+            <see cref="T:Codon.UserOptionsModel.IUserOption"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptionBase`1">
+            <summary>
+            The base class for a generic <see cref="T:Codon.UserOptionsModel.UserOptionBase"/>.
+            </summary>
+            <typeparam name="TSetting">
+            The type of the setting that serves as the backing field
+            for this user option.</typeparam>
+        </member>
+        <member name="P:Codon.UserOptionsModel.UserOptionBase`1.ValidateFunc">
+            <summary>
+            Gets or sets the validate func, which is used to validate user input.
+            </summary>
+            <value>
+            The validate func.
+            </value>
+        </member>
+        <member name="M:Codon.UserOptionsModel.UserOptionBase`1.#ctor(System.Func{System.String},System.String,System.Func{`0},System.Func{`0,System.Threading.Tasks.Task{Codon.UserOptionsModel.SaveOptionResult}},System.Func{System.Threading.Tasks.Task{`0}})">
+            <summary>
+            Creates a new user option.
+            </summary>
+            <param name="titleFunc">The title func, which is used to retrieve 
+            the title of the option that is displayed on the options view.</param>
+            <param name="settingKey">The setting key, which is used to retrieve 
+            and save the setting to the settings service.</param>
+            <param name="defaultValueFunc">The default value func, 
+            which is used to retrieve the default value of the setting 
+            if not setting has been previously saved to the settings service.</param>
+            <param name="saveSettingFunc">A custom action to save the setting.
+            This is used to override the default behavour or to add further logic.</param>
+            <param name="getSettingFunc">A custom action to retrieve the setting.
+            This is used to override the default behavour or to add further logic.</param>
+        </member>
+        <member name="P:Codon.UserOptionsModel.UserOptionBase.DescriptionFunc">
+            <summary>
+            Gets or sets the description func, which is used to retrieve 
+            a description of the option that may be displayed to the user.
+            </summary>
+            <value>
+            The description func.
+            </value>
+        </member>
+        <member name="P:Codon.UserOptionsModel.UserOptionBase.TemplateNameFunc">
+            <summary>
+            Gets or sets the template name func, 
+            which is used to display the option in the option view.
+            </summary>
+            <value>
+            The template name func.
+            </value>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.BooleanUserOption">
+            <summary>
+            This option is a settable <c>bool</c> value.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.DoubleUserOption">
+            <summary>
+            This option is a settable double value.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.IntUserOption">
+            <summary>
+            This option is a settable integer value.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.ObjectUserOption`1">
+            <summary>
+            This class represents a option that normally requires
+            a custom template. 
+            </summary>
+            <typeparam name="TSetting">
+            The type of setting. <seealso cref="T:Codon.Services.ISettingsService"/>
+            </typeparam>
+        </member>
+        <member name="P:Codon.UserOptionsModel.UserOptions.CommandOption`1.DescriptionFunc">
+            <summary>
+            Gets or sets the description func, which is used to retrieve 
+            a description of the option that may be displayed to the user.
+            </summary>
+            <value>
+            The description func.
+            </value>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.RangeUserOption">
+            <summary>
+            Represents a user settable range value. 
+            A range value must have a value that falls
+            between a lower and upper boundary, and is usually displayed
+            as a slider on an apps options page.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.UserOptions.StringUserOption">
+            <summary>
+            Represents a user settable string setting.
+            </summary>
+        </member>
+        <member name="T:Codon.UserOptionsModel.CompositeOption">
+            <summary>
+            This class allows you to group a set of options within a single XAML data template.
+            </summary>
+        </member>
+        <member name="P:Codon.UserOptionsModel.CompositeOption.DescriptionFunc">
+            <summary>
+            Gets or sets the description func, which is used to retrieve 
+            a description of the option that may be displayed to the user.
+            </summary>
+            <value>
+            The description func.
+            </value>
+        </member>
+        <member name="P:Codon.UserOptionsModel.CompositeOption.TemplateNameFunc">
+            <summary>
+            Gets or sets the template name func, 
+            which is used to display the option in the option view.
+            </summary>
+            <value>
+            The template name func.
+            </value>
+        </member>
+        <member name="T:Codon.UserOptionsModel.ListOption`1">
+            <summary>
+            This option is usually materialized as a drop down box
+            or a selectable list.
+            </summary>
+            <typeparam name="TSetting">
+            The type of setting. <seealso cref="T:Codon.Services.ISettingsService"/>
+            </typeparam>
+        </member>
+        <member name="T:Codon.UserOptionsModel.ValidationResult">
+            <summary>
+            Provides the result of a user option validation.
+            </summary>
+        </member>
+        <member name="M:Codon.UserOptionsModel.ValidationResult.#ctor">
+            <summary>
+            Used to initialize a successful validation result.
+            </summary>
+        </member>
+        <member name="M:Codon.UserOptionsModel.ValidationResult.#ctor(Codon.UserOptionsModel.ValidationResultValue,System.String)">
+            <summary>
+            Used to initialize a failed validation result.
+            </summary>
+            <param name="validationResultValue">The validation result value.</param>
+            <param name="failureReason">The failure reason.</param>
+        </member>
+        <member name="M:Codon.UserOptionsModel.ValidationResult.#ctor(System.Exception,System.String)">
+            <summary>
+            Used to initialize a failed validation result, 
+            where the validation caused an exception being raised.
+            </summary>
+            <param name="exception">The exception.</param>
+            <param name="description">The description.</param>
+        </member>
+        <member name="T:Codon.UserOptionsModel.ValidationResultValue">
+            <summary>
+            Indicates the result of a user option validation.
+            </summary>
+        </member>
+    </members>
+</doc>

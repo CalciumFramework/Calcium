@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Paths>
+  <Jars></Jars>
+  <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Codon.Extras.Platform\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Codon.Platform\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Xamarin.Android.NUnitLite\library_project_imports\res</ResolvedResourceDirectory>
+  </ResolvedResourceDirectories>
+  <ResolvedAssetDirectories>
+    <ResolvedAssetDirectory>obj\Debug\__library_projects__\Codon.Extras.Platform\library_project_imports\assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj\Debug\__library_projects__\Codon.Platform\library_project_imports\assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj\Debug\__library_projects__\Xamarin.Android.NUnitLite\library_project_imports\assets</ResolvedAssetDirectory>
+  </ResolvedAssetDirectories>
+  <ResolvedEnvironmentFiles />
+  <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Codon.Extras.Platform.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Codon.Platform.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\__library_projects__\Xamarin.Android.NUnitLite.stamp</ResolvedResourceDirectoryStamp>
+  </ResolvedResourceDirectoryStamps>
+</Paths>

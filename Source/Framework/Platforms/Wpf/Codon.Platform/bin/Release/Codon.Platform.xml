@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.Platform</name>
+    </assembly>
+    <members>
+        <member name="T:Codon.UI.Elements.AttachedCommand">
+            <summary>
+            This class allows you to attach a command
+            to any UI element.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Elements.ValueConverters.StringParsingValueConverter">
+            <summary>
+            An <seealso cref="T:System.Windows.Data.IValueConverter"/> that parses
+            string using the <see cref="T:Codon.Services.IStringParserService"/>,
+            allowing you to leverage the String Parser service
+            from data-bindings.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.DependencyPropertyListener">
+            <summary>
+            This class is used to listen to change events
+            for dependency properties. It provides an
+            event, <see cref="E:Codon.UI.DependencyPropertyListener.Changed"/>, that signals
+            that the value of a dependency property has changed.
+            </summary>
+        </member>
+        <member name="T:Codon.Navigation.NavigationService">
+            <summary>
+            WPF implementation of <see cref="T:Codon.Services.INavigationService"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.PlatformIdentifier">
+            <summary>
+            This class's only purpose is to allow identification
+            of the platform at runtime.
+            Its presence in an assembly indicates what platform
+            the application is running on.
+            Platform identification is needed to resolve dependencies 
+            in platform specific assemblies.
+            See the <c>PlatformDetector</c> class.
+            </summary>
+        </member>
+        <member name="T:Codon.SettingsModel.PlatformSettingsService">
+            <summary>
+            This class is an <see cref="T:Codon.Services.ISettingsService"/> 
+            implementation for WPF.
+            </summary>
+        </member>
+        <member name="T:Codon.SettingsModel.LocalSettingsStoreForWpf">
+            <summary>
+            This class is an <see cref="T:Codon.SettingsModel.ISettingsStore"/> 
+            implementation for WPF persistent local settings.
+            </summary>
+        </member>
+        <member name="T:Codon.SettingsModel.IsolatedStorageSettingsWpf">
+            <summary>
+            This is a WPF specific IsolatedStorageSettings implementation.
+            It's required because apps deployed using click-once 
+            are unable to use <c>IsolatedStorageFile.GetUserStoreForAssembly()</c>,
+            and should use <c>IsolatedStorageFile.GetUserStoreForApplication()</c> instead.
+            </summary>
+        </member>
+        <member name="T:Codon.UIModel.Input.AttachedCommandBehavior">
+            <summary>
+            This class works in conjunction 
+            with <see cref="T:Codon.UI.Elements.AttachedCommand"/>
+            to allow a command to be applied to a UI element.
+            </summary>
+        </member>
+        <member name="T:Codon.ComponentModel.ImplicitTypeConverter">
+            <summary>
+            Advanced implementation of the <see cref="T:Codon.ComponentModel.IImplicitTypeConverter"/>
+            interface. See the interface for API documentation.
+            </summary>
+        </member>
+        <member name="T:Codon.DialogModel.DialogService">
+            <summary>
+            WPF implementation of <see cref="T:Codon.Services.IDialogService"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.DialogModel.MessageBoxEnumTranslator">
+            <summary>
+            This class is used to translate System.Windows MessageBox enum
+            values to Framework enum values.
+            </summary>
+        </member>
+        <member name="T:Codon.StatePreservation.TransientState">
+            <summary>
+            WPF implementation of <see cref="T:Codon.StatePreservation.ITransientState"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

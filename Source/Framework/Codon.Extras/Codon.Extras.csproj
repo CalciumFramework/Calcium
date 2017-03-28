@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);EXTRAS;NETSTANDARD</DefineConstants>
+    <AssemblyName>Codon.Extras</AssemblyName>
+    <RootNamespace>Codon</RootNamespace>
+    <PackageId>Codon.Extras.Core</PackageId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.4\Codon.Extras.xml</DocumentationFile>
+  </PropertyGroup>
+	<PropertyGroup>
+		<DebugType>full</DebugType>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+		<DelaySign>False</DelaySign>
+	</PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Codon\Codon.csproj" />
+  </ItemGroup>
+  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+</Project>

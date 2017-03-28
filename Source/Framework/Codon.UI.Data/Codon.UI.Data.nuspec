@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Codon.UI.Data</id>
+		<title>Codon Data-Binding Support</title>
+
+		<version>$version$</version>
+		<authors>$Authors$</authors>
+		<owners>$Owners$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
+	  <iconUrl>$IconUrl$</iconUrl>
+		<projectUrl>http://codonfx.com</projectUrl>
+		<copyright>Copyright © $Owners$ 2017</copyright>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+
+		<description>This package consists of a .NET Standard library that brings in data-binding features for non-XAML based frameworks such as Xamarin Android and Xamarin iOS.
+
+$Desc$
+		</description>
+		<summary>This package consists of a .NET Standard library that brings in data-binding features for non-XAML based frameworks such as Xamarin Android and Xamarin iOS.</summary>
+		
+    <dependencies>
+      <group targetFramework=".NETStandard1.4">
+        <dependency id="Codon" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+	<files>
+		<file src="bin\Release\netstandard1.4\Codon.UI.Data.dll" target="lib\netstandard1.4" />
+		<file src="bin\Release\netstandard1.4\Codon.UI.Data.pdb" target="lib\netstandard1.4" />
+		<file src="bin\Release\netstandard1.4\Codon.UI.Data.xml" target="lib\netstandard1.4" />
+	</files>
+</package>

@@ -1,0 +1,11 @@
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.Extras.deps.json
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.Extras.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.Extras.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Debug\netstandard1.4\Codon.Extras.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Debug\netstandard1.4\Codon.Extras.AssemblyInfo.cs
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Debug\netstandard1.4\Codon.Extras.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Debug\netstandard1.4\Codon.Extras.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Debug\netstandard1.4\Codon.Extras.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Debug\netstandard1.4\Codon.Extras.dll.mdb

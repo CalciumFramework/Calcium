@@ -1,0 +1,13 @@
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.UI.Data.deps.json
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.UI.Data.xml
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.UI.Data.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.UI.Data.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.xml
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\obj\Release\netstandard1.4\Codon.UI.Data.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\obj\Release\netstandard1.4\Codon.UI.Data.AssemblyInfo.cs
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\obj\Release\netstandard1.4\Codon.UI.Data.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\obj\Release\netstandard1.4\Codon.UI.Data.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\obj\Release\netstandard1.4\Codon.UI.Data.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UI.Data\bin\Release\netstandard1.4\Codon.UI.Data.dll.mdb

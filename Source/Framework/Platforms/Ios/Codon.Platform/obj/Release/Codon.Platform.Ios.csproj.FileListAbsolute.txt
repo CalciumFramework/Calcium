@@ -1,0 +1,12 @@
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.xml
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.xml
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\optimized\
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.Ios.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.pdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll.mdb

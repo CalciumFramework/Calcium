@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.Extras.Platform</name>
+    </assembly>
+    <members>
+        <member name="T:Codon.LauncherModel.Launchers.PhotoResultBase">
+            <summary>
+            The base class for a photo chooser result, which includes,
+            for example, the photo that the user selected.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Elements.StringFormatConverter">
+            <summary>
+            This <see cref="T:Codon.MissingTypes.System.Windows.Data.IValueConverter"/>
+            calls through to <see cref="M:System.String.Format(System.String,System.Object)"/>.
+            The parameter is the format, or second parameter, 
+            while the converter value is the first parameter.
+            </summary>
+        </member>
+    </members>
+</doc>

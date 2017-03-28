@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    <AssemblyName>Codon.UI.Data</AssemblyName>
+    <RootNamespace>Codon.UI.Data</RootNamespace>
+    <PackageId>Codon.Markup</PackageId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.4\Codon.UI.Data.xml</DocumentationFile>
+  </PropertyGroup>
+	<PropertyGroup>
+		<DebugType>full</DebugType>
+		<SignAssembly>True</SignAssembly>
+		<DelaySign>False</DelaySign>
+		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\Codon\Codon.csproj" />
+  </ItemGroup>
+</Project>

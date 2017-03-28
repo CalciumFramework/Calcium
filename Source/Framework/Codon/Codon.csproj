@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);CORE;NETSTANDARD</DefineConstants>
+    <Description>Codon is an framework for building UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly build sophisticated yet maintainable applications. Codon provides the essentials for building highly maintainable applications using the MVVM architecture pattern.</Description>
+    <Copyright>Daniel Vaughan</Copyright>
+    <Version>1.0.0-beta</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.4\Codon.xml</DocumentationFile>
+  </PropertyGroup>
+	<PropertyGroup>
+		<DebugType>full</DebugType>
+	</PropertyGroup>
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.IsolatedStorage" Version="4.3.0" />
+  </ItemGroup>
+  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+</Project>

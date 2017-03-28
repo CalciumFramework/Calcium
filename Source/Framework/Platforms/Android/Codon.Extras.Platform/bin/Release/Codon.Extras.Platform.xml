@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codon.Extras.Platform</name>
+    </assembly>
+    <members>
+        <member name="T:Codon.LauncherModel.Launchers.EmailComposeLauncher">
+            <summary>
+            Android implementation of <see cref="T:Codon.LauncherModel.Launchers.IEmailComposeLauncher"/>.
+            </summary>
+        </member>
+        <member name="P:Codon.LauncherModel.Launchers.EmailComposeLauncher.CodePage">
+            <summary>
+            This property is ignored in Android.
+            </summary>
+        </member>
+        <member name="T:Codon.LauncherModel.Launchers.PhotoResultBase">
+            <summary>
+            The base class for a photo chooser result, which includes,
+            for example, the photo that the user selected.
+            </summary>
+        </member>
+        <member name="M:Codon.UI.Data.TypeUtility.GetTypes``1">
+            <summary>
+            Retrieves a list of types deriving from the specified type, 
+            and including the specified type.
+            Based on code by Thomas Lebrun http://bit.ly/1OQsD8L
+            </summary>
+            <typeparam name="TDerivingFrom">The type to match.</typeparam>
+            <returns>A list of types deriving from the specified type.</returns>
+        </member>
+        <member name="M:Codon.UI.Data.TypeUtility.GetNonSystemAssemblies">
+            <summary>
+            Gets the set of non system assemblies.
+            Based on code by Thomas Lebrun http://bit.ly/1OQsD8L
+            </summary>
+            <returns>The list of known assemblies that are not system assemblies 
+            as determined by <seealso cref="M:Codon.UI.Data.TypeUtility.IsSystemAssembly(System.String)"/>.</returns>
+        </member>
+        <member name="M:Codon.UI.Data.XmlBindingApplicator.GetLayoutAsXmlElements(Android.Content.Context,System.Int32)">
+            <summary>
+            Returns the current view (activity) as a list of XML element.
+            Based on code by Thomas Lebrun http://bit.ly/1OQsD8L
+            </summary>
+            <param name="activity">The current activity we want 
+            to get as a list of XML elements.</param>
+            <param name="layoutResourceId">The id corresponding to the layout.</param>
+            <returns>A list of XML elements which represent the XML layout of the view.</returns>
+        </member>
+        <member name="M:Codon.UI.Data.XmlBindingApplicator.GetAllChildrenInView(Android.Views.View,System.Collections.Generic.List{Android.Views.View})">
+            <summary>
+            Recursive method which returns the list of children contains in a view.
+            </summary>
+            <param name="rootView">The start view from which the children will be retrieved.</param>
+            <param name="children">A cumulative collection of child views.</param>
+        </member>
+        <member name="M:Codon.UI.Data.XmlBindingApplicator.ExtractBindingsFromLayoutFile(System.Collections.Generic.List{System.Xml.Linq.XElement},Android.Views.View)">
+            <summary>
+            Extracts the binding information represented 
+            as the Binding="" attribute in the XML file.
+            Based on code by Thomas Lebrun http://bit.ly/1OQsD8L
+            </summary>
+            <param name="xmlElements">The list of XML elements from 
+            which to extract the binding information.</param>
+            <param name="rootView">The root view that is used 
+            to retrieve child views by ID.</param>
+            <returns>
+            A list containing all the binding info objects.
+            </returns>
+        </member>
+        <member name="M:Codon.UI.Elements.FontPathToTypefaceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Resolves a font using a path within the Assets folder. 
+            For example "MaterialIcons-Regular.ttf"
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns>A TypeFace object or <c>null</c> if value is null or whitespace.</returns>
+        </member>
+        <member name="T:Codon.UI.Elements.BooleanToVisibilityConverter">
+            <summary>
+            This class allows the visibility of an element
+            to be set according to a bound value.
+            The visibility value is determined by the 
+            parameter and the value. 
+            The parameter is a combination of three values, 
+            and appears like this:
+            VisibilityWhenTrue, VisibilityWhenFalse, VisibilityWhenNull
+            For example, if you wish to set the visibility of an element
+            such that it is collapsed when the value is true, 
+            visible when the value is false, 
+            and hidden when the value is null;
+            you would use the following parameter:
+            "Collapsed, Visible, Collapsed"
+            
+            For Android, use the Android <c>ViewState</c> enum values:
+            "Gone, Visible, Invisible"
+            </summary>
+        </member>
+        <member name="M:Codon.UI.Elements.BooleanToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            This class allows the visibility of an element
+            to be set according to a bound value.
+            The visibility value is determined by the 
+            parameter and the value. 
+            The parameter is a combination of three values, 
+            and appears like this:
+            VisibilityWhenTrue, VisibilityWhenFalse, VisibilityWhenNull
+            For example, if you wish to set the visibility of an element
+            such that it is collapsed when the value is true, 
+            visible when the value is false, 
+            and hidden when the value is null;
+            you would use the following parameter:
+            "Collapsed, Visible, Collapsed"
+            
+            For Android, use the Android <c>ViewState</c> enum values:
+            "Gone, Visible, Invisible"
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Elements.StringToTypedObjectConverter">
+            <summary>
+            This class is used to convert a string value to an object 
+            whose type is defined using the supplied object parameter.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Elements.AbsentValueToVisibiltyConverter">
+            <summary>
+            Converts a boolean value to a <see cref="T:Android.Views.ViewStates"/> value, 
+            and vice versa.
+            </summary>
+        </member>
+        <member name="T:Codon.UI.Elements.StringFormatConverter">
+            <summary>
+            This <see cref="T:Codon.MissingTypes.System.Windows.Data.IValueConverter"/>
+            calls through to <see cref="M:System.String.Format(System.String,System.Object)"/>.
+            The parameter is the format, or second parameter, 
+            while the converter value is the first parameter.
+            </summary>
+        </member>
+        <member name="T:Codon.Text.StringExtensions">
+            <summary>
+            Extension methods for the <c>string</c> class.
+            </summary>
+        </member>
+        <member name="T:Codon.Text.AndroidStringExtensions">
+            <summary>
+            Extension methods for the <c>string</c> class.
+            </summary>
+        </member>
+        <member name="T:Codon.Networking.NetworkConnectionService">
+            <summary>
+            Android implementation of <see cref="T:Codon.Services.INetworkConnectionService"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.ClipboardService">
+            <summary>
+            Android implementation of the <see cref="T:Codon.Services.IClipboardService"/>.
+            </summary>
+        </member>
+    </members>
+</doc>
