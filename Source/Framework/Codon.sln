@@ -54,6 +54,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8ED3A2F6-0A2F-435F-98B0-A5AE2B05C736}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\Documentation\License.txt = ..\..\Documentation\License.txt
+		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Android.Tests", "Platforms\Android\Codon.Platform.Tests\Codon.Platform.Android.Tests.csproj", "{B979D676-D2EA-45B0-B261-5487A6FC483A}"
