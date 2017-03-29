@@ -26,3 +26,66 @@ Codon.UndoModel is downloadable as an independent package.
 # Support
 - Join our [Slack Channel](https://codonfx.slack.com)
 - For general questions and support, post your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/codon)
+
+#NuGet Packages
+### Dependency Packages
+
+Codon packages may be installed invidually, or you may choose
+to reference a dependency package. The two dependency packages
+are Codon.Essentials, which references the .NET Standard core package
+along with its platform specific support libraries; and Codon.Extras
+which references the .NET Standard Extras package 
+along with its platform specific support libraries.
+
+If you're just getting started and are unsure about what
+package to install, choose Codon.Essentials.
+
+### Core Packages
+
+These are Codon's .NET Standard core packages, 
+together with the platform specific support packages.
+
+| Platform | Assembly | Package | Version |
+| -------- | -------- | ------- | ------- |
+| .NET Standard | Codon.dll | [Codon][1] | [![21]][1] |
+| WPF | Codon.Platform.dll | [Codon.Wpf][6] | [![26]][6] |
+| UWP | Codon.Platform.dll | [Codon.Uwp][5] | [![25]][5] |
+| Xamarin.Android | Codon.Platform.dll | [Codon.Android][3] | [![23]][3] |
+| Xamarin.iOS | Codon.Platform.dll | [Codon.Ios][4] | [![24]][4] |
+| .NET Standard | Codon.Extras.dll | [Codon][7] | [![27]][7] |
+| WPF | Codon.Extras.Platform.dll | [Codon.Extras.Wpf][12] | [![32]][12] |
+| UWP | Codon.Extras.Platform.dll | [Codon.Extras.Uwp][11] | [![25]][11] |
+| Xamarin.Android | Codon.Extras.Platform.dll | [Codon.Extras.Android][9] | [![29]][9] |
+| Xamarin.iOS | Codon.Extras.Platform.dll | [Codon.Extras.Ios][10] | [![30]][10] |
+| .NET Standard | Codon.UI.Data.dll | [Codon.UI.Data][13] | [![33]][13] |
+| .NET Standard | Codon.UndoModel.dll | [Codon][14] | [![34]][14] |
+
+[1]: https://www.nuget.org/packages/Codon/
+[2]: https://www.nuget.org/packages/Codon.Essentials/
+[3]: https://www.nuget.org/packages/Codon.Android/
+[4]: https://www.nuget.org/packages/Codon.Ios/
+[5]: https://www.nuget.org/packages/Codon.Uwp/
+[6]: https://www.nuget.org/packages/Codon.Wpf/
+[7]: https://www.nuget.org/packages/Codon.Extras/
+[8]: https://www.nuget.org/packages/Codon.Extras.Core/
+[9]: https://www.nuget.org/packages/Codon.Extras.Android/
+[10]: https://www.nuget.org/packages/Codon.Extras.Ios/
+[11]: https://www.nuget.org/packages/Codon.Extras.Uwp/
+[12]: https://www.nuget.org/packages/Codon.Extras.Wpf/
+[13]: https://www.nuget.org/packages/Codon.UI.Data/
+[14]: https://www.nuget.org/packages/Codon.UndoModel/
+
+[21]: https://img.shields.io/nuget/vpre/Codon.svg
+[22]: https://img.shields.io/nuget/vpre/Codon.Essentials.svg
+[23]: https://img.shields.io/nuget/vpre/Codon.Android.svg
+[24]: https://img.shields.io/nuget/vpre/Codon.Ios.svg
+[25]: https://img.shields.io/nuget/vpre/Codon.Uwp.svg
+[26]: https://img.shields.io/nuget/vpre/Codon.Wpf.svg
+[27]: https://img.shields.io/nuget/vpre/Codon.Extras.svg
+[28]: https://img.shields.io/nuget/vpre/Codon.Extras.Core.svg
+[29]: https://img.shields.io/nuget/vpre/Codon.Extras.Android.svg
+[30]: https://img.shields.io/nuget/vpre/Codon.Extras.Ios.svg
+[31]: https://img.shields.io/nuget/vpre/Codon.Extras.Uwp.svg
+[32]: https://img.shields.io/nuget/vpre/Codon.Extras.Wpf.svg
+[33]: https://img.shields.io/nuget/vpre/Codon.UI.Data.svg
+[34]: https://img.shields.io/nuget/vpre/Codon.UndoModel.svg
