@@ -24,6 +24,7 @@ and an Undo-Redo system located in the Codon.UndoModel assembly.
 Codon.UndoModel is downloadable as an independent package.
 
 # Support
+- You can post bugs and feature requests in our [Issues](https://github.com/CodonFramework/Codon/issues).
 - Join our [Slack Channel](https://codonfx.slack.com)
 - For general questions and support, post your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/codon)
 
@@ -39,9 +40,9 @@ along with its platform specific support libraries.
 If you're just getting started and are unsure about what
 package to install, choose [Codon.Essentials][2].
 
-### Core Packages
+### Packages
 
-These are Codon's .NET Standard core packages, 
+These are Codon's .NET Standard packages, 
 together with the platform specific support packages.
 
 | Platform | Assembly | Package | Version |
