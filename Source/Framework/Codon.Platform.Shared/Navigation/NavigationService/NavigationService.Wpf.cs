@@ -62,6 +62,9 @@ namespace Codon.Navigation
 
 			if (mainWindow == null)
 			{
+				/* When an application is launching, 
+				 * the window may not be initialized yet. 
+				 * Hence the purpose of the retry. */
 				if (++attemptsToRetrieveService < 5)
 				{
 					var context = Dependency.Resolve<ISynchronizationContext>();

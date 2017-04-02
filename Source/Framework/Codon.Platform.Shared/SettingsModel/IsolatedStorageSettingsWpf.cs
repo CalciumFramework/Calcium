@@ -26,9 +26,9 @@ namespace Codon.SettingsModel
 {
 	/// <summary>
 	/// This is a WPF specific IsolatedStorageSettings implementation.
-	/// It's required because apps deployed using click-once 
-	/// are unable to use <c>IsolatedStorageFile.GetUserStoreForAssembly()</c>,
-	/// and should use <c>IsolatedStorageFile.GetUserStoreForApplication()</c> instead.
+	/// It's required because apps not deployed using click-once 
+	/// are unable to use <c>IsolatedStorageFile.GetUserStoreForApplication()</c>,
+	/// and should use <c>IsolatedStorageFile.GetUserStoreForAssembly()</c> instead.
 	/// </summary>
 	sealed class IsolatedStorageSettingsWpf : 
 		IDictionary<string, object>, IDictionary,

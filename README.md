@@ -14,14 +14,16 @@ Codon's core includes an easy to use ICommand implementation, frictionless INPC,
 Codon Extras includes a user options system, form input validation, 
 an undo/redo task system, application state preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
 
-The minimal core and extras libraries are developed on independent timelines, 
-with the core experiencing fewer API changes.
+The Essentials and Extras libraries are developed on independent timelines, 
+with the Essentials experiencing fewer API changes.
 
 In addition to the Codon.Extras library, 
 Codon includes a data-binding library, Codon.UI.Data, 
 for use with non-XAML based technologies such as Xamarin.Android and Xamarin.iOS;
 and an Undo-Redo system located in the Codon.UndoModel assembly.
 Codon.UndoModel is downloadable as an independent package.
+
+Read the [Getting Started Guide](http://codonfx.com/Guides/001_GettingStarted/).
 
 # Support
 - You can post bugs and feature requests in our [Issues](https://github.com/CodonFramework/Codon/issues).
