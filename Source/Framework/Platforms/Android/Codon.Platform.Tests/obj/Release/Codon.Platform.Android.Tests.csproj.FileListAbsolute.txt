@@ -13,7 +13,6 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Platform.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.xml
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.dll.mdb

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Codon.Essentials</id>
-    <title>Codon core + platform support libraries</title>
+    <title>Codon Essentials</title>
     
 		<version>$version$</version>
 		<authors>$Authors$</authors>

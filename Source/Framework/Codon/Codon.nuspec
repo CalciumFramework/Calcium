@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Codon</id>
-    <title>Codon's shared code-base in a .NET Standard library</title>
+    <title>Codon's Core .NET Standard library</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>

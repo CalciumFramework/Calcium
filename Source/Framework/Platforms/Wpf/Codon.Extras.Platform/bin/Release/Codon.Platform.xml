@@ -57,9 +57,9 @@
         <member name="T:Codon.SettingsModel.IsolatedStorageSettingsWpf">
             <summary>
             This is a WPF specific IsolatedStorageSettings implementation.
-            It's required because apps deployed using click-once 
-            are unable to use <c>IsolatedStorageFile.GetUserStoreForAssembly()</c>,
-            and should use <c>IsolatedStorageFile.GetUserStoreForApplication()</c> instead.
+            It's required because apps not deployed using click-once 
+            are unable to use <c>IsolatedStorageFile.GetUserStoreForApplication()</c>,
+            and should use <c>IsolatedStorageFile.GetUserStoreForAssembly()</c> instead.
             </summary>
         </member>
         <member name="T:Codon.UIModel.Input.AttachedCommandBehavior">

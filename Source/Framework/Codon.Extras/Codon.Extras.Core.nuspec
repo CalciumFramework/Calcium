@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Codon.Extras.Core</id>
-		<title>Codon Extras' shared code base in a .NET Standard library</title>
+		<title>Codon Extras .NET Standard library</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>
