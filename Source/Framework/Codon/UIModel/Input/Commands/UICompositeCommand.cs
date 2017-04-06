@@ -280,5 +280,15 @@ namespace Codon.UIModel.Input
 			PropertyChanged?.Invoke(this, 
 				new PropertyChangedEventArgs(propertyName));
 		}
+
+		public void RaiseCanExecuteChanged()
+		{
+			selectedCommand?.RaiseCanExecuteChanged();
+		}
+
+		public void Refresh(object commandParameter)
+		{
+			selectedCommand?.Refresh(commandParameter);
+		}
 	}
 }

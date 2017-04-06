@@ -25,5 +25,7 @@ namespace Codon.LauncherModel.Launchers
 		System.IO.Stream ChosenPhoto { get; }
 
 		string OriginalFileName { get; }
+
+		LauncherResult LauncherResult { get; }
 	}
 }

@@ -474,6 +474,32 @@
             </summary>
             <returns>The clipboard contents.</returns>
         </member>
+        <member name="T:Codon.Services.IPowerService">
+            <summary>
+            Classes implementing this interface are able
+            to determine the power source that the device
+            is connected to, either battery or mains.
+            And, if battery, the amount of charge remaining.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.IPowerService.RemainingBatteryChargePercent">
+            <summary>
+            Gets a value indicating the percentage
+            of battery charge remaining.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.IPowerService.RemainingBatteryDischargeTime">
+            <summary>
+            Gets a value indicating how long the battery
+            will have sufficient charge to keep the device
+            from shutting down.
+            </summary>
+        </member>
+        <member name="P:Codon.Services.IPowerService.PowerSource">
+            <summary>
+            The type of connection; battery or mains.
+            </summary>
+        </member>
         <member name="T:Codon.Services.IVibrateController">
             <summary>
             This interface allows the abstraction of the platform
@@ -600,6 +626,238 @@
             <summary>
             Gets the user options grouped into categories.
             </summary>
+        </member>
+        <member name="T:Codon.Device.IMemoryUsage">
+            <summary>
+            Classes that implement this interface provide
+            information on application memory usage.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.IMemoryUsage.ApplicationMemoryUsageMB">
+            <summary>
+            The memory usage of the application in megabytes.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.IMemoryUsage.ApplicationAvailableMemoryMB">
+            <summary>
+            The available memory of the application in megabytes.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.IMemoryUsage.ApplicationMemoryLimitMB">
+            <summary>
+            The maximum memory the application is allowed
+            to consume, in megabytes.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.DevicePowerSource">
+            <summary>
+            Indicates the type of power connection
+            that a device has.
+            </summary>
+        </member>
+        <member name="F:Codon.Device.DevicePowerSource.Battery">
+            <summary>
+            The device is powered by its battery.
+            </summary>
+        </member>
+        <member name="F:Codon.Device.DevicePowerSource.External">
+            <summary>
+            The device is powered by mains power.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.PowerSourceChangeEvent">
+            <summary>
+            This class is used to convey information
+            when a device power source changes.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.RemainingBatteryChargeEvent">
+            <summary>
+            This class is used to convey information
+            when the device's remaining charge changes.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.AccelerometerReading.RawAcceleration">
+            <summary>
+            Raw, unfiltered accelerometer data (acceleration vector in all 3 dimensions) coming directly from sensor.
+            This is required for updating rapidly reacting UI.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.AccelerometerReading.OptimallyFilteredAcceleration">
+            <summary>
+            Filtered accelerometer data using a combination of a low-pass and threshold triggered high-pass on each axis to 
+            elimate the majority of the sensor low amplitude noise while trending very quickly to large offsets (not perfectly
+            smooth signal in that case), providing a very low latency. This is ideal for quickly reacting UI updates.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.AccelerometerReading.LowPassFilteredAcceleration">
+            <summary>
+            Filtered accelerometer data using a 1 Hz first-order low-pass on each axis to elimate the main sensor noise
+            while providing a medium latency. This can be used for moderately reacting UI updates requiring a very smooth signal.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.AccelerometerReading.AverageAcceleration">
+            <summary>
+            Filtered and temporally averaged accelerometer data using an arithmetic mean of the last 25 "optimally filtered" 
+            samples (see above), so over 500ms at 50Hz on each axis, to virtually eliminate most sensor noise. 
+            This provides a very stable reading but it has also a very high latency and cannot be used for rapidly reacting UI.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.Sensors.IAccelerometer">
+            <summary>
+            Represents the hardware accelerometer sensor.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.IAccelerometer.StartMonitoring">
+            <summary>
+            Starts monitoring for changes.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.IAccelerometer.StopMonitoring">
+            <summary>
+            Stops monitoring for changes.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.IAccelerometer.DeviceSupportsAccelerometer">
+            <summary>
+            Gets a value indicating whether device supports the accelerometer sensor.
+            It is not a requirement that all do.
+            </summary>
+            <value>
+            	<c>true</c> if the device supports accelerometer; 
+            otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Codon.Device.Sensors.IAccelerometer.Reading">
+            <summary>
+            Gets the last reading.
+            </summary>
+            <value>The last reading.</value>
+        </member>
+        <member name="E:Codon.Device.Sensors.IAccelerometer.ReadingChanged">
+            <summary>
+            Occurs when a new reading is received.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.IAccelerometer.CanCalibrate">
+            <summary>
+            Indicate that the calibration of the sensor 
+            would succeed along the X and Y axis
+            because the device is stable enough, 
+            or not inclined beyond a reasonable amount.
+            </summary>
+            <returns><c>true</c> if all of the X and Y axis 
+            were stable enough and were not too inclined.</returns>
+        </member>
+        <member name="M:Codon.Device.Sensors.IAccelerometer.Calibrate">
+            <summary>
+            Calibrates the accelerometer on X and Y axis 
+            and saves the value to persistent storage.
+            </summary>
+            <returns><c>true</c> if succeeds.</returns>
+        </member>
+        <member name="E:Codon.Device.Sensors.IAccelerometer.Shaken">
+            <summary>
+            Occurs when the device is shaken.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.Vector3D.X">
+            <summary>
+            X-axis coordinate.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.Vector3D.Y">
+            <summary>
+            Y-axis coordinate.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.Vector3D.Z">
+            <summary>
+            Z-axis coordinate.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Vector constructor from three double values
+            </summary>
+            <param name="xAxisCoordinate">X-axis coordinate.</param>
+            <param name="yAxisCoordinate">Y-axis coordinate.</param>
+            <param name="zAxisCoordinate">Z-axis coordinate.</param>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.#ctor(Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Clones the specified vector.
+            </summary>
+            <param name="vector3D">The vector to clone.</param>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> 
+            is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> 
+            to compare with this instance.</param>
+            <returns>
+            	<c>true</c> if the specified <see cref="T:System.Object"/> is equal 
+            to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms 
+            and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Equality(Codon.Device.Sensors.Vector3D,Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Operator overload for the == operator and two vectors
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Inequality(Codon.Device.Sensors.Vector3D,Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Operator overload for the != operator and two vectors
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Addition(Codon.Device.Sensors.Vector3D,Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Operator overload for the + operator and two vectors
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Subtraction(Codon.Device.Sensors.Vector3D,Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Operator overload for the - operator and for two vectors
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Multiply(Codon.Device.Sensors.Vector3D,Codon.Device.Sensors.Vector3D)">
+            <summary>
+            Operator overload for the * operator and two vectors.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Multiply(Codon.Device.Sensors.Vector3D,System.Double)">
+            <summary>
+            Operator overload for the * operator and a vector 
+            and a double to perform scaling.
+            </summary>
+        </member>
+        <member name="M:Codon.Device.Sensors.Vector3D.op_Division(Codon.Device.Sensors.Vector3D,System.Double)">
+            <summary>
+            Operator overload for the / operator and a vector 
+            and a double to perform scaling.
+            </summary>
+        </member>
+        <member name="P:Codon.Device.Sensors.Vector3D.Magnitude">
+            <summary>
+            Gets the magnitude of the vector. X^2 + Y^2 + Z^2
+            </summary>
+            <value>The magnitude is X^2 + Y^2 + Z^2.</value>
         </member>
         <member name="T:Codon.Device.NullVibrateController">
             <summary>

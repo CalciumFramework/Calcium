@@ -62,4 +62,23 @@ namespace Codon.Messaging
 			}
 		}
 	}
+
+	/// <summary>
+	/// This class is used as a base class for 
+	/// cancellable messages.
+	/// </summary>
+	public class CancellableMessageBase : CancellableMessageBase<object>
+	{
+		/// <summary>
+		/// Initializes a new instance.
+		/// </summary>
+		/// <param name="sender">
+		/// The object that sent the message.</param>
+		/// <param name="payload">
+		/// An object containing message information.</param>
+		public CancellableMessageBase(object sender, object payload) 
+			: base(sender, payload)
+		{
+		}
+	}
 }

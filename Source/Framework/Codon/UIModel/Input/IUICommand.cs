@@ -20,7 +20,7 @@ namespace Codon.UIModel.Input
 	/// Extends <c>ICommand</c> to provide display 
 	/// centric properties such as text and visibility.
 	/// </summary>
-	public interface IUICommand : ICommand
+	public interface IUICommand : ICommand, ICommandBase
 	{
 		/// <summary>
 		/// Gets the title text of the command.

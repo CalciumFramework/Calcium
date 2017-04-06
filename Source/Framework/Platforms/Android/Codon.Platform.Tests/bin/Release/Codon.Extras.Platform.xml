@@ -149,14 +149,37 @@
             Extension methods for the <c>string</c> class.
             </summary>
         </member>
-        <member name="T:Codon.Networking.NetworkConnectionService">
+        <member name="T:Codon.Device.MemoryUsage">
             <summary>
-            Android implementation of <see cref="T:Codon.Services.INetworkConnectionService"/>.
+            Android implementation of the <see cref="T:Codon.Device.IMemoryUsage"/> 
+            interface.
+            </summary>
+        </member>
+        <member name="T:Codon.Device.Sensors.Accelerometer">
+            <summary>
+            Android implementation of the <see cref="T:Codon.Device.Sensors.IAccelerometer"/>
+            interface.
             </summary>
         </member>
         <member name="T:Codon.Device.ClipboardService">
             <summary>
             Android implementation of the <see cref="T:Codon.Services.IClipboardService"/>.
+            </summary>
+        </member>
+        <member name="T:Codon.Devices.PowerService">
+            <summary>
+            Android implementation of the <see cref="T:Codon.Services.IPowerService"/>.
+            </summary>
+        </member>
+        <member name="P:Codon.Devices.PowerService.RemainingBatteryDischargeTime">
+            <summary>
+            Not supported on Android.
+            </summary>
+            <exception cref="T:System.NotSupportedException" />
+        </member>
+        <member name="T:Codon.Networking.NetworkConnectionService">
+            <summary>
+            Android implementation of <see cref="T:Codon.Services.INetworkConnectionService"/>.
             </summary>
         </member>
     </members>

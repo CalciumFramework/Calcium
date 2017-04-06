@@ -3273,6 +3273,21 @@
             this property can not be set to <c>false</c>.
             </summary>
         </member>
+        <member name="T:Codon.Messaging.CancellableMessageBase">
+            <summary>
+            This class is used as a base class for 
+            cancellable messages.
+            </summary>
+        </member>
+        <member name="M:Codon.Messaging.CancellableMessageBase.#ctor(System.Object,System.Object)">
+            <summary>
+            Initializes a new instance.
+            </summary>
+            <param name="sender">
+            The object that sent the message.</param>
+            <param name="payload">
+            An object containing message information.</param>
+        </member>
         <member name="T:Codon.Messaging.MessageBase`1">
             <summary>
             The base class for a message that 

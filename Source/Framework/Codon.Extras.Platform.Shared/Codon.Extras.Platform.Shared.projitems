@@ -12,6 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ComponentModel\ExecutionEnvironment.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device\Clipboard\ClipboardService.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device\Clipboard\ClipboardService.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Memory\MemoryUsage.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Power\PowerService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Sensors\Accelerometer\Accelerometer.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Device\VibrateController\VibrateController.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\EmailComposeLauncher\EmailComposeLauncher.Android.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\EmailComposeLauncher\EmailComposeLauncher.Uwp.cs" />

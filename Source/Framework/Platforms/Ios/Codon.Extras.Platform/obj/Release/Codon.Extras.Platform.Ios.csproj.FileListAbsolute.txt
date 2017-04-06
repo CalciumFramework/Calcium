@@ -8,7 +8,6 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bi
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.Extras.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.xml
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.Platform.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.Platform.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.Platform.dll.mdb
