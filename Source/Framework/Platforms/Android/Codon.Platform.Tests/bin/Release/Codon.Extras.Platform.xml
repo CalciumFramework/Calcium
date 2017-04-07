@@ -14,6 +14,11 @@
             This property is ignored in Android.
             </summary>
         </member>
+        <member name="T:Codon.LauncherModel.Launchers.PhotoLauncher">
+            <summary>
+            Android implementation of <see cref="T:Codon.LauncherModel.Launchers.IPhotoLauncher"/>.
+            </summary>
+        </member>
         <member name="T:Codon.LauncherModel.Launchers.PhotoResultBase">
             <summary>
             The base class for a photo chooser result, which includes,

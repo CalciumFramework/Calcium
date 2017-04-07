@@ -1,4 +1,4 @@
-#if __Android__
+#if __ANDROID__
 #region File and License Information
 /*
 <File>
@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Provider;
 using Android.Webkit;
 
 using Codon.ApplicationModel;
 using Codon.Concurrency;
+using Codon.Services;
 using Codon.Messaging;
 
 namespace Codon.LauncherModel.Launchers
@@ -47,13 +47,14 @@ namespace Codon.LauncherModel.Launchers
 			activity.StartActivityForResult(Intent.CreateChooser(intent, "Select Picture"), LauncherRequestIds.PhotoChooser);
 		}
 
-		public event EventHandler<PhotoResultBase> Completed;
+		public event EventHandler<IPhotoResult> Completed;
 
 		public int PixelHeight { get; set; }
 		public int PixelWidth { get; set; }
 		public bool ShowCamera { get; set; }
 
-		Task IMessageSubscriber<ActivityResultMessage>.ReceiveMessageAsync(ActivityResultMessage message)
+		Task IMessageSubscriber<ActivityResultMessage>.ReceiveMessageAsync(
+			ActivityResultMessage message)
 		{
 			if (message.RequestCode == LauncherRequestIds.PhotoChooser)
 			{
@@ -94,7 +95,7 @@ namespace Codon.LauncherModel.Launchers
 				OnCompleted(photoResult);
 			}
 
-			return TaskUtility.CreateTaskWithResult();
+			return Task.FromResult<object>(null);
 		}
 
 		protected virtual void OnCompleted(PhotoResultBase e)

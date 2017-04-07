@@ -76,7 +76,7 @@ namespace Codon.Messaging
 		/// The object that sent the message.</param>
 		/// <param name="payload">
 		/// An object containing message information.</param>
-		public CancellableMessageBase(object sender, object payload) 
+		public CancellableMessageBase(object sender, object payload = null) 
 			: base(sender, payload)
 		{
 		}

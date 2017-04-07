@@ -12,8 +12,11 @@
 */
 #endregion
 
+using System.Diagnostics;
+
 namespace Codon.UI.Data
 {
+	[DebuggerDisplay("Path={Path}; Target={Target}; Source={Source}")]
 	public class BindingExpression
 	{
 		public string Path { get; set; }

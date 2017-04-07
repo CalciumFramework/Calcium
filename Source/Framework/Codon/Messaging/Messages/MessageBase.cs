@@ -50,4 +50,17 @@ namespace Codon.Messaging
 			Payload = payload;
 		}
 	}
+
+	/// <summary>
+	/// The base class for a message that 
+	/// supplies a single payload object 
+	/// and has a known sender.
+	/// </summary>
+	public abstract class MessageBase : MessageBase<object>
+	{
+		public MessageBase(object sender, object payload = null) 
+			: base(sender, payload)
+		{
+		}
+	}
 }

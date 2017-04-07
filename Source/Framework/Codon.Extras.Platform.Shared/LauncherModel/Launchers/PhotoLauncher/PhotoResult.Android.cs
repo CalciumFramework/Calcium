@@ -1,4 +1,4 @@
-#if __Android__
+#if __ANDROID__
 using System.IO;
 
 using Android.Content;

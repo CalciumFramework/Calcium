@@ -24,3 +24,11 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\R
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb

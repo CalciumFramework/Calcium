@@ -3320,6 +3320,13 @@
             the message when it is published.
             Can be <c>null</c>.</param>
         </member>
+        <member name="T:Codon.Messaging.MessageBase">
+            <summary>
+            The base class for a message that 
+            supplies a single payload object 
+            and has a known sender.
+            </summary>
+        </member>
         <member name="T:Codon.Messaging.ValueChangedMessageBase`1">
             <summary>
             The base class for a message informing subscribers

@@ -111,22 +111,22 @@ namespace Codon.UI.Elements
 			return dictionary;
 		}
 
-		static string GetAndroidAlias(VisibilityValue visibilityString)
+		static string GetAndroidAlias(VisibilityValue visibilityValue)
 		{
-			if (visibilityString == VisibilityValue.Visible)
+			if (visibilityValue == VisibilityValue.Visible)
 			{
-				return visibilityString.ToString();
+				return visibilityValue.ToString();
 			}
-			else if (visibilityString == VisibilityValue.Hidden)
+			else if (visibilityValue == VisibilityValue.Hidden)
 			{
 				return "Invisible";
 			}
-			else if (visibilityString == VisibilityValue.Collapsed)
+			else if (visibilityValue == VisibilityValue.Collapsed)
 			{
 				return "Gone";
 			}
 
-			throw new ArgumentException("Unknown value: " + visibilityString);
+			throw new ArgumentException("Unknown value: " + visibilityValue);
 		}
 
 		static readonly Dictionary<string, VisibilitySet> visibilityDictionary

@@ -135,6 +135,36 @@ namespace Codon.UI.Data
 			}
 		}
 
+		public sealed class PropertyDescriptor
+		{
+			public Type ViewType { get; }
+			public string PropertyName { get; }
+
+			public PropertyDescriptor(Type viewType, string propertyName)
+			{
+				ViewType = viewType ?? throw new ArgumentNullException(nameof(viewType));
+				PropertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
+			}
+		}
+
+		public void SetViewBinders(IDictionary<PropertyDescriptor, IViewBinder> binders)
+		{
+			dictionaryLock.EnterWriteLock();
+			try
+			{
+				foreach (KeyValuePair<PropertyDescriptor, IViewBinder> pair in binders)
+				{
+					var path = pair.Key;
+					string key = MakeDictionaryKey(path.ViewType, path.PropertyName);
+					binderDictionary[key] = pair.Value;
+				}
+			}
+			finally
+			{
+				dictionaryLock.ExitWriteLock();
+			}
+		}
+
 		readonly Dictionary<string, IViewBinder> implicityBinderDictionary 
 			= new Dictionary<string, IViewBinder>();
 
