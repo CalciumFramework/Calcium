@@ -9,6 +9,7 @@
     <DelaySign>False</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Codon.UI.Data\Codon.UI.Data.csproj" />
     <ProjectReference Include="..\Codon\Codon.csproj" />
   </ItemGroup>
 </Project>

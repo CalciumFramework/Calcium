@@ -10,6 +10,14 @@ Codon.Networking.WifiReceiver, Codon.Extras.Platform;md50ae88277114c5c4d11bc137c
 Codon.Networking.WifiReceiver, Codon.Extras.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md50ae88277114c5c4d11bc137c4dc04503.WifiReceiver
 Codon.Networking.WifiReceiver;md50ae88277114c5c4d11bc137c4dc04503.WifiReceiver
 codon.networking.WifiReceiver;md50ae88277114c5c4d11bc137c4dc04503.WifiReceiver
+Codon.Devices.PowerService/PowerConnectionReceiver, Codon.Extras.Platform;md56b33b2605f5beb8344b9731fca335bbd.PowerService_PowerConnectionReceiver
+Codon.Devices.PowerService+PowerConnectionReceiver, Codon.Extras.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md56b33b2605f5beb8344b9731fca335bbd.PowerService_PowerConnectionReceiver
+Codon.Devices.PowerService.PowerConnectionReceiver;md56b33b2605f5beb8344b9731fca335bbd.PowerService_PowerConnectionReceiver
+codon.devices.PowerService_PowerConnectionReceiver;md56b33b2605f5beb8344b9731fca335bbd.PowerService_PowerConnectionReceiver
+Codon.Device.Sensors.Accelerometer/SensorListener, Codon.Extras.Platform;md5bc39788edd845b0a3745cfc2d0d24b7d.Accelerometer_SensorListener
+Codon.Device.Sensors.Accelerometer+SensorListener, Codon.Extras.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5bc39788edd845b0a3745cfc2d0d24b7d.Accelerometer_SensorListener
+Codon.Device.Sensors.Accelerometer.SensorListener;md5bc39788edd845b0a3745cfc2d0d24b7d.Accelerometer_SensorListener
+codon.device.sensors.Accelerometer_SensorListener;md5bc39788edd845b0a3745cfc2d0d24b7d.Accelerometer_SensorListener
 Codon.UI.Elements.ActionDialog, Codon.Extras.Platform;md5d957bbceadb548a0ee5ee19b65d90217.ActionDialog
 Codon.UI.Elements.ActionDialog, Codon.Extras.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d957bbceadb548a0ee5ee19b65d90217.ActionDialog
 Codon.UI.Elements.ActionDialog;md5d957bbceadb548a0ee5ee19b65d90217.ActionDialog

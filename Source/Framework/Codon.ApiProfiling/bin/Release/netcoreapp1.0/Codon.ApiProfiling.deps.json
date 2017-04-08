@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v1.0": {
       "codon.apiprofiling/1.0.0": {
         "dependencies": {
-          "Codon": "1.0.0-beta"
+          "Codon": "1.0.0-beta",
+          "Codon.Markup": "1.0.0"
         },
         "runtime": {
           "Codon.ApiProfiling.dll": {}
@@ -944,6 +945,15 @@
         "runtime": {
           "Codon.dll": {}
         }
+      },
+      "codon.markup/1.0.0": {
+        "dependencies": {
+          "Codon": "1.0.0-beta",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "Codon.UI.Data.dll": {}
+        }
       }
     }
   },
@@ -1472,6 +1482,11 @@
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
     "codon/1.0.0-beta": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "codon.markup/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

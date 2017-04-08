@@ -55,10 +55,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Codon.ApiProfiling\UI\Data\ViewModelTestClass.cs">
+      <Link>UI\Data\ViewModelTestClass.cs</Link>
+    </Compile>
     <Compile Include="UIModel\Input\Commands\AsyncActionCommandTests.cs" />
     <Compile Include="UIModel\Input\Commands\AsyncUICommandTests.cs" />
     <Compile Include="UIModel\Validation\DataErrorNotifierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Data\BindingApplicatorTests.cs" />
     <Compile Include="UndoModel\MockUnit.cs" />
     <Compile Include="UndoModel\MockUndoableUnit.cs" />
     <Compile Include="UndoModel\UndoServiceTests.cs" />
@@ -74,6 +78,10 @@
     <ProjectReference Include="..\Codon.Tests\Codon.Tests.csproj">
       <Project>{7b912463-2bb6-416f-a5b7-8772342cc15b}</Project>
       <Name>Codon.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Codon.UI.Data\Codon.UI.Data.csproj">
+      <Project>{7c182224-dc51-4095-8b59-37faf18ef4a8}</Project>
+      <Name>Codon.UI.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Codon.UndoModel\Codon.UndoModel.csproj">
       <Project>{80ee2a33-33c9-4a48-9454-e587ee3216e3}</Project>

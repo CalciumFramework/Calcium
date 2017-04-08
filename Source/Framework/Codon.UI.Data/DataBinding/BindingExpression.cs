@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Codon.UI.Data
@@ -22,14 +23,11 @@ namespace Codon.UI.Data
 		public string Path { get; set; }
 		public string Source { get; set; }
 		public string Target { get; set; }
-		public string Converter { get; set; }
+
 		public string ConverterParameter { get; set; }
 		public BindingMode Mode { get; set; }
 		public string ViewValueChangedEvent { get; set; }
 
-#if MONODROID || __ANDROID__
-		internal Android.Views.View View { get; set; }
-#else
 		/// <summary>
 		/// Not for public use. Should be internal.
 		/// The assembly's strong name, however, prevents Xamarin 
@@ -40,7 +38,10 @@ namespace Codon.UI.Data
 		/// name if the assembly where the attribute is declared 
 		/// is strong named.
 		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public object View { get; set; }
-#endif
+
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public string Converter { get; set; }
 	}
 }

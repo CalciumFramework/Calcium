@@ -2269,6 +2269,14 @@
           "NETStandard.Library": "1.6.1",
           "System.IO.IsolatedStorage": "4.3.0"
         }
+      },
+      "Codon.Markup/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.4",
+        "dependencies": {
+          "Codon": "1.0.0-beta",
+          "NETStandard.Library": "1.6.1"
+        }
       }
     }
   },
@@ -7095,11 +7103,17 @@
       "type": "project",
       "path": "../Codon/Codon.csproj",
       "msbuildProject": "../Codon/Codon.csproj"
+    },
+    "Codon.Markup/1.0.0": {
+      "type": "project",
+      "path": "../Codon.UI.Data/Codon.UI.Data.csproj",
+      "msbuildProject": "../Codon.UI.Data/Codon.UI.Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.0": [
       "Codon >= 1.0.0-beta",
+      "Codon.Markup >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.4"
     ]
   },
@@ -7120,6 +7134,9 @@
       "frameworks": {
         "netcoreapp1.0": {
           "projectReferences": {
+            "C:\\Repos\\Codon\\Framework\\Source\\Framework\\Codon.UI.Data\\Codon.UI.Data.csproj": {
+              "projectPath": "C:\\Repos\\Codon\\Framework\\Source\\Framework\\Codon.UI.Data\\Codon.UI.Data.csproj"
+            },
             "C:\\Repos\\Codon\\Framework\\Source\\Framework\\Codon\\Codon.csproj": {
               "projectPath": "C:\\Repos\\Codon\\Framework\\Source\\Framework\\Codon\\Codon.csproj"
             }

@@ -188,6 +188,12 @@ namespace Codon.UI.Data
 					/* Determine if the target is an event, 
 					 * in which case use that to trigger an update. */
 #if NETSTANDARD
+					string targetName = bindingExpression.Target;
+					if (string.IsNullOrEmpty(targetName))
+					{
+						throw new BindingException($"Target is null or empty. Source: {bindingExpression.Source}, Path: {bindingExpression.Path}, View: {bindingExpression.View}");
+					}
+
 					var bindingEvent = bindingExpression.View.GetType().GetRuntimeEvent(bindingExpression.Target);
 #else
 					var bindingEvent = bindingExpression.View.GetType().GetEvent(bindingExpression.Target);
@@ -212,7 +218,7 @@ namespace Codon.UI.Data
 
 							/* Subscribe to the specified event to execute 
 							 * the command when the event is raised. */
-							var invoker = reflectionCache.GetVoidMethodInvoker(commandExecuteMethodInfo);
+							var invoker = ReflectionCache.GetVoidMethodInvoker(commandExecuteMethodInfo);
 							
 							Action action = () =>
 							{
@@ -284,7 +290,7 @@ namespace Codon.UI.Data
 
 							Action removeAction;
 
-							Action<object, object[]> invoker = reflectionCache.GetVoidMethodInvoker(sourceMethod);
+							Action<object, object[]> invoker = ReflectionCache.GetVoidMethodInvoker(sourceMethod);
 
 							if (parameterCount > 1)
 							{

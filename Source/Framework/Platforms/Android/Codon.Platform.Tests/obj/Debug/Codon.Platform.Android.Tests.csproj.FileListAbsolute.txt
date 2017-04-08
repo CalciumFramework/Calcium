@@ -21,5 +21,6 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\res\values\strings.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\R.cs.flag
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\uploadflags.txt
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Debug\Codon.Extras.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Debug\Codon.Platform.Tests.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Debug\Codon.Platform.Tests.dll.mdb

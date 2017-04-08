@@ -245,7 +245,7 @@ namespace Codon.UI.Data
 				return result;
 			}
 
-			result = new List<XElement>();
+//			result = new List<XElement>();
 
 			using (XmlReader viewAsXmlReader = activity.Resources.GetLayout(layoutResourceId))
 			{

@@ -45,8 +45,6 @@ namespace Codon.UI.Data
 		 * that can be used to set the enabled state of the view. */
 		const string viewEnabledPropertyName = "Enabled";
 #endif
-		IReflectionCache reflectionCache = Dependency.Resolve<IReflectionCache>();
-
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static ViewBinderRegistry ViewBinderRegistry { get; } = new ViewBinderRegistry();
 

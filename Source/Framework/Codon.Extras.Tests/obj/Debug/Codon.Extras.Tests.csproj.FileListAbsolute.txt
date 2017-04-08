@@ -18,3 +18,5 @@ C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\bin\Debug\Microsoft
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\obj\Debug\Codon.Extras.Tests.csprojResolveAssemblyReference.cache
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\obj\Debug\Codon.Extras.Tests.dll
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\obj\Debug\Codon.Extras.Tests.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\bin\Debug\Codon.UI.Data.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras.Tests\bin\Debug\Codon.UI.Data.pdb

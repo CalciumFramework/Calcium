@@ -10,3 +10,6 @@ C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\obj\Release\netcore
 C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\obj\Release\netcoreapp1.0\Codon.ApiProfiling.AssemblyInfo.cs
 C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\obj\Release\netcoreapp1.0\Codon.ApiProfiling.dll
 C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\obj\Release\netcoreapp1.0\Codon.ApiProfiling.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\bin\Release\netcoreapp1.0\Codon.UI.Data.dll
+C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\bin\Release\netcoreapp1.0\Codon.UI.Data.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.ApiProfiling\bin\Release\netcoreapp1.0\Codon.UI.Data.xml

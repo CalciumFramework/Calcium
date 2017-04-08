@@ -10,9 +10,3 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Relea
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.pdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Platform\bin\Release\Codon.Platform.dll.mdb

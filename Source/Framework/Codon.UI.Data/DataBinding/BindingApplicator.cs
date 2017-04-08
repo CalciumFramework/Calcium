@@ -7,6 +7,7 @@ namespace Codon.UI.Data
 	public class BindingApplicator
 	{
 		readonly InternalBindingApplicator internalApplicator = new InternalBindingApplicator();
+
 		public Action ApplyBinding(
 			BindingExpression bindingExpression, object target, object dataContext, IValueConverter converter = null)
 		{
