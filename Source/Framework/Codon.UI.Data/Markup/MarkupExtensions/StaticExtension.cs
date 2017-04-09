@@ -31,8 +31,7 @@ namespace Codon.UI.Elements
 		static readonly Dictionary<string, object> cache
 			= new Dictionary<string, object>();
 
-		static readonly IMarkupTypeResolver markupTypeResolver 
-			= Dependency.Resolve<IMarkupTypeResolver, MarkupTypeResolver>(true);
+		static IMarkupTypeResolver markupTypeResolver;
 
 		public Type MemberType { get; set; }
 
@@ -122,6 +121,12 @@ namespace Codon.UI.Elements
 				if (aliasAndType == string.Empty)
 				{
 					throw new BindingException("Invalid type string for x:Static member value: " + member);
+				}
+
+				if (markupTypeResolver == null)
+				{
+					markupTypeResolver
+						= Dependency.Resolve<IMarkupTypeResolver>();
 				}
 
 				type = markupTypeResolver.Resolve(aliasAndType);

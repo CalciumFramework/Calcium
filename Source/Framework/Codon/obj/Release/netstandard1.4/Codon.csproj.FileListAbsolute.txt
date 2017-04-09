@@ -6,3 +6,7 @@ C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon
 C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon.dll
 C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon.pdb
 C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon.csprojResolveAssemblyReference.cache
+C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon\bin\Release\netstandard1.4\Codon.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon\obj\Release\netstandard1.4\Codon.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon\bin\Release\netstandard1.4\Codon.dll.mdb
