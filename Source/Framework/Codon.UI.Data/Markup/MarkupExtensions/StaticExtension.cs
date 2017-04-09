@@ -1,3 +1,17 @@
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Codon (http://codonfx.com), 
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2017-04-08 19:02:12Z</CreationDate>
+</File>
+*/
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;

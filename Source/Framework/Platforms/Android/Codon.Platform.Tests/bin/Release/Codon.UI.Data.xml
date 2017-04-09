@@ -63,5 +63,14 @@
             prefix is the mapping prefix for a XAML namespace, and is only required 
             to reference static values that are not mapped to the default XAML namespace.</param>
         </member>
+        <member name="M:Codon.UI.Elements.StaticResourceExtension.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="resourceId">
+            A string that identifies the resource that 
+            was registered using the <see cref="T:Codon.UI.Data.IStaticResourceRegistry"/> instance. 
+            </param>
+        </member>
     </members>
 </doc>

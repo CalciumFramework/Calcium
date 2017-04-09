@@ -13,9 +13,11 @@
 #endregion
 
 using System;
+using Codon.InversionOfControl;
 
 namespace Codon.UI.Data
 {
+	[DefaultType(typeof(MarkupExtensionRegistry), Singleton = true)]
 	public interface IMarkupExtensionRegistry
 	{
 		void RegisterExtension<T>(string xmlName) where T : IMarkupExtension;

@@ -48,6 +48,8 @@ namespace Codon.UI.Data
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static ViewBinderRegistry ViewBinderRegistry { get; } = new ViewBinderRegistry();
 
+		MarkupExtensionUtil markupExtensionUtil = new MarkupExtensionUtil();
+
 		public void ApplyBinding(
 			BindingExpression bindingExpression,
 			object activity,
@@ -68,7 +70,8 @@ namespace Codon.UI.Data
 			object dataContext;
 			string[] pathSplit;
 
-			MarkupExtensionInfo extensionInfo = CreateMarkupExtensionInfo(sourcePath);
+			MarkupExtensionInfo extensionInfo 
+				= markupExtensionUtil.CreateMarkupExtensionInfo(sourcePath);
 			if (extensionInfo == null)
 			{
 				pathSplit = GetPathSplit(sourcePath, path, dataContextPropertyOnActivity);
@@ -104,7 +107,8 @@ namespace Codon.UI.Data
 
 			string[] pathSplit;
 			
-			var extensionInfo = CreateMarkupExtensionInfo(sourcePath);
+			var extensionInfo = markupExtensionUtil.CreateMarkupExtensionInfo(sourcePath);
+
 			if (extensionInfo == null)
 			{
 				pathSplit = GetPathSplit(sourcePath, path, null);
@@ -120,9 +124,9 @@ namespace Codon.UI.Data
 			Bind(bindingExpression, dataContext, pathSplit, converter, targetProperty, localRemoveActions, unbindActions, 0);
 		}
 		
-		IMarkupExtension RetrieveExtension(MarkupExtensionInfo extensionInfo)
+		public IMarkupExtension RetrieveExtension(MarkupExtensionInfo extensionInfo)
 		{
-			var extensionRegistry = Dependency.Resolve<IMarkupExtensionRegistry, MarkupExtensionRegistry>(true);
+			var extensionRegistry = Dependency.Resolve<IMarkupExtensionRegistry>();
 
 			var retrievedItem = extensionRegistry.TryGetExtensionCreationFunc(
 									extensionInfo.ExtensionTypeName, 
@@ -204,11 +208,14 @@ namespace Codon.UI.Data
 			
 			return pathSplit;
 		}
+	}
 
+	public class MarkupExtensionUtil
+	{
 		const RegexOptions regexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace;
 		readonly Regex markupExtensionRegex = new Regex(@"{ (  (?<Extension> [^{}\s]+ ) \s+ (?<Parameters> [^{}]+ )? )* }", regexOptions);
 
-		MarkupExtensionInfo CreateMarkupExtensionInfo(string text)
+		public MarkupExtensionInfo CreateMarkupExtensionInfo(string text)
 		{
 			if (text == null)
 			{
@@ -221,7 +228,7 @@ namespace Codon.UI.Data
 				var groups = match.Groups;
 				string extension = groups["Extension"]?.Value;
 				string parameters = groups["Parameters"]?.Value ?? string.Empty;
-				var parameterList = parameters.Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries);
+				var parameterList = parameters.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 				var result = new MarkupExtensionInfo(extension, parameterList);
 
 				return result;
@@ -229,17 +236,17 @@ namespace Codon.UI.Data
 
 			return null;
 		}
+	}
 
-		class MarkupExtensionInfo
+	public class MarkupExtensionInfo
+	{
+		public string ExtensionTypeName { get; private set; }
+		public object[] Parameters { get; private set; }
+
+		internal MarkupExtensionInfo(string extensionTypeName, object[] parameters)
 		{
-			public string ExtensionTypeName { get; private set; }
-			public object[] Parameters { get; private set; }
-
-			internal MarkupExtensionInfo(string extensionTypeName, object[] parameters)
-			{
-				ExtensionTypeName = extensionTypeName;
-				Parameters = parameters;
-			}
+			ExtensionTypeName = extensionTypeName;
+			Parameters = parameters;
 		}
 	}
 }

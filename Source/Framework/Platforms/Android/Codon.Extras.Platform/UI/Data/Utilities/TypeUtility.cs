@@ -66,74 +66,87 @@ namespace Codon.UI.Data
 		/// as determined by <seealso cref="IsSystemAssembly"/>.</returns>
 		static IEnumerable<AssemblyName> GetNonSystemAssemblies()
 		{
-			StackFrame[] stackFrames = new StackTrace().GetFrames();
-
 			var result = new List<AssemblyName>();
+//			var currentDomain = AppDomain.CurrentDomain;
+//			var assemblies = currentDomain.GetAssemblies();
+//			foreach (Assembly assembly in assemblies)
+//			{
+//				var assemblyName = assembly.GetName();
+//
+//				if (!IsSystemAssembly(assemblyName.Name))
+//				{
+//					result.Add(assemblyName);
+//				}
+//			}
+//
+//			return result;
 
-			if (stackFrames == null)
-			{
-				return result;
-			}
-
-			Assembly executingAssembly = Assembly.GetExecutingAssembly();
-			string executingAssemblyName = executingAssembly.GetName().Name;
-			var examinedAssemblies = new List<string>();
-
-			foreach (var frame in stackFrames)
-			{
-				var declaringType = frame.GetMethod().DeclaringType;
-				if (declaringType == null)
-				{
-					continue;
-				}
-
-				var assembly = declaringType.Assembly;
-				var assemblyName = assembly.GetName();
-
-				if (examinedAssemblies.Contains(assemblyName.FullName))
-				{
-					continue;
-				}
-
-				var currentAssemblyName = assemblyName;
-
-				if (!IsSystemAssembly(currentAssemblyName.Name) 
-					&& !result.Contains(currentAssemblyName))
-				{
-					result.Add(currentAssemblyName);
-				}
-
-				examinedAssemblies.Add(currentAssemblyName.FullName);
-
-				AssemblyName[] referencedAssemblyNames = assembly.GetReferencedAssemblies();
-
-				if (referencedAssemblyNames != null)
-				{
-					foreach (var referencedAssemblyName in referencedAssemblyNames)
-					{
-						if (referencedAssemblyName.Name == executingAssemblyName 
-							|| examinedAssemblies.Contains(referencedAssemblyName.FullName))
+						StackFrame[] stackFrames = new StackTrace().GetFrames();
+						if (stackFrames == null)
 						{
-							continue;
+							return result;
 						}
-
-						if (!IsSystemAssembly(referencedAssemblyName.Name) 
-							&& !result.Contains(referencedAssemblyName))
+			
+						Assembly executingAssembly = Assembly.GetExecutingAssembly();
+						string executingAssemblyName = executingAssembly.GetName().Name;
+						var examinedAssemblies = new List<string>();
+			
+						foreach (var frame in stackFrames)
 						{
-							result.Add(referencedAssemblyName);
+							var declaringType = frame.GetMethod().DeclaringType;
+							if (declaringType == null)
+							{
+								continue;
+							}
+			
+							var assembly = declaringType.Assembly;
+							var assemblyName = assembly.GetName();
+			
+							if (examinedAssemblies.Contains(assemblyName.FullName))
+							{
+								continue;
+							}
+			
+							var currentAssemblyName = assemblyName;
+			
+							if (!IsSystemAssembly(currentAssemblyName.Name) 
+								&& !result.Contains(currentAssemblyName))
+							{
+								result.Add(currentAssemblyName);
+							}
+			
+							examinedAssemblies.Add(currentAssemblyName.FullName);
+			
+							AssemblyName[] referencedAssemblyNames = assembly.GetReferencedAssemblies();
+			
+							if (referencedAssemblyNames != null)
+							{
+								foreach (var referencedAssemblyName in referencedAssemblyNames)
+								{
+									if (referencedAssemblyName.Name == executingAssemblyName 
+										|| examinedAssemblies.Contains(referencedAssemblyName.FullName))
+									{
+										continue;
+									}
+			
+									if (!IsSystemAssembly(referencedAssemblyName.Name) 
+										&& !result.Contains(referencedAssemblyName))
+									{
+										result.Add(referencedAssemblyName);
+									}
+			
+									examinedAssemblies.Add(referencedAssemblyName.FullName);
+								}
+							}
 						}
-
-						examinedAssemblies.Add(referencedAssemblyName.FullName);
-					}
-				}
-			}
-
-			return result;
+			
+						return result;
 		}
 
 		static bool IsSystemAssembly(string assemblyName)
 		{
-			var result = string.Equals(assemblyName, "Mono.Android", StringComparison.InvariantCultureIgnoreCase);
+			var result = assemblyName.StartsWith("System.");
+			result |= string.Equals(assemblyName, "Mono.Android", StringComparison.InvariantCultureIgnoreCase);
 			result |= string.Equals(assemblyName, "mscorlib", StringComparison.InvariantCultureIgnoreCase);
 			result |= string.Equals(assemblyName, "System", StringComparison.InvariantCultureIgnoreCase);
 			result |= string.Equals(assemblyName, "System.Core", StringComparison.InvariantCultureIgnoreCase);

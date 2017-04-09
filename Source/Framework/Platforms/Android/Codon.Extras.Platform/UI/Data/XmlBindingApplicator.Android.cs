@@ -24,6 +24,7 @@ using System.Xml.Linq;
 using Android.App;
 using Android.Content;
 using Android.Views;
+using Codon.InversionOfControl;
 using Java.Lang;
 
 using Codon.Logging;
@@ -49,6 +50,10 @@ namespace Codon.UI.Data
 		readonly List<Action> unbindActions = new List<Action>();
 
 		static readonly Dictionary<int, List<XElement>> layoutCache = new Dictionary<int, List<XElement>>();
+
+		MarkupTypeResolver typeResolver = new MarkupTypeResolver();
+		readonly MarkupExtensionUtil markupExtensionUtil = new MarkupExtensionUtil();
+		static IContainer iocContainer;
 
 		public void RemoveBindings()
 		{
@@ -117,7 +122,7 @@ namespace Codon.UI.Data
 				}
 
 				InternalBindingApplicator binder = new InternalBindingApplicator();
-
+				
 				foreach (var bindingInfo in bindingInfos)
 				{
 					IValueConverter valueConverter = null;
@@ -125,25 +130,45 @@ namespace Codon.UI.Data
 
 					if (!string.IsNullOrWhiteSpace(valueConverterName))
 					{
-						var valueConverterType = valueConverterTypes.FirstOrDefault(t => t.Name == valueConverterName);
-						if (valueConverterType != null)
+						var markupExtensionInfo = markupExtensionUtil.CreateMarkupExtensionInfo(valueConverterName);
+						if (markupExtensionInfo != null)
 						{
-							var valueConverterConstructor = valueConverterType.GetConstructor(Type.EmptyTypes);
-							if (valueConverterConstructor != null)
+							IMarkupExtension extension = binder.RetrieveExtension(markupExtensionInfo);
+
+							if (iocContainer == null)
 							{
-								valueConverter = valueConverterConstructor.Invoke(null) as IValueConverter;
+								iocContainer = Dependency.Resolve<IContainer>();
 							}
-							else
-							{
-								throw new InvalidOperationException(
-									$"Value converter {valueConverterName} needs "
-									+ "an empty constructor to be instanciated.");
-							}
+
+							valueConverter = (IValueConverter)extension.ProvideValue(iocContainer);
 						}
 						else
-						{
-							throw new InvalidOperationException(
-								$"There is no converter named {valueConverterName}.");
+						{ 
+							Type valueConverterType;
+
+							if (typeResolver.TryResolve(valueConverterName, out valueConverterType))
+							{
+								//var valueConverterType = valueConverterTypes.FirstOrDefault(t => t.Name == valueConverterName);
+								if (valueConverterType != null)
+								{
+									var valueConverterConstructor = valueConverterType.GetConstructor(Type.EmptyTypes);
+									if (valueConverterConstructor != null)
+									{
+										valueConverter = valueConverterConstructor.Invoke(null) as IValueConverter;
+									}
+									else
+									{
+										throw new InvalidOperationException(
+											$"Value converter {valueConverterName} needs "
+											+ "an empty constructor to be instanciated.");
+									}
+								}
+								else
+								{
+									throw new InvalidOperationException(
+										$"There is no converter named {valueConverterName}.");
+								}
+							}
 						}
 					}
 
@@ -198,25 +223,40 @@ namespace Codon.UI.Data
 
 					if (!string.IsNullOrWhiteSpace(valueConverterName))
 					{
-						var converterType = valueConverterTypes.FirstOrDefault(t => t.Name == valueConverterName);
-						if (converterType != null)
+						var markupExtensionInfo = markupExtensionUtil.CreateMarkupExtensionInfo(valueConverterName);
+						if (markupExtensionInfo != null)
 						{
-							var constructor = converterType.GetConstructor(Type.EmptyTypes);
-							if (constructor != null)
+							IMarkupExtension extension = binder.RetrieveExtension(markupExtensionInfo);
+
+							if (iocContainer == null)
 							{
-								valueConverter = constructor.Invoke(null) as IValueConverter;
+								iocContainer = Dependency.Resolve<IContainer>();
+							}
+
+							valueConverter = (IValueConverter)extension.ProvideValue(iocContainer);
+						}
+						else
+						{ 
+							var converterType = valueConverterTypes.FirstOrDefault(t => t.Name == valueConverterName);
+							if (converterType != null)
+							{
+								var constructor = converterType.GetConstructor(Type.EmptyTypes);
+								if (constructor != null)
+								{
+									valueConverter = constructor.Invoke(null) as IValueConverter;
+								}
+								else
+								{
+									throw new InvalidOperationException(
+										$"Value converter {valueConverterName} needs "
+										+ "an empty constructor to be instanciated.");
+								}
 							}
 							else
 							{
 								throw new InvalidOperationException(
-									$"Value converter {valueConverterName} needs "
-									+ "an empty constructor to be instanciated.");
+									$"There is no converter named {valueConverterName}.");
 							}
-						}
-						else
-						{
-							throw new InvalidOperationException(
-								$"There is no converter named {valueConverterName}.");
 						}
 					}
 
@@ -323,7 +363,7 @@ namespace Codon.UI.Data
 		readonly Regex sourceRegex = new Regex(@"Source=\s*(?: (?<Path> \w+(\.\w+)*) | (?<MarkupExtension> ( { [^{}\s]+ \s+ ( [^{}]+ )? } )* ))", regexOptions);
 		readonly Regex pathRegex = new Regex(@"(?: Path\s*=\s*(?<Path> (?: \w+(?:\.\w+)*)) | (?:,|;|\A) \s* (?<! =) \s* (?<Path> \w+(?:\.\w+)*) (?!=)\s*(?:,|;|\z))", regexOptions | RegexOptions.Multiline);
 		readonly Regex targetRegex = new Regex(@"Target=(\w+)", regexOptions);
-		readonly Regex converterRegex = new Regex(@"Converter=(\w+)", regexOptions);
+		readonly Regex converterRegex = new Regex(@"Converter=\s*(?: (?<Path> \w+(\.\w+)*) | (?<MarkupExtension> ( { [^{}\s]+ \s+ ( [^{}]+ )? } )* ))", regexOptions);
 		//readonly Regex converterParameterRegex = new Regex(@"ConverterParameter=(\s*[\w\@]+\s*(.\w+)*)", regexOptions);
 		readonly Regex converterParameterRegex = new Regex(@"ConverterParameter=\s*((?:\\\\|\\,|\\;|[^,;])*)\s*[,;]?.*", regexOptions);
 		readonly Regex modeRegex = new Regex(@"Mode=(\w+)", regexOptions);
@@ -418,7 +458,20 @@ namespace Codon.UI.Data
 					string pathValue = pathRegex.Match(bindingText).Groups["Path"].Value;
 
 					string targetValue = targetRegex.Match(bindingText).Groups[1].Value;
-					string converterValue = converterRegex.Match(bindingText).Groups[1].Value;
+
+					string converterValue = null;
+					var converterMatch = converterRegex.Match(bindingText);
+					if (converterMatch.Success)
+					{
+						var groups = converterMatch.Groups;
+						var path = groups["Path"];
+						converterValue = path?.Value;
+						if (string.IsNullOrEmpty(converterValue))
+						{
+							converterValue = groups["MarkupExtension"]?.Value;
+						}
+					}
+					//string converterValue = converterRegex.Match(bindingText).Groups[1].Value;
 
 					string converterParameterValue = converterParameterRegex.Match(bindingText).Groups[1].Value;
 

@@ -18,8 +18,30 @@ namespace Codon.UI.Data
 {
 	public class MarkupTypeResolver : IMarkupTypeResolver
 	{
-		static readonly INamespaceAliasRegistry namespaceRegistry 
-			= Dependency.Resolve<INamespaceAliasRegistry, NamespaceAliasRegistry>(true);
+		public MarkupTypeResolver()
+		{
+			/* Intentionally left blank. */
+		}
+
+		public MarkupTypeResolver(INamespaceAliasRegistry namespaceRegistry)
+		{
+			this.namespaceRegistry_UseProperty = namespaceRegistry;
+		}
+
+		INamespaceAliasRegistry namespaceRegistry_UseProperty;
+
+		INamespaceAliasRegistry NamespaceRegistry
+		{
+			get
+			{
+				if (namespaceRegistry_UseProperty == null)
+				{
+					namespaceRegistry_UseProperty = Dependency.Resolve<INamespaceAliasRegistry, NamespaceAliasRegistry>(true);
+				}
+
+				return namespaceRegistry_UseProperty;
+			}
+		}
 
 		public Type Resolve(string qualifiedTypeName)
 		{
@@ -33,7 +55,7 @@ namespace Codon.UI.Data
 					throw new BindingException("Namespace aliased type name is invalid. " + qualifiedTypeName);
 				}
 
-				if (!namespaceRegistry.TryResolveType(aliasAndTypeNameArray[0], aliasAndTypeNameArray[1], out type))
+				if (!NamespaceRegistry.TryResolveType(aliasAndTypeNameArray[0], aliasAndTypeNameArray[1], out type))
 				{
 					throw new BindingException("Unable to resolve namespace alias in " + qualifiedTypeName);
 				}
@@ -56,7 +78,7 @@ namespace Codon.UI.Data
 					throw new BindingException("Namespace aliased type name is invalid. " + qualifiedTypeName);
 				}
 
-				if (!namespaceRegistry.TryResolveType(aliasAndTypeNameArray[0], aliasAndTypeNameArray[1], out type))
+				if (!NamespaceRegistry.TryResolveType(aliasAndTypeNameArray[0], aliasAndTypeNameArray[1], out type))
 				{
 					return false;
 				}

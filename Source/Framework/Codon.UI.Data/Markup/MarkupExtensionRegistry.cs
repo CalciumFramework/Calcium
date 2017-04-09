@@ -25,8 +25,20 @@ namespace Codon.UI.Data
 		readonly Dictionary<string, Func<object[], IMarkupExtension>> funcDictionary 
 			= new Dictionary<string, Func<object[], IMarkupExtension>>();
 
-		readonly IMarkupTypeResolver xamlTypeResolver
-			= Dependency.Resolve<IMarkupTypeResolver, MarkupTypeResolver>(true);
+		IMarkupTypeResolver xamlTypeResolver_UseProperty;
+
+		IMarkupTypeResolver XamlTypeResolver
+		{
+			get
+			{
+				if (xamlTypeResolver_UseProperty == null)
+				{
+					xamlTypeResolver_UseProperty = Dependency.Resolve<IMarkupTypeResolver>();
+				}
+
+				return xamlTypeResolver_UseProperty;
+			}
+		}
 
 		public MarkupExtensionRegistry()
 		{
@@ -34,6 +46,7 @@ namespace Codon.UI.Data
 			funcDictionary["Ioc"] = objects => objects.Length > 1 
 			? new IocContainerExtension(objects?[0]?.ToString(), objects?[1]?.ToString()) 
 			: new IocContainerExtension(objects?[0]?.ToString());
+			funcDictionary["StaticResource"] = objects => new StaticResourceExtension(objects?[0]?.ToString());
 		}
 
 		public void RegisterExtension<T>(string xmlName) where T : IMarkupExtension
@@ -62,7 +75,7 @@ namespace Codon.UI.Data
 				string conventionName = xmlName + "Extension";
 				if (!extensionDictionary.TryGetValue(conventionName, out extensionType))
 				{
-					xamlTypeResolver.TryResolve(conventionName, out extensionType);
+					XamlTypeResolver.TryResolve(conventionName, out extensionType);
 				}
 			}
 
@@ -70,7 +83,7 @@ namespace Codon.UI.Data
 			{
 				if (!extensionDictionary.TryGetValue(xmlName, out extensionType))
 				{
-					xamlTypeResolver.TryResolve(xmlName, out extensionType);
+					XamlTypeResolver.TryResolve(xmlName, out extensionType);
 					if (extensionType == null)
 					{
 						return false;

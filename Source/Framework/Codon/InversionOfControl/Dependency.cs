@@ -35,6 +35,8 @@ namespace Codon
 				{
 					container = new FrameworkContainer();
 					container.InitializeContainer();
+					container.Register<IContainer>(container);
+					Initialized = true;
 				}
 
 				return container;
