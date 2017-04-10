@@ -1,3 +1,4 @@
+#if DEBUG
 using Android.App;
 
 namespace Codon
@@ -7,3 +8,4 @@ namespace Codon
 	{
 	}
 }
+#endif

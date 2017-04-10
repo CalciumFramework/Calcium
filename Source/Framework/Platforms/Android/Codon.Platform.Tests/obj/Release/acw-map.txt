@@ -30,10 +30,6 @@ Codon.UI.Adapters.BindableListAdapter`1, Codon.Extras.Platform;md51dda59598cbbcf
 Codon.UI.Adapters.BindableListAdapter`1, Codon.Extras.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md51dda59598cbbcf8877cb05deeb20c035.BindableListAdapter_1
 Codon.UI.Adapters.BindableListAdapter`1;md51dda59598cbbcf8877cb05deeb20c035.BindableListAdapter_1
 codon.ui.adapters.BindableListAdapter_1;md51dda59598cbbcf8877cb05deeb20c035.BindableListAdapter_1
-Codon.WorkAroundForBug43553, Codon.Platform;md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553
-Codon.WorkAroundForBug43553, Codon.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553
-Codon.WorkAroundForBug43553;md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553
-codon.WorkAroundForBug43553;md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553
 Xamarin.Android.NUnitLite.TestSuiteActivity, Xamarin.Android.NUnitLite;md5e0d9a58f8ef4c80c20dd923cca887f60.TestSuiteActivity
 Xamarin.Android.NUnitLite.TestSuiteActivity, Xamarin.Android.NUnitLite, Version=1.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065;md5e0d9a58f8ef4c80c20dd923cca887f60.TestSuiteActivity
 Xamarin.Android.NUnitLite.TestSuiteActivity;md5e0d9a58f8ef4c80c20dd923cca887f60.TestSuiteActivity

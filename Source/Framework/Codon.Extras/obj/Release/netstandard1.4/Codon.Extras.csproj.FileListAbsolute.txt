@@ -11,3 +11,5 @@ C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Release\netstandard1.
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Release\netstandard1.4\Codon.Extras.pdb
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Release\netstandard1.4\Codon.Extras.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Release\netstandard1.4\Codon.Extras.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\obj\Release\netstandard1.4\Codon.Extras.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.Extras\bin\Release\netstandard1.4\Codon.Extras.dll.mdb

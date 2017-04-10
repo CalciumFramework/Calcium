@@ -9,7 +9,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name="md59ef2cc203d925899713b0b62e395be90.WorkAroundForBug43553" />
     <activity android:label="NUnitLite runner" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.TestSuiteActivity" />
     <activity android:label="Test Result" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.TestResultActivity" />
     <activity android:configChanges="keyboardHidden|orientation" android:label="Options" android:windowSoftInputMode="stateUnspecified|adjustPan" android:name="md5e0d9a58f8ef4c80c20dd923cca887f60.OptionsActivity" />
