@@ -35,7 +35,7 @@ namespace Codon.GeoLocation
 		public GeopositionWrapper(Geocoordinate geoCoordinate)
 		{
 			GeoCoordinate = geoCoordinate;
-			Timestamp = DateTime.Now;
+			Timestamp = DateTime.UtcNow;
 		}
 	}
 }

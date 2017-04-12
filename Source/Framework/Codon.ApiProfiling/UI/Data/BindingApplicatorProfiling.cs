@@ -40,7 +40,7 @@ namespace Codon.UI.Data
 
 		ProfileMetric Profile1()
 		{
-			DateTime startTime = DateTime.Now;
+			DateTime startTime = DateTime.UtcNow;
 
 			for (int i = 0; i < iterations; i++)
 			{
@@ -60,7 +60,7 @@ namespace Codon.UI.Data
 				applicator.ApplyBinding(bindingExpression, target, source);
 			}
 
-			DateTime endTime = DateTime.Now;
+			DateTime endTime = DateTime.UtcNow;
 			var duration = endTime - startTime;
 
 			var metric = new ProfileMetric();
@@ -72,7 +72,7 @@ namespace Codon.UI.Data
 
 		ProfileMetric Profile2()
 		{
-			DateTime startTime = DateTime.Now;
+			DateTime startTime = DateTime.UtcNow;
 
 			var path = nameof(ViewModelTestClass.NestedClass1) 
 				+ "." + "Bool2";
@@ -93,7 +93,7 @@ namespace Codon.UI.Data
 				applicator.ApplyBinding(bindingExpression, target, source);
 			}
 
-			DateTime endTime = DateTime.Now;
+			DateTime endTime = DateTime.UtcNow;
 			var duration = endTime - startTime;
 
 			var metric = new ProfileMetric();
@@ -107,7 +107,7 @@ namespace Codon.UI.Data
 		{
 			var converter = new DummyBooleanToVisibilityConverter();
 
-			DateTime startTime = DateTime.Now;
+			DateTime startTime = DateTime.UtcNow;
 
 			for (int i = 0; i < iterations; i++)
 			{
@@ -126,7 +126,7 @@ namespace Codon.UI.Data
 				applicator.ApplyBinding(bindingExpression, target, source, converter);
 			}
 
-			DateTime endTime = DateTime.Now;
+			DateTime endTime = DateTime.UtcNow;
 			var duration = endTime - startTime;
 
 			var metric = new ProfileMetric();

@@ -157,6 +157,9 @@ namespace Codon.ResourcesModel
 				case "time":
 					result = GetShortDateString(DateTime.Now);
 					break;
+				case "timeUtc":
+					result = GetShortDateString(DateTime.UtcNow);
+					break;
 				case TestTag:
 					result = TestTagResult;
 					break;

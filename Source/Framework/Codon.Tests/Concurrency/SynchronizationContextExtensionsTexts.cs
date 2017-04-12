@@ -13,7 +13,7 @@ namespace Codon.Concurrency
 			var context = new SynchronizationContextForTests();
 
 			bool executed = false;
-			DateTime startTime = DateTime.Now;
+			DateTime startTime = DateTime.UtcNow;
 			const int delayMs = 1000;
 			
 			await context.PostWithDelayAsync(() =>
@@ -22,7 +22,7 @@ namespace Codon.Concurrency
 			}, delayMs);
 
 			Assert.IsTrue(executed, "Action was not executed.");
-			var timeDifference = DateTime.Now - startTime;
+			var timeDifference = DateTime.UtcNow - startTime;
 
 			Assert.IsTrue(
 				timeDifference.TotalMilliseconds >= delayMs,

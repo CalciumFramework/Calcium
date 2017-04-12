@@ -5,3 +5,4 @@ C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\bin\Release\netstandar
 C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Release\netstandard1.4\Codon.UndoModel.AssemblyInfo.cs
 C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Release\netstandard1.4\Codon.UndoModel.dll
 C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Release\netstandard1.4\Codon.UndoModel.pdb
+C:\Repos\Codon\Framework\Source\Framework\Codon.UndoModel\obj\Release\netstandard1.4\Codon.UndoModel.csprojResolveAssemblyReference.cache
