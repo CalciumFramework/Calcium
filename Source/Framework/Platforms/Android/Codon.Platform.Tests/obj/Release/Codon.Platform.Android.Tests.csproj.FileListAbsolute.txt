@@ -26,11 +26,11 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\res\values\strings.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\R.cs.flag
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\uploadflags.txt
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Platform.Tests.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.UI.Data.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Codon.Extras.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Java.Interop.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\Mono.Android.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\bin\Release\mscorlib.dll.mdb

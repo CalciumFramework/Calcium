@@ -51,6 +51,11 @@ namespace Codon.UI.Adapters
 			inflater = LayoutInflater.From(context);
 		}
 
+		public BindableListAdapter(System.IntPtr handle, Android.Runtime.JniHandleOwnership transfer)
+			: base(handle, transfer)
+		{
+		}
+
 		int IBindableListAdapter.GetItemPosition(object item)
 		{
 			int result = list?.IndexOf((TItem)item) ?? -1;

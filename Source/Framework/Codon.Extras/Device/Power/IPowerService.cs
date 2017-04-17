@@ -45,5 +45,15 @@ namespace Codon.Services
 		/// The type of connection; battery or mains.
 		/// </summary>
 		DevicePowerSource PowerSource { get; }
+
+		/// <summary>
+		/// Begins monitoring for power changes.
+		/// </summary>
+		void Start();
+
+		/// <summary>
+		/// Stops monitoring power changes.
+		/// </summary>
+		void Stop();
 	}
 }

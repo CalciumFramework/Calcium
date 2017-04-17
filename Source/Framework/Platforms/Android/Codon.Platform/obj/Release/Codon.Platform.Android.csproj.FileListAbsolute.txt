@@ -13,6 +13,9 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\R
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\res\values\strings.xml
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\R.cs.flag
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\uploadflags.txt
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\obj\Release\Codon.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform\bin\Release\Codon.Platform.dll.mdb

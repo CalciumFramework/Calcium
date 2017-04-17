@@ -500,6 +500,16 @@
             The type of connection; battery or mains.
             </summary>
         </member>
+        <member name="M:Codon.Services.IPowerService.Start">
+            <summary>
+            Begins monitoring for power changes.
+            </summary>
+        </member>
+        <member name="M:Codon.Services.IPowerService.Stop">
+            <summary>
+            Stops monitoring power changes.
+            </summary>
+        </member>
         <member name="T:Codon.Services.IVibrateController">
             <summary>
             This interface allows the abstraction of the platform

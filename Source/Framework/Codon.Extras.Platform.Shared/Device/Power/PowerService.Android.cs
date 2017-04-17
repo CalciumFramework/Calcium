@@ -31,21 +31,47 @@ namespace Codon.Devices
 	public class PowerService : ObservableBase, IPowerService
 	{
 		Intent batteryStatusIntent;
+		PowerConnectionReceiver receiver;
+		bool listening;
+		readonly object listeningLock = new object();
 
-		public PowerService()
+		public void Start()
 		{
-			StartMonitoring();
+			if (!listening)
+			{
+				lock (listeningLock)
+				{
+					if (!listening)
+					{
+						var intentFilter = new IntentFilter(/*Intent.ActionBatteryChanged*/);
+						intentFilter.AddAction(Intent.ActionBatteryLow);
+						intentFilter.AddAction(Intent.ActionBatteryOkay);
+
+						var context = Application.Context;
+						receiver = new PowerConnectionReceiver(this);
+						batteryStatusIntent = context.RegisterReceiver(receiver, intentFilter);
+
+						listening = true;
+					}
+				}
+			}
 		}
 
-		void StartMonitoring()
+		public void Stop()
 		{
-			var intentFilter = new IntentFilter(/*Intent.ActionBatteryChanged*/);
-			intentFilter.AddAction(Intent.ActionBatteryLow);
-			intentFilter.AddAction(Intent.ActionBatteryOkay);
+			if (listening)
+			{
+				lock (listeningLock)
+				{
+					if (listening)
+					{
+						var context = Application.Context;
+						context.UnregisterReceiver(receiver);
 
-			var context = Application.Context;
-			PowerConnectionReceiver receiver = new PowerConnectionReceiver(this);
-			batteryStatusIntent = context.RegisterReceiver(receiver, intentFilter);
+						listening = false;
+					}
+				}
+			}
 		}
 
 		DevicePowerSource powerSource;

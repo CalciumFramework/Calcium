@@ -15,6 +15,5 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\ob
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.Ios.csprojResolveAssemblyReference.cache
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.pdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\obj\Release\Codon.Extras.Platform.dll.mdb
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Ios\Codon.Extras.Platform\bin\Release\Codon.Extras.Platform.dll.mdb
