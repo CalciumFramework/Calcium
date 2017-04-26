@@ -28,6 +28,14 @@ namespace Codon.Navigation
 	/// </summary>
 	public class NavigationService : INavigationService
 	{
+		WeakReference navigationArgument;
+
+		public object NavigationArgument
+		{
+			get => navigationArgument?.Target;
+			private set => navigationArgument = new WeakReference(value);
+		}
+
 		int attemptsToRetrieveService;
 
 		bool CanGoBackUsingWindow()
@@ -50,6 +58,8 @@ namespace Codon.Navigation
 
 		void GoBackUsingWindow()
 		{
+			NavigationArgument = null;
+
 			PerformActionOnMainWindowWhenReady(navigationService =>
 			{
 				navigationService.GoBack();
@@ -105,11 +115,20 @@ namespace Codon.Navigation
 			action(navigationService);
 		}
 
-		public void NavigateUsingMainWindow(Uri uri)
+		public void NavigateUsingMainWindow(Uri uri, object navigationParameter = null)
 		{
+			NavigationArgument = navigationParameter;
+
 			PerformActionOnMainWindowWhenReady(navigationService =>
 			{
-				navigationService.Navigate(uri);
+				if (navigationParameter != null)
+				{
+					navigationService.Navigate(uri, navigationParameter);
+				}
+				else
+				{
+					navigationService.Navigate(uri);
+				}
 			});
 		}
 
@@ -120,17 +139,21 @@ namespace Codon.Navigation
 
 		public bool CanGoBack => CanGoBackUsingWindow();
 
-		public void Navigate(string relativeUrl)
+		public void Navigate(string relativeUrl, object navigationArgument = null)
 		{
+			NavigationArgument = navigationArgument;
+
 			var routingService = (RoutingService)Dependency.Resolve<IRoutingService>();
-			routingService.Navigate(relativeUrl);
+			routingService.Navigate(relativeUrl, navigationArgument);
 		}
 
-		public void Navigate(object page)
+		public void Navigate(object page, object navigationArgument = null)
 		{
+			NavigationArgument = navigationArgument;
+
 			PerformActionOnMainWindowWhenReady(n =>
 			{
-				n.Navigate(page);
+				n.Navigate(page, navigationArgument);
 			});
 		}
 	}

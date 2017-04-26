@@ -34,13 +34,22 @@ namespace Codon.Services
 		/// to navigate to the previous page.
 		/// </summary>
 		bool CanGoBack { get; }
-	
+
 		/// <summary>
 		/// Navigates to the specified relative URL.
 		/// The URL should be relative to the root of the application 
 		/// and begin with a slash e.g., "/Views/Settings.xaml".
 		/// </summary>
 		/// <param name="relativeUrl">The relative URL.</param>
-		void Navigate(string relativeUrl);
+		/// <param name="navigationArgument">
+		/// An argument to be passed to the page being navigated to.</param>
+		void Navigate(string relativeUrl, object navigationArgument = null);
+
+		/// <summary>
+		/// An object that was passed to the <see cref="Navigate"/> method.
+		/// The property value is replaced or set <c>null</c>
+		/// upon each navigation.
+		/// </summary>
+		object NavigationArgument { get; }
 	}
 }

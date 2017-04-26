@@ -14,6 +14,7 @@
 */
 #endregion
 
+using System;
 using Codon.Services;
 using UIKit;
 
@@ -24,7 +25,15 @@ namespace Codon.Navigation
 	/// </summary>
     public class NavigationService : INavigationService
     {
-	    public void GoBack()
+	    WeakReference navigationArgument;
+
+	    public object NavigationArgument
+	    {
+		    get => navigationArgument?.Target;
+		    private set => navigationArgument = new WeakReference(value);
+	    }
+
+		public void GoBack()
 	    {
 		    NavigateBack();
 	    }
@@ -46,14 +55,18 @@ namespace Codon.Navigation
 		    }
 	    }
 
-	    public void Navigate(string relativeUrl)
+	    public void Navigate(string relativeUrl, object navigationArgument = null)
 	    {
+		    NavigationArgument = navigationArgument;
+
 			var routingService = (RoutingService)Dependency.Resolve<IRoutingService>();
-			routingService.Navigate(relativeUrl);
+			routingService.Navigate(relativeUrl, navigationArgument);
 		}
 
-		void NavigateBack()
-		{
+	    void NavigateBack()
+	    {
+		    NavigationArgument = null;
+
 			if (Dependency.TryResolve(out UINavigationController controller))
 			{
 				controller.PopViewController(true);

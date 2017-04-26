@@ -24,12 +24,12 @@ namespace Codon.Navigation
 	/// </summary>
 	public class RoutingService : IRoutingService
 	{
-		readonly Dictionary<string, Action> pathDictionary 
-			= new Dictionary<string, Action>();
+		readonly Dictionary<string, Action<object>> pathDictionary 
+			= new Dictionary<string, Action<object>>();
 
 		readonly ReaderWriterLockSlim dictionaryLock = new ReaderWriterLockSlim();
 
-		public void RegisterPath(string url, Action navigationAction)
+		public void RegisterPath(string url, Action<object> navigationAction)
 		{
 			AssertArg.IsNotNullOrWhiteSpace(url, nameof(url));
 			AssertArg.IsNotNull(navigationAction, nameof(navigationAction));
@@ -45,12 +45,14 @@ namespace Codon.Navigation
 			}
 		}
 
-		public virtual void Navigate(string relativeUrl)
+		public virtual void Navigate(
+			string relativeUrl, 
+			object navigationArgument = null)
 		{
 			AssertArg.IsNotNullOrWhiteSpace(relativeUrl, nameof(relativeUrl));
 
 			bool hasAction;
-			Action action;
+			Action<object> action;
 
 			dictionaryLock.EnterReadLock();
 			try
@@ -64,7 +66,7 @@ namespace Codon.Navigation
 
 			if (hasAction)
 			{
-				action();
+				action(navigationArgument);
 			}
 			else
 			{

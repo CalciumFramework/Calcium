@@ -37,7 +37,9 @@ namespace Codon.Navigation
 		/// </summary>
 		/// <param name="url">The URL of the action.</param>
 		/// <param name="navigationAction">
-		/// The action to associate with the URL.</param>
-		void RegisterPath(string url, Action navigationAction);
+		/// The action to associate with the URL.
+		/// The navigation action is passed an optional 
+		/// object parameter by the caller.</param>
+		void RegisterPath(string url, Action<object> navigationAction);
 	}
 }

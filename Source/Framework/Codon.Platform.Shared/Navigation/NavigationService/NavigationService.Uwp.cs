@@ -26,6 +26,14 @@ namespace Codon.Navigation
 	/// </summary>
 	public class NavigationService : INavigationService
 	{
+		WeakReference navigationArgument;
+
+		public object NavigationArgument
+		{
+			get => navigationArgument?.Target;
+			private set => navigationArgument = new WeakReference(value);
+		}
+
 		Frame frameUseProperty;
 
 		Frame Frame
@@ -49,20 +57,26 @@ namespace Codon.Navigation
 
 		public void NavigateUsingFrame(Type type, object parameter)
 		{
+			NavigationArgument = parameter;
+
 			Frame.Navigate(type, parameter);
 		}
 
 		public void GoBack()
 		{
+			NavigationArgument = null;
+
 			Frame.GoBack();
 		}
 
 		public bool CanGoBack => Frame.CanGoBack;
 
-		public void Navigate(string relativeUrl)
+		public void Navigate(string relativeUrl, object navigationArgument = null)
 		{
+			NavigationArgument = navigationArgument;
+
 			var routingService = (RoutingService)Dependency.Resolve<IRoutingService>();
-			routingService.Navigate(relativeUrl);
+			routingService.Navigate(relativeUrl, navigationArgument);
 		}
 	}
 }

@@ -1655,13 +1655,22 @@
             to navigate to the previous page.
             </summary>
         </member>
-        <member name="M:Codon.Services.INavigationService.Navigate(System.String)">
+        <member name="M:Codon.Services.INavigationService.Navigate(System.String,System.Object)">
             <summary>
             Navigates to the specified relative URL.
             The URL should be relative to the root of the application 
             and begin with a slash e.g., "/Views/Settings.xaml".
             </summary>
             <param name="relativeUrl">The relative URL.</param>
+            <param name="navigationArgument">
+            An argument to be passed to the page being navigated to.</param>
+        </member>
+        <member name="P:Codon.Services.INavigationService.NavigationArgument">
+            <summary>
+            An object that was passed to the <see cref="M:Codon.Services.INavigationService.Navigate(System.String,System.Object)"/> method.
+            The property value is replaced or set <c>null</c>
+            upon each navigation.
+            </summary>
         </member>
         <member name="T:Codon.Services.IStringParserService">
             <summary>
@@ -3644,7 +3653,7 @@
             and invokes the action.
             </summary>
         </member>
-        <member name="M:Codon.Navigation.IRoutingService.RegisterPath(System.String,System.Action)">
+        <member name="M:Codon.Navigation.IRoutingService.RegisterPath(System.String,System.Action{System.Object})">
             <summary>
             Associates a URL with a navigation action.
             When the <see cref="T:Codon.Services.INavigationService"/>
@@ -3654,7 +3663,9 @@
             </summary>
             <param name="url">The URL of the action.</param>
             <param name="navigationAction">
-            The action to associate with the URL.</param>
+            The action to associate with the URL.
+            The navigation action is passed an optional 
+            object parameter by the caller.</param>
         </member>
         <member name="T:Codon.Navigation.RoutingService">
             <summary>

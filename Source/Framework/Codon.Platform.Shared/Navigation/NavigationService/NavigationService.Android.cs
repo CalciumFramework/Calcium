@@ -14,6 +14,7 @@
 */
 #endregion
 
+using System;
 using Android.App;
 using Codon.Services;
 
@@ -24,8 +25,18 @@ namespace Codon.Navigation
 	/// </summary>
 	public class NavigationService : INavigationService
 	{
+		WeakReference navigationArgument;
+
+		public object NavigationArgument
+		{
+			get => navigationArgument?.Target;
+			private set => navigationArgument = new WeakReference(value);
+		}
+
 		void NavigateBack()
 		{
+			NavigationArgument = null;
+
 			if (Dependency.TryResolve(out Activity activity))
 			{
 				activity?.OnBackPressed();
@@ -39,10 +50,12 @@ namespace Codon.Navigation
 
 		public bool CanGoBack => true;
 
-		public void Navigate(string relativeUrl)
+		public void Navigate(string relativeUrl, object navigationArgument = null)
 		{
+			NavigationArgument = navigationArgument;
+
 			var routingService = (RoutingService)Dependency.Resolve<IRoutingService>();
-			routingService.Navigate(relativeUrl);
+			routingService.Navigate(relativeUrl, navigationArgument);
 		}
 	}
 }
