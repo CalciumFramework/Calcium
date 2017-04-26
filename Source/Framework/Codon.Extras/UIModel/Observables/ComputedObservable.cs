@@ -36,9 +36,9 @@ namespace Codon.UIModel
 	/// class MainWindowViewModel
 	///{
 	///    public MainWindowViewModel()
-    ///	   {
-    ///			fullName = new ComputedValue&lt;string&gt;(() => FirstName.Value + " " + ToUpper(LastName.Value));
-    ///	   }
+	///	   {
+	///			fullName = new ComputedObservable&lt;string&gt;(() => FirstName.Value + " " + ToUpper(LastName.Value));
+	///	   }
 	/// ...
 	/// }
 	/// Bind to the value in XAML using:
