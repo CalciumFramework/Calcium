@@ -101,9 +101,15 @@ namespace Codon.SettingsModel
 			}
 			catch (ObjectDisposedException ex)
 			{
-				Console.WriteLine(ex);
+				try
+				{
+					Console.WriteLine("Exception thrown in IsolatedStorageSettingsWpf during Save." + ex);
+				}
+				catch (Exception)
+				{
+					/* WPF in .NET Standard may raise exception here. */
+				}
 			}
-			
 		}
 
 		public static IsolatedStorageSettingsWpf ApplicationSettings

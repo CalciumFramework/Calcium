@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
-
+using Codon.Logging;
 using Codon.Reflection;
 
 namespace Codon.UIModel
@@ -198,8 +198,8 @@ namespace Codon.UIModel
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine("ComputedValue failed to resolve INotifyPropertyChanged value for property {0} {1}",
-									  expression.Member, ex);
+					var log = Dependency.Resolve<ILog>();
+					log.Info($"ComputedValue failed to resolve INotifyPropertyChanged value for property {expression.Member} {ex}");
 				}
 			}
 		}

@@ -1,4 +1,6 @@
-﻿#region File and License Information
+﻿#define DEBUG
+
+#region File and License Information
 /*
 <File>
 	<License>
@@ -28,6 +30,8 @@ namespace Codon.Logging.Loggers
 	/// </summary>
 	public class DebugLog : LogBase
 	{
+		bool consoleDefined = true;
+
 		public override Task WriteAsync(
 			LogLevel logLevel,
 			string message,
@@ -49,7 +53,21 @@ namespace Codon.Logging.Loggers
 									exceptionMessage);
 
 #if NETSTANDARD || NETFX_CORE
-			System.Diagnostics.Debug.WriteLine("{0:G} {1}", logLevel, logMessage);
+			if (consoleDefined)
+			{
+				try
+				{
+					Console.WriteLine("{0:G} {1}", logLevel, logMessage);
+				}
+				catch (Exception)
+				{
+					consoleDefined = false;
+				}
+			}
+			else
+			{
+				System.Diagnostics.Debug.WriteLine("{0:G} {1}", logLevel, logMessage);
+			}
 #else
 			Debugger.Log((int)logLevel, logLevel.ToString("G"), logMessage);
 #endif

@@ -271,5 +271,14 @@ namespace Codon.Logging
 		/// would succeed; <c>false</c> otherwise.
 		/// </summary>
 		bool FatalEnabled { get; }
+
+		/// <summary>
+		/// Gets or sets the minimum log level that is required
+		/// for a message to be dispatched. A higher log level, 
+		/// prevents log entries that have a lower log level.
+		/// For example, if <c>MinimumLogLevel</c> is set to <c>LogLevel.Error</c> 
+		/// then calls to <c>ILog.Debug(message)</c> will have no effect.
+		/// </summary>
+		LogLevel MinimumLogLevel { get; set; }
 	}
 }

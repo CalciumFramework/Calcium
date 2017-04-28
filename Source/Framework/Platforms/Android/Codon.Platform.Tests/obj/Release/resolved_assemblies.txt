@@ -29,8 +29,8 @@ C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.IO.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Linq.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Runtime.Extensions.dll
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Reflection.Extensions.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Console.dll
+C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Reflection.Extensions.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Text.Encoding.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\Codon.UI.Data.dll
 C:\Repos\Codon\Framework\Source\Framework\Platforms\Android\Codon.Platform.Tests\obj\Release\android\assets\System.Runtime.InteropServices.dll

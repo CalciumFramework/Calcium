@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -105,14 +106,28 @@ namespace Codon.UndoModel
 					}
 					catch (Exception ex)
 					{
-						Console.WriteLine(ex);
 						/* Ignore for now. TODO: implement internal log. */
+						try
+						{
+							Console.WriteLine("Exception thrown undoing units " + ex);
+						}
+						catch (Exception)
+						{
+							/* WPF in .NET Standard may raise exception here. */
+						}
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex);
+				try
+				{
+					Console.WriteLine("Exception thrown undoing units " + ex);
+				}
+				catch (Exception)
+				{	
+					/* WPF in .NET Standard may raise exception here. */
+				}
 			}
 		}
 

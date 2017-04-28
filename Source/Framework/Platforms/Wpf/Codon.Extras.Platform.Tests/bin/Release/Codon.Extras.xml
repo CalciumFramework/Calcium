@@ -1378,7 +1378,7 @@
             {
                 public MainWindowViewModel()
             	   {
-            			fullName = new ComputedValue&lt;string&gt;(() => FirstName.Value + " " + ToUpper(LastName.Value));
+            			fullName = new ComputedObservable&lt;string&gt;(() => FirstName.Value + " " + ToUpper(LastName.Value));
             	   }
              ...
              }
