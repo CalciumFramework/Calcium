@@ -1,7 +1,0 @@
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\bin\Debug\Codon.Platform.dll
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\bin\Debug\Codon.Platform.pdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\bin\Debug\Codon.dll
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\bin\Debug\Codon.pdb
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\obj\Debug\Codon.Platform.Wpf.csprojResolveAssemblyReference.cache
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\obj\Debug\Codon.Platform.dll
-C:\Repos\Codon\Framework\Source\Framework\Platforms\Wpf\Codon.Platform\obj\Debug\Codon.Platform.pdb

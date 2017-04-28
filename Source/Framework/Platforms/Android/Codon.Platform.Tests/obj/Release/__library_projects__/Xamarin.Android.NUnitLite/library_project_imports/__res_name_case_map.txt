@@ -1,4 +1,0 @@
-layout/options.axml;layout/options.xml
-layout/results.axml;layout/results.xml
-layout/test_result.axml;layout/test_result.xml
-layout/test_suite.axml;layout/test_suite.xml
