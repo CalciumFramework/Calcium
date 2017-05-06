@@ -397,35 +397,47 @@ namespace Codon.UI.Data
 			//	}
 			//}
 
+			var idList = new List<string>();
+
 			for (var i = 0; i < xmlElements.Count; i++)
 			{
 				var xmlElement = xmlElements.ElementAt(i);
 
+				/* An id attribute is required. */
+				var idAttribute = xmlElement.Attribute(androidIdXName);
+				string idValue = idAttribute?.Value;
+
 				if (!xmlElement.Attributes(bindingXmlNamespace).Any())
 				{
-					continue;
+					goto AddIdToList;
 				}
 
 				var attribute = xmlElement.Attribute(bindingXmlNamespace);
 
 				if (attribute == null)
 				{
-					continue;
+					goto AddIdToList;
 				}
 
 				string bindingString = attribute.Value;
 
 				if (string.IsNullOrWhiteSpace(bindingString))
 				{
-					continue;
+					goto AddIdToList;
 				}
 
-//				if (!bindingString.StartsWith("{") || !bindingString.EndsWith("}"))
-//				{
-//					throw new InvalidOperationException(
-//						"The following XML binding operation is not well formatted, it should start "
-//						+ $"with '{{' and end with '}}:'{Environment.NewLine}{bindingString}");
-//				}
+				if (!string.IsNullOrEmpty(idValue) && idList.Contains(idValue))
+				{
+					Log.Warn("Binding Error: Duplicate android:id '" 
+						+ idValue + "'. Elements with bindings must use unique IDs within the layout.");
+				}
+
+				//				if (!bindingString.StartsWith("{") || !bindingString.EndsWith("}"))
+				//				{
+				//					throw new InvalidOperationException(
+				//						"The following XML binding operation is not well formatted, it should start "
+				//						+ $"with '{{' and end with '}}:'{Environment.NewLine}{bindingString}");
+				//				}
 
 				string[] bindingStrings = bindingString.Split(';');
 
@@ -510,12 +522,9 @@ namespace Codon.UI.Data
 						}
 					}
 
-					/* An id attribute is required. */
-					var idAttribute = xmlElement.Attribute(androidIdXName);
 					bool idValid = false;
 					View view = null;
-
-					string idValue = idAttribute?.Value;
+					
 					if (!string.IsNullOrWhiteSpace(idValue))
 					{
 						string intPart = idValue.Substring(1);
@@ -558,6 +567,9 @@ namespace Codon.UI.Data
 						ViewValueChangedEvent = viewValueChangedEvent,
 					});
 				}
+
+				AddIdToList:
+				idList.Add(idValue);
 			}
 
 			return result;
