@@ -20,7 +20,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Codon.InversionOfControl;
 using Codon.MissingTypes.System.Windows.Data;
-using Codon.Reflection;
 
 namespace Codon.UI.Data
 {
@@ -48,7 +47,7 @@ namespace Codon.UI.Data
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static ViewBinderRegistry ViewBinderRegistry { get; } = new ViewBinderRegistry();
 
-		MarkupExtensionUtil markupExtensionUtil = new MarkupExtensionUtil();
+		readonly MarkupExtensionUtil markupExtensionUtil = new MarkupExtensionUtil();
 
 		public void ApplyBinding(
 			BindingExpression bindingExpression,

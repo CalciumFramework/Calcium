@@ -131,57 +131,53 @@ namespace Codon.UI.Data
 						{
 							object context = currentContext;
 
-							PropertyChangedEventHandler handler
-								= delegate (object sender, PropertyChangedEventArgs args)
+							void HandlePropertyChanged(object sender, PropertyChangedEventArgs args)
+							{
+								string propertyName = args.PropertyName;
+								if (propertyName != sourceSegment && !string.IsNullOrEmpty(propertyName))
 								{
-									string propertyName = args.PropertyName;
-									if (propertyName != sourceSegment && !string.IsNullOrEmpty(propertyName))
+									return;
+								}
+
+								PropertyBinding binding = propertyBinding[0];
+
+								if (binding != null && sourceProperty != null)
+								{
+									if (binding.PreventUpdateForTargetProperty)
 									{
 										return;
 									}
 
-									PropertyBinding binding = propertyBinding[0];
-
-									if (binding != null && sourceProperty != null)
+									try
 									{
-										if (binding.PreventUpdateForTargetProperty)
-										{
-											return;
-										}
+										binding.PreventUpdateForSourceProperty = true;
 
-										try
+										if (binding.TargetMethod == null)
 										{
-											binding.PreventUpdateForSourceProperty = true;
-
-											if (binding.TargetMethod == null)
-											{
-												SetTargetProperty(sourceProperty, context,
-													binding.View, binding.TargetProperty,
-													binding.Converter, binding.ConverterParameter);
-											}
-											else
-											{
-												CallTargetMethod(binding.TargetMethod,
-													sourceProperty, context, binding.View, binding.Converter, binding.ConverterParameter);
-											}
+											SetTargetProperty(sourceProperty, context, binding.View, binding.TargetProperty, binding.Converter, binding.ConverterParameter);
 										}
-										finally
+										else
 										{
-											binding.PreventUpdateForSourceProperty = false;
+											CallTargetMethod(binding.TargetMethod, sourceProperty, context, binding.View, binding.Converter, binding.ConverterParameter);
 										}
 									}
-								};
+									finally
+									{
+										binding.PreventUpdateForSourceProperty = false;
+									}
+								}
+							}
 
-							inpc.PropertyChanged += handler;
+							inpc.PropertyChanged += HandlePropertyChanged;
 
-							Action removeHandler = () =>
+							void RemoveHandler()
 							{
-								inpc.PropertyChanged -= handler;
+								inpc.PropertyChanged -= HandlePropertyChanged;
 								propertyBinding[0] = null;
-							};
+							}
 
-							localRemoveActions.Add(removeHandler);
-							globalRemoveActions.Add(removeHandler);
+							localRemoveActions.Add(RemoveHandler);
+							globalRemoveActions.Add(RemoveHandler);
 						}
 					}
 
@@ -219,13 +215,13 @@ namespace Codon.UI.Data
 							/* Subscribe to the specified event to execute 
 							 * the command when the event is raised. */
 							var invoker = ReflectionCache.GetVoidMethodInvoker(commandExecuteMethodInfo);
-							
-							Action action = () =>
+
+							void InvokeAction()
 							{
 								invoker(command, new object[] {null});
-							};
+							}
 
-							Action removeAction = DelegateUtility.AddHandler(bindingExpression.View, bindingExpression.Target, action);
+							Action removeAction = DelegateUtility.AddHandler(bindingExpression.View, bindingExpression.Target, (Action)InvokeAction);
 							localRemoveActions.Add(removeAction);
 							globalRemoveActions.Add(removeAction);
 
