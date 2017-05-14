@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 using System.Collections.Specialized;
-
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -48,6 +48,8 @@ namespace Codon.UI.Adapters
 			}
 
 			Context context = ApplicationContextHolder.Context;
+			//var context = Dependency.Resolve<Activity>();
+					
 			inflater = LayoutInflater.From(context);
 		}
 

@@ -37,7 +37,7 @@ namespace Codon.UserOptionsModel
 
 	public class UserOptionReaderWriter<TSetting> : ObservableBase, IUserOptionReaderWriter, ICompositeObjectWriter
 	{
-		public IUserOption UserOption { get; private set; }
+		public IUserOption UserOption { get; set; }
 		//public string SettingsKey { get; private set; }
 
 		public UserOptionReaderWriter(IUserOption userOption)//, string settingsKey)
@@ -87,7 +87,7 @@ namespace Codon.UserOptionsModel
 
 				settingInitialized = true;
 
-				OnPropertyChanged("Setting");
+				OnPropertyChanged(nameof(Setting));
 			}
 
 			return setting;

@@ -114,7 +114,13 @@ namespace Codon.UserOptionsModel.UserOptions
 
 		public Func<Task> RefreshAction { get; set; }
 
-		public IUserOption UserOption => this;
+		public IUserOption UserOption
+		{
+			get => this;
+			set
+			{
+			}
+		}
 
 		bool dirty;
 

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Codon.UserOptionsModel.UserOptions
 {
@@ -12,6 +13,16 @@ namespace Codon.UserOptionsModel.UserOptions
 			string settingKey, 
 			Func<bool> defaultValueFunc)
 				: base(titleFunc, settingKey, defaultValueFunc)
+		{
+			TemplateNameFunc = () => "Boolean";
+		}
+
+		public BooleanUserOption(
+			Func<string> titleFunc,
+			Func<Task<bool>> getSettingFunc,
+			Func<bool, Task<SaveOptionResult>> saveSettingFunc,
+			Func<bool> defaultValueFunc)
+			: base(titleFunc, defaultValueFunc, saveSettingFunc, getSettingFunc)
 		{
 			TemplateNameFunc = () => "Boolean";
 		}

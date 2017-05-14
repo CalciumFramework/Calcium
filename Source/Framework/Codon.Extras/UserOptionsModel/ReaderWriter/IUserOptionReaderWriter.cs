@@ -21,6 +21,7 @@ namespace Codon.UserOptionsModel
 		IUserOption UserOption
 		{
 			get;
+			set;
 		}
 		
 		bool Dirty

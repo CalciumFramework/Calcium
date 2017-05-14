@@ -113,7 +113,13 @@ namespace Codon.UserOptionsModel
 
 		#region IUserOptionReaderWriter implementation
 
-		public IUserOption UserOption => this;
+		public IUserOption UserOption
+		{
+			get => this;
+			set
+			{
+			}
+		}
 
 		public bool Dirty
 		{
