@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Android.App;
@@ -91,12 +92,23 @@ namespace Codon.UI.Adapters
 
 		public override View GetView(int position, View convertView, ViewGroup parent)
 		{
-			View view = convertView ?? inflater.Inflate(layoutId, parent, false);
+			//View view = convertView ?? inflater.Inflate(layoutId, parent, false);
+			View view;
+			try
+			{
+				view = convertView ?? inflater.Inflate(layoutId, parent, false);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				throw;
+			}
 
 			TItem item = this[position];
 
 			XmlBindingApplicator applicator;
-			if (!bindingsDictionary.TryGetValue(view, out applicator))
+			if (convertView == null 
+				|| !bindingsDictionary.TryGetValue(view, out applicator))
 			{
 				applicator = new XmlBindingApplicator();
 			}

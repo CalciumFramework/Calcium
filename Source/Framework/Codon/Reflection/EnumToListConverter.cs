@@ -13,6 +13,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -55,6 +56,30 @@ namespace Codon.Reflection
 		public static IEnumerable<TEnum> CreateEnumValueList<TEnum>(this Enum enumValue)
 		{
 			return CreateEnumValueList<TEnum>();
+		}
+
+		public static IList<object> CreateEnumValueList(Type enumType)
+		{
+			List<object> result = new List<object>();
+
+#if NETSTANDARD || NETFX_CORE
+			foreach (FieldInfo fieldInfo in enumType.GetTypeInfo().DeclaredFields)
+#else
+			foreach (FieldInfo fieldInfo in enumType.GetFields())
+#endif
+			{
+				if (enumType.Equals(fieldInfo.FieldType))
+				{
+					var item = Enum.Parse(enumType, fieldInfo.Name, true);
+					result.Add(item);
+				}
+			}
+
+			return result;
+			//			IEnumerable<FieldInfo> fieldInfos
+			//				= enumType.GetFields().Where(x => enumType.Equals(x.FieldType));
+			//			return fieldInfos.Select(
+			//				fieldInfo => (TEnum)Enum.Parse(enumType, fieldInfo.Name, true)).ToList();
 		}
 	}
 }

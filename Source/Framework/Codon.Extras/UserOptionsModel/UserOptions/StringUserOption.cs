@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Codon.UserOptionsModel.UserOptions
 {
@@ -7,6 +8,8 @@ namespace Codon.UserOptionsModel.UserOptions
 	/// </summary>
 	public class StringUserOption : UserOptionBase<string>
 	{
+		const string defaultTemplateName = "String";
+
 		public string InputScope { get; set; }
 
 		public StringUserOption(
@@ -16,8 +19,18 @@ namespace Codon.UserOptionsModel.UserOptions
 			string inputScope = null)
 			: base(titleFunc, settingKey, defaultValueFunc)
 		{
-			TemplateNameFunc = () => "String";
+			TemplateNameFunc = () => defaultTemplateName;
 			InputScope = inputScope;
+		}
+
+		public StringUserOption(
+			Func<string> titleFunc,
+			Func<Task<string>> getSettingFunc,
+			Func<string, Task<SaveOptionResult>> saveSettingFunc,
+			Func<string> defaultValueFunc)
+			: base(titleFunc, defaultValueFunc, saveSettingFunc, getSettingFunc)
+		{
+			TemplateNameFunc = () => defaultTemplateName;
 		}
 	}
 }

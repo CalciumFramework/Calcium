@@ -8,13 +8,15 @@ namespace Codon.UserOptionsModel.UserOptions
 	/// </summary>
 	public class BooleanUserOption : UserOptionBase<bool>
 	{
+		const string defaultTemplateName = "Boolean";
+
 		public BooleanUserOption(
 			Func<string> titleFunc, 
 			string settingKey, 
 			Func<bool> defaultValueFunc)
 				: base(titleFunc, settingKey, defaultValueFunc)
 		{
-			TemplateNameFunc = () => "Boolean";
+			TemplateNameFunc = () => defaultTemplateName;
 		}
 
 		public BooleanUserOption(
@@ -24,7 +26,7 @@ namespace Codon.UserOptionsModel.UserOptions
 			Func<bool> defaultValueFunc)
 			: base(titleFunc, defaultValueFunc, saveSettingFunc, getSettingFunc)
 		{
-			TemplateNameFunc = () => "Boolean";
+			TemplateNameFunc = () => defaultTemplateName;
 		}
 	}
 }

@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Codon.ComponentModel;
 using Codon.Reflection;
 
@@ -34,7 +35,7 @@ namespace Codon.UserOptionsModel
 			Func<string> titleFunc,
 			string settingKey,
 			Func<TSetting> defaultValueFunc,
-			List<Func<TSetting>> options)
+			IList<Func<TSetting>> options)
 			: base(titleFunc, settingKey, defaultValueFunc)
 		{
 			AssertArg.IsNotNull(options, nameof(options));
@@ -47,8 +48,26 @@ namespace Codon.UserOptionsModel
 			Func<string> titleFunc,
 			string settingKey,
 			Func<TSetting> defaultValueFunc,
-			List<TSetting> options)
+			IList<TSetting> options)
 			: base(titleFunc, settingKey, defaultValueFunc)
+		{
+			AssertArg.IsNotNull(options, nameof(options));
+
+			foreach (var pair in options)
+			{
+				this.options.Add(pair);
+			}
+
+			SetDefaultTemplateName();
+		}
+
+		public ListOption(
+			Func<string> titleFunc,
+			Func<Task<TSetting>> getSettingFunc,
+			Func<TSetting, Task<SaveOptionResult>> saveSettingFunc,
+			Func<TSetting> defaultValueFunc,
+			IList<TSetting> options)
+			: base(titleFunc, defaultValueFunc, saveSettingFunc, getSettingFunc)
 		{
 			AssertArg.IsNotNull(options, nameof(options));
 
