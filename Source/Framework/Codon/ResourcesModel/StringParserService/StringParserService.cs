@@ -112,7 +112,7 @@ namespace Codon.ResourcesModel
 				if (end == textLength
 					|| (replacement = Replace(text.Substring(i, end - i), tagValues)) == null)
 				{
-					sb.Append(text.Substring(start, end - start));
+					sb.Append(text.Substring(start, end - start + 1));
 					break;
 				}
 

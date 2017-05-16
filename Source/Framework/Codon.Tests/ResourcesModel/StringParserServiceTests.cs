@@ -28,8 +28,17 @@ namespace Codon.ResourcesModel
 		public void TestTagShouldReturnValue()
 		{
 			var service = new StringParserService();
-			var result = service.Parse("${" +StringParserService.TestTag + "}");
+			var result = service.Parse("${" + StringParserService.TestTag + "}");
 			Assert.AreEqual(StringParserService.TestTagResult, result);
+		}
+
+		[TestMethod]
+		public void ShouldReturnTagWhenUnknown()
+		{
+			var service = new StringParserService();
+			string text = "${l:Enum_ThisIsADummyEnumThatDoesntExist_Auto}";
+			var result = service.Parse(text);
+			Assert.AreEqual(text, result);
 		}
 
 		[TestMethod]

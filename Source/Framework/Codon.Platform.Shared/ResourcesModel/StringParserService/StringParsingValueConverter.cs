@@ -14,7 +14,7 @@
 
 using System.Diagnostics;
 using System;
-
+using Codon.Logging;
 using Codon.Services;
 
 #if NETFX_CORE
@@ -58,10 +58,13 @@ namespace Codon.UI.Elements.ValueConverters
 				string stringEnumValue = value.ToString();
 				string keyWithLocalizeTag = string.Format("${{l:Enum_{0}_{1}}}", value.GetType().Name.Replace('.', '_'), stringEnumValue);
 				var result = stringParserService.Parse(keyWithLocalizeTag);
-				if (string.IsNullOrWhiteSpace(result))
+				if (string.IsNullOrWhiteSpace(result) || result == keyWithLocalizeTag)
 				{
-					Debug.Assert(false, "Localized resource not found: " + keyWithLocalizeTag);
-					return stringEnumValue;
+#if DEBUG
+					var log = Dependency.Resolve<ILog>();
+					log.Debug("Localized resource not found: " + keyWithLocalizeTag);
+#endif
+					return value;
 				}
 
 				return result;
