@@ -30,16 +30,20 @@ namespace Codon.Collections
 		/// The dictionary that is compared with dictionary2.</param>
 		/// <param name="dictionary2">
 		/// The dictionary that is compared with dictionary1.</param>
+		/// <param name="equalityFunc">An optional <c>Func</c> 
+		/// to test for dictionary item equality. 
+		/// If <c>null</c>, <c>object.Equals</c> is used.</param>
 		/// <returns><c>true</c> if the collections 
 		/// have the same set of keys and values.</returns>
 		public static bool IsEqualDictionary(
 			this IDictionary dictionary1,
-			IDictionary dictionary2)
+			IDictionary dictionary2,
+			Func<object, object, bool> equalityFunc = null)
 		{
 			AssertArg.IsNotNull(dictionary1, nameof(dictionary1));
 
 			return CollectionComparer.AreEqualDictionaries(
-						dictionary1, dictionary2);
+						dictionary1, dictionary2, equalityFunc);
 		}
 
 		/// <summary>
@@ -124,10 +128,14 @@ namespace Codon.Collections
 		/// The dictionary that is compared with dictionary2.</param>
 		/// <param name="dictionary2">
 		/// The dictionary that is compared with dictionary1.</param>
+		/// <param name="equalityFunc">An optional <c>Func</c> 
+		/// to test for dictionary item equality. 
+		/// If <c>null</c>, <c>object.Equals</c> is used.</param>
 		/// <returns><c>true</c> if the collections 
 		/// have the same set of keys and values.</returns>
 		public static bool AreEqualDictionaries(
-			IDictionary dictionary1, IDictionary dictionary2)
+			IDictionary dictionary1, IDictionary dictionary2, 
+			Func<object, object, bool> equalityFunc = null)
 		{
 			if (dictionary1 == dictionary2)
 			{
@@ -154,9 +162,19 @@ namespace Codon.Collections
 				var value1 = dictionary1[key];
 				var value2 = dictionary2[key];
 
-				if (!Equals(value1, value2))
+				if (equalityFunc == null)
 				{
-					return false;
+					if (!Equals(value1, value2))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					if (!equalityFunc(value1, value2))
+					{
+						return false;
+					}
 				}
 			}
 
