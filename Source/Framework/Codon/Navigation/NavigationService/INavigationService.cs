@@ -50,6 +50,6 @@ namespace Codon.Services
 		/// The property value is replaced or set <c>null</c>
 		/// upon each navigation.
 		/// </summary>
-		object NavigationArgument { get; }
+		object NavigationArgument { get; set; }
 	}
 }

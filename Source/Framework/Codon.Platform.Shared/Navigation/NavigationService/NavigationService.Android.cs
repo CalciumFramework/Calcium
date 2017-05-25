@@ -25,12 +25,12 @@ namespace Codon.Navigation
 	/// </summary>
 	public class NavigationService : INavigationService
 	{
-		WeakReference navigationArgument;
+		object navigationArgument;
 
 		public object NavigationArgument
 		{
-			get => navigationArgument?.Target;
-			private set => navigationArgument = new WeakReference(value);
+			get => navigationArgument;
+			set => navigationArgument = value;
 		}
 
 		void NavigateBack()
