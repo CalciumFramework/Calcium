@@ -29,6 +29,18 @@ namespace Codon.UserOptionsModel
 			get;
 		}
 
+		/// <summary>
+		///	The use of this method should be prefered over the Setting property
+		/// in cases where data-binding is not being performed.
+		/// The <see cref="Setting"/> property may require an asynchronous call
+		/// to retrieve the value, which then must raised the OnPropertyChanged
+		/// event to cause re-reading of the property.
+		/// </summary>
+		/// <returns></returns>
+		Task<object> GetSettingAsync();
+
+		object Setting { get; set; }
+
 		Task<SaveOptionResult> Save();
 
 		Task Refresh(bool reload = false);

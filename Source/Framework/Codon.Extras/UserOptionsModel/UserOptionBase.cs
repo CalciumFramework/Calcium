@@ -26,7 +26,7 @@ namespace Codon.UserOptionsModel
 	/// The type of the setting that serves as the backing field
 	/// for this user option.</typeparam>
 	public abstract class UserOptionBase<TSetting> 
-		: UserOptionBase, IOptionStorage<TSetting>
+		: UserOptionBase, IOptionStorage<TSetting>, IUserOption
 	{
 
 		Func<TSetting, Task<SaveOptionResult>> saveSettingFunc;
@@ -104,10 +104,25 @@ namespace Codon.UserOptionsModel
 		{
 			if (getSettingFunc == null)
 			{
-				throw new Exception("No custom get setting func provided.");
+				if (ReaderWriter == null)
+				{
+					throw new Exception("ReaderWriter is null and no custom get setting func provided.");
+				}
+
+				preventGetSettingFromBeingCalled = false;
+				return (TSetting)ReaderWriter.Setting;
 			}
 
-			return await getSettingFunc();
+			var temp = await getSettingFunc();
+			if (!object.Equals(temp, lastSetting))
+			{
+				lastSetting = temp;
+				OnPropertyChanged(nameof(Setting));
+			}
+
+			preventGetSettingFromBeingCalled = false;
+
+			return lastSetting;
 		}
 
 		public bool CanSaveSetting => saveSettingFunc != null;
@@ -116,10 +131,91 @@ namespace Codon.UserOptionsModel
 		{
 			if (saveSettingFunc == null)
 			{
-				throw new Exception("No custom save setting action provided.");
+				if (ReaderWriter == null)
+				{
+					throw new Exception("No custom save setting action provided.");
+				}
+
+				/* OnPropertyChanged for Setting property is raised next. */
+				ReaderWriter.Setting = setting;
+				
+				return new SaveOptionResult(); //await ReaderWriter.Save();
 			}
 
-			return await saveSettingFunc(setting);
+			var saveResult = await saveSettingFunc(setting);
+			if (saveResult.ResultValue == SaveOptionResultValue.Success)
+			{
+				preventGetSettingFromBeingCalled = true;
+				lastSetting = setting;
+
+				OnPropertyChanged(nameof(Setting));
+				OnPropertyChanged(nameof(FormattedSetting));
+
+				preventGetSettingFromBeingCalled = true;
+			}
+			return saveResult;
+		}
+
+		Func<object, string> formatSettingFunc;
+
+		public Func<object, string> FormatSettingFunc
+		{
+			get => formatSettingFunc;
+			set
+			{
+				if (formatSettingFunc != value)
+				{
+					formatSettingFunc = value;
+					OnPropertyChanged();
+					OnPropertyChanged(nameof(FormattedSetting));
+				}
+			}
+		}
+
+		public override string FormattedSetting
+		{
+			get
+			{
+				if (formatSettingFunc != null)
+				{
+					return formatSettingFunc(Setting);
+				}
+
+				return Setting?.ToString();
+			}
+		}
+
+		object IUserOption.Setting
+		{
+			get => Setting;
+			set => Setting = (TSetting)value;
+		}
+
+		public TSetting Setting
+		{
+			get
+			{
+				if (!preventGetSettingFromBeingCalled)
+				{
+					preventGetSettingFromBeingCalled = true;
+					GetSetting();
+				}
+
+				return lastSetting;
+			}
+			set
+			{
+				SaveSetting(value);
+			}
+		}
+
+		TSetting lastSetting;
+		bool preventGetSettingFromBeingCalled;
+
+		internal override void HandleSettingChanged(IUserOptionReaderWriter writer)
+		{
+			OnPropertyChanged(nameof(Setting));
+			base.HandleSettingChanged(writer);
 		}
 	}
 
@@ -169,12 +265,14 @@ namespace Codon.UserOptionsModel
 			set => saveWhenSettingIsChanged = value;
 		}
 
-		internal void HandleSettingChanged(IUserOptionReaderWriter writer)
+		internal virtual void HandleSettingChanged(IUserOptionReaderWriter writer)
 		{
 			if (SaveWhenSettingIsChanged)
 			{
 				writer.Save();
 			}
+
+			OnPropertyChanged(nameof(FormattedSetting));
 		}
 
 		public Func<string> TitleFunc { get; private set; }
@@ -242,6 +340,12 @@ namespace Codon.UserOptionsModel
 		}
 
 		public Type SettingType => settingType;
+		public abstract string FormattedSetting { get; }
+		public virtual object Setting
+		{
+			get => throw new NotImplementedException();
+			set => throw new NotImplementedException();
+		}
 
 		string imagePath;
 		
@@ -293,5 +397,20 @@ namespace Codon.UserOptionsModel
 				return false;
 			}
 		}
+
+		//		string settingStringFormat;
+		//
+		//		public string SettingStringFormat
+		//		{
+		//			get => settingStringFormat ?? "{0}";
+		//			set
+		//			{
+		//				if (settingStringFormat != value)
+		//				{
+		//					settingStringFormat = value;
+		//					OnPropertyChanged();
+		//				}
+		//			}
+		//		}
 	}
 }

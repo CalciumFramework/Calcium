@@ -55,11 +55,8 @@ namespace Codon.UserOptionsModel
 
 		Type SettingType { get; }
 
-//		void Save();
+		string FormattedSetting { get; }
 
-//		bool CanSaveSelf
-//		{
-//			get;
-//		}
+		object Setting { get; set; }
 	}
 }

@@ -137,6 +137,13 @@ namespace Codon.UserOptionsModel.UserOptions
 			}
 		}
 
+		public Task<object> GetSettingAsync()
+		{
+			throw new NotSupportedException();
+		}
+
+		public object Setting { get; set; }
+
 		public Func<CommandOption<TSetting>, Task<SaveOptionResult>> SaveAction { get; private set; }
 
 		public async Task<SaveOptionResult> Save()
@@ -160,6 +167,8 @@ namespace Codon.UserOptionsModel.UserOptions
 		}
 
 		public Type SettingType => null;
+
+		public string FormattedSetting => Title;
 
 		string imagePath;
 

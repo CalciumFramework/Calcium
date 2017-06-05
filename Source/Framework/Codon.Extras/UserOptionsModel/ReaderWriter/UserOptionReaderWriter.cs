@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -35,7 +36,8 @@ namespace Codon.UserOptionsModel
 		}
 	}
 
-	public class UserOptionReaderWriter<TSetting> : ObservableBase, IUserOptionReaderWriter, ICompositeObjectWriter
+	public class UserOptionReaderWriter<TSetting> 
+		: ObservableBase, IUserOptionReaderWriter, ICompositeObjectWriter
 	{
 		public IUserOption UserOption { get; set; }
 		//public string SettingsKey { get; private set; }
@@ -63,6 +65,11 @@ namespace Codon.UserOptionsModel
 		bool mayBeDirty;
 		bool settingInitialized;
 		TSetting setting;
+
+		async Task<object> IUserOptionReaderWriter.GetSettingAsync()
+		{
+			return await GetSettingAsync();
+		}
 
 //#if !MONODROID && !__IOS__ && !NETFX_CORE
 		public async Task<TSetting> GetSettingAsync()
@@ -149,6 +156,12 @@ namespace Codon.UserOptionsModel
 //		}
 //#endif
 
+		object IUserOptionReaderWriter.Setting
+		{
+			get => this.Setting;
+			set => Setting = (TSetting)value;
+		}
+		
 		public TSetting Setting
 		{
 			get
@@ -253,7 +266,7 @@ namespace Codon.UserOptionsModel
 			{
 				settingInitialized = false;
 				await GetSettingAsync();
-				OnPropertyChanged("Setting");
+				OnPropertyChanged(nameof(Setting));
 			}
 		}
 

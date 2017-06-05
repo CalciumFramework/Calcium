@@ -170,6 +170,15 @@ namespace Codon.UserOptionsModel
 
 		public Type SettingType => null;
 
+		public virtual string FormattedSetting => null;
+
+		public Task<object> GetSettingAsync()
+		{
+			throw new NotSupportedException();
+		}
+
+		public virtual object Setting { get; set; }
+
 		#endregion
 
 		public event PropertyChangedEventHandler PropertyChanged;
