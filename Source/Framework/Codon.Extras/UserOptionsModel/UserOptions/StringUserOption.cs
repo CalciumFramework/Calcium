@@ -32,5 +32,15 @@ namespace Codon.UserOptionsModel.UserOptions
 		{
 			TemplateNameFunc = () => defaultTemplateName;
 		}
+
+		string watermark;
+
+		public string Watermark
+		{
+			get => watermark ?? WatermarkFunc?.Invoke();
+			set => watermark = value;
+		}
+
+		public Func<string> WatermarkFunc { get; set; }
 	}
 }
