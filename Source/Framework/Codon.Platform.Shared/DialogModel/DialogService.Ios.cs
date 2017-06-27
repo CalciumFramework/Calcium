@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Codon.Services;
 using UIKit;
 
 namespace Codon.DialogModel
@@ -57,6 +57,13 @@ namespace Codon.DialogModel
 			}
 
 			string bodyText = body?.ToString() ?? string.Empty;
+
+			var stringParserService = Dependency.Resolve<IStringParserService>();
+
+			if (!string.IsNullOrWhiteSpace(bodyText))
+			{
+				bodyText = stringParserService.Parse(bodyText);
+			}
 			
 			var source = new TaskCompletionSource<int?>();
 
@@ -78,6 +85,8 @@ namespace Codon.DialogModel
 			}
 			else
 			{
+				caption = stringParserService.Parse(caption);
+
 				alert = new UIAlertView(
 								caption, 
 								bodyText, 

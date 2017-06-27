@@ -24,6 +24,8 @@ using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Codon.ResourcesModel.Extensions;
+using Codon.Services;
 
 namespace Codon.DialogModel
 {
@@ -128,14 +130,23 @@ namespace Codon.DialogModel
 			int defaultAcceptButton = -1,
 			DialogController dialogController = null)
 		{
-			string questionText = AssertArg.IsNotNull(question, nameof(question)).ToString();
+			string questionText = AssertArg.IsNotNull(question, nameof(question)).ToString().Parse();
+			
+			if (caption == null)
+			{
+				caption = (DefaultMessageCaptionFunc != null
+					? DefaultMessageCaptionFunc()
+					: string.Empty);
+			}
+			else
+			{
+				caption = caption.Parse();
+			}
 
 			var messageDialog = 
 				new MessageDialog(
 						questionText,
-						caption ?? (DefaultMessageCaptionFunc != null 
-										? DefaultMessageCaptionFunc() 
-										: string.Empty));
+						caption);
 
 			var buttonList = buttons.ToList();
 			int selectedIndex = -1;
@@ -184,9 +195,9 @@ namespace Codon.DialogModel
 </visual>
 </toast>
 ";
-			var body = toastParameters.Body;
+			string body = toastParameters.Body?.ToString()?.Parse();
+			string caption = toastParameters.Caption?.ToString()?.Parse();
 
-			var caption = toastParameters.Caption;
 			var xml = string.Format(template, caption, body);
 			var xmlDocument = new XmlDocument();
 			xmlDocument.LoadXml(xml);

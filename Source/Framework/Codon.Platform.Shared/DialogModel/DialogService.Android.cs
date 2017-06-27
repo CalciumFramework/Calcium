@@ -13,7 +13,8 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using Java.Lang;
 using Codon.Logging;
-
+using Codon.ResourcesModel.Extensions;
+using Codon.Services;
 using Exception = System.Exception;
 
 namespace Codon.DialogModel
@@ -41,7 +42,9 @@ namespace Codon.DialogModel
 
 			if (!string.IsNullOrWhiteSpace(caption))
 			{
-				builder.SetTitle(caption);
+				var stringParserService = Dependency.Resolve<IStringParserService>();
+				var parsedText = stringParserService.Parse(caption);
+				builder.SetTitle(parsedText);
 			}
 
 			var bodyView = body as View;
@@ -59,9 +62,12 @@ namespace Codon.DialogModel
 				else
 				{
 					string bodyText = body?.ToString();
+
 					if (!string.IsNullOrWhiteSpace(bodyText))
 					{
-						builder.SetMessage(bodyText);
+						var stringParserService = Dependency.Resolve<IStringParserService>();
+						var parsedText = stringParserService.Parse(bodyText);
+;						builder.SetMessage(parsedText);
 					}
 				}
 			}
@@ -377,13 +383,13 @@ namespace Codon.DialogModel
 			var caption = trq.Caption;
 			if (!string.IsNullOrWhiteSpace(caption))
 			{
-				builder.SetTitle(caption);
+				builder.SetTitle(caption.Parse());
 			}
 
 			var message = trq.Question;
 			if (!string.IsNullOrWhiteSpace(message))
 			{
-				builder.SetMessage(message);
+				builder.SetMessage(message.Parse());
 			}
 
 			//var color = context.Resources.GetColor(Resources.Color.dialog_textcolor);
@@ -445,7 +451,7 @@ namespace Codon.DialogModel
 			var toastLength = toastParameters.MillisecondsUntilHidden > 3000 ? ToastLength.Long : ToastLength.Short;
 			string newLineCharacter = Java.Lang.JavaSystem.LineSeparator();
 			
-			var content = toastParameters.Caption?.ToString();
+			var content = toastParameters.Caption?.ToString().Parse();
 
 			View toastView = toastParameters.Body as View;
 
@@ -453,13 +459,14 @@ namespace Codon.DialogModel
 			{
 				if (string.IsNullOrWhiteSpace(content))
 				{
-					content = toastParameters.Body?.ToString();
+					content = toastParameters.Body?.ToString().Parse();
 				}
 				else
 				{
-					if (!string.IsNullOrWhiteSpace(toastParameters.Body?.ToString()))
+					string bodyString = toastParameters.Body?.ToString();
+					if (!string.IsNullOrWhiteSpace(bodyString))
 					{
-						content = content + newLineCharacter + toastParameters.Body;
+						content = content + newLineCharacter + bodyString.Parse();
 					}
 				}
 			}

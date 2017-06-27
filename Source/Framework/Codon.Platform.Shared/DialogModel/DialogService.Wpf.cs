@@ -20,6 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Codon.ResourcesModel.Extensions;
 
 namespace Codon.DialogModel
 {
@@ -39,7 +40,8 @@ namespace Codon.DialogModel
 										? mainWindow.Dispatcher 
 										: Dispatcher.CurrentDispatcher;
 
-			string bodyString = content?.ToString() ?? string.Empty;
+			string bodyString = content?.ToString().Parse() ?? string.Empty;
+			string captionString = caption?.Parse() ?? string.Empty;
 
 			if (dispatcher == null || dispatcher.CheckAccess())
 			{
@@ -54,16 +56,16 @@ namespace Codon.DialogModel
 						/* We are on the UI thread, and hence no need to invoke the call.*/
 						messageBoxResult = MessageBox.Show(
 							mainWindow, 
-							bodyString, 
-							caption ?? string.Empty, 
+							bodyString,
+							captionString, 
 							dialogButton.TranslateToMessageBoxButton(), 
 							dialogImage.TranslateToMessageBoxButton());
 					}
 					else
 					{
 						messageBoxResult = MessageBox.Show(
-							bodyString, 
-							caption ?? string.Empty,
+							bodyString,
+							captionString,
 							dialogButton.TranslateToMessageBoxButton(),
 							dialogImage.TranslateToMessageBoxButton());
 					}
@@ -90,13 +92,13 @@ namespace Codon.DialogModel
 					{
 						/* We are on the UI thread, 
 						 * and hence no need to invoke the call.*/
-						messageBoxResult = MessageBox.Show(mainWindow, bodyString, caption,
+						messageBoxResult = MessageBox.Show(mainWindow, bodyString, captionString,
 							dialogButton.TranslateToMessageBoxButton(),
 							dialogImage.TranslateToMessageBoxButton());
 					}
 					else
 					{
-						messageBoxResult = MessageBox.Show(bodyString, caption,
+						messageBoxResult = MessageBox.Show(bodyString, captionString,
 							dialogButton.TranslateToMessageBoxButton(),
 							dialogImage.TranslateToMessageBoxButton());
 					}

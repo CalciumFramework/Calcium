@@ -97,7 +97,7 @@ namespace Codon.UserOptionsModel.UserOptions
 		/* Unused. */
 		public string SettingKey { get; set; }
 
-		string templateName = "RelayOption";
+		string templateName = "Command";
 
 		public string TemplateName
 		{
