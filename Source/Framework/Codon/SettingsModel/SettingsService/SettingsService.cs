@@ -41,6 +41,7 @@ namespace Codon.SettingsModel
 		readonly ISettingsStore transientStore;
 		readonly ISettingsStore roamingStore;
 		const string dateTimeFormatString = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";
+		static readonly TypeInfo xmlConvertibleTypeInfo = typeof(IXmlConvertible).GetTypeInfo();
 
 		public bool RaiseExceptionsOnConversionErrors { get; set; }
 
@@ -60,20 +61,20 @@ namespace Codon.SettingsModel
 		/// <summary>
 		/// Provides thread safety for the dictionary of settings.
 		/// </summary>
-		readonly ReaderWriterLockSlim settingsLockSlim = new ReaderWriterLockSlim();
+		readonly ReaderWriterLockSlim lockSlim = new ReaderWriterLockSlim();
 
 		readonly Dictionary<string, object> cache = new Dictionary<string,object>();
 
 		public void ClearCache()
 		{
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				cache.Clear();
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 		}
 		
@@ -81,14 +82,14 @@ namespace Codon.SettingsModel
 		{
 			string cacheKey = AssertArg.IsNotNull(key, nameof(key));
 
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				cache.Remove(cacheKey);
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 		}
 
@@ -98,7 +99,7 @@ namespace Codon.SettingsModel
 
 			bool result = false;
 
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				if (localStore.Status == SettingsStoreStatus.Ready)
@@ -120,7 +121,7 @@ namespace Codon.SettingsModel
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 
 			return result;
@@ -147,8 +148,7 @@ namespace Codon.SettingsModel
 		{
 			StorageLocation? result = null;
 
-			settingsLockSlim.EnterReadLock();
-
+			lockSlim.EnterReadLock();
 			try
 			{
 				if (localStore.Status == SettingsStoreStatus.Ready && localStore.Contains(key))
@@ -166,7 +166,7 @@ namespace Codon.SettingsModel
 			}
 			finally
 			{
-				settingsLockSlim.ExitReadLock();
+				lockSlim.ExitReadLock();
 			}
 
 			return result;
@@ -176,7 +176,7 @@ namespace Codon.SettingsModel
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
-			return (T)(object)GetSetting(key, typeof(T), defaultValue);
+			return (T)GetSetting(key, typeof(T), defaultValue);
 		}
 
 		public object GetSetting(string key, Type settingType, object defaultValue)
@@ -207,14 +207,14 @@ namespace Codon.SettingsModel
 			bool returningDefaultValue;
 			object result;
 
-			settingsLockSlim.EnterReadLock();
+			lockSlim.EnterReadLock();
 			try
 			{
 				result = GetSettingFromStore(key, xmlConvertible, settingType, defaultValue, out returningDefaultValue);
 			}
 			finally
 			{
-				settingsLockSlim.ExitReadLock();
+				lockSlim.ExitReadLock();
 			}
 
 			settingExists = !returningDefaultValue;
@@ -235,9 +235,8 @@ namespace Codon.SettingsModel
 
 			if (localStore.Status == SettingsStoreStatus.Ready 
 				&& localStore.TryGetValue(key, settingType, out object entry)
-				|| (roamingStore != null 
-					&& roamingStore.Status == SettingsStoreStatus.Ready 
-					&& roamingStore.TryGetValue(key, settingType, out entry)))
+				|| (roamingStore != null && roamingStore.Status == SettingsStoreStatus.Ready && roamingStore.TryGetValue(key, settingType, out entry))
+				|| (transientStore != null && transientStore.Status == SettingsStoreStatus.Ready && transientStore.TryGetValue(key, settingType, out entry)))
 			{
 				if (xmlConvertible && entry != null)
 				{
@@ -323,19 +322,6 @@ namespace Codon.SettingsModel
 				return entry;
 			}
 
-			if (transientStore.Status == SettingsStoreStatus.Ready
-				&& transientStore.TryGetValue(key, settingType, out entry))
-			{
-				/* Dictionaries and other complex types can be difficult to serialize. 
-				 * In some cases the SilverlightSerializer is used to serializer such objects.
-				 */
-				entry = InflateEntry(settingType, entry);
-
-				cache[cacheKey] = entry;
-
-				return entry;
-			}
-
 			returningDefaultValue = true;
 			return defaultValue;
 		}
@@ -391,7 +377,7 @@ namespace Codon.SettingsModel
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
-			settingsLockSlim.EnterReadLock();
+			lockSlim.EnterReadLock();
 			try
 			{
 				string cacheKey = key;
@@ -407,7 +393,7 @@ namespace Codon.SettingsModel
 			}
 			finally
 			{
-				settingsLockSlim.ExitReadLock();
+				lockSlim.ExitReadLock();
 			}
 		}
 
@@ -415,14 +401,14 @@ namespace Codon.SettingsModel
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
-			settingsLockSlim.EnterReadLock();
+			lockSlim.EnterReadLock();
 			try
 			{
 				return ContainsSettingNotThreadSafe(key);
 			}
 			finally
 			{
-				settingsLockSlim.ExitReadLock();
+				lockSlim.ExitReadLock();
 			}
 		}
 
@@ -438,26 +424,31 @@ namespace Codon.SettingsModel
 		public SetSettingResult SetSetting<T>(string key, T value, StorageLocation storageLocation = StorageLocation.Local)
 		{
 			Type settingType = typeof(T);
-			bool xmlConvertible = typeof(IXmlConvertible).GetTypeInfo().IsAssignableFrom(settingType.GetTypeInfo());
+			var settingTypeInfo = settingType.GetTypeInfo();
+			bool xmlConvertible = false;// = xmlConvertibleTypeInfo.IsAssignableFrom(settingTypeInfo);
 
 			/* Check to see if the value is already set. 
 			 * This avoids raising events unnecessarily. */
 			bool alreadySet;
 
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				alreadySet = false;
 				cache.Remove(key);
 
-				if (localStore.Status == SettingsStoreStatus.Ready
-					&& localStore.TryGetValue(key, settingType, out object existingValue)
-					|| (roamingStore != null 
-						&& roamingStore.Status == SettingsStoreStatus.Ready
-						&& roamingStore.TryGetValue(key, settingType, out existingValue)))
+				if (localStore.Status == SettingsStoreStatus.Ready && localStore.TryGetValue(key, settingType, out object existingValue)
+					|| (roamingStore != null && roamingStore.Status == SettingsStoreStatus.Ready && roamingStore.TryGetValue(key, settingType, out existingValue))
+					|| (transientStore != null && transientStore.Status == SettingsStoreStatus.Ready && transientStore.TryGetValue(key, settingType, out existingValue)))
 				{
-					if (xmlConvertible)
+					if (existingValue == null && value == null || existingValue != null && existingValue.Equals(value))
 					{
+						alreadySet = true;
+					}
+					else if (xmlConvertibleTypeInfo.IsAssignableFrom(settingTypeInfo))
+					{
+						xmlConvertible = true;
+
 						if (TryConvertFromXml(settingType, existingValue, 
 												out object existingObject))
 						{
@@ -465,6 +456,14 @@ namespace Codon.SettingsModel
 							{
 								alreadySet = true;
 							}
+						}
+					}
+					else if (existingValue != null && settingType.IsEnum() && existingValue is int)
+					{
+						int intValue = (int)(object)value;//(int)Convert.ChangeType(value, typeof(int));
+						if (AreEqual(intValue, existingValue))
+						{
+							alreadySet = true;
 						}
 					}
 					else if (existingValue != null && existingValue is byte[] && settingType != typeof(byte[]))
@@ -476,23 +475,11 @@ namespace Codon.SettingsModel
 							alreadySet = true;
 						}
 					}
-
-					if (!alreadySet && existingValue != null && existingValue.Equals(value))
-					{
-						alreadySet = true;
-					}
-				}
-
-				if (!alreadySet && transientStore.Status == SettingsStoreStatus.Ready
-						&& transientStore.TryGetValue(key, settingType, out existingValue)
-						&& existingValue.Equals(value))
-				{
-					alreadySet = true;
 				}
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 			
 			if (alreadySet)
@@ -510,7 +497,7 @@ namespace Codon.SettingsModel
 				return SetSettingResult.Cancelled;
 			}
 
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				string cacheKey = key;
@@ -567,7 +554,7 @@ namespace Codon.SettingsModel
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 
 			OnSettingChanged(new SettingChangeEventArgs(key, value));
@@ -759,7 +746,11 @@ namespace Codon.SettingsModel
 		{
 			object savableValue = value;
 
-			if (!settingType.IsPrimitive()
+			if (settingType.IsEnum())
+			{
+				savableValue = (int)(object)value;
+			}
+			else if (!settingType.IsPrimitive()
 				&& settingType != typeof(string) 
 				&& settingType != typeof(DateTime) 
 				&& settingType != typeof(Guid)
@@ -784,7 +775,7 @@ namespace Codon.SettingsModel
 
 		public async Task ClearSettings()
 		{
-			settingsLockSlim.EnterWriteLock();
+			lockSlim.EnterWriteLock();
 			try
 			{
 				if (localStore.Status == SettingsStoreStatus.Ready)
@@ -808,7 +799,7 @@ namespace Codon.SettingsModel
 			}
 			finally
 			{
-				settingsLockSlim.ExitWriteLock();
+				lockSlim.ExitWriteLock();
 			}
 		}
 
