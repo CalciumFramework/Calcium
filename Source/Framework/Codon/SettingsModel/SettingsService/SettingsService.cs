@@ -425,7 +425,7 @@ namespace Codon.SettingsModel
 		{
 			Type settingType = typeof(T);
 			var settingTypeInfo = settingType.GetTypeInfo();
-			bool xmlConvertible = false;// = xmlConvertibleTypeInfo.IsAssignableFrom(settingTypeInfo);
+			bool xmlConvertible = xmlConvertibleTypeInfo.IsAssignableFrom(settingTypeInfo);
 
 			/* Check to see if the value is already set. 
 			 * This avoids raising events unnecessarily. */
@@ -445,10 +445,8 @@ namespace Codon.SettingsModel
 					{
 						alreadySet = true;
 					}
-					else if (xmlConvertibleTypeInfo.IsAssignableFrom(settingTypeInfo))
+					else if (xmlConvertible)
 					{
-						xmlConvertible = true;
-
 						if (TryConvertFromXml(settingType, existingValue, 
 												out object existingObject))
 						{

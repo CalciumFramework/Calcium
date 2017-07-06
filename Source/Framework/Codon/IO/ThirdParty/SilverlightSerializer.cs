@@ -1152,18 +1152,30 @@ namespace Codon.IO.Serialization
 				{
 					Debug.WriteLine(" ---->     {0}  on {1}", property.Name, item.ToString());
 				}
-				var value = property.GetValue(item, null);
+
+				object value;
+				try
+				{
+					value = property.GetValue(item, null);
+				}
+				catch (Exception ex)
+				{
+					throw new Exception("Unable to retrieve property value. Property name: " + property.Name, ex);
+				}
+				
 				//Don't store null values
 				if (value == null)
 					continue;
+
 				//Don't store empty collections
-				if (value is ICollection)
-					if ((value as ICollection).Count == 0)
-						continue;
+				if ((value as ICollection)?.Count == 0)
+					continue;
+
 				//Don't store empty arrays
-				if (value is Array)
-					if ((value as Array).Length == 0)
-						continue;
+				var arrayValue = value as Array;
+
+				if (arrayValue?.Length == 0)
+					continue;
 				//Check whether the value differs from the default
 				lock (Vanilla)
 				{
