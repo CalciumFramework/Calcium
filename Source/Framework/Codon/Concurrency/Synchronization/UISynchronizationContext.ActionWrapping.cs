@@ -92,12 +92,12 @@ namespace Codon.Concurrency
 				catch (Exception ex)
 				{
 					source.SetException(ex);
-					return Task.FromResult<object>(null);
+					return Task.CompletedTask;
 				}
 
 				source.SetResult(null);
 
-				return Task.FromResult<object>(null);
+				return Task.CompletedTask;
 			};
 		}
 

@@ -336,7 +336,7 @@ namespace Codon.UserOptionsModel
 		{
 			OnPropertyChanged(string.Empty);
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public Type SettingType => settingType;

@@ -186,5 +186,32 @@ namespace Codon.InversionOfControl
 		/// <returns><c>true</c> if a type registeration exists;
 		/// <c>false</c> otherwise.</returns>
 		bool IsRegistered(Type fromType, string key = null);
+
+		/// <summary>
+		/// Attempts to resolves an object instance deriving from the specified
+		/// from type <c>T</c>.
+		/// </summary>
+		/// <typeparam name="T">The registered from type mapping.
+		/// </typeparam>
+		/// <param name="result">The resulting object of type <c>T</c>.
+		/// </param>
+		/// <param name="key">Multiple instance can be associated
+		/// with a type. The key is used to differentiate them.</param>
+		/// <returns>An instance of <c>T</c>.
+		/// Can be <c>null</c>.</returns>
+		bool TryResolve<T>(out T result, string key = null);
+
+		/// <summary>
+		/// Attempts to resolves an object instance deriving from the specified
+		/// type.
+		/// </summary>
+		/// <param name="type">The type of object to resolve.</param>
+		/// <param name="result">The resulting object of type <c>T</c>.
+		/// </param>
+		/// <param name="key">Multiple instance can be associated
+		/// with a type. The key is used to differentiate them.</param>
+		/// <returns>An instance of <c>T</c>.
+		/// Can be <c>null</c>.</returns>
+		bool TryResolve(Type type, out object result, string key = null);
 	}
 }

@@ -572,7 +572,19 @@ namespace Codon.InversionOfControl
 			return list;
 		}
 
-		object ResolveCore(Type type, string key)
+		public bool TryResolve<T>(out T result, string key = null)
+		{
+			result = (T)ResolveCore(typeof(T), key, false);
+			return result != null;
+		}
+
+		public bool TryResolve(Type type, out object result, string key = null)
+		{
+			result = ResolveCore(type, key, false);
+			return result != null;
+		}
+
+		object ResolveCore(Type type, string key, bool raiseExceptionIfNotResolved = true)
 		{
 			key = GetKeyValueOrDefault(key);
 
@@ -582,8 +594,13 @@ namespace Codon.InversionOfControl
 
 				if (type == null)
 				{
-					throw new ResolutionException(
-						"Failed to resolve type for " + key);
+					if (raiseExceptionIfNotResolved)
+					{
+						throw new ResolutionException(
+							"Failed to resolve type for " + key);
+					}
+
+					return null;
 				}
 			}
 
@@ -626,9 +643,12 @@ namespace Codon.InversionOfControl
 
 							if (defaultType == null)
 							{
-								if (Log.DebugEnabled)
+								if (typeof(ILog) != type)
 								{
-									Log.Debug("Unable to resolve type using DefaultTypeNameAttribute with value: " + typeNameAttribute.TypeName);
+									if (Log.DebugEnabled)
+									{
+										Log.Debug("Unable to resolve type using DefaultTypeNameAttribute with value: " + typeNameAttribute.TypeName);
+									}
 								}
 							}
 							else
@@ -675,12 +695,19 @@ namespace Codon.InversionOfControl
 							{
 								if (typeNameAttribute != null)
 								{
-									throw new ResolutionException(
-									"Unable to resolve mapping for type '" + type + "' There is a default type '" + typeNameAttribute.TypeName + 
-									"' that was expected to be found in a platform specific library. " +
-									"You may be missing a NuGet reference to Codon.YourPlatform or Codon.Extras.YourPlatform" +
-									"Please add a reference to the platform specified library containing an implementation for this interface, " +
-									"or register another implementation with the container.");
+									if (raiseExceptionIfNotResolved)
+									{
+										throw new ResolutionException(
+											"Unable to resolve mapping for type '" + type + "' There is a default type '" + typeNameAttribute.TypeName + 
+											"' that was expected to be found in a platform specific library. " +
+											"You may be missing a NuGet reference to Codon.YourPlatform or Codon.Extras.YourPlatform" +
+											"Please add a reference to the platform specified library containing an implementation for this interface, " +
+											"or register another implementation with the container.");
+									}
+									else
+									{
+										return null;
+									}
 								}
 
 								/* Types in assemblies that do not reference the Framework assembly 
@@ -707,10 +734,17 @@ namespace Codon.InversionOfControl
 								}
 								else
 								{
-									throw new ResolutionException(
-										"Interface type " + type +
-										" has no registered type mapping, " +
-										"nor is there a default type mapping.");
+									if (raiseExceptionIfNotResolved)
+									{
+										throw new ResolutionException(
+											"Interface type " + type +
+											" has no registered type mapping, " +
+											"nor is there a default type mapping.");
+									}
+									else
+									{
+										return null;
+									}
 								}
 							}
 						}

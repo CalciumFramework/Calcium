@@ -26,6 +26,8 @@ namespace Codon.Logging
 	/// Represents a output channel 
 	/// for storing or transmitting log messages.
 	/// </summary>
+	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Logging) + "." + nameof(Logging.Loggers)
+					+ ".PlatformLog, " + AssemblyConstants.PlatformAssembly, Singleton = true)]
 	[DefaultType(typeof(DebugLog), Singleton = true)]
 	public interface ILog
 	{

@@ -63,7 +63,7 @@ namespace Codon.SettingsModel
 		{
 			transientState.Clear();
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public async Task SaveAsync()

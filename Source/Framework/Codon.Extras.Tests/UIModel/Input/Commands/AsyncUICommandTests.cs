@@ -23,7 +23,7 @@ namespace Codon.UIModel.Input
 		[TestMethod]
 		public async Task ShouldSetTextAsynchronous()
 		{
-			var command = new AsyncUICommand(o => Task.FromResult((object)null));
+			var command = new AsyncUICommand(o => Task.CompletedTask);
 
 			Assert.IsTrue(string.IsNullOrEmpty(command.Text));
 

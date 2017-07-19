@@ -95,7 +95,7 @@ namespace Codon.LauncherModel.Launchers
 				OnCompleted(photoResult);
 			}
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		protected virtual void OnCompleted(PhotoResultBase e)

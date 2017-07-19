@@ -33,7 +33,7 @@ namespace Codon.Input.CommandModel
 			var command = new AsyncActionCommand<int>(o =>
 			{
 				executeCalled = true;
-				return Task.FromResult((object)null);
+				return Task.CompletedTask;
 			});
 
 			await command.ExecuteAsync();
@@ -80,7 +80,7 @@ namespace Codon.Input.CommandModel
 			var command = new AsyncActionCommand<int>(o =>
 			{
 				receivedParameter = o;
-				return Task.FromResult((object)null);
+				return Task.CompletedTask;
 			});
 
 			int parameterValue = 5;
@@ -94,7 +94,7 @@ namespace Codon.Input.CommandModel
 		{
 			bool[] canExecute = { true };
 			var command = new AsyncActionCommand<int>(
-				o => Task.FromResult((object)null),
+				o => Task.CompletedTask,
 				async o =>
 				{
 					await Task.Yield();

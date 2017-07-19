@@ -23,7 +23,7 @@ namespace Codon.Concurrency
 	    public Task SendAsync(Func<Task> action, string memberName = null, string filePath = null, int lineNumber = 0)
 	    {
 		    action();
-		    return Task.FromResult<object>(null);
+		    return Task.CompletedTask;
 	    }
 
 	    public bool InvokeRequired { get; }

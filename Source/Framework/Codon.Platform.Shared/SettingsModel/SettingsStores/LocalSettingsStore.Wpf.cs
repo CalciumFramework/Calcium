@@ -47,14 +47,14 @@ namespace Codon.SettingsModel
 		{
 			Settings.ApplicationSettings.Clear();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public Task SaveAsync()
 		{
 			Settings.ApplicationSettings.Save();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public object this[string key]

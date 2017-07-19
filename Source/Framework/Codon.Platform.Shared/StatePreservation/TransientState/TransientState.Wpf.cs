@@ -45,7 +45,7 @@ namespace Codon.StatePreservation
 		{
 			Load();
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public void Load()
@@ -57,7 +57,7 @@ namespace Codon.StatePreservation
 		{
 			Save();
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public void Save()

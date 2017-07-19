@@ -74,7 +74,7 @@ namespace Codon.UIModel.Input
 				command.Refresh(parameter ?? commandParameter);
 			}
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		/// <summary>

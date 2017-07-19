@@ -58,7 +58,7 @@ namespace Codon.SettingsModel
 		{
 			OnPropertyChanged(string.Empty);
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 	}
 }

@@ -29,23 +29,9 @@ namespace Codon.Logging.Loggers
 	/// that writes log messages 
 	/// to the <c>System.Diagnostics.Debug</c> class.
 	/// </summary>
-	public class DebugLog : LogBase
+	public class PlatformLog : LogBase
 	{
-		bool useConsole;
-		PlatformId platformId;
 		bool debuggerAttached = Debugger.IsAttached;
-
-		public DebugLog()
-		{
-			/* The Mono linker doesn't appear to respect the DEBUG symbol defined at the top of this file. 
-			 * It means that Debug.WriteLine(...) doesn't work on those platform. 
-			 * Hence the use of the console. */
-			platformId = PlatformDetector.PlatformId;
-			if (platformId == PlatformId.Android || platformId == PlatformId.Ios)
-			{
-				useConsole = true;
-			}
-		}
 
 		public override Task WriteAsync(
 			LogLevel logLevel,
@@ -61,19 +47,12 @@ namespace Codon.Logging.Loggers
 				return Task.CompletedTask;
 			}
 
-//			if (platformId == PlatformId.Wpf)
-//			{
-//				/* .NET Standard and WPF sometimes has an issue with you Debug.WriteLine and Console.WriteLine.
-//				 * there is a platform specific WPF DebugLogWpf class in the WPF platform library. */
-//				return Task.CompletedTask;
-//			}
-
 			string exceptionMessage = exception != null ? exception.ToString() : string.Empty;
-			string logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4} exception:{5}", 
-									logLevel, message, memberName, filePath,
-									lineNumber.ToString(CultureInfo.InvariantCulture),
-									exceptionMessage);
-			
+			string logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4} exception:{5}",
+				logLevel, message, memberName, filePath,
+				lineNumber.ToString(CultureInfo.InvariantCulture),
+				exceptionMessage);
+
 #if NETSTANDARD || NETFX_CORE
 			if (useConsole)
 			{

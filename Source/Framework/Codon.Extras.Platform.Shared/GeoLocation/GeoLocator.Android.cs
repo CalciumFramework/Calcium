@@ -213,7 +213,7 @@ namespace Codon.GeoLocation
 				}
 			}
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 	}
 

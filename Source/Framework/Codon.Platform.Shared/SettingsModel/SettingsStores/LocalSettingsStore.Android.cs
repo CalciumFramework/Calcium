@@ -73,14 +73,14 @@ namespace Codon.SettingsModel
 			editor.Clear();
 			editor.Commit();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public Task SaveAsync()
 		{
 			/* Nothing to do. */
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public object this[string key]

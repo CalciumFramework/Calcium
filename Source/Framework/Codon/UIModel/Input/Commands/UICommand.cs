@@ -126,7 +126,7 @@ namespace Codon.UIModel.Input
 		{
 			Refresh(commandParameter);
 
-			return Task.FromResult((object)null);
+			return Task.CompletedTask;
 		}
 
 		protected override void RefreshCore(TParameter commandParameter)

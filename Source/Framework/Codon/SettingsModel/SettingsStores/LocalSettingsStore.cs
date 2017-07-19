@@ -43,14 +43,14 @@ namespace Codon.SettingsModel
 		{
 			IsolatedStorageSettings.ApplicationSettings.Clear();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public Task SaveAsync()
 		{
 			IsolatedStorageSettings.ApplicationSettings.Save();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public object this[string key]

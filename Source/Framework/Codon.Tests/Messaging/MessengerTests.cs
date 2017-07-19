@@ -74,7 +74,7 @@ namespace Codon.Messaging
 			{
 				Message = message;
 
-				return Task.FromResult<object>(null);
+				return Task.CompletedTask;
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace Codon.Messaging
 			{
 				Message = message;
 
-				return Task.FromResult<object>(null);
+				return Task.CompletedTask;
 			}
 		}
 

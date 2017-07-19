@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Codon
+namespace Codon.Platform
 {
 	/// <summary>
 	/// This class's only purpose is to allow identification
@@ -13,8 +13,19 @@ namespace Codon
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	[System.Runtime.CompilerServices.CompilerGenerated]
-	public class PlatformIdentifier
+	public class PlatformIdentifier : IPlatformIdentifier
 	{
-		/* Intentionally left blank. */
+		public PlatformId PlatformId { get; } =
+#if __ANDROID__
+			PlatformId.Android;
+#elif WINDOWS_UWP
+			PlatformId.Uwp;
+#elif __IOS__
+			PlatformId.Ios;
+#elif WPF
+			PlatformId.Wpf;
+#else
+			PlatformId.Unknown;
+#endif
 	}
 }

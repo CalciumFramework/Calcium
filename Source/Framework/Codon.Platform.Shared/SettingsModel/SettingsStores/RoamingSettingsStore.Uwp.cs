@@ -59,13 +59,13 @@ namespace Codon.SettingsModel
 			var settings = GetSettings();
 			settings.Values.Clear();
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public Task SaveAsync()
 		{
 			/* Nothing to do. */
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
 		public object this[string key]

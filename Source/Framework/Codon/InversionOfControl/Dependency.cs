@@ -358,30 +358,28 @@ namespace Codon
 		/// with a type. The key is used to differentiate them.</param>
 		/// <returns>An instance of <c>T</c>.
 		/// Can be <c>null</c>.</returns>
-		/// <exception cref="ResolutionException">
-		/// Is raised if the type is unable to be located,
-		/// or an exception is raised during resolution.</exception>
 		public static bool TryResolve<T>(out T result, string key = null)
 			where T : class
 		{
-			try
-			{
-				/* When a developer has built the Codon on his or her machine, installed it, 
-                 * and is building applications using Codon, Visual Studio is over eager 
-                 * in breaking on exceptions that occur and are handled within the Codon assemblies. 
-                 * This can be rectified by turning of "Enable Just my code" 
-                 * in Visual Studio options under Debugging. Checking to see if a type 
-                 * is registered before resolving it, avoids an exception from being raised. */
-				result = Container.IsRegistered(typeof(T), key) 
-							? Resolve<T>(key) : null;
-			}
-			catch (Exception) /* Unable to be more specific because 
-							   * we don't know the container implementation. */
-			{
-				result = null;
-			}
-
-			return result != null;
+//			try
+//			{
+//				/* When a developer has built the Codon on his or her machine, installed it, 
+//                 * and is building applications using Codon, Visual Studio is over eager 
+//                 * in breaking on exceptions that occur and are handled within the Codon assemblies. 
+//                 * This can be rectified by turning of "Enable Just my code" 
+//                 * in Visual Studio options under Debugging. Checking to see if a type 
+//                 * is registered before resolving it, avoids an exception from being raised. */
+//				result = Container.IsRegistered(typeof(T), key) 
+//							? Resolve<T>(key) : null;
+//			}
+//			catch (Exception) /* Unable to be more specific because 
+//							   * we don't know the container implementation. */
+//			{
+//				result = null;
+//			}
+//
+//			return result != null;
+			return Container.TryResolve<T>(out result, key);
 		}
 
 		/// <summary>

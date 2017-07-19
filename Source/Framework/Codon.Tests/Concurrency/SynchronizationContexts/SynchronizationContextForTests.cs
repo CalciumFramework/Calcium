@@ -23,7 +23,7 @@ namespace Codon.Concurrency
 		{
 			action();
 
-			return Task.FromResult<object>(null);
+			return Task.CompletedTask;
 		}
 
 		public void Send(

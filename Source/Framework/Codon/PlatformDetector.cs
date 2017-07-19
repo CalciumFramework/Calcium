@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using Codon.InversionOfControl;
 
 namespace Codon.Platform
 {
@@ -29,13 +30,21 @@ namespace Codon.Platform
 	/// </summary>
 	class PlatformDetector
     {
+	    internal class PlatformNameString
+	    {
+		    internal const string Android = "Android";
+		    internal const string Ios = "Ios";
+		    internal const string Uwp = "Uwp";
+		    internal const string Wpf = "Wpf";
+		}
+
 		static readonly List<string> platformNames
 			= new List<string>
 			{
-				"Android",
-				"Ios",
-				"Uwp",
-				"Wpf"
+				PlatformNameString.Android,
+				PlatformNameString.Ios,
+				PlatformNameString.Uwp,
+				PlatformNameString.Wpf
 			};
 
 	    static string platformName;
@@ -49,24 +58,89 @@ namespace Codon.Platform
 			    {
 				    searchedForName = true;
 
-					string assemblyRoot = AssemblyConstants.Namespace;
-					string knownType = $"{assemblyRoot}.PlatformIdentifier, {assemblyRoot}.";
+				    var id = PlatformId;
 
-					/* Look for the type in platform specific assemblies. 
-					 * If the type is found, that indicates the platform.*/
-					foreach (var pair in platformNames)
-				    {
-						var type = Type.GetType(knownType + pair, false);
-					    if (type != null)
-					    {
-						    platformName = pair;
-							break;
-					    }
-					}
+				    platformName = id.ToIdString();
 			    }
 
 			    return platformName;
 		    }
 	    }
-    }
+
+	    static PlatformId? platformId_UseProperty;
+
+		public static PlatformId PlatformId
+	    {
+		    get
+		    {
+			    if (!platformId_UseProperty.HasValue)
+			    {
+					IPlatformIdentifier identifier;
+				    if (Dependency.TryResolve<IPlatformIdentifier>(out identifier))
+				    {
+						platformId_UseProperty = identifier.PlatformId;
+				    }
+				    else
+				    {
+					    platformId_UseProperty = PlatformId.Unknown;
+				    }
+				}
+
+			    return platformId_UseProperty.Value;
+		    }
+	    }
+
+	    static PlatformId ConvertToId(string idString)
+	    {
+		    switch (idString)
+		    {
+				case PlatformNameString.Android:
+					return PlatformId.Android;
+				case PlatformNameString.Ios:
+					return PlatformId.Ios;
+			    case PlatformNameString.Uwp:
+				    return PlatformId.Uwp;
+			    case PlatformNameString.Wpf:
+				    return PlatformId.Wpf;
+				default:
+					return PlatformId.Unknown;
+			}
+	    }
+	}
+
+	public enum PlatformId
+	{
+		Unknown,
+		Android,
+		Ios,
+		Uwp,
+		Wpf
+	}
+
+	static class PlatformIdExtensions
+	{
+		internal static string ToIdString(this PlatformId id)
+		{
+			switch (id)
+			{
+				case PlatformId.Android:
+					return PlatformDetector.PlatformNameString.Android;
+				case PlatformId.Ios:
+					return PlatformDetector.PlatformNameString.Ios;
+				case PlatformId.Uwp:
+					return PlatformDetector.PlatformNameString.Uwp;
+				case PlatformId.Wpf:
+					return PlatformDetector.PlatformNameString.Wpf;
+				default:
+					return null;
+			}
+		}
+	}
+
+	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Codon.Platform)
+					+ ".PlatformIdentifier, " + AssemblyConstants.PlatformAssembly, Singleton = true)]
+	public interface IPlatformIdentifier
+	{
+		PlatformId PlatformId { get; }
+	}
 }
