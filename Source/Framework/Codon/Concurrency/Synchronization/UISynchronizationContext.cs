@@ -158,7 +158,7 @@ namespace Codon.Concurrency
 				{
 					const string message = "UISynchronizationContext must be initialized " +
 											"on the UI thread. Please call " +
-											"Dependency.Resolve<ISynchronizationContext>.Initialize() " +
+											"Dependency.Resolve<ISynchronizationContext>().Initialize() " +
 											"from the application's main thread.";
 					var log = Dependency.Resolve<ILog>();
 					log.Error(message);
