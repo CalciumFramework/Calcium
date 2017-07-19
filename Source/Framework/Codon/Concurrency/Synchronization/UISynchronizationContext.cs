@@ -168,6 +168,9 @@ namespace Codon.Concurrency
 			}
 		}
 
+		static int counter;
+		int instanceCounter = counter++;
+
 		void EnsureInitialized()
 		{
 			if (systemContext == null)

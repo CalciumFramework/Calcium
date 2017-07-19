@@ -25,7 +25,7 @@ namespace Codon.Concurrency
 	/// to a particular thread.
 	/// <seealso cref="System.Threading.SynchronizationContext"/>
 	/// </summary>
-	[DefaultType(typeof(UISynchronizationContext))]
+	[DefaultType(typeof(UISynchronizationContext), Singleton = true)]
 	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Concurrency) + 
 		".UISynchronizationContext, " + AssemblyConstants.PlatformAssembly, Singleton = true)]
 	public interface ISynchronizationContext
