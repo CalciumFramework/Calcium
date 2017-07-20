@@ -1,9 +1,11 @@
-﻿$packageVersion = "2.0.5-alpha";
+﻿$packageVersion = "2.0.6-alpha";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
 
-$nugetLocalFeedDirectory = "C:\Development\NuGetLocalFeed";
+# These are set later in the script.
+#$nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
+#$nugetExePath = "C:\Dev\Tools\Nuget.exe";
 
 $sourceRoot = "../../Source/Framework/";
 $nuspecFiles = @(cls
@@ -57,8 +59,8 @@ function Pack-NuGetFiles
   Param
   (
 	[string]$PackageVersion = "1.0.J.B",
-	[string]$NugetPath = "NuGet.exe",
-	[string]$localNugetDirectory = "C:\Development\NuGetLocalFeed"
+	[string]$NugetPath = "C:\Dev\Tools\Nuget.exe",
+	[string]$localNugetDirectory = "C:\Dev\NugetLocal"
   )
 	 
 	$buildNumber = $env:TF_BUILD_BUILDNUMBER
@@ -158,3 +160,4 @@ function Pack-NuGetFiles
 
 Invoke-Item $nugetLocalFeedDirectory
 Pack-NuGetFiles $packageVersion
+

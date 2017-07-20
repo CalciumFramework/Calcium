@@ -24,6 +24,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="NuGet.CommandLine" Version="4.1.0" />
     <PackageReference Include="System.IO.IsolatedStorage" Version="4.3.0" />
   </ItemGroup>
   <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
