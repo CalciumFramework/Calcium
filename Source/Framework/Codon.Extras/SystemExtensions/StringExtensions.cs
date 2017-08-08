@@ -13,6 +13,7 @@
 #endregion
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Codon.Text
@@ -125,6 +126,32 @@ namespace Codon.Text
 			string result = Encoding.Unicode.GetString(
 												bytes, 0, bytes.Length);
 			return result;
+		}
+
+		/// <summary>
+		/// Indicates whether a specified string is <c>null</c>, empty, 
+		/// or consists only of white-space characters.
+		/// </summary>
+		/// <param name="text">The string to test.</param>
+		/// <returns><c>true</c> if the specified string is <c>null</c>, empty, 
+		/// or consists only of white-space characters; <c>false</c> otherwise.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsNullOrWhiteSpace(this string text)
+		{
+			return string.IsNullOrWhiteSpace(text);
+		}
+
+		/// <summary>
+		/// Indicates whether the specified string is <c>null</c> 
+		/// or has a length of zero.
+		/// </summary>
+		/// <param name="text">The string to test.</param>
+		/// <returns><c>true</c> if the specified string is <c>null</c> or empty; 
+		/// <c>false</c> otherwise.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool IsNullOrEmpty(this string text)
+		{
+			return string.IsNullOrEmpty(text);
 		}
 	}
 }
