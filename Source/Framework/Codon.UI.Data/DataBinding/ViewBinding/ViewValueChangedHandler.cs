@@ -16,6 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using Codon.Logging;
 using Codon.MissingTypes.System.Windows.Data;
 
 namespace Codon.UI.Data
@@ -69,13 +70,16 @@ namespace Codon.UI.Data
 					propertyBinding.Converter,
 					propertyBinding.ConverterParameter);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				/* TODO: log exception */
 				if (Debugger.IsAttached)
 				{
 					Debugger.Break();
 				}
+
+				var log = Dependency.Resolve<ILog>();
+				log.Debug("Unable to update source binding. " + propertyBinding, ex);
 			}
 			finally
 			{
@@ -133,7 +137,22 @@ namespace Codon.UI.Data
 				newValue = value;
 			}
 
-			sourceProperty.SetValue(dataContext, newValue);
+			var sourcePropertyType = sourceProperty.PropertyType;
+			var newValueType = newValue?.GetType();
+			var convertedValue = newValue;
+
+			if (sourcePropertyType == typeof(string)
+				&& value != null && newValueType != typeof(string)
+				&& newValue != null)
+			{
+				convertedValue = newValue.ToString();
+			}
+			else if (newValue != null && sourcePropertyType != newValueType)
+			{
+				convertedValue = ValueCoercer.CoerceToType(newValue, sourcePropertyType);
+			}
+
+			sourceProperty.SetValue(dataContext, convertedValue);
 		}
 	}
 }

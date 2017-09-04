@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System.Diagnostics;
 using System.Reflection;
 using Codon.MissingTypes.System.Windows.Data;
 #if !(MONODROID || __ANDROID__)
@@ -22,6 +23,7 @@ using Android.Views;
 
 namespace Codon.UI.Data
 {
+	[DebuggerDisplay("View={View}, SourceProperty={SourceProperty?.Name}, TargetProperty={TargetProperty?.Name}, TargetMethod={TargetMethod?.Name}, Converter={Converter}, ConverterParameter={ConverterParameter}")]
 	public class PropertyBinding
 	{
 		public View View { get; set; }
@@ -38,5 +40,10 @@ namespace Codon.UI.Data
 #pragma warning restore 414
 
 		internal bool PreventUpdateForTargetProperty;
+
+		public override string ToString()
+		{
+			return $"View={View}, SourceProperty={SourceProperty?.Name}, TargetProperty={TargetProperty?.Name}, TargetMethod={TargetMethod?.Name}, Converter={Converter}, ConverterParameter={ConverterParameter}";
+		}
 	}
 }

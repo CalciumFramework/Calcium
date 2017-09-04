@@ -54,7 +54,7 @@ namespace Codon.UI.Data
 			}
 			else if (targetPropertyType != sourcePropertyType)
 			{
-				sourcePropertyValue = CoerceToType(sourcePropertyValue, targetPropertyType);
+				sourcePropertyValue = ValueCoercer.CoerceToType(sourcePropertyValue, targetPropertyType);
 			}
 
 			Action<object, object> setter = ReflectionCache.GetPropertySetter(targetProperty);
@@ -106,7 +106,7 @@ namespace Codon.UI.Data
 			}
 			else if (targetPropertyType != newPropertyValueType)
 			{
-				convertedValue = CoerceToType(convertedValue, targetPropertyType);
+				convertedValue = ValueCoercer.CoerceToType(convertedValue, targetPropertyType);
 			}
 
 			Action<object, object> setter = ReflectionCache.GetPropertySetter(targetProperty);
@@ -170,7 +170,7 @@ namespace Codon.UI.Data
 			}
 			else if (parameterType != sourcePropertyType)
 			{
-				sourcePropertyValue = CoerceToType(sourcePropertyValue, parameterType);
+				sourcePropertyValue = ValueCoercer.CoerceToType(sourcePropertyValue, parameterType);
 			}
 
 			Action<object, object[]> action = ReflectionCache.GetVoidMethodInvoker(targetMethod);
@@ -222,7 +222,7 @@ namespace Codon.UI.Data
 			}
 			else if (parameterType != parameterValueType)
 			{
-				sourcePropertyValue = CoerceToType(sourcePropertyValue, parameterType);
+				sourcePropertyValue = ValueCoercer.CoerceToType(sourcePropertyValue, parameterType);
 			}
 
 			//targetMethod.Invoke(view, new[] { sourcePropertyValue });
@@ -240,15 +240,23 @@ namespace Codon.UI.Data
 					+ $"Target: {targetMethod}.{targetMethod?.Name}, Value: {sourcePropertyValue}", ex);
 			}
 		}
+	}
 
-		static object CoerceToType(object originalValue, Type destinationType)
+	static class ValueCoercer
+	{
+		static IImplicitTypeConverter implicitTypeConverter;
+
+		internal static object CoerceToType(object originalValue, Type destinationType)
 		{
 			object coercedParameter = originalValue;
 			Type typeOfT = destinationType;
 
 			if (originalValue != null && !typeOfT.IsAssignableFromEx(originalValue.GetType()))
 			{
-				var implicitTypeConverter = Dependency.Resolve<IImplicitTypeConverter>();
+				if (implicitTypeConverter == null)
+				{
+					implicitTypeConverter = Dependency.Resolve<IImplicitTypeConverter>();
+				}
 				coercedParameter = implicitTypeConverter.ConvertToType(originalValue, typeOfT);
 			}
 

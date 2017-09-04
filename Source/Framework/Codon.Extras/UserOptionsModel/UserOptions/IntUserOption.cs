@@ -28,5 +28,8 @@ namespace Codon.UserOptionsModel.UserOptions
 		{
 			TemplateNameFunc = () => defaultTemplateName;
 		}
+
+		public int MinValue { get; set; }
+		public int MaxValue { get; set; }
 	}
 }
