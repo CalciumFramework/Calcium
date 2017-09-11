@@ -22,6 +22,7 @@ using Android.OS;
 using Codon.ComponentModel;
 using Codon.Device;
 using Codon.Services;
+using Codon.Concurrency;
 
 namespace Codon.Devices
 {
@@ -39,21 +40,29 @@ namespace Codon.Devices
 		{
 			if (!listening)
 			{
-				lock (listeningLock)
-				{
-					if (!listening)
+				var synchronizationContext = Dependency.Resolve<ISynchronizationContext>();
+
+				synchronizationContext.Send(() => { 
+					lock (listeningLock)
 					{
-						var intentFilter = new IntentFilter(/*Intent.ActionBatteryChanged*/);
-						intentFilter.AddAction(Intent.ActionBatteryLow);
-						intentFilter.AddAction(Intent.ActionBatteryOkay);
+						if (!listening)
+						{
+							var intentFilter = new IntentFilter(/*Intent.ActionBatteryChanged*/);
+							intentFilter.AddAction(Intent.ActionBatteryLow);
+							intentFilter.AddAction(Intent.ActionBatteryOkay);
 
-						var context = Application.Context;
-						receiver = new PowerConnectionReceiver(this);
-						batteryStatusIntent = context.RegisterReceiver(receiver, intentFilter);
+							intentFilter.AddAction(Intent.ActionPowerConnected);
+							intentFilter.AddAction(Intent.ActionPowerDisconnected);
 
-						listening = true;
+							//var context = Application.Context;
+							var context = Dependency.Resolve<Activity>();
+							receiver = new PowerConnectionReceiver(this);
+							batteryStatusIntent = context.RegisterReceiver(receiver, intentFilter);
+
+							listening = true;
+						}
 					}
-				}
+				});
 			}
 		}
 
@@ -65,7 +74,8 @@ namespace Codon.Devices
 				{
 					if (listening)
 					{
-						var context = Application.Context;
+						//var context = Application.Context;
+						var context = Dependency.Resolve<Activity>();
 						context.UnregisterReceiver(receiver);
 
 						listening = false;
@@ -78,7 +88,15 @@ namespace Codon.Devices
 
 		public DevicePowerSource PowerSource
 		{
-			get => powerSource = GetPowerSource(batteryStatusIntent);
+			get
+			{
+				if (batteryStatusIntent == null)
+				{
+					return powerSource;
+				}
+				powerSource = GetPowerSource(batteryStatusIntent);
+				return powerSource;
+			}
 			set => Set(ref powerSource, value);
 		}
 
@@ -86,15 +104,39 @@ namespace Codon.Devices
 
 		public int RemainingBatteryChargePercent
 		{
-			get => chargeRemainingPercent = (int)GetRemainingBatteryLevel(batteryStatusIntent);
+			get
+			{
+				if (batteryStatusIntent == null)
+				{
+					return chargeRemainingPercent;
+				}
+				chargeRemainingPercent = (int)GetRemainingBatteryLevel(batteryStatusIntent);
+
+				return chargeRemainingPercent;
+			}
 			set => Set(ref chargeRemainingPercent, value);
 		}
 
 		/// <summary>
-		/// Not supported on Android.
+		/// We make some assumptions to return a value 
+		/// that indicates how long the battery has enough charge to power the device.
 		/// </summary>
 		/// <exception cref="NotSupportedException" />
-		public TimeSpan RemainingBatteryDischargeTime => throw new NotSupportedException();
+		public TimeSpan RemainingBatteryDischargeTime
+		{
+			get
+			{
+				TimeSpan remainingTime = EstimateRemainingTime(RemainingBatteryChargePercent);
+				return remainingTime;
+			}
+		}
+
+		TimeSpan EstimateRemainingTime(int chargePercent)
+		{
+			/* For now estimate remaining time using an estimated 4 hours on full load. */
+			TimeSpan remainingTime = TimeSpan.FromHours(4.0 * (chargePercent / 100.0));
+			return remainingTime;
+		}
 
 		float GetRemainingBatteryLevel(Intent intent)
 		{
@@ -120,12 +162,28 @@ namespace Codon.Devices
 
 		void Update(Intent intent)
 		{
+			batteryStatusIntent = intent;
 
+			var oldPowerSource = powerSource;
 			RemainingBatteryChargePercent = (int)GetRemainingBatteryLevel(intent);
+			
 			PowerSource = GetPowerSource(intent);
 			//BatteryStatus status = (BatteryStatus)intent.GetIntExtra(BatteryManager.ExtraStatus, -1);
 			//			bool isCharging = status == BatteryStatus.Charging ||
 			//								status == BatteryStatus.Full;
+
+			string intentAction = intent.Action;
+			if (intentAction == Intent.ActionPowerConnected || intentAction == Intent.ActionPowerDisconnected)
+			{
+				var messenger = Dependency.Resolve<IMessenger>();
+				messenger.PublishAsync(new PowerSourceChangeEvent(this, oldPowerSource, PowerSource));
+			}
+			else if (intentAction == Intent.ActionBatteryLow || intentAction == Intent.ActionBatteryOkay)
+			{
+				var messenger = Dependency.Resolve<IMessenger>();
+				TimeSpan remainingTime = EstimateRemainingTime(chargeRemainingPercent);
+				messenger.PublishAsync(new RemainingBatteryChargeEvent(this, chargeRemainingPercent, remainingTime));
+			}
 		}
 
 		public class PowerConnectionReceiver : BroadcastReceiver
