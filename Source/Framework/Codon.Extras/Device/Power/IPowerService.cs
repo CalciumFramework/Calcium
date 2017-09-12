@@ -47,6 +47,11 @@ namespace Codon.Services
 		DevicePowerSource PowerSource { get; }
 
 		/// <summary>
+		/// Indicates if the battery is charging and so forth.
+		/// </summary>
+		BatteryState BatteryState { get; }
+
+		/// <summary>
 		/// Begins monitoring for power changes.
 		/// </summary>
 		void Start();

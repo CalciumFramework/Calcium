@@ -377,19 +377,29 @@ namespace Codon.IO.Serialization
 				for (var i = 0; i < count; i++)
 				{
 					var typeName = rw.ReadString();
+					
 					var tp = Type.GetType(typeName);
 					if (tp == null)
 					{
-						var map = new TypeMappingEventArgs
+						typeName = typeName.Replace(", System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", string.Empty);
+						tp = Type.GetType(typeName);
+						if (tp == null)
 						{
-							TypeName = typeName
-						};
-						InvokeMapMissingType(map);
-						tp = map.UseType;
+							var map = new TypeMappingEventArgs
+							{
+								TypeName = typeName
+							};
+							InvokeMapMissingType(map);
+							tp = map.UseType;
+						}
 					}
 					if (!Verbose)
+					{
 						if (tp == null)
-							throw new ArgumentException(string.Format("Cannot reference type {0} in this context", typeName));
+						{
+							throw new ArgumentException(string.Format("SilverlightSerializer: Cannot reference type {0} in this context", typeName));
+						}
+					}
 					_knownTypes.Add(tp);
 				}
 				count = rw.ReadInt32();
