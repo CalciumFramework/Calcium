@@ -22,7 +22,7 @@ namespace Codon.ComponentModel
 	/// for its <see cref="Instance"/> property
 	/// when its <see cref="RaisePropertyChanged"/> method is called.
 	/// It allows you to update the UI eventhough an object
-	/// does not implement <seealso cref="INotifyPropertyChanged"/>.
+	/// does not implement <see cref="INotifyPropertyChanged"/>.
 	/// </summary>
 	/// <typeparam name="T">
 	/// The Instance type.</typeparam>

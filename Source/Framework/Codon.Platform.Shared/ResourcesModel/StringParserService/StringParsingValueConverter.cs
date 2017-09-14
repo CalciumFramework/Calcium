@@ -32,7 +32,7 @@ using System.Windows.Data;
 namespace Codon.UI.Elements.ValueConverters
 {
 	/// <summary>
-	/// An <seealso cref="IValueConverter"/> that parses
+	/// An <see cref="IValueConverter"/> that parses
 	/// string using the <see cref="IStringParserService"/>,
 	/// allowing you to leverage the String Parser service
 	/// from data-bindings.

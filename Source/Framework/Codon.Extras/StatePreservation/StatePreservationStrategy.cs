@@ -52,7 +52,7 @@ namespace Codon.StatePreservation
 		public bool StatePreservationEnabled { get; set; } = true;
 
 		/// <summary>
-		/// Enables reading of the <seealso cref="StatefulAttribute"/>
+		/// Enables reading of the <see cref="StatefulAttribute"/>
 		/// for class properties.
 		/// Setting this property to <c>false</c> may improve performance
 		/// because there is a cost to reading the state attributes for the object.

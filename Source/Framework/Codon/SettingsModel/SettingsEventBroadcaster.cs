@@ -24,6 +24,20 @@ namespace Codon.SettingsModel
 	/// </summary>
 	public class SettingsEventBroadcaster
 	{
+		IMessenger messenger_UseProperty;
+
+		/// <summary>
+		/// This property allows you to explicitly set 
+		/// the <see cref="IMessenger"/> instance, which is used to broadcast events.
+		/// By default this value is set once to the <c>IMessenger</c> 
+		/// located in the IoC container.
+		/// </summary>
+		public IMessenger Messenger
+		{
+			private get => messenger_UseProperty ?? (messenger_UseProperty = Dependency.Resolve<IMessenger, Messenger>());
+			set => messenger_UseProperty = value;
+		}
+
 		public SettingsEventBroadcaster(ISettingsService settingsService)
 		{
 			AssertArg.IsNotNull(
@@ -31,18 +45,22 @@ namespace Codon.SettingsModel
 
 			settingsService.SettingChanging += HandleSettingChanging;
 			settingsService.SettingChanged += HandleSettingChanged;
+			settingsService.SettingRemoved += HandleSettingRemoved;
 		}
 
 		void HandleSettingChanging(object sender, SettingChangingEventArgs e)
 		{
-			var messageBus = Dependency.Resolve<IMessenger, Messenger>();
-			messageBus.PublishAsync(e);
+			Messenger.PublishAsync(e);
 		}
 
 		void HandleSettingChanged(object sender, SettingChangeEventArgs e)
 		{
-			var messageBus = Dependency.Resolve<IMessenger, Messenger>();
-			messageBus.PublishAsync(e);
+			Messenger.PublishAsync(e);
+		}
+
+		void HandleSettingRemoved(object sender, SettingRemovedEventArgs e)
+		{
+			Messenger.PublishAsync(e);
 		}
 	}
 }

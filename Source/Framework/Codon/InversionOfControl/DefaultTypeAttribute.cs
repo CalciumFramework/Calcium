@@ -7,7 +7,7 @@ namespace Codon.InversionOfControl
 	/// concrete type for the <see cref="FrameworkContainer"/>
 	/// to resolve types that do not have an existing type registration.
 	/// This attribute has lower precedence than the 
-	/// <seealso cref="DefaultTypeNameAttribute"/>.
+	/// <see cref="DefaultTypeNameAttribute"/>.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Interface)]
 	public class DefaultTypeAttribute : Attribute

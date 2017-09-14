@@ -23,7 +23,7 @@ namespace Codon.UndoModel
 	{
 		/// <summary>
 		/// Gets or sets the argument used by the concrete 
-		/// <seealso cref="UnitBase{T}"/> implementation.
+		/// <see cref="UnitBase{T}"/> implementation.
 		/// </summary>
 		/// <value>The argument.</value>
 		public TArgument Argument { get; set; }

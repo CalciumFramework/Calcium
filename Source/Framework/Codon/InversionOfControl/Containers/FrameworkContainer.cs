@@ -67,7 +67,7 @@ namespace Codon.InversionOfControl
 
 		/// <summary>
 		/// If <c>true</c> the container resolves values for properties 
-		/// that are decorated with a <seealso cref="InjectDependenciesAttribute"/>.
+		/// that are decorated with a <see cref="InjectDependenciesAttribute"/>.
 		/// There's a performance penalty for that. If you do not use
 		/// <c>InjectDependenciesAttribute</c> for properties, 
 		/// set this property to false to improve performance.

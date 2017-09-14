@@ -47,7 +47,7 @@ namespace Codon.Reflection
 		/// <summary>
 		/// Retrieve or create a func that can be used
 		/// to call a method on a object. This differs from
-		/// the <seealso cref="GetVoidMethodInvoker"/> method
+		/// the <see cref="GetVoidMethodInvoker"/> method
 		/// in that it produces a func that returns the value
 		/// from the target method. This method can be used
 		/// in place of <see cref="GetVoidMethodInvoker"/>,
@@ -70,7 +70,7 @@ namespace Codon.Reflection
 		/// <summary>
 		/// Retrieve or create a func that can be used
 		/// to call a method on a object. This differs from
-		/// the <seealso cref="GetVoidMethodInvoker"/> method
+		/// the <see cref="GetVoidMethodInvoker"/> method
 		/// in that it produces a func that returns the value
 		/// from the target method. This method can be used
 		/// in place of <see cref="GetVoidMethodInvoker"/>,

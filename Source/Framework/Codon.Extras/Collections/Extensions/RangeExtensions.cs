@@ -24,7 +24,7 @@ namespace Codon.Collections
 	/// This class contains extension methods for manipulating 
 	/// a range (more than one item) in a collection at the same time.
 	/// Note that to avoid multiple change notifications,
-	/// a collection may implement <seealso cref="IRangeOperations"/>,
+	/// a collection may implement <see cref="IRangeOperations"/>,
 	/// such as the <c>ObservableList</c> collection.
 	/// </summary>
 	public static class RangeExtensions

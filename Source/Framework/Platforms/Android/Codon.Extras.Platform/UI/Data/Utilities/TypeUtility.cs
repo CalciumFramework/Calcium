@@ -63,7 +63,7 @@ namespace Codon.UI.Data
 		/// Based on code by Thomas Lebrun http://bit.ly/1OQsD8L
 		/// </summary>
 		/// <returns>The list of known assemblies that are not system assemblies 
-		/// as determined by <seealso cref="IsSystemAssembly"/>.</returns>
+		/// as determined by <see cref="IsSystemAssembly"/>.</returns>
 		static IEnumerable<AssemblyName> GetNonSystemAssemblies()
 		{
 			var result = new List<AssemblyName>();

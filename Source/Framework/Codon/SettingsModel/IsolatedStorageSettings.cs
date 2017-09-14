@@ -29,7 +29,7 @@ namespace Codon.SettingsModel
 	/// <summary>
 	/// This class is used to persist and dictionary
 	/// of keyed setting value to isolated store.
-	/// It makes use of the <seealso cref="IBinarySerializer"/>
+	/// It makes use of the <see cref="IBinarySerializer"/>
 	/// to serialize the dictionary.
 	/// This class makes use of the <see cref="IExceptionHandler"/>
 	/// implementation. If an exception is thrown during

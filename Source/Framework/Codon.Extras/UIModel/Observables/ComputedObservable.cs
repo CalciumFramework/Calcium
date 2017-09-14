@@ -29,7 +29,7 @@ namespace Codon.UIModel
 	/// that implement <c>INotifyPropertyChanged</c>. When a change notification is received 
 	/// from any such objects, the value of the expression is recomputed.
 	/// Disposing of this object removes subscriptions to all associated objects.
-	/// <see cref="http://danielvaughan.org/post/Knockout-Style-Observables-in-XAML.aspx" />
+	/// <see href="http://danielvaughan.org/posts/.net/xaml/2012/07/25/Knockout-Style-Observables-in-XAML/" />
 	/// <seealso cref="Observable{T}"/>
 	/// </summary>
 	/// <example>

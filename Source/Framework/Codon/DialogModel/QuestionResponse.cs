@@ -22,7 +22,7 @@ namespace Codon.DialogModel
 	/// </summary>
 	/// <typeparam name="TResponse">
 	/// The type of object that is specific to the question,
-	/// such as a <seealso cref="TextResponse"/>.</typeparam>
+	/// such as a <see cref="TextResponse"/>.</typeparam>
 	public class QuestionResponse<TResponse>
 	{
 		/// <summary>

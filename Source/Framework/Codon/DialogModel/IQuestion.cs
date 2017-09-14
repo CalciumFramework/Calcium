@@ -21,7 +21,7 @@ namespace Codon.DialogModel
 	/// </summary>
 	/// <typeparam name="TResponse">
 	/// An object containing information relevant to displaying
-	/// the question to the user, for example <seealso cref="TextResponse"/>.
+	/// the question to the user, for example <see cref="TextResponse"/>.
 	/// </typeparam>
 	public interface IQuestion<TResponse>
 	{

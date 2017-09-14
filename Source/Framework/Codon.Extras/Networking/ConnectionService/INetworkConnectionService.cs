@@ -21,7 +21,7 @@ namespace Codon.Services
 	/// <summary>
 	/// This class allows you to monitor the status of the current network connection.
 	/// When the connection changes an event is raised. In addition a <c>NetworkAvailabilityChangedMessage</c>
-	/// is disptached using the <seealso cref="IMessenger"/> implementation if registered with the IoC container.
+	/// is disptached using the <see cref="IMessenger"/> implementation if registered with the IoC container.
 	/// </summary>
 	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Networking)
 		+ ".NetworkConnectionService, " + AssemblyConstants.ExtrasPlatformAssembly, Singleton = true)]
@@ -42,7 +42,7 @@ namespace Codon.Services
 		/// <summary>
 		/// This event is raised on the UI thread when the connection changes. 
 		/// In addition, when using the default implementation, a <c>NetworkAvailabilityChangedMessage</c>
-		/// is disptached using the <seealso cref="IMessenger"/> implementation if registered with the IoC container.
+		/// is disptached using the <see cref="IMessenger"/> implementation if registered with the IoC container.
 		/// </summary>
 		event EventHandler<EventArgs> NetworkConnectionChanged;
 

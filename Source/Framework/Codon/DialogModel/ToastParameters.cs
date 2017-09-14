@@ -19,7 +19,7 @@ namespace Codon.DialogModel
 	/// <summary>
 	/// Defines the vertical orientation or location
 	/// of a toast message, as displayed by the 
-	/// <seealso cref="Services.IDialogService"/> implementation.
+	/// <see cref="Services.IDialogService"/> implementation.
 	/// </summary>
 	public enum ToastVerticalOrientation
 	{
@@ -32,7 +32,7 @@ namespace Codon.DialogModel
 	/// <summary>
 	/// Defines the animation of a toast message, 
 	/// as displayed by the 
-	/// <seealso cref="Services.IDialogService"/> implementation.
+	/// <see cref="Services.IDialogService"/> implementation.
 	/// </summary>
 	public enum ToastAnimationType
 	{

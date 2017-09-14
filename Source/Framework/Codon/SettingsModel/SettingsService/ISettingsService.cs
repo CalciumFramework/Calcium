@@ -136,5 +136,11 @@ namespace Codon.Services
 		/// Occurs when a setting is about to change.
 		/// </summary>
 		event EventHandler<SettingChangingEventArgs> SettingChanging;
+
+		/// <summary>
+		/// Occurs when a setting is removed, such that there is no longer 
+		/// a value associated with the setting key located in any <see cref="ISettingsStore"/>.
+		/// </summary>
+		event EventHandler<SettingRemovedEventArgs> SettingRemoved;
 	}
 }

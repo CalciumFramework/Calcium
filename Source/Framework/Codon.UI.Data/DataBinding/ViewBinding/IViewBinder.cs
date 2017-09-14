@@ -24,7 +24,7 @@ namespace Codon.UI.Data
 	/// <summary>
 	/// This interface represents an extensibility point for adding support 
 	/// for different types of views that may, or may not, already be included 
-	/// in the <seealso cref="ViewBinderRegistry"/>.
+	/// in the <see cref="ViewBinderRegistry"/>.
 	/// </summary>
 	public interface IViewBinder
 	{

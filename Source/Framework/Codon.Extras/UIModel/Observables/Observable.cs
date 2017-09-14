@@ -22,7 +22,7 @@ namespace Codon.UIModel
 	/// This class is analagous to the Knockout JS style observables. 
 	/// It is used to wrap a value and provides change notification 
 	/// for bindings without adding plumbing to a viewmodel.
-	/// <see cref="http://danielvaughan.org/post/Knockout-Style-Observables-in-XAML.aspx" />
+	/// <see href="http://danielvaughan.org/posts/.net/xaml/2012/07/25/Knockout-Style-Observables-in-XAML/" />
 	/// </summary>
 	/// <example>
 	/// class MainWindowViewModel
@@ -77,7 +77,7 @@ namespace Codon.UIModel
 		}
 
 		/// <summary>
-		/// Occurs when the <seealso cref="Value"/> property changes.
+		/// Occurs when the <see cref="Value"/> property changes.
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 

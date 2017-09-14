@@ -60,7 +60,7 @@ namespace Codon.Logging
 		/// to prevent the unnecessary log entry preparation.
 		/// </summary>
 		/// <param name="logLevel"></param>
-		/// <returns><c>true</c> if a call at the specified <seealso cref="LogLevel"/>
+		/// <returns><c>true</c> if a call at the specified <see cref="LogLevel"/>
 		/// will succeed; <c>false</c> otherwise.</returns>
 		bool IsLogEnabledForLevel(LogLevel logLevel);
 

@@ -124,6 +124,11 @@ namespace Codon.SettingsModel
 				lockSlim.ExitWriteLock();
 			}
 
+			if (result)
+			{
+				OnSettingRemoved(new SettingRemovedEventArgs(key));
+			}
+
 			return result;
 		}
 
@@ -812,7 +817,7 @@ namespace Codon.SettingsModel
 
 #endregion
 
-#region event SettingChanged
+		#region event SettingChanged
 
 		public event EventHandler<SettingChangeEventArgs> SettingChanged;
 
@@ -821,6 +826,17 @@ namespace Codon.SettingsModel
 			SettingChanged?.Invoke(this, e);
 		}
 
-#endregion
+		#endregion
+
+		#region event SettingRemoved
+
+		public event EventHandler<SettingRemovedEventArgs> SettingRemoved;
+
+		protected virtual void OnSettingRemoved(SettingRemovedEventArgs e)
+		{
+			SettingRemoved?.Invoke(this, e);
+		}
+
+		#endregion
 	}
 }

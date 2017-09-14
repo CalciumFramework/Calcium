@@ -17,7 +17,7 @@ using System;
 namespace Codon.UndoModel
 {
 	/// <summary>
-	/// The base class for <see cref="IUndoableUnit"/>s.
+	/// The base class for classes implementing <see cref="IUndoableUnit"/>.
 	/// <seealso cref="IUndoableUnit"/>
 	/// </summary>
 	public abstract class UndoableUnitBase<T> : UnitBase<T>, IUndoableUnit

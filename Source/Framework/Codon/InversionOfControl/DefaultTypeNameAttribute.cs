@@ -9,7 +9,7 @@ namespace Codon.InversionOfControl
 	/// The <see cref="FrameworkContainer"/> attempts to resolve
 	/// the type from referenced assemblies depending on the platform.
 	/// This attribute has higher precedence than the 
-	/// <seealso cref="DefaultTypeNameAttribute"/>.
+	/// <see cref="DefaultTypeNameAttribute"/>.
 	/// <seealso cref="Platform.PlatformDetector"/>
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Interface)]
