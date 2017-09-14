@@ -178,7 +178,7 @@ namespace Codon.DialogModel
 			return null;
 		}
 
-		public override async Task<object> ShowToastAsync(
+		public override Task<object> ShowToastAsync(
 			ToastParameters toastParameters)
 		{
 			AssertArg.IsNotNull(toastParameters, nameof(toastParameters));
@@ -247,7 +247,7 @@ namespace Codon.DialogModel
 
 			ToastNotificationManager.CreateToastNotifier().Show(toast);
 
-			return await source.Task;
+			return source.Task;
 		}
 
 		public override Task<QuestionResponse<TResponse>> AskQuestionAsync<TResponse>(
