@@ -165,15 +165,23 @@ namespace Codon.Collections
 			}
 			else if (e.Action == NotifyCollectionChangedAction.Reset)
 			{
-				foreach (INotifyCollectionChanged oldItem in e.OldItems)
+				var oldItems = e.OldItems;
+				if (oldItems != null)
 				{
-					oldItem.CollectionChanged -= HandleChildCollectionChanged;
+					foreach (INotifyCollectionChanged oldItem in oldItems)
+					{
+						oldItem.CollectionChanged -= HandleChildCollectionChanged;
+					}
 				}
 
-				foreach (var newItem in Items)
+				var newItems = Items;
+				if (newItems != null)
 				{
-					newItem.CollectionChanged -= HandleChildCollectionChanged;
-					newItem.CollectionChanged += HandleChildCollectionChanged;
+					foreach (var newItem in newItems)
+					{
+						newItem.CollectionChanged -= HandleChildCollectionChanged;
+						newItem.CollectionChanged += HandleChildCollectionChanged;
+					}
 				}
 			}
 		}
