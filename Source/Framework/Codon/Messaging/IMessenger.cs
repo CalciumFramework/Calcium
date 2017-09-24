@@ -15,7 +15,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
+using Codon.ComponentModel;
 using Codon.InversionOfControl;
 using Codon.Messaging;
 
@@ -90,5 +90,12 @@ namespace Codon.Services
 			[CallerMemberName]string memberName = null,
 			[CallerFilePath]string filePath = null,
 			[CallerLineNumber]int lineNumber = 0);
+
+
+		/// <summary>
+		/// Allows you to define an exception handler for exceptions 
+		/// that occur when publishing a message.
+		/// </summary>
+		IExceptionHandler ExceptionHandler { get; set; }
 	}
 }
