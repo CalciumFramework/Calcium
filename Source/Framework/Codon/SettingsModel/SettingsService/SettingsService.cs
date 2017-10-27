@@ -238,15 +238,33 @@ namespace Codon.SettingsModel
 				return cacheResult;
 			}
 
-			if (localStore.Status == SettingsStoreStatus.Ready 
-				&& localStore.TryGetValue(key, settingType, out object entry)
-				|| (roamingStore != null && roamingStore.Status == SettingsStoreStatus.Ready && roamingStore.TryGetValue(key, settingType, out entry))
-				|| (transientStore != null && transientStore.Status == SettingsStoreStatus.Ready && transientStore.TryGetValue(key, settingType, out entry)))
+			object entry = null;
+			bool retrievedExisting = localStore.Status == SettingsStoreStatus.Ready && localStore.TryGetValue(key, settingType, out entry);
+			/* Don't use |= here because doing so prevents short circuiting from occurring. */
+			retrievedExisting = retrievedExisting || roamingStore != null && roamingStore.Status == SettingsStoreStatus.Ready && roamingStore.TryGetValue(key, settingType, out entry);
+			retrievedExisting = retrievedExisting || transientStore != null && transientStore.Status == SettingsStoreStatus.Ready && transientStore.TryGetValue(key, settingType, out entry);
+
+			if (retrievedExisting)
 			{
 				if (xmlConvertible && entry != null)
 				{
-					if (TryConvertFromXml(settingType, entry, 
-							out object objectConvertedFromXml))
+					Type concreteType;
+					if (settingType.IsInterface())
+					{
+						if (defaultValue == null)
+						{
+							throw new SettingsException($"Unable to retrieve IXmlConvertible setting object specified by interface type {settingType.FullName}. "
+														+ "Retrieve this value using a concrete implementation type.");
+						}
+
+						concreteType = defaultValue.GetType();
+					}
+					else
+					{
+						concreteType = settingType;
+					}
+
+					if (TryConvertFromXml(concreteType, entry, out object objectConvertedFromXml))
 					{
 						return objectConvertedFromXml;
 					}
@@ -313,7 +331,7 @@ namespace Codon.SettingsModel
 					catch (Exception ex)
 					{
 						string message = $"Unable to parse setting that is of type {settingType} but is stored as a string";
-						throw new Exception(message, ex);
+						throw new SettingsException(message, ex);
 					}
 				}
 
@@ -344,7 +362,7 @@ namespace Codon.SettingsModel
 				catch (Exception ex)
 				{
 					string message = string.Format("Unable to parse setting that is of type {0} but is stored as a byte[]", settingType);
-					throw new Exception(message, ex);
+					throw new SettingsException(message, ex);
 				}
 			}
 			return entry;
@@ -368,7 +386,7 @@ namespace Codon.SettingsModel
 
 					if (RaiseExceptionsOnConversionErrors)
 					{
-						throw new Exception("SettingsService: Unable to convert to IXmlConvertible. " 
+						throw new SettingsException("SettingsService: Unable to convert to IXmlConvertible. " 
 												+ settingType + " " + xmlFragment, ex);
 					}
 				}
@@ -452,12 +470,19 @@ namespace Codon.SettingsModel
 					}
 					else if (xmlConvertible)
 					{
-						if (TryConvertFromXml(settingType, existingValue, 
-												out object existingObject))
+						if (existingValue != null)
 						{
-							if (object.Equals(existingObject, value))
+							Type concreteType = settingType.IsInterface() ? value?.GetType() : settingType;
+
+							if (concreteType != null)
 							{
-								alreadySet = true;
+								if (TryConvertFromXml(concreteType, existingValue, out object existingObject))
+								{
+									if (Equals(existingObject, value))
+									{
+										alreadySet = true;
+									}
+								}
 							}
 						}
 					}
@@ -679,7 +704,7 @@ namespace Codon.SettingsModel
 
 						if (RaiseExceptionsOnConversionErrors)
 						{
-							throw new Exception(
+							throw new SettingsException(
 								"SettingsService.SetSetting error raised converting to XML. Value:" + value + ", Setting type:" + settingType,
 								ex);
 						}
@@ -722,7 +747,7 @@ namespace Codon.SettingsModel
 
 				if (RaiseExceptionsOnConversionErrors)
 				{
-					throw new Exception(
+					throw new SettingsException(
 						"SettingsService.SetSetting error raised calling settingsStore.Save(). Value:" + value + ", Setting type:" + settingType,
 						ex);
 				}
@@ -762,7 +787,11 @@ namespace Codon.SettingsModel
 				//&& !Attribute.IsDefined(settingType, typeof(DataContractAttribute))
 				)
 			{
-				if (savableValue is DateTimeOffset offset)
+				if (savableValue is IXmlConvertible xmlConvertible)
+				{
+					savableValue = xmlConvertible.ToXElement().ToString();
+				}
+				else if (savableValue is DateTimeOffset offset)
 				{
 					savableValue = offset.ToString(dateTimeFormatString);
 				}

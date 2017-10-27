@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Codon.InversionOfControl;
 
 namespace Codon.UI.Data
 {
+	[DefaultType(typeof(NamespaceAliasRegistry), Singleton = true)]
 	public interface INamespaceAliasRegistry
 	{
 		void RegisterNamespaceAlias(string xamlAlias, string @namespace, string assemblyName);
