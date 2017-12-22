@@ -87,6 +87,11 @@ namespace Codon.UIModel.Input
 			this.executeAction = AssertArg.IsNotNull(
 									executeAction, nameof(executeAction));
 			this.canExecuteFunc = canExecuteFunc;
+
+			if (canExecuteFunc != null)
+			{
+				Refresh();
+			}
 		}
 
 		#region ICommand Members
