@@ -1,10 +1,10 @@
-﻿$packageVersion = "2.0.7-alpha";
+﻿$packageVersion = "2.0.8-alpha";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
+$nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 
 # These are set later in the script.
-#$nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 #$nugetExePath = "C:\Dev\Tools\Nuget.exe";
 
 $sourceRoot = "../../Source/Framework/";
