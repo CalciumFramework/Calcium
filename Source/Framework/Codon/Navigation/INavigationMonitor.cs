@@ -1,9 +1,13 @@
-﻿namespace Codon.Navigation
+﻿using Codon.InversionOfControl;
+
+namespace Codon.Navigation
 {
 	/// <summary>
 	/// Placeholder interface for a class that is tasked
 	/// with monitoring page navigation within an app.
 	/// </summary>
+	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Navigation)
+					+ ".NavigationMonitor, " + AssemblyConstants.PlatformAssembly, Singleton = true)]
 	public interface INavigationMonitor
 	{
 		/// <summary>

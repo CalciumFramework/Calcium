@@ -89,6 +89,8 @@ namespace Codon.Navigation
 				});
 		}
 
+		int dataContextRetryCount;
+
 		void HandleNavigated(object sender, NavigationEventArgs e)
 		{
 			var frame = GetFrame();
@@ -97,7 +99,16 @@ namespace Codon.Navigation
 				return;
 			}
 
-			
+			object dataContext = GetContentDataContext();
+			if (dataContext == null && dataContextRetryCount++ < 3)
+			{
+				var synchronizationContext = Dependency.Resolve<ISynchronizationContext>();
+				synchronizationContext.Post(() => HandleNavigated(sender, e));
+				return;
+			}
+
+			dataContextRetryCount = 0;
+
 			ProcessDataContext(e,
 				(navigationAware, eventArgs, _) =>
 				{
