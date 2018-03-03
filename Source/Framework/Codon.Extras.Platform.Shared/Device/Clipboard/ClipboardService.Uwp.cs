@@ -19,27 +19,27 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Codon.Services;
 
-namespace Framework.Device
+namespace Codon.Device
 {
 	/// <summary>
 	/// UWP implementation of the <see cref="IClipboardService"/>.
 	/// </summary>
-    public class ClipboardService : IClipboardService
-    {
-	    public void CopyToClipboard(object content, string description)
-	    {
+	public class ClipboardService : IClipboardService
+	{
+		public void CopyToClipboard(object content, string description)
+		{
 			var dataPackage = new DataPackage();
 
-		    var text = content as string;
+			var text = content as string;
 			if (text != null)
 			{
 				dataPackage.SetText(text);
 				goto SetContent;
 			}
 
-		    var uri = content as Uri;
-		    if (uri != null)
-		    {
+			var uri = content as Uri;
+			if (uri != null)
+			{
 				dataPackage.SetWebLink(uri);
 				goto SetContent;
 			}
@@ -59,9 +59,9 @@ namespace Framework.Device
 			Clipboard.SetContent(dataPackage);
 		}
 
-	    public async Task<object> GetClipboardContentsAsync()
-	    {
-		    object result = null;
+		public async Task<object> GetClipboardContentsAsync()
+		{
+			object result = null;
 			var dataPackageView = Windows.ApplicationModel.DataTransfer.Clipboard.GetContent();
 
 			if (dataPackageView.Contains(StandardDataFormats.Text))
@@ -94,7 +94,7 @@ namespace Framework.Device
 			}
 
 			return result;
-	    }
-    }
+		}
+	}
 }
 #endif

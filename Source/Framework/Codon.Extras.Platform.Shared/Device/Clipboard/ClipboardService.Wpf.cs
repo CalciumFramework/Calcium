@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Codon.Services;
 
-namespace Framework.Device
+namespace Codon.Device
 {
 	/// <summary>
 	/// WPF implementation of the <see cref="IClipboardService"/>.

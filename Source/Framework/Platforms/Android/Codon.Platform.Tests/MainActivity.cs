@@ -5,7 +5,7 @@ using Xamarin.Android.NUnitLite;
 
 namespace Framework.Android.Tests
 {
-	[Activity(Label = "Framework.Android.Tests", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(Label = "Codon.Android.Tests", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : TestSuiteActivity
 	{
 		protected override void OnCreate(Bundle bundle)
