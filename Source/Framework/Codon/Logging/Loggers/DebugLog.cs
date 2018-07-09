@@ -34,14 +34,16 @@ namespace Codon.Logging.Loggers
 		bool useConsole;
 		PlatformId platformId;
 		bool debuggerAttached = Debugger.IsAttached;
+		bool initialized;
 
-		public DebugLog()
+		void Init()
 		{
 			/* The Mono linker doesn't appear to respect the DEBUG symbol defined at the top of this file. 
 			 * It means that Debug.WriteLine(...) doesn't work on those platform. 
 			 * Hence the use of the console. */
 			platformId = PlatformDetector.PlatformId;
-			if (platformId == PlatformId.Android || platformId == PlatformId.Ios)
+			if (platformId == PlatformId.Android 
+				|| platformId == PlatformId.Ios)
 			{
 				useConsole = true;
 			}
@@ -59,6 +61,12 @@ namespace Codon.Logging.Loggers
 			if (!debuggerAttached)
 			{
 				return Task.CompletedTask;
+			}
+
+			if (!initialized)
+			{
+				Init();
+				initialized = true;
 			}
 
 //			if (platformId == PlatformId.Wpf)

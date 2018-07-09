@@ -19,9 +19,9 @@ namespace Codon.UI.Data
 		static MethodInfo commandExecuteMethodInfo = typeof(ICommand).GetMethod(nameof(ICommand.Execute), new[] { typeof(object) });
 #endif
 
-		void Bind(
-			BindingExpression bindingExpression,
+		void Bind(BindingExpression bindingExpression,
 			object dataContext,
+			object originalDataContext,
 			string[] sourcePath,
 			IValueConverter converter,
 			PropertyInfo targetProperty,
@@ -294,7 +294,7 @@ namespace Codon.UI.Data
 									bindingExpression.Target,
 									(sender, e) =>
 									{
-										var args = parameterCount > 2 ? new[] {context, e, bindingExpression.View} : new[] {context, e};
+										var args = parameterCount > 2 ? new[] {originalDataContext, e, bindingExpression.View} : new[] {originalDataContext, e};
 										invoker(context, args);
 									});
 							}
@@ -304,7 +304,7 @@ namespace Codon.UI.Data
 									bindingExpression.Target,
 									() =>
 									{
-										var args = parameterCount > 0 ? new[] {context} : null;
+										var args = parameterCount > 0 ? new[] {originalDataContext} : null;
 										invoker(context, args);
 									});
 							}
@@ -516,6 +516,7 @@ namespace Codon.UI.Data
 								/* Bind child bindings. */
 								Bind(bindingExpression,
 									context,
+									originalDataContext,
 									sourcePath,
 									converter,
 									targetProperty,

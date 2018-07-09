@@ -232,14 +232,14 @@ namespace Codon.Collections
 
 				lookupDictionary.Clear();
 
-				var tempList = new List<T>();
+				var tempList = new LinkedList<T>();
 				foreach (var command in monitoredCollection)
 				{
 					var attacher = new T();
 					attacher.AttachObject(command);
 					lookupDictionary[command] = attacher;
 
-					tempList.Add(attacher);
+					tempList.AddLast(attacher);
 				}
 
 				try
@@ -310,10 +310,11 @@ namespace Codon.Collections
 			{
 				ignoreChanges = false;
 			}
-
-
 		}
 
+		/// <summary>Inserts an item into the collection at the specified index.</summary>
+		/// <param name="index">The zero-based index at which <paramref name="item" /> should be inserted.</param>
+		/// <param name="item">The object to insert.</param>
 		protected override void InsertItem(int index, T item)
 		{
 			AssertArg.IsNotNull(item, nameof(item));
@@ -343,9 +344,9 @@ namespace Codon.Collections
 			}
 
 			base.InsertItem(index, item);
-
 		}
 
+		/// <summary>Removes all items from the collection.</summary>
 		protected override void ClearItems()
 		{
 			if (ignoreChanges)
@@ -368,6 +369,9 @@ namespace Codon.Collections
 			base.ClearItems();
 		}
 
+		/// <summary>Moves the item at the specified index to a new location in the collection.</summary>
+		/// <param name="oldIndex">The zero-based index specifying the location of the item to be moved.</param>
+		/// <param name="newIndex">The zero-based index specifying the new location of the item.</param>
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
 			if (ignoreChanges)
@@ -379,6 +383,8 @@ namespace Codon.Collections
 			monitoredCollection.Move(oldIndex, newIndex);
 		}
 
+		/// <summary>Removes the item at the specified index of the collection.</summary>
+		/// <param name="index">The zero-based index of the element to remove.</param>
 		protected override void RemoveItem(int index)
 		{
 			if (ignoreChanges)
@@ -390,6 +396,9 @@ namespace Codon.Collections
 			monitoredCollection.RemoveAt(index);
 		}
 
+		/// <summary>Replaces the element at the specified index.</summary>
+		/// <param name="index">The zero-based index of the element to replace.</param>
+		/// <param name="item">The new value for the element at the specified index.</param>
 		protected override void SetItem(int index, T item)
 		{
 			if (ignoreChanges)

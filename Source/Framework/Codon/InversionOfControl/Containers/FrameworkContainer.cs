@@ -636,6 +636,7 @@ namespace Codon.InversionOfControl
 						var typeInfo = type.GetTypeInfo();
 						var typeNameAttribute = typeInfo.GetCustomAttribute<DefaultTypeNameAttribute>();
 						bool typeNameValid = false;
+						bool failedFindingByTypeName = false;
 
 						if (typeNameAttribute != null)
 						{
@@ -643,13 +644,7 @@ namespace Codon.InversionOfControl
 
 							if (defaultType == null)
 							{
-								if (typeof(ILog) != type)
-								{
-									if (Log.DebugEnabled)
-									{
-										Log.Debug("Unable to resolve type using DefaultTypeNameAttribute with value: " + typeNameAttribute.TypeName);
-									}
-								}
+								failedFindingByTypeName = true;
 							}
 							else
 							{
@@ -677,6 +672,20 @@ namespace Codon.InversionOfControl
 							if (typeAttribute != null)
 							{
 								Type defaultType = typeAttribute.Type;
+
+								if (failedFindingByTypeName)
+								{
+									/* DebugLog makes use of the IPlatformIdentifier.
+									 * To prevent a stack overflow, we don't log. */
+									if (typeof(ILog) != type && typeof(IPlatformIdentifier) != type)
+									{
+										if (Log.DebugEnabled)
+										{
+											Log.Debug("Unable to resolve type using DefaultTypeNameAttribute with value: "
+													+ $"{typeNameAttribute.TypeName}. Attempting to resolve default type '{defaultType}' instead.");
+										}
+									}
+								}
 
 								if (defaultType.IsInterface())
 								{

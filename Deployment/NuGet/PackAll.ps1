@@ -1,4 +1,4 @@
-﻿$packageVersion = "2.0.8";
+﻿$packageVersion = "2.1.0-beta";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
@@ -10,14 +10,14 @@ $nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 $sourceRoot = "../../Source/Framework/";
 $nuspecFiles = @(cls
 
-    "Codon.Essentials.nuspec",
-    "../../Source/Framework/Codon/Codon.nuspec",
-    "../../Source/Framework/Platforms/Android/Codon.Platform/Codon.Platform.Android.nuspec",	
+	"Codon.Essentials.nuspec",
+	"../../Source/Framework/Codon/Codon.nuspec",
+	"../../Source/Framework/Platforms/Android/Codon.Platform/Codon.Platform.Android.nuspec",	
 	"../../Source/Framework/Platforms/Ios/Codon.Platform/Codon.Platform.Ios.nuspec",	
 	"../../Source/Framework/Platforms/Uwp/Codon.Platform/Codon.Platform.Uwp.nuspec",
 	"../../Source/Framework/Platforms/Wpf/Codon.Platform/Codon.Platform.Wpf.nuspec",
-    "Codon.Extras.nuspec",
-    "../../Source/Framework/Codon.Extras/Codon.Extras.Core.nuspec",
+	"Codon.Extras.nuspec",
+	"../../Source/Framework/Codon.Extras/Codon.Extras.Core.nuspec",
 	"../../Source/Framework/Platforms/Android/Codon.Extras.Platform/Codon.Extras.Platform.Android.nuspec",	
 	"../../Source/Framework/Platforms/Ios/Codon.Extras.Platform/Codon.Extras.Platform.Ios.nuspec",	
 	"../../Source/Framework/Platforms/Uwp/Codon.Extras.Platform/Codon.Extras.Platform.Uwp.nuspec",
@@ -44,7 +44,7 @@ $mustBeBuiltAfter = [DateTime]::Now.AddMinutes(-15)
 foreach ($assembly in $assemblyToEnsureJustBuilt)
 {
 	$filePath = $PSScriptRoot + "/" + $assembly
-    Write-Host "Resolving assembly at $assembly "
+	Write-Host "Resolving assembly at $assembly "
 	$file = Get-ChildItem -Path $filePath
 
 	if ($file.LastWriteTime -lt $mustBeBuiltAfter)
@@ -99,7 +99,7 @@ function Pack-NuGetFiles
 		Remove-Item $file
 	}
 
-    #$scriptPath = $PSScriptRoot
+	#$scriptPath = $PSScriptRoot
 	#$scriptDir = $PSScriptRoot
  
 	foreach ($fileName in $AllNuspecFiles)
@@ -118,9 +118,9 @@ function Pack-NuGetFiles
 		$file = Get-ChildItem -Path $filePath
  
 		
-        #Write-Host "Packing: `"$file`"";
+		#Write-Host "Packing: `"$file`"";
 
-        #Create the .nupkg from the nuspec file
+		#Create the .nupkg from the nuspec file
 		$ps = new-object System.Diagnostics.Process
 		$ps.StartInfo.Filename = "$NugetPath"
 		$ps.StartInfo.Arguments = "pack `"$file`" -version $PackageVersion -Properties Configuration=release;IconUrl=`"$iconUrl`";Desc=`"$sharedDescription`";Authors=`"Daniel Vaughan`";LicenseUrl=`"$licenseUrl`";Owners=`"Daniel Vaughan`""

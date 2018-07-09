@@ -82,7 +82,7 @@ namespace Codon.UI.Data
 				pathSplit = GetPathSplit(null, path, null);
 			}
 			
-			Bind(bindingExpression, dataContext, pathSplit, converter, targetProperty, localRemoveActions, unbindActions, 0);
+			Bind(bindingExpression, dataContext, dataContext, pathSplit, converter, targetProperty, localRemoveActions, unbindActions, 0);
 		}
 
 		public void ApplyBinding(
@@ -107,6 +107,7 @@ namespace Codon.UI.Data
 			string[] pathSplit;
 			
 			var extensionInfo = markupExtensionUtil.CreateMarkupExtensionInfo(sourcePath);
+			var originalDataContext = dataContext;
 
 			if (extensionInfo == null)
 			{
@@ -120,7 +121,7 @@ namespace Codon.UI.Data
 
 			var localRemoveActions = new List<Action>();
 
-			Bind(bindingExpression, dataContext, pathSplit, converter, targetProperty, localRemoveActions, unbindActions, 0);
+			Bind(bindingExpression, dataContext, originalDataContext, pathSplit, converter, targetProperty, localRemoveActions, unbindActions, 0);
 		}
 		
 		public IMarkupExtension RetrieveExtension(MarkupExtensionInfo extensionInfo)
