@@ -152,6 +152,16 @@ namespace Codon.Reflection
 			PropertyInfo propertyInfo);
 
 		/// <summary>
+		/// Determines whether if type2 is assignable from interfaceType.
+		/// This is equivalent to calling <c>interfaceType.IsAssignableFrom(type2)</c>.
+		/// </summary>
+		/// <param name="interfaceType"></param>
+		/// <param name="type2"></param>
+		/// <returns><c>true</c> if type2 is assignable from interfaceType; 
+		/// <c>false</c> otherwise.</returns>
+		bool IsAssignableFrom(Type interfaceType, Type type2);
+
+		/// <summary>
 		/// Removes all cached values.
 		/// </summary>
 		void Clear();
