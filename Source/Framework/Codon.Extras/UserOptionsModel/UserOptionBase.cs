@@ -102,6 +102,9 @@ namespace Codon.UserOptionsModel
 
 		public async Task<TSetting> GetSetting()
 		{
+			TSetting newValue;
+			preventGetSettingFromBeingCalled = true;
+
 			if (getSettingFunc == null)
 			{
 				if (ReaderWriter == null)
@@ -109,19 +112,21 @@ namespace Codon.UserOptionsModel
 					throw new Exception("ReaderWriter is null and no custom get setting func provided.");
 				}
 
-				preventGetSettingFromBeingCalled = false;
-				return (TSetting)ReaderWriter.Setting;
+				newValue = (TSetting)await ReaderWriter.GetSettingAsync();
+			}
+			else
+			{
+				newValue = await getSettingFunc();
 			}
 
-			var temp = await getSettingFunc();
-			if (!object.Equals(temp, lastSetting))
+			if (!Equals(newValue, lastSetting))
 			{
-				lastSetting = temp;
+				lastSetting = newValue;
 				OnPropertyChanged(nameof(Setting));
+				OnPropertyChanged(nameof(FormattedSetting));
 			}
 
 			preventGetSettingFromBeingCalled = false;
-
 			return lastSetting;
 		}
 
@@ -214,7 +219,18 @@ namespace Codon.UserOptionsModel
 
 		internal override void HandleSettingChanged(IUserOptionReaderWriter writer)
 		{
-			OnPropertyChanged(nameof(Setting));
+			try
+			{
+				preventGetSettingFromBeingCalled = true;
+				lastSetting = (TSetting)writer.Setting;
+				OnPropertyChanged(nameof(Setting));
+				OnPropertyChanged(nameof(FormattedSetting));
+			}
+			finally
+			{
+				preventGetSettingFromBeingCalled = false;
+			}
+			
 			base.HandleSettingChanged(writer);
 		}
 	}
