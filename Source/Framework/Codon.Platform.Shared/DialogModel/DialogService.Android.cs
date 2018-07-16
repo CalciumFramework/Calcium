@@ -8,11 +8,15 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Text;
+using Android.Text.Method;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Codon.InversionOfControl;
 using Java.Lang;
 using Codon.Logging;
+using Codon.MissingTypes.System.Windows.Input;
 using Codon.ResourcesModel.Extensions;
 using Codon.Services;
 using Exception = System.Exception;
@@ -392,8 +396,33 @@ namespace Codon.DialogModel
 				builder.SetMessage(message.Parse());
 			}
 
-			//var color = context.Resources.GetColor(Resources.Color.dialog_textcolor);
 			EditText editText = new EditText(context);
+
+			if (trq.InputScope != InputScopeNameValue.Default)
+			{
+				var converter = Dependency.Resolve<IAndroidInputScopeConverter>();
+				var platformValue = converter.ToNativeType(trq.InputScope);
+				editText.InputType = platformValue;
+			}
+
+			if (!trq.MultiLine)
+			{
+				editText.SetSingleLine(true);
+				editText.SetMaxLines(1);
+			}
+
+			if (!trq.SpellCheckEnabled)
+			{
+				editText.InputType = editText.InputType | InputTypes.TextFlagNoSuggestions;
+			}
+
+			if (trq.InputScope == InputScopeNameValue.Password
+				|| trq.InputScope == InputScopeNameValue.NumericPassword)
+			{
+				editText.TransformationMethod = new PasswordTransformationMethod();
+			}
+
+			//var color = context.Resources.GetColor(Resources.Color.dialog_textcolor);
 			//textBox.SetTextColor(Color.Black);
 			editText.Text = trq.DefaultResponse;
 			builder.SetView(editText);
@@ -412,7 +441,7 @@ namespace Codon.DialogModel
 
 					manager.HideSoftInputFromWindow(editText.WindowToken, HideSoftInputFlags.None);
 
-					source.SetResult(result);
+					source.TrySetResult(result);
 				});
 
 			builder.SetNegativeButton(Strings.Cancel(), (s, e) =>
@@ -424,7 +453,7 @@ namespace Codon.DialogModel
 
 				manager.HideSoftInputFromWindow(editText.WindowToken, HideSoftInputFlags.None);
 
-				source.SetResult(result);
+				source.TrySetResult(result);
 			});
 
 			Interlocked.Increment(ref openDialogCount);
@@ -546,6 +575,54 @@ namespace Codon.DialogModel
 					? Android.Resource.Style.ThemeMaterialDialogAlert 
 					: -1;
 		//Theme_Material_Light_Dialog_Alert
+	}
+
+	/// <summary>
+	/// Converts an <see cref="InputScopeNameValue"/> 
+	/// to a corresponding Android specific
+	/// <see cref="InputTypes"/> value.
+	/// <seealso cref="TextQuestion.InputScope"/>
+	/// </summary>
+	[DefaultType(typeof(AndroidInputScopeConverter), Singleton = true)]
+	public interface IAndroidInputScopeConverter
+	{
+		/// <summary>
+		/// Converts an <see cref="InputScopeNameValue"/> 
+		/// to a corresponding Android specific
+		/// <see cref="InputTypes"/> value.
+		/// </summary>
+		/// <param name="value">The framework value, 
+		/// which is ordinarily supplied 
+		/// with a <see cref="TextQuestion"/>.</param>
+		/// <returns>The Android specific value.</returns>
+		InputTypes ToNativeType(InputScopeNameValue value);
+	}
+
+	class AndroidInputScopeConverter : IAndroidInputScopeConverter
+	{
+		readonly Dictionary<InputScopeNameValue, Android.Text.InputTypes> lookup
+			= new Dictionary<InputScopeNameValue, InputTypes>
+			{
+				{InputScopeNameValue.Default, InputTypes.TextVariationNormal},
+				{InputScopeNameValue.Password, InputTypes.TextVariationPassword},
+				{InputScopeNameValue.EmailSmtpAddress, InputTypes.TextVariationEmailAddress},
+				{InputScopeNameValue.Url, InputTypes.TextVariationUri},
+				{InputScopeNameValue.Text, InputTypes.TextVariationNormal},
+				{InputScopeNameValue.NameOrPhoneNumber, InputTypes.ClassPhone},
+				{ InputScopeNameValue.Digits, InputTypes.ClassNumber},
+				{ InputScopeNameValue.Chat, InputTypes.TextVariationShortMessage},
+				{InputScopeNameValue.PostalAddress, InputTypes.TextVariationPostalAddress},
+			};
+
+		public InputTypes ToNativeType(InputScopeNameValue value)
+		{
+			if (lookup.TryGetValue(value, out InputTypes result))
+			{
+				return result;
+			}
+
+			return InputTypes.TextVariationNormal;
+		}
 	}
 }
 #endif

@@ -55,6 +55,18 @@ namespace Codon.DialogModel
 		public string DefaultResponse { get; set; }
 
 		/// <summary>
+		/// Indicates whether the user should be able 
+		/// to enter text on multiple lines.
+		/// </summary>
+		public bool MultiLine { get; set; }
+
+		/// <summary>
+		/// Indicates whether text in the edit box should be spell checked,
+		/// which may result in red squiggles beneath unrecognized words.
+		/// </summary>
+		public bool SpellCheckEnabled { get; set; }
+
+		/// <summary>
 		/// </summary>
 		/// <param name="question">The text of the question.</param>
 		/// <param name="inputScope">

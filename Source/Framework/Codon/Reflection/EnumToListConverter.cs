@@ -15,6 +15,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Codon.Reflection
@@ -27,39 +28,70 @@ namespace Codon.Reflection
 	/// </summary>
 	public static class EnumToListConverter
 	{
-		public static List<TEnum> CreateEnumValueList<TEnum>()
+		static readonly Dictionary<Type, object> cache = new Dictionary<Type, object>();
+
+		public static void ClearCache()
 		{
-			Type enumType = typeof(TEnum);
+			cache.Clear();
+		}
 
-			List<TEnum> result = new List<TEnum>();
-
-#if NETSTANDARD || NETFX_CORE
-			foreach (FieldInfo fieldInfo in enumType.GetTypeInfo().DeclaredFields)
-#else
-			foreach (FieldInfo fieldInfo in enumType.GetFields())
-#endif
+		public static IList<TEnum> CreateEnumValueList<TEnum>(
+			params TEnum[] excludeItems)
+			where TEnum : Enum
+		{
+			var list = CreateEnumValueList<TEnum>();
+			foreach (TEnum item in excludeItems)
 			{
-				if (enumType.Equals(fieldInfo.FieldType))
-				{
-					TEnum item = (TEnum)Enum.Parse(enumType, fieldInfo.Name, true);
-					result.Add(item);
-				}
+				list.Remove(item);
 			}
 
-			return result;
-			//			IEnumerable<FieldInfo> fieldInfos
-			//				= enumType.GetFields().Where(x => enumType.Equals(x.FieldType));
-			//			return fieldInfos.Select(
-			//				fieldInfo => (TEnum)Enum.Parse(enumType, fieldInfo.Name, true)).ToList();
+			return list;
 		}
 
-		public static IEnumerable<TEnum> CreateEnumValueList<TEnum>(this Enum enumValue)
+//		public static IList<TEnum> CreateEnumValueList<TEnum>(
+//			this TEnum enumValue, params TEnum[] excludeItems)
+//			where TEnum : Enum
+//		{
+//			var list = CreateEnumValueList<TEnum>();
+//			foreach (TEnum item in excludeItems)
+//			{
+//				list.Remove(item);
+//			}
+//
+//			return list;
+//		}
+
+		public static IList<object> CreateEnumValueList(
+			Type enumType, params object[] excludeItems)
 		{
-			return CreateEnumValueList<TEnum>();
+			var list = CreateEnumValueList(enumType);
+			foreach (var item in excludeItems)
+			{
+				list.Remove(item);
+			}
+
+			return list;
 		}
+
+		public static IList<TEnum> CreateEnumValueList<TEnum>()
+			where TEnum : Enum
+		{
+			return CreateEnumValueList(typeof(TEnum)).Cast<TEnum>().ToList();
+		}
+
+//		public static IList<TEnum> CreateEnumValueList<TEnum>(this TEnum enumValue)
+//			where TEnum : Enum
+//		{
+//			return CreateEnumValueList<TEnum>();
+//		}
 
 		public static IList<object> CreateEnumValueList(Type enumType)
 		{
+			if (cache.TryGetValue(enumType, out object cachedList))
+			{
+				return new List<object>((List<object>)cachedList);
+			}
+
 			List<object> result = new List<object>();
 
 #if NETSTANDARD || NETFX_CORE
@@ -75,11 +107,9 @@ namespace Codon.Reflection
 				}
 			}
 
+			cache[enumType] = result;
+
 			return result;
-			//			IEnumerable<FieldInfo> fieldInfos
-			//				= enumType.GetFields().Where(x => enumType.Equals(x.FieldType));
-			//			return fieldInfos.Select(
-			//				fieldInfo => (TEnum)Enum.Parse(enumType, fieldInfo.Name, true)).ToList();
 		}
 	}
 }
