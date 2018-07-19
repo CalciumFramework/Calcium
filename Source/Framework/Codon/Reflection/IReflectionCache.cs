@@ -172,9 +172,13 @@ namespace Codon.Reflection
 		/// <param name="classType">The owner type containing properties 
 		/// that may be decorated with the specified <c>attributeType</c>.</param>
 		/// <param name="attributeType">The type of the attribute decorating the properties.</param>
-		/// <returns></returns>
+		/// <param name="includeAncestorClassProperties">
+		/// If <c>true</c> properties of base classes are included;
+		/// otherwise not.</param>
+		/// <returns>A list of the properties with the decorated attributes 
+		/// of the specified type.</returns>
 		IEnumerable<PropertyWithAttribute> GetPropertyAttributesForClass(
-			Type classType, Type attributeType);
+			Type classType, Type attributeType, bool includeAncestorClassProperties = true);
 
 		/// <summary>
 		/// Removes all cached values.

@@ -254,13 +254,13 @@ namespace Codon.Reflection
 			return assignable;
 		}
 
-		readonly Dictionary<Tuple<object, object>, List<PropertyWithAttribute>> propertiesWithAttributeDictionary
-			= new Dictionary<Tuple<object, object>, List<PropertyWithAttribute>>();
+		readonly Dictionary<Tuple<Type, Type>, List<PropertyWithAttribute>> propertiesWithAttributeDictionary
+			= new Dictionary<Tuple<Type, Type>, List<PropertyWithAttribute>>();
 
 		public IEnumerable<PropertyWithAttribute> GetPropertyAttributesForClass(
-			Type classType, Type attributeType)//, bool includeAncestorClassProperties = true)
+			Type classType, Type attributeType, bool includeAncestorClassProperties = true)
 		{
-			var key = new Tuple<object, object>(classType, attributeType);
+			var key = new Tuple<Type, Type>(classType, attributeType);
 			if (propertiesWithAttributeDictionary.TryGetValue(key, out var result))
 			{
 				return result;
@@ -268,7 +268,16 @@ namespace Codon.Reflection
 
 			result = new List<PropertyWithAttribute>();
 
-			var properties = classType.GetRuntimeProperties();
+			IEnumerable<PropertyInfo> properties;
+			if (includeAncestorClassProperties)
+			{
+				properties = classType.GetRuntimeProperties();
+			}
+			else
+			{
+				properties = classType.GetTypeInfo().DeclaredProperties;
+			}
+
 			foreach (PropertyInfo info in properties)
 			{
 				var attribute = info.GetCustomAttributes(attributeType).FirstOrDefault();
