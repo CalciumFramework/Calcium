@@ -13,6 +13,8 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using Codon.InversionOfControl;
 
@@ -121,6 +123,9 @@ namespace Codon.Reflection
 		Func<object, TProperty> GetPropertyGetter<TProperty>(
 			PropertyInfo propertyInfo);
 
+		Func<TOwner, TProperty> GetPropertyGetter<TOwner, TProperty>(
+			Expression<Func<TOwner, TProperty>> propertyExpression);
+
 		/// <summary>
 		/// Retrieve or create an action that can be used
 		/// to set the value of a property.
@@ -160,6 +165,16 @@ namespace Codon.Reflection
 		/// <returns><c>true</c> if type2 is assignable from interfaceType; 
 		/// <c>false</c> otherwise.</returns>
 		bool IsAssignableFrom(Type interfaceType, Type type2);
+
+		/// <summary>
+		/// Gets properties decorated with a specified attribute.
+		/// </summary>
+		/// <param name="classType">The owner type containing properties 
+		/// that may be decorated with the specified <c>attributeType</c>.</param>
+		/// <param name="attributeType">The type of the attribute decorating the properties.</param>
+		/// <returns></returns>
+		IEnumerable<PropertyWithAttribute> GetPropertyAttributesForClass(
+			Type classType, Type attributeType);
 
 		/// <summary>
 		/// Removes all cached values.

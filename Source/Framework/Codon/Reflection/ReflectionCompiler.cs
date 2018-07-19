@@ -678,12 +678,71 @@ namespace Codon.Reflection
 
 			MethodInfo method = typeof(ReflectionCompiler).GetTypeInfo()
 				.GetDeclaredMethods(nameof(CoerceCompiled))
-				.SingleOrDefault(x => x.IsStatic || x.IsPrivate);
+				.Single(x => x.IsStatic || x.IsPrivate);
 			MethodInfo genericMethod = method.MakeGenericMethod(returnType);
 
 			var compiled = (Func<object, TProperty>)genericMethod.Invoke(null, new object[] { getMethod });
 			return compiled;
 		}
+
+		#region NEW
+
+		static PropertyInfo GetPropertyInfo<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> expression)
+		{
+			var member = GetMemberExpression(expression).Member;
+			var property = member as PropertyInfo;
+			if (property == null)
+			{
+				throw new InvalidOperationException(string.Format("Member with Name '{0}' is not a property.", member.Name));
+			}
+			return property;
+		}
+
+		static MemberExpression GetMemberExpression<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> expression)
+		{
+			MemberExpression memberExpression = null;
+			if (expression.Body.NodeType == ExpressionType.Convert)
+			{
+				var body = (UnaryExpression)expression.Body;
+				memberExpression = body.Operand as MemberExpression;
+			}
+			else if (expression.Body.NodeType == ExpressionType.MemberAccess)
+			{
+				memberExpression = expression.Body as MemberExpression;
+			}
+
+			if (memberExpression == null)
+			{
+				throw new ArgumentException("Not a member access", "expression");
+			}
+
+			return memberExpression;
+		}
+
+		public static Func<TEntity, TProperty> CreatePropertyGetter<TEntity, TProperty>(
+													Expression<Func<TEntity, TProperty>> property)
+		{
+			PropertyInfo propertyInfo = GetPropertyInfo(property);
+
+			ParameterExpression instance = Expression.Parameter(typeof(TEntity), "instance");
+
+			var body = Expression.Call(instance, propertyInfo.GetMethod);
+			var parameters = new ParameterExpression[] { instance };
+
+			return Expression.Lambda<Func<TEntity, TProperty>>(body, parameters).Compile();
+		}
+
+		public static Func<TEntity, TProperty> CreatePropertyGetter<TEntity, TProperty>(PropertyInfo propertyInfo)
+		{
+			ParameterExpression instance = Expression.Parameter(typeof(TEntity), "instance");
+
+			var body = Expression.Call(instance, propertyInfo.GetMethod);
+			var parameters = new ParameterExpression[] { instance };
+
+			return Expression.Lambda<Func<TEntity, TProperty>>(body, parameters).Compile();
+		}
+
+		#endregion
 
 		static Func<object, object> CoerceCompiled<T>(
 			MethodInfo getMethod)

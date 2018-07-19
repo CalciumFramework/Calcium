@@ -15,6 +15,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 
@@ -73,7 +75,8 @@ namespace Codon.Reflection
 				{voidMethodDictionary},
 				{nonVoidMethodDictionary},
 				{nonVoidMethodGenericDictionary},
-				assignableFromDictionary
+				assignableFromDictionary,
+				propertiesWithAttributeDictionary
 			};
 
 			foreach (var dictionary in dictionaries)
@@ -102,6 +105,14 @@ namespace Codon.Reflection
 			}
 
 			return getter;
+		}
+
+		public Func<TOwner, TProperty> GetPropertyGetter<TOwner, TProperty>(
+			Expression<Func<TOwner, TProperty>> propertyExpression)
+		{
+			/* TODO: extract property name and cache item in dictionary. */
+			Func<TOwner, TProperty> result = ReflectionCompiler.CreatePropertyGetter(propertyExpression);
+			return result;
 		}
 
 		public Func<object, TProperty> GetPropertyGetter<TProperty>(
@@ -241,6 +252,36 @@ namespace Codon.Reflection
 			assignableFromDictionary[tuple] = assignable;
 
 			return assignable;
+		}
+
+		readonly Dictionary<Tuple<object, object>, List<PropertyWithAttribute>> propertiesWithAttributeDictionary
+			= new Dictionary<Tuple<object, object>, List<PropertyWithAttribute>>();
+
+		public IEnumerable<PropertyWithAttribute> GetPropertyAttributesForClass(
+			Type classType, Type attributeType)//, bool includeAncestorClassProperties = true)
+		{
+			var key = new Tuple<object, object>(classType, attributeType);
+			if (propertiesWithAttributeDictionary.TryGetValue(key, out var result))
+			{
+				return result;
+			}
+
+			result = new List<PropertyWithAttribute>();
+
+			var properties = classType.GetRuntimeProperties();
+			foreach (PropertyInfo info in properties)
+			{
+				var attribute = info.GetCustomAttributes(attributeType).FirstOrDefault();
+				if (attribute != null)
+				{
+					var tuple = new PropertyWithAttribute(attribute, info);
+					result.Add(tuple);
+				}
+			}
+
+			propertiesWithAttributeDictionary[key] = result;
+
+			return result;
 		}
 	}
 }
