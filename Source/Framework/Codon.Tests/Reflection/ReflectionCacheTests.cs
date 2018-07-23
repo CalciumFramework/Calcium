@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Codon.Reflection
@@ -25,17 +26,26 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertyGetter<string>(propertyInfo);
 
-			Assert.IsNotNull(func);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
-			const string expectedValue1 = "Foo";
-			foo.Property1 = expectedValue1;
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
 
-			var property1 = func(foo);
+				Assert.IsNotNull(func, mode.ToString());
 
-			Assert.AreEqual(expectedValue1, property1);
+				var foo = new Foo();
+				const string expectedValue1 = "Foo";
+				foo.Property1 = expectedValue1;
+
+				var property1 = func(foo);
+
+				Assert.AreEqual(expectedValue1, property1, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -44,17 +54,26 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertyGetter(propertyInfo);
 
-			Assert.IsNotNull(func);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
-			const string expectedValue1 = "Foo";
-			foo.Property1 = expectedValue1;
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertyGetter(propertyInfo, mode);
 
-			var property1 = func(foo);
+				Assert.IsNotNull(func, mode.ToString());
 
-			Assert.AreEqual(expectedValue1, property1);
+				var foo = new Foo();
+				const string expectedValue1 = "Foo";
+				foo.Property1 = expectedValue1;
+
+				var property1 = func(foo);
+
+				Assert.AreEqual(expectedValue1, property1, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -63,12 +82,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertyGetter(propertyInfo);
-			Assert.IsNotNull(func);
-			var func2 = reflectionCache.GetPropertyGetter(propertyInfo);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(func, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertyGetter(propertyInfo, mode);
+				Assert.IsNotNull(func, mode.ToString());
+				var func2 = reflectionCache.GetPropertyGetter(propertyInfo, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(func, func2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -77,12 +105,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertyGetter<string>(propertyInfo);
-			Assert.IsNotNull(func);
-			var func2 = reflectionCache.GetPropertyGetter<string>(propertyInfo);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(func, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
+				Assert.IsNotNull(func, mode.ToString());
+				var func2 = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(func, func2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -91,12 +128,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertySetter(propertyInfo);
-			Assert.IsNotNull(func);
-			var func2 = reflectionCache.GetPropertySetter(propertyInfo);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(func, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertySetter(propertyInfo, mode);
+				Assert.IsNotNull(func, mode.ToString());
+				var func2 = reflectionCache.GetPropertySetter(propertyInfo, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(func, func2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -105,12 +151,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertySetter<string>(propertyInfo);
-			Assert.IsNotNull(func);
-			var func2 = reflectionCache.GetPropertySetter<string>(propertyInfo);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(func, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
+				Assert.IsNotNull(func, mode.ToString());
+				var func2 = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(func, func2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -119,15 +174,24 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertySetter(propertyInfo);
 
-			Assert.IsNotNull(func);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
-			const string expectedValue1 = "Foo";
-			func(foo, expectedValue1);
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertySetter(propertyInfo, mode);
 
-			Assert.AreEqual(expectedValue1, foo.Property1);
+				Assert.IsNotNull(func, mode.ToString());
+
+				var foo = new Foo();
+				const string expectedValue1 = "Foo";
+				func(foo, expectedValue1);
+
+				Assert.AreEqual(expectedValue1, foo.Property1, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -136,15 +200,24 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
-			var func = reflectionCache.GetPropertySetter<string>(propertyInfo);
 
-			Assert.IsNotNull(func);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
-			const string expectedValue1 = "Foo";
-			func(foo, expectedValue1);
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var func = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
 
-			Assert.AreEqual(expectedValue1, foo.Property1);
+				Assert.IsNotNull(func, mode.ToString());
+
+				var foo = new Foo();
+				const string expectedValue1 = "Foo";
+				func(foo, expectedValue1);
+
+				Assert.AreEqual(expectedValue1, foo.Property1, mode.ToString());
+			}
 		}
 		
 

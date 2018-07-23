@@ -30,7 +30,9 @@ namespace Codon.UI.Data
 		static void SetTargetProperty(PropertyInfo sourceProperty, object dataContext,
 			object view, PropertyInfo targetProperty, IValueConverter converter, string converterParameter)
 		{
-			Func<object, object> getter = ReflectionCache.GetPropertyGetter(sourceProperty);
+			Func<object, object> getter = ReflectionCache.GetPropertyGetter(
+											sourceProperty, 
+											DelegateCreationMode.FastCreationSlowPerformance);
 
 			/* Get the value of the source (the viewmodel) 
 			 * property by using the converter if provided. */
@@ -57,7 +59,9 @@ namespace Codon.UI.Data
 				sourcePropertyValue = ValueCoercer.CoerceToType(sourcePropertyValue, targetPropertyType);
 			}
 
-			Action<object, object> setter = ReflectionCache.GetPropertySetter(targetProperty);
+			Action<object, object> setter = ReflectionCache.GetPropertySetter(
+												targetProperty, 
+												DelegateCreationMode.FastCreationSlowPerformance);
 			
 			try
 			{
@@ -109,7 +113,8 @@ namespace Codon.UI.Data
 				convertedValue = ValueCoercer.CoerceToType(convertedValue, targetPropertyType);
 			}
 
-			Action<object, object> setter = ReflectionCache.GetPropertySetter(targetProperty);
+			Action<object, object> setter = ReflectionCache.GetPropertySetter(
+				targetProperty, DelegateCreationMode.FastCreationSlowPerformance);
 
 			try
 			{
@@ -140,7 +145,8 @@ namespace Codon.UI.Data
 		{
 			/* Get the value of the source (the viewmodel) 
 			 * property by using the converter if provided. */
-			var getter = ReflectionCache.GetPropertyGetter(sourceProperty);
+			var getter = ReflectionCache.GetPropertyGetter(
+							sourceProperty, DelegateCreationMode.FastCreationSlowPerformance);
 			var rawValue = getter(dataContext);
 
 			var parameters = targetMethod.GetParameters();
@@ -173,11 +179,11 @@ namespace Codon.UI.Data
 				sourcePropertyValue = ValueCoercer.CoerceToType(sourcePropertyValue, parameterType);
 			}
 
-			Action<object, object[]> action = ReflectionCache.GetVoidMethodInvoker(targetMethod);
+			Action<object, object[]> action = ReflectionCache.GetVoidMethodInvoker(targetMethod, DelegateCreationMode.FastCreationSlowPerformance);
 			
 			try
 			{
-				action(view, new[] { sourcePropertyValue });
+				action(view, new object[] { sourcePropertyValue });
 			}
 			catch (Exception ex)
 			{
@@ -227,7 +233,7 @@ namespace Codon.UI.Data
 
 			//targetMethod.Invoke(view, new[] { sourcePropertyValue });
 
-			Action<object, object[]> action = ReflectionCache.GetVoidMethodInvoker(targetMethod);
+			Action<object, object[]> action = ReflectionCache.GetVoidMethodInvoker(targetMethod, DelegateCreationMode.FastCreationSlowPerformance);
 			
 			try
 			{

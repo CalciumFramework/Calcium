@@ -24,15 +24,24 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid0Args));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
 
-			Assert.IsNotNull(action);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
 
-			action(foo, new object[] { });
+				Assert.IsNotNull(action, mode.ToString());
 
-			Assert.IsTrue(foo.MethodVoid0ArgsCalled);
+				var foo = new Foo();
+
+				action(foo, new object[] { });
+
+				Assert.IsTrue(foo.MethodVoid0ArgsCalled, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -41,17 +50,26 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid1Arg));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
 
-			Assert.IsNotNull(action);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
 
-			const string expectedValue1 = "Foo";
-			action(foo, new object[] { expectedValue1 });
+				Assert.IsNotNull(action, mode.ToString());
 
-			Assert.IsTrue(foo.MethodVoid1ArgCalled);
-			Assert.AreEqual(expectedValue1, foo.Arg1);
+				var foo = new Foo();
+
+				const string expectedValue1 = "Foo";
+				action(foo, new object[] {expectedValue1});
+
+				Assert.IsTrue(foo.MethodVoid1ArgCalled, mode.ToString());
+				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -60,20 +78,29 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid2Args));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
 
-			Assert.IsNotNull(action);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
 
-			var foo = new Foo();
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
 
-			const string expectedValue1 = "One";
-			const string expectedValue2 = "Two";
+				Assert.IsNotNull(action, mode.ToString());
 
-			action(foo, new object[] { expectedValue1, expectedValue2 });
+				var foo = new Foo();
 
-			Assert.IsTrue(foo.MethodVoid2ArgsCalled);
-			Assert.AreEqual(expectedValue1, foo.Arg1);
-			Assert.AreEqual(expectedValue2, foo.Arg2);
+				const string expectedValue1 = "One";
+				const string expectedValue2 = "Two";
+
+				action(foo, new object[] {expectedValue1, expectedValue2});
+
+				Assert.IsTrue(foo.MethodVoid2ArgsCalled, mode.ToString());
+				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
+				Assert.AreEqual(expectedValue2, foo.Arg2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -82,25 +109,34 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid3Args));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
 
-			Assert.IsNotNull(action);
-
-			var foo = new Foo();
-
-			const string expectedValue1 = "One";
-			const string expectedValue2 = "Two";
-			const string expectedValue3 = "Two";
-
-			action(foo, new object[]
+			foreach (DelegateCreationMode mode in delegateCreationModes)
 			{
-				expectedValue1, expectedValue2, expectedValue3
-			});
+				InvokeUsingMode(mode);
+			}
 
-			Assert.IsTrue(foo.MethodVoid3ArgsCalled);
-			Assert.AreEqual(expectedValue1, foo.Arg1);
-			Assert.AreEqual(expectedValue2, foo.Arg2);
-			Assert.AreEqual(expectedValue3, foo.Arg3);
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
+
+				Assert.IsNotNull(action);
+
+				var foo = new Foo();
+
+				const string expectedValue1 = "One";
+				const string expectedValue2 = "Two";
+				const string expectedValue3 = "Two";
+
+				action(foo, new object[]
+				{
+					expectedValue1, expectedValue2, expectedValue3
+				});
+
+				Assert.IsTrue(foo.MethodVoid3ArgsCalled, mode.ToString());
+				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
+				Assert.AreEqual(expectedValue2, foo.Arg2, mode.ToString());
+				Assert.AreEqual(expectedValue3, foo.Arg3, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -109,12 +145,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid0Args));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
-			Assert.IsNotNull(action);
-			var func2 = reflectionCache.GetVoidMethodInvoker(info);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(action, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
+				Assert.IsNotNull(action, mode.ToString());
+				var func2 = reflectionCache.GetVoidMethodInvoker(info, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(action, func2, mode.ToString());
+			}
 		}
 
 		[TestMethod]
@@ -123,12 +168,21 @@ namespace Codon.Reflection
 			var reflectionCache = new ReflectionCache();
 
 			var info = typeof(Foo).GetMethod(nameof(Foo.MethodVoid1Arg));
-			var action = reflectionCache.GetVoidMethodInvoker(info);
-			Assert.IsNotNull(action);
-			var func2 = reflectionCache.GetVoidMethodInvoker(info);
-			Assert.IsNotNull(func2);
 
-			Assert.AreEqual(action, func2);
+			foreach (DelegateCreationMode mode in delegateCreationModes)
+			{
+				InvokeUsingMode(mode);
+			}
+
+			void InvokeUsingMode(DelegateCreationMode mode)
+			{
+				var action = reflectionCache.GetVoidMethodInvoker(info, mode);
+				Assert.IsNotNull(action, mode.ToString());
+				var func2 = reflectionCache.GetVoidMethodInvoker(info, mode);
+				Assert.IsNotNull(func2, mode.ToString());
+
+				Assert.AreEqual(action, func2, mode.ToString());
+			}
 		}
 	}
 }

@@ -37,7 +37,9 @@ namespace Codon.UI.Data
 #else
 			MethodInfo methodInfo = eventInfo.GetAddMethod();
 #endif
-			var invoker = ReflectionCache.GetVoidMethodInvoker(methodInfo);
+			var invoker = ReflectionCache.GetVoidMethodInvoker(
+							methodInfo, 
+							DelegateCreationMode.FastCreationSlowPerformance);
 			invoker(target, new object[] {dynamicHandler});
 
 			void Result() => RemoveHandler(target, eventName, dynamicHandler);
@@ -62,7 +64,9 @@ namespace Codon.UI.Data
 #else
 			MethodInfo methodInfo = eventInfo.GetRemoveMethod();
 #endif
-			var invoker = ReflectionCache.GetVoidMethodInvoker(methodInfo);
+			var invoker = ReflectionCache.GetVoidMethodInvoker(
+								methodInfo, 
+								DelegateCreationMode.FastCreationSlowPerformance);
 			invoker(target, new object[] {dynamicHandler});
 		}
 
@@ -118,7 +122,9 @@ namespace Codon.UI.Data
 #else
 			var methodInfo = eventInfo.GetAddMethod();
 #endif
-			var invoker = ReflectionCache.GetVoidMethodInvoker(methodInfo);
+			var invoker = ReflectionCache.GetVoidMethodInvoker(
+							methodInfo, 
+							DelegateCreationMode.FastCreationSlowPerformance);
 
 			invoker(target, new object[] { dynamicHandler });
 

@@ -206,9 +206,7 @@ namespace Codon.SettingsModel
 			 * The type of the return value may be IXmlConvertible and hence we test the default value 
 			 * as a secondary precaution. It means that in some edge scenario you may find a type that is passed 
 			 * as the default value has implemented IXmlConvertible whereas the stored value doesn't implement it. */
-			var reflectionCache = Dependency.Resolve<IReflectionCache>();
-
-			bool xmlConvertible = reflectionCache.IsAssignableFrom(typeof(IXmlConvertible), settingType);
+			bool xmlConvertible = typeof(IXmlConvertible).IsAssignableFromEx(settingType);
 			xmlConvertible |= settingType == typeof(object) && defaultValue is IXmlConvertible;
 
 			bool returningDefaultValue;

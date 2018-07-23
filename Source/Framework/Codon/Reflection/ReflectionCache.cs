@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
 
 namespace Codon.Reflection
 {
@@ -29,38 +28,24 @@ namespace Codon.Reflection
 	/// </summary>
 	sealed class ReflectionCache : IReflectionCache
 	{
-		//readonly ReaderWriterLockSlim getterLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<PropertyInfo, object> getterDictionary
 			= new Dictionary<PropertyInfo, object>();
 
-		//readonly ReaderWriterLockSlim getterGenericLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<PropertyInfo, Func<object, object>> getterGenericDictionary
 			= new Dictionary<PropertyInfo, Func<object, object>>();
 
-		//readonly ReaderWriterLockSlim setterLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<PropertyInfo, Action<object, object>> setterDictionary
 			= new Dictionary<PropertyInfo, Action<object, object>>();
 
-		//readonly ReaderWriterLockSlim setterGenericLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<PropertyInfo, object> setterGenericDictionary
 			= new Dictionary<PropertyInfo, object>();
 
-		//readonly ReaderWriterLockSlim voidMethodLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<MethodInfo, Action<object, object[]>> voidMethodDictionary
 			= new Dictionary<MethodInfo, Action<object, object[]>>();
 
-		//readonly ReaderWriterLockSlim nonVoidMethodLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<MethodInfo, Func<object, object[], object>> nonVoidMethodDictionary
 			= new Dictionary<MethodInfo, Func<object, object[], object>>();
 
-		//readonly ReaderWriterLockSlim nonVoidMethodGenericLockSlim
-		//	= new ReaderWriterLockSlim();
 		readonly Dictionary<MethodInfo, object> nonVoidMethodGenericDictionary
 			= new Dictionary<MethodInfo, object>();
 
@@ -68,14 +53,13 @@ namespace Codon.Reflection
 		{
 			var dictionaries = new List<IDictionary>
 			{
-				{getterDictionary},
-				{getterGenericDictionary},
-				{setterDictionary},
-				{setterGenericDictionary},
-				{voidMethodDictionary},
-				{nonVoidMethodDictionary},
-				{nonVoidMethodGenericDictionary},
-				assignableFromDictionary,
+				getterDictionary,
+				getterGenericDictionary,
+				setterDictionary,
+				setterGenericDictionary,
+				voidMethodDictionary,
+				nonVoidMethodDictionary,
+				nonVoidMethodGenericDictionary,
 				propertiesWithAttributeDictionary
 			};
 
@@ -94,13 +78,24 @@ namespace Codon.Reflection
 		 * would not be worth it. */
 
 		public Func<object, object> GetPropertyGetter(
-			PropertyInfo propertyInfo)
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = getterGenericDictionary;
 
 			if (!dictionary.TryGetValue(propertyInfo, out var getter))
 			{
-				getter = ReflectionCompiler.CreatePropertyGetter(propertyInfo);
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						getter = ReflectionCompiler.CreatePropertyGetter(propertyInfo);
+						break;
+					default:
+						var getMethod = propertyInfo.GetMethod;
+						getter = owner => getMethod.Invoke(owner, null);
+						break;
+				}
+				
 				dictionary[propertyInfo] = getter;
 			}
 
@@ -116,16 +111,26 @@ namespace Codon.Reflection
 		}
 
 		public Func<object, TProperty> GetPropertyGetter<TProperty>(
-			PropertyInfo propertyInfo)
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode)
 		{
 			Func<object, TProperty> result;
-			object getter;
 
 			var dictionary = getterDictionary;
 			
-			if (!dictionary.TryGetValue(propertyInfo, out getter))
+			if (!dictionary.TryGetValue(propertyInfo, out object getter))
 			{
-				result = ReflectionCompiler.CreatePropertyGetter<TProperty>(propertyInfo);
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreatePropertyGetter<TProperty>(propertyInfo);
+						break;
+					default:
+						var getMethod = propertyInfo.GetMethod;
+						result = owner => (TProperty)getMethod.Invoke(owner, null);
+						break;
+				}
+				
 				dictionary[propertyInfo] = result;
 				return result;
 			}
@@ -135,56 +140,97 @@ namespace Codon.Reflection
 		}
 
 		public Action<object, object[]> GetVoidMethodInvoker(
-			MethodInfo methodInfo)
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = voidMethodDictionary;
 
-			if (!dictionary.TryGetValue(methodInfo, out var action))
+			if (!dictionary.TryGetValue(methodInfo, out var result))
 			{
-				action = ReflectionCompiler.CreateMethodAction(methodInfo);
-				dictionary[methodInfo] = action;
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreateMethodAction(methodInfo);
+						break;
+					default:
+						result = (owner, args) =>  methodInfo.Invoke(owner, args);
+						break;
+				}
+				
+				dictionary[methodInfo] = result;
 			}
 			
-			return action;
+			return result;
 		}
 
 		public Func<object, object[], object> GetMethodInvoker(
-			MethodInfo methodInfo)
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = nonVoidMethodDictionary;
 			
-			if (!dictionary.TryGetValue(methodInfo, out var func))
+			if (!dictionary.TryGetValue(methodInfo, out var result))
 			{
-				func = ReflectionCompiler.CreateMethodFunc(methodInfo);
-				dictionary[methodInfo] = func;
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreateMethodFunc(methodInfo);
+						break;
+					default:
+						result = methodInfo.Invoke;
+						break;
+				}
+				
+				dictionary[methodInfo] = result;
 			}
 
-			return func;
+			return result;
 		}
 
 		public Func<object, object[], TReturn> GetMethodInvoker<TReturn>(
-			MethodInfo methodInfo)
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = nonVoidMethodGenericDictionary;
 			
-			if (!dictionary.TryGetValue(methodInfo, out object func))
+			if (!dictionary.TryGetValue(methodInfo, out object result))
 			{
-				var result = ReflectionCompiler.CreateMethodFunc<TReturn>(methodInfo);
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreateMethodFunc<TReturn>(methodInfo);
+						break;
+					default:
+						result = new Func<object, object[], TReturn>(
+							(owner, args) => (TReturn)methodInfo.Invoke(owner, args));
+						break;
+				}
+
 				dictionary[methodInfo] = result;
-				return result;
 			}
 
-			return (Func<object, object[], TReturn>)func;
+			return (Func<object, object[], TReturn>)result;
 		}
 
 		public Action<object, object> GetPropertySetter(
-			PropertyInfo propertyInfo)
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = setterDictionary;
 
 			if (!dictionary.TryGetValue(propertyInfo, out var setter))
 			{
-				setter = ReflectionCompiler.CreatePropertySetter(propertyInfo);
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						setter = ReflectionCompiler.CreatePropertySetter(propertyInfo);
+						break;
+					default:
+						var setMethod = propertyInfo.SetMethod;
+						setter = (owner, newValue) => setMethod.Invoke(owner, new []{newValue});
+						break;
+				}
+				
 				dictionary[propertyInfo] = setter;
 			}
 			
@@ -192,18 +238,29 @@ namespace Codon.Reflection
 		}
 
 		public Action<object, TProperty> GetPropertySetter<TProperty>(
-			PropertyInfo propertyInfo)
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode)
 		{
 			var dictionary = setterGenericDictionary;
 			
-			if (!dictionary.TryGetValue(propertyInfo, out object setter))
+			if (!dictionary.TryGetValue(propertyInfo, out object result))
 			{
-				var result = ReflectionCompiler.CreatePropertySetter<TProperty>(propertyInfo);
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreatePropertySetter<TProperty>(propertyInfo);
+						break;
+					default:
+						var setMethod = propertyInfo.SetMethod;
+						result = new Action<object, TProperty>(
+							(owner, newValue) => setMethod.Invoke(owner, new object[] { newValue }));
+						break;
+				}
+
 				dictionary[propertyInfo] = result;
-				return result;
 			}
 
-			return (Action<object, TProperty>)setter;
+			return (Action<object, TProperty>)result;
 		}
 
 		//public Action<object> GetEventAction(EventInfo eventInfo, Action action)
@@ -235,23 +292,6 @@ namespace Codon.Reflection
 		static string GetFieldKey(Type type, string memberName)
 		{
 			return type.FullName + memberName;
-		}
-
-		readonly Dictionary<Tuple<Type, Type>, bool> assignableFromDictionary
-			= new Dictionary<Tuple<Type, Type>, bool>();
-
-		public bool IsAssignableFrom(Type interfaceType, Type type2)
-		{
-			var tuple = new Tuple<Type, Type>(interfaceType, type2);
-			if (assignableFromDictionary.TryGetValue(tuple, out bool assignable))
-			{
-				return assignable;
-			}
-
-			assignable = interfaceType.IsAssignableFromEx(type2);
-			assignableFromDictionary[tuple] = assignable;
-
-			return assignable;
 		}
 
 		readonly Dictionary<Tuple<Type, Type>, List<PropertyWithAttribute>> propertiesWithAttributeDictionary

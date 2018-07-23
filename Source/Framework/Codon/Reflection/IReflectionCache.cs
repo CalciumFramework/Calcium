@@ -21,6 +21,29 @@ using Codon.InversionOfControl;
 namespace Codon.Reflection
 {
 	/// <summary>
+	/// Determines what approach should be taken when creating a delegate
+	/// for property accessors and method invokers.
+	/// <seealso cref="IReflectionCache"/>
+	/// </summary>
+	public enum DelegateCreationMode
+	{
+		/// <summary>
+		/// The delegate takes a smaller amount of time to create,
+		/// but execution of the delegate takes longer.
+		/// The default implementation of <see cref="IReflectionCache"/>
+		/// uses reflection for this value.
+		/// </summary>
+		FastCreationSlowPerformance,
+		/// <summary>
+		/// The delegate takes a longer amount of time to create,
+		/// but execution of the delegate is faster in release builds.
+		/// The default implementation of <see cref="IReflectionCache"/>
+		/// uses expression trees for this value.
+		/// </summary>
+		SlowCreationFastPerformance
+	}
+
+	/// <summary>
 	/// A reflection cache is used to create and cache
 	/// delegates that can retrieve or set the
 	/// value of a property; or call a method.
@@ -39,12 +62,16 @@ namespace Codon.Reflection
 		/// If the method you wish to call has a non-null
 		/// return type, use <see cref="GetMethodInvoker"/> instead.
 		/// </param>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>An action that can be used to
 		/// call the method. The first argument is the instance
 		/// on which the method exists. The <c>object[]</c>
 		/// contains the arguments for the call.</returns>
 		Action<object, object[]> GetVoidMethodInvoker(
-			MethodInfo methodInfo);
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode);
 
 		/// <summary>
 		/// Retrieve or create a func that can be used
@@ -59,6 +86,9 @@ namespace Codon.Reflection
 		/// <param name="methodInfo">
 		/// The method info for the method you wish to call.
 		/// </param>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>A func that can be used to
 		/// call the method. The first argument is the instance
 		/// on which the method exists. The <c>object[]</c>
@@ -67,7 +97,8 @@ namespace Codon.Reflection
 		/// If the method has a void return type, then <c>null</c>
 		/// is always returned.</returns>
 		Func<object, object[], object> GetMethodInvoker(
-			MethodInfo methodInfo);
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode);
 
 		/// <summary>
 		/// Retrieve or create a func that can be used
@@ -84,6 +115,9 @@ namespace Codon.Reflection
 		/// </param>
 		/// <typeparam name="TReturn">
 		/// The return type of the method to invoke.</typeparam>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>A func that can be used to
 		/// call the method. The first argument is the instance
 		/// on which the method exists. The <c>object[]</c>
@@ -92,7 +126,8 @@ namespace Codon.Reflection
 		/// If the method has a void return type, then <c>null</c>
 		/// is always returned.</returns>
 		Func<object, object[], TReturn> GetMethodInvoker<TReturn>(
-			MethodInfo methodInfo);
+			MethodInfo methodInfo,
+			DelegateCreationMode creationMode);
 
 		/// <summary>
 		/// Retrieves or creates an func that can be used
@@ -100,12 +135,16 @@ namespace Codon.Reflection
 		/// </summary>
 		/// <param name="propertyInfo">
 		/// The property info instance for the property.</param>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>A func that can be used to
 		/// retrieve the property value. 
 		/// The argument is the instance
 		/// on which the property exists.</returns>
 		Func<object, object> GetPropertyGetter(
-			PropertyInfo propertyInfo);
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode);
 
 		/// <summary>
 		/// Retrieves or creates an func that can be used
@@ -116,12 +155,16 @@ namespace Codon.Reflection
 		/// <typeparam name="TProperty">
 		/// The property type.
 		/// </typeparam>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>A func that can be used to
 		/// retrieve the property value. 
 		/// The argument is the instance
 		/// on which the property exists.</returns>
 		Func<object, TProperty> GetPropertyGetter<TProperty>(
-			PropertyInfo propertyInfo);
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode);
 
 		Func<TOwner, TProperty> GetPropertyGetter<TOwner, TProperty>(
 			Expression<Func<TOwner, TProperty>> propertyExpression);
@@ -132,13 +175,17 @@ namespace Codon.Reflection
 		/// </summary>
 		/// <param name="propertyInfo">
 		/// The property info instance for the property.</param>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>An action that can be used to
 		/// set the property value. 
 		/// The first argument is the instance
 		/// on which the property exists.
 		/// The second argument is new property value.</returns>
 		Action<object, object> GetPropertySetter(
-			PropertyInfo propertyInfo);
+			PropertyInfo propertyInfo, 
+			DelegateCreationMode creationMode);
 
 		/// <summary>
 		/// Retrieve or create an action that can be used
@@ -148,23 +195,27 @@ namespace Codon.Reflection
 		/// The property info instance for the property.</param>
 		/// <typeparam name="TProperty">
 		/// The property type.</typeparam>
+		/// <param name="creationMode">
+		/// Determines how the resulting delegate is created.
+		/// <see cref="DelegateCreationMode"/></param>
 		/// <returns>An action that can be used to
 		/// set the property value. 
 		/// The first argument is the instance
 		/// on which the property exists.
 		/// The second argument is new property value.</returns>
 		Action<object, TProperty> GetPropertySetter<TProperty>(
-			PropertyInfo propertyInfo);
+			PropertyInfo propertyInfo,
+			DelegateCreationMode creationMode);
 
-		/// <summary>
-		/// Determines whether if type2 is assignable from interfaceType.
-		/// This is equivalent to calling <c>interfaceType.IsAssignableFrom(type2)</c>.
-		/// </summary>
-		/// <param name="interfaceType"></param>
-		/// <param name="type2"></param>
-		/// <returns><c>true</c> if type2 is assignable from interfaceType; 
-		/// <c>false</c> otherwise.</returns>
-		bool IsAssignableFrom(Type interfaceType, Type type2);
+		// /// <summary>
+		// /// Determines whether if type2 is assignable from interfaceType.
+		// /// This is equivalent to calling <c>interfaceType.IsAssignableFrom(type2)</c>.
+		// /// </summary>
+		// /// <param name="interfaceType"></param>
+		// /// <param name="type2"></param>
+		// /// <returns><c>true</c> if type2 is assignable from interfaceType; 
+		// /// <c>false</c> otherwise.</returns>
+		// bool IsAssignableFrom(Type interfaceType, Type type2);
 
 		/// <summary>
 		/// Gets properties decorated with a specified attribute.

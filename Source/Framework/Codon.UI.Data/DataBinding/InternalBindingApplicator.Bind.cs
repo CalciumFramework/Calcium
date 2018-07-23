@@ -199,7 +199,9 @@ namespace Codon.UI.Data
 						/* The target is an event of the view. */
 						if (sourceProperty != null)
 						{
-							Func<object, object> getter = ReflectionCache.GetPropertyGetter(sourceProperty);
+							Func<object, object> getter = ReflectionCache.GetPropertyGetter(
+															sourceProperty, 
+															DelegateCreationMode.FastCreationSlowPerformance);
 
 							/* The source must be an ICommand so we can call its Execute method. */
 							var command = getter(currentContext) as ICommand;
@@ -214,7 +216,9 @@ namespace Codon.UI.Data
 
 							/* Subscribe to the specified event to execute 
 							 * the command when the event is raised. */
-							var invoker = ReflectionCache.GetVoidMethodInvoker(commandExecuteMethodInfo);
+							var invoker = ReflectionCache.GetVoidMethodInvoker(
+												commandExecuteMethodInfo, 
+												DelegateCreationMode.FastCreationSlowPerformance);
 
 							void InvokeAction()
 							{
@@ -237,7 +241,9 @@ namespace Codon.UI.Data
 
 							if (enabledProperty != null)
 							{
-								var setter = ReflectionCache.GetPropertySetter(enabledProperty);
+								var setter = ReflectionCache.GetPropertySetter(
+												enabledProperty, 
+												DelegateCreationMode.FastCreationSlowPerformance);
 								setter(view, command.CanExecute(null));
 
 								Action canExecuteChangedAction = () => setter(view, command.CanExecute(null));
@@ -286,7 +292,9 @@ namespace Codon.UI.Data
 
 							Action removeAction;
 
-							Action<object, object[]> invoker = ReflectionCache.GetVoidMethodInvoker(sourceMethod);
+							Action<object, object[]> invoker = ReflectionCache.GetVoidMethodInvoker(
+																	sourceMethod, 
+																	DelegateCreationMode.FastCreationSlowPerformance);
 
 							if (parameterCount > 1)
 							{
@@ -537,7 +545,9 @@ namespace Codon.UI.Data
 
 					if (sourceProperty != null)
 					{
-						var getter = ReflectionCache.GetPropertyGetter(sourceProperty);
+						var getter = ReflectionCache.GetPropertyGetter(
+										sourceProperty, 
+										DelegateCreationMode.FastCreationSlowPerformance);
 						currentContext = getter(currentContext);
 					}
 					else
