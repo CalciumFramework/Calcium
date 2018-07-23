@@ -39,7 +39,7 @@ namespace Codon.Navigation
 
 			if (Dependency.TryResolve(out Activity activity))
 			{
-				activity?.OnBackPressed();
+				activity?.Finish();
 			}
 		}
 

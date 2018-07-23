@@ -33,7 +33,8 @@ namespace Codon.ComponentModel
 	/// </summary>
 	//[Serializable]
 	public sealed class PropertyChangeNotifier 
-		: INotifyPropertyChanged, INotifyPropertyChanging
+		: INotifyPropertyChanged, INotifyPropertyChanging,
+			ISuspendChangeNotification
 	{
 		readonly WeakReference ownerWeakReference;
 		
@@ -347,8 +348,9 @@ namespace Codon.ComponentModel
 				Uri propertyUri = (Uri)(object)property;
 				Uri newUri = (Uri)(object)newValue;
 				if (propertyUri != null && newUri != null
-					&& propertyUri.IsAbsoluteUri && newUri.IsAbsoluteUri /* Fragment throws an InvalidOperationException for relative Uri's. */
-					&& propertyUri.Fragment != newUri.Fragment)
+										&& propertyUri.IsAbsoluteUri
+										&& newUri.IsAbsoluteUri /* Fragment throws an InvalidOperationException for relative Uri's. */
+										&& propertyUri.Fragment != newUri.Fragment)
 				{
 					preliminarilyFoundEqual = false;
 				}
@@ -357,7 +359,7 @@ namespace Codon.ComponentModel
 			if (preliminarilyFoundEqual)
 			{
 #if WINDOWS_PHONE
-				/* Hack for GeoCoordinate comparison bug. */
+/* Hack for GeoCoordinate comparison bug. */
 				if (EqualityComparer<TProperty>.Default.Equals(property, newValue))
 				{
 					return AssignmentResult.AlreadyAssigned;
@@ -365,37 +367,52 @@ namespace Codon.ComponentModel
 #else
 				/* Boxing may occur here. We should consider 
 				 * providing some overloads for primitives. */
-				if (Equals(property, newValue)) 
+				if (Equals(property, newValue))
 				{
 					return AssignmentResult.AlreadyAssigned;
 				}
 #endif
 			}
 
+			bool notify = !ChangeNotificationSuspended;
+
 			if (useExtendedEventArgs)
 			{
-				var args = new PropertyChangingEventArgs<TProperty>(propertyName, property, newValue);
-
-				OnPropertyChanging(args);
-				if (args.Cancelled)
+				if (notify)
 				{
-					return AssignmentResult.Cancelled;
+					var args = new PropertyChangingEventArgs<TProperty>(propertyName, property, newValue);
+
+					OnPropertyChanging(args);
+					if (args.Cancelled)
+					{
+						return AssignmentResult.Cancelled;
+					}
 				}
 
 				var oldValue = property;
 				property = newValue;
-				OnPropertyChanged(new PropertyChangedEventArgs<TProperty>(
-					propertyName, oldValue, newValue));
+
+				if (notify)
+				{
+					OnPropertyChanged(new PropertyChangedEventArgs<TProperty>(
+						propertyName, oldValue, newValue));
+				}
 			}
 			else
 			{
-				var args = RetrieveOrCreatePropertyChangingEventArgs(propertyName);
-				OnPropertyChanging(args);
+				if (notify)
+				{
+					var args = RetrieveOrCreatePropertyChangingEventArgs(propertyName);
+					OnPropertyChanging(args);
+				}
 
 				property = newValue;
 
-				var changedArgs = RetrieveOrCreatePropertyChangedEventArgs(propertyName);
-				OnPropertyChanged(changedArgs);
+				if (notify)
+				{
+					var changedArgs = RetrieveOrCreatePropertyChangedEventArgs(propertyName);
+					OnPropertyChanged(changedArgs);
+				}
 			}
 
 			return AssignmentResult.Success;
@@ -420,28 +437,45 @@ namespace Codon.ComponentModel
 				return AssignmentResult.AlreadyAssigned;
 			}
 #endif
+			bool notify = !ChangeNotificationSuspended;
+
 			if (useExtendedEventArgs)
 			{
-				var args = new PropertyChangingEventArgs<TProperty>(
+				if (notify)
+				{
+					var args = new PropertyChangingEventArgs<TProperty>(
 						propertyName, typedOldValue, newValue);
 
-				OnPropertyChanging(args);
-				if (args.Cancelled)
-				{
-					return AssignmentResult.Cancelled;
+					OnPropertyChanging(args);
+					if (args.Cancelled)
+					{
+						return AssignmentResult.Cancelled;
+					}
 				}
 
 				field = newValue != null ? new WeakReference(newValue) : null;
-				OnPropertyChanged(new PropertyChangedEventArgs<TProperty>(
-					propertyName, typedOldValue, newValue));
+
+				if (notify)
+				{
+					OnPropertyChanged(new PropertyChangedEventArgs<TProperty>(
+						propertyName, typedOldValue, newValue));
+				}
 			}
 			else
 			{
-				var args = RetrieveOrCreatePropertyChangingEventArgs(propertyName);
-				OnPropertyChanging(args);
+				if (notify)
+				{
+					var args = RetrieveOrCreatePropertyChangingEventArgs(propertyName);
+					OnPropertyChanging(args);
+				}
 
-				var changedArgs = RetrieveOrCreatePropertyChangedEventArgs(propertyName);
-				OnPropertyChanged(changedArgs);
+				field = newValue != null ? new WeakReference(newValue) : null;
+
+				if (notify)
+				{
+					var changedArgs = RetrieveOrCreatePropertyChangedEventArgs(propertyName);
+					OnPropertyChanged(changedArgs);
+				}
 			}
 
 			return AssignmentResult.Success;
@@ -464,6 +498,11 @@ namespace Codon.ComponentModel
 			if (OwnerDisposed)
 			{
 				return;
+			}
+
+			if (ChangeNotificationSuspended)
+			{
+				throw new InvalidOperationException("Change notification is suspended.");
 			}
 
 			AssertArg.IsNotNullOrEmpty(propertyName, nameof(propertyName));
@@ -646,8 +685,15 @@ namespace Codon.ComponentModel
 
 		public void NotifyChanged(string propertyName)
 		{
+			if (ChangeNotificationSuspended)
+			{
+				throw new InvalidOperationException("Change notification is suspended.");
+			}
+
 			var args = RetrieveOrCreatePropertyChangedEventArgs(propertyName);
 			OnPropertyChanged(args);
 		}
+
+		public bool ChangeNotificationSuspended { get; set; }
 	}
 }

@@ -835,6 +835,8 @@ namespace Codon.SettingsModel
 			{
 				lockSlim.ExitWriteLock();
 			}
+
+			ClearCache();
 		}
 
 #region event SettingChanging

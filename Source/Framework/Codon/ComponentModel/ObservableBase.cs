@@ -27,7 +27,8 @@ namespace Codon.ComponentModel
 	/// </summary>
 	//[Serializable]
 	public abstract class ObservableBase
-		: INotifyPropertyChanged, INotifyPropertyChanging
+		: INotifyPropertyChanged, INotifyPropertyChanging,
+			ISuspendChangeNotification
 	{
 		//[field: NonSerialized]
 		PropertyChangeNotifier notifier;
@@ -194,7 +195,9 @@ namespace Codon.ComponentModel
 		/// </summary>
 		/// <param name="useExtendedEventArgs">if set to <c>true</c> 
 		/// the PropertyChangeNotifier will use extended event args.
-		/// Default is <c>true</c>.</param>
+		/// Default is <c>true</c>, which allows property changes 
+		/// to be cancelled via subscription
+		/// to the <c>PropertyChanging</c> event.</param>
 		protected ObservableBase(bool useExtendedEventArgs = true)
 		{
 			this.useExtendedEventArgs = useExtendedEventArgs;
@@ -208,14 +211,8 @@ namespace Codon.ComponentModel
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged
 		{
-			add
-			{
-				PropertyChangeNotifier.PropertyChanged += value;
-			}
-			remove
-			{
-				PropertyChangeNotifier.PropertyChanged -= value;
-			}
+			add => PropertyChangeNotifier.PropertyChanged += value;
+			remove => PropertyChangeNotifier.PropertyChanged -= value;
 		}
 
 		/// <summary>
@@ -224,16 +221,12 @@ namespace Codon.ComponentModel
 		/// </summary>
 		public event PropertyChangingEventHandler PropertyChanging
 		{
-			add
-			{
-				PropertyChangeNotifier.PropertyChanging += value;
-			}
-			remove
-			{
-				PropertyChangeNotifier.PropertyChanging -= value;
-			}
+			add => PropertyChangeNotifier.PropertyChanging += value;
+			remove => PropertyChangeNotifier.PropertyChanging -= value;
 		}
 
 		#endregion
+
+		public bool ChangeNotificationSuspended { get; set; }
 	}
 }
