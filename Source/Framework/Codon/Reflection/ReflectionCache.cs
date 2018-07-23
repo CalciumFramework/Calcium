@@ -15,6 +15,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -60,7 +61,8 @@ namespace Codon.Reflection
 				voidMethodDictionary,
 				nonVoidMethodDictionary,
 				nonVoidMethodGenericDictionary,
-				propertiesWithAttributeDictionary
+				propertiesWithAttributeDictionary,
+				constructorDictionary
 			};
 
 			foreach (var dictionary in dictionaries)
@@ -81,25 +83,24 @@ namespace Codon.Reflection
 			PropertyInfo propertyInfo,
 			DelegateCreationMode creationMode)
 		{
-			var dictionary = getterGenericDictionary;
-
-			if (!dictionary.TryGetValue(propertyInfo, out var getter))
-			{
-				switch (creationMode)
-				{
-					case DelegateCreationMode.SlowCreationFastPerformance:
-						getter = ReflectionCompiler.CreatePropertyGetter(propertyInfo);
-						break;
-					default:
-						var getMethod = propertyInfo.GetMethod;
-						getter = owner => getMethod.Invoke(owner, null);
-						break;
-				}
-				
-				dictionary[propertyInfo] = getter;
-			}
-
-			return getter;
+			 var dictionary = getterGenericDictionary;
+			
+			 if (!dictionary.TryGetValue(propertyInfo, out var getter))
+			 {
+			 	switch (creationMode)
+			 	{
+			 		case DelegateCreationMode.SlowCreationFastPerformance:
+			 			getter = ReflectionCompiler.CreatePropertyGetter(propertyInfo);
+			 			break;
+			 		default:
+			 			getter = propertyInfo.GetValue;
+			 			break;
+			 	}
+			 	
+			 	dictionary[propertyInfo] = getter;
+			 }
+			
+			 return getter;
 		}
 
 		public Func<TOwner, TProperty> GetPropertyGetter<TOwner, TProperty>(
@@ -117,7 +118,7 @@ namespace Codon.Reflection
 			Func<object, TProperty> result;
 
 			var dictionary = getterDictionary;
-			
+
 			if (!dictionary.TryGetValue(propertyInfo, out object getter))
 			{
 				switch (creationMode)
@@ -261,6 +262,32 @@ namespace Codon.Reflection
 			}
 
 			return (Action<object, TProperty>)result;
+		}
+
+		readonly Dictionary<ConstructorInfo, Func<object[], object>> constructorDictionary
+			= new Dictionary<ConstructorInfo, Func<object[], object>>();
+
+		public Func<object[], object> GetConstructorFunc(
+			ConstructorInfo info, DelegateCreationMode creationMode)
+		{
+			var dictionary = constructorDictionary;
+
+			if (!dictionary.TryGetValue(info, out Func<object[], object> result))
+			{
+				switch (creationMode)
+				{
+					case DelegateCreationMode.SlowCreationFastPerformance:
+						result = ReflectionCompiler.CreateConstructorFunc(info);
+						break;
+					default:
+						result = info.Invoke;
+						break;
+				}
+
+				dictionary[info] = result;
+			}
+
+			return result;
 		}
 
 		//public Action<object> GetEventAction(EventInfo eventInfo, Action action)

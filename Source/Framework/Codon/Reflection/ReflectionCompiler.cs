@@ -422,7 +422,7 @@ namespace Codon.Reflection
 			var parameters = method.GetParameters();
 
 			Delegate compiledExpression = CreateCompiledExpression(method, parameters);
-			
+		
 			int parametersLength = parameters.Length;
 
 			switch (parametersLength)

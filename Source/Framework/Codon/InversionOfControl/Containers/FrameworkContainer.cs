@@ -911,7 +911,8 @@ namespace Codon.InversionOfControl
 				if (!propertyActionDictionary.TryGetValue(fullPropertyName, 
 												out Action<object, object> setter))
 				{
-					setter = ReflectionCompiler.CreatePropertySetter(propertyInfo);
+					var setMethod = propertyInfo.SetMethod;
+					setter = (owner, newValue) => setMethod.Invoke(owner, new[] { newValue });//ReflectionCompiler.CreatePropertySetter(propertyInfo);
 					propertyActionDictionary[fullPropertyName] = setter;
 				}
 
@@ -968,8 +969,7 @@ namespace Codon.InversionOfControl
 			Func<object[], object> constructorFunc;
 
 			internal Func<object[], object> ConstructorFunc => 
-				constructorFunc ?? 
-				(constructorFunc = ReflectionCompiler.CreateConstructorFunc(Constructor));
+				constructorFunc ?? (constructorFunc = Constructor.Invoke);// = ReflectionCompiler.CreateConstructorFunc(Constructor);
 
 			internal readonly ConstructorInfo Constructor;
 

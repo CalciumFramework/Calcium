@@ -207,6 +207,10 @@ namespace Codon.Reflection
 			PropertyInfo propertyInfo,
 			DelegateCreationMode creationMode);
 
+		Func<object[], object> GetConstructorFunc(
+			ConstructorInfo info,
+			DelegateCreationMode creationMode);
+
 		// /// <summary>
 		// /// Determines whether if type2 is assignable from interfaceType.
 		// /// This is equivalent to calling <c>interfaceType.IsAssignableFrom(type2)</c>.
