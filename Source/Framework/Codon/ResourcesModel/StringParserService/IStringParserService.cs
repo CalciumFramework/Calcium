@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System;
 using System.Collections.Generic;
 
 using Codon.ComponentModel;
@@ -66,16 +67,16 @@ namespace Codon.Services
 		/// <example></example>
 		void RegisterConverter(string tagName, IConverter converter);
 
-//		/// <summary>
-//		/// Registers a converter with the specified tag name. 
-//		/// When subsequently calling Parse, if a tag is discovered in the text, 
-//		/// then the specified IConverter will be used to convert the tag 
-//		/// and substitute the tag in the text.
-//		/// </summary>
-//		/// <param name="tagName">The tag identifier. E.g., "Country". 
-//		/// When calling Parse, if the text contains a string "Greeting from ${Country}." 
-//		/// The specified converter will be used to create a string replacement 
-//		/// for the ${Country} tag.</param>
-//		void RegisterConverter(string tagName, Func<object, object> convertFunc);
+		/// <summary>
+		/// Registers a converter with the specified tag name. 
+		/// When subsequently calling Parse, if a tag is discovered in the text, 
+		/// then the specified IConverter will be used to convert the tag 
+		/// and substitute the tag in the text.
+		/// </summary>
+		/// <param name="tagName">The tag identifier. E.g., "Country". 
+		/// When calling Parse, if the text contains a string "Greeting from ${Country}." 
+		/// The specified converter will be used to create a string replacement 
+		/// for the ${Country} tag.</param>
+		void RegisterConverter(string tagName, Func<object, object> convertFunc);
 	}
 }

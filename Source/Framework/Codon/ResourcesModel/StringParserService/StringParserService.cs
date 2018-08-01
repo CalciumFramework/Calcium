@@ -185,8 +185,7 @@ namespace Codon.ResourcesModel
 
 					if (result == null)
 					{
-						IConverter converter;
-						if (GetConverter(tagName, out converter))
+						if (GetConverter(tagName, out IConverter converter))
 						{
 							object conversionResult = converter.Convert(tagArgs);
 							result = conversionResult?.ToString();

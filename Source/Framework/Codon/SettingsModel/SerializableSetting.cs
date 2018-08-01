@@ -13,6 +13,8 @@
 #endregion
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 using Codon.IO;
@@ -143,6 +145,19 @@ namespace Codon.SettingsModel
 			}
 
 			return element;
+		}
+
+		/// <summary>
+		/// Retrieve a <c>SerializableSetting</c> for each 'Setting' element
+		/// of the specified <c>XElement</c>.
+		/// </summary>
+		/// <param name="element">An element that contains zero
+		/// or more 'Setting' child elements.</param>
+		/// <returns>A list of <c>SerializableSetting</c> objects representing
+		/// the 'Setting' elements of the specified <c>XElement</c>.</returns>
+		public static IEnumerable<SerializableSetting> GetChildrenFromElement(XElement element)
+		{
+			return element.GetConvertibleChildren<SerializableSetting>(elementOptionName);
 		}
 
 		/// <summary>
