@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0
+﻿#if NETSTANDARD2_0 || (!NETSTANDARD1_4 && !NETSTANDARD1_6)
 #region File and License Information
 /*
 <File>

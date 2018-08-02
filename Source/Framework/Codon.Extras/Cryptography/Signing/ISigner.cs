@@ -25,7 +25,7 @@ namespace Codon.Cryptography
 	/// cryptographic signatures for byte streams, using a private key.
 	/// A signature can then be verified using a public key.
 	/// </summary>
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || (!NETSTANDARD1_4 && !NETSTANDARD1_6)
 	[DefaultType(typeof(RsaSigner), Singleton = true)]
 #endif
 	public interface ISigner
