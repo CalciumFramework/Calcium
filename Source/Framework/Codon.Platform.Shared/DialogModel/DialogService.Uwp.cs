@@ -24,6 +24,7 @@ using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.Xaml.Controls;
 using Codon.ResourcesModel.Extensions;
 using Codon.Services;
 
@@ -250,10 +251,47 @@ namespace Codon.DialogModel
 			return source.Task;
 		}
 
-		public override Task<QuestionResponse<TResponse>> AskQuestionAsync<TResponse>(
+		public override async Task<QuestionResponse<TResponse>> AskQuestionAsync<TResponse>(
 			IQuestion<TResponse> question)
 		{
-			throw new NotImplementedException();
+			AssertArg.IsNotNull(question, nameof(question));
+
+			var textQuestion = question as TextQuestion;
+			if (textQuestion != null)
+			{
+				var response = await ShowTextDialogAsync(textQuestion.Question);
+				if (response.Item1)
+				{
+					var r = new TextResponse(OkCancelQuestionResult.OK, response.Item2);
+					return new QuestionResponse<TResponse>((TResponse)(object)r, question);
+				}
+				var noResponse = new TextResponse(OkCancelQuestionResult.Cancel, null);
+				return new QuestionResponse<TResponse>((TResponse)(object)noResponse, question);
+			}
+			
+			throw new NotSupportedException();
+		}
+
+		async Task<Tuple<bool, string>> ShowTextDialogAsync(string title)
+		{
+			var inputTextBox = new TextBox();
+			inputTextBox.AcceptsReturn = false;
+			inputTextBox.Height = 32;
+			ContentDialog dialog = new ContentDialog
+			{
+				Content = inputTextBox,
+				Title = title,
+				IsSecondaryButtonEnabled = true,
+				PrimaryButtonText = "OK",
+				SecondaryButtonText = "Cancel"
+			};
+			var dialogResult = await dialog.ShowAsync();
+			if (dialogResult == ContentDialogResult.Primary)
+			{
+				return new Tuple<bool, string>(true, inputTextBox.Text);
+			}
+
+			return new Tuple<bool, string>(false, null);
 		}
 	}
 }
