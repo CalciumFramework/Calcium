@@ -66,23 +66,31 @@ namespace Codon.Navigation
 		public NavigatedArgs(
 			object content, Uri uri,
 			NavigationType navigationType = NavigationType.New, 
-			bool isNavigationInitiator = true)
+			bool isNavigationInitiator = true,
+			object parameter = null,
+			object builtInArgs = null)
 		{
 			Content = content;
 			Uri = uri;
 			NavigationType = navigationType;
 			IsNavigationInitiator = isNavigationInitiator;
+			Parameter = parameter;
+			BuiltInArgs = builtInArgs;
 		}
 
 		public NavigatedArgs(
 			object content, Type pageType,
 			NavigationType navigationType = NavigationType.New, 
-			bool isNavigationInitiator = true)
+			bool isNavigationInitiator = true,
+			object parameter = null,
+			object builtInArgs = null)
 		{
 			Content = content;
 			PageType = pageType;
 			NavigationType = navigationType;
 			IsNavigationInitiator = isNavigationInitiator;
+			Parameter = parameter;
+			BuiltInArgs = builtInArgs;
 		}
 
 //		public NavigatedArgs(NavigationEventArgs args)

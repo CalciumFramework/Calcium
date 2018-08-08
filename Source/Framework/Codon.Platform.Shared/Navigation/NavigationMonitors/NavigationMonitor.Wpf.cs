@@ -70,7 +70,7 @@ namespace Codon.Navigation
 					}
 
 					var mode = Translate(e.NavigationMode);
-					var args = new NavigatingArgs(e.Uri, mode);
+					var args = new NavigatingArgs(e.Uri, mode, true, e.IsNavigationInitiator, e.ExtraData, e);
 
 					var messenger = Dependency.Resolve<IMessenger>();
 					messenger.PublishAsync(new NavigatingMessage(args));
@@ -89,7 +89,10 @@ namespace Codon.Navigation
 			ProcessDataContext(e,
 				(navigationAware, eventArgs, _) =>
 				{
-					var args = new NavigatedArgs(e.Content, e.Uri);
+					var args = new NavigatedArgs(e.Content, e.Uri, 
+										isNavigationInitiator: e.IsNavigationInitiator, 
+										parameter: e.ExtraData, 
+										builtInArgs: e);
 					var messenger = Dependency.Resolve<IMessenger>();
 					messenger.PublishAsync(new NavigatedMessage(args));
 

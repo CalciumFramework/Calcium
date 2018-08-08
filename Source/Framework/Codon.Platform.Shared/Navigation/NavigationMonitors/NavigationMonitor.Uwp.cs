@@ -14,7 +14,7 @@
 #endregion
 
 using System;
-
+using System.Reflection.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -31,9 +31,9 @@ namespace Codon.Navigation
 
 		public void Initialize()
 		{
-			var frame = GetFrame();
+			var tempFrame = GetFrame();
 
-			if (frame == null)
+			if (tempFrame == null)
 			{
 				if (++attemptsToRetrieveService < 5)
 				{
@@ -47,17 +47,54 @@ namespace Codon.Navigation
 
 				return;
 			}
+			
+			ConnectFrame(tempFrame);
+		}
+
+		public Frame Frame
+		{
+		 	get => GetFrame();
+			set => ConnectFrame(value);
+		}
+
+		void ConnectFrame(Frame newFrame)
+		{
+			DisconnectFromFrame();
+			frame = newFrame;
+
+			if (frame != null)
+			{
+				frame.Navigating -= HandleNavigating;
+				frame.Navigating += HandleNavigating;
+
+				frame.Navigated -= HandleNavigated;
+				frame.Navigated += HandleNavigated;
+			}
+		}
+
+		void DisconnectFromFrame()
+		{
+			if (frame == null)
+			{
+				return;
+			}
 
 			frame.Navigating -= HandleNavigating;
-			frame.Navigating += HandleNavigating;
-
 			frame.Navigated -= HandleNavigated;
-			frame.Navigated += HandleNavigated;
+
+			frame = null;
 		}
+
+		Frame frame;
 
 		Frame GetFrame()
 		{
-			return (Frame)Window.Current?.Content;
+			if (frame == null)
+			{
+				frame = (Frame)Window.Current?.Content;
+			}
+
+			return frame;
 		}
 
 		void HandleNavigating(object sender, NavigatingCancelEventArgs e)
@@ -76,7 +113,8 @@ namespace Codon.Navigation
 					}
 
 					var mode = Translate(e.NavigationMode);
-					var args = new NavigatingArgs(e.SourcePageType, mode);
+					var args = new NavigatingArgs(e.SourcePageType, mode, true, 
+										parameter: e.Parameter, builtInArgs: e);
 
 					var messenger = Dependency.Resolve<IMessenger>();
 					messenger.PublishAsync(new NavigatingMessage(args));
@@ -93,8 +131,8 @@ namespace Codon.Navigation
 
 		void HandleNavigated(object sender, NavigationEventArgs e)
 		{
-			var frame = GetFrame();
-			if (e.SourcePageType != frame.CurrentSourcePageType)
+			var tempFrame = GetFrame();
+			if (e.SourcePageType != tempFrame.CurrentSourcePageType)
 			{
 				return;
 			}
@@ -113,8 +151,9 @@ namespace Codon.Navigation
 				(navigationAware, eventArgs, _) =>
 				{
 					var mode = Translate(eventArgs.NavigationMode);
-					var args = new NavigatedArgs(eventArgs.Content, eventArgs.SourcePageType, mode);
-
+					var args = new NavigatedArgs(eventArgs.Content, eventArgs.SourcePageType, mode, 
+												parameter: e.Parameter, builtInArgs: e);
+					
 					navigationAware.HandleNavigatedTo(args);
 				});
 		}
@@ -153,8 +192,8 @@ namespace Codon.Navigation
 
 		object GetContentDataContext()
 		{
-			var frame = GetFrame();
-			FrameworkElement element = frame.Content as FrameworkElement;
+			var tempFrame = GetFrame();
+			FrameworkElement element = tempFrame.Content as FrameworkElement;
 
 			return element?.DataContext;
 		}

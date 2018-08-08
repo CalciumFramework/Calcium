@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SettingsModel\SettingsStores\TransientSettingsStore.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\TransientState\TransientState.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\TransientState\TransientState.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\LogicalTree\LogicalTree.Uwp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)StatePreservation\" />

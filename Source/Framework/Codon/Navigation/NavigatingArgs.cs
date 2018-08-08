@@ -64,12 +64,12 @@ namespace Codon.Navigation
 		/// </summary>
 		public bool Cancel
 		{
-			get => BuiltInArgs?.Cancel ?? cancel;
+			get => (BuiltInArgs as NavigatingCancelEventArgs)?.Cancel ?? cancel;
 			set
 			{
-				if (BuiltInArgs != null)
+				if (BuiltInArgs is NavigatingCancelEventArgs cancelArgs)
 				{
-					BuiltInArgs.Cancel = value;
+					cancelArgs.Cancel = value;
 				}
 				else
 				{
@@ -81,7 +81,7 @@ namespace Codon.Navigation
 		/// <summary>
 		/// The built in event args. May be <c>null</c>.
 		/// </summary>
-		public NavigatingCancelEventArgs BuiltInArgs { get; }
+		public /*NavigatingCancelEventArgs*/ object BuiltInArgs { get; private set; }
 
 		/// <summary>
 		/// The target page of the navigation.
@@ -95,12 +95,16 @@ namespace Codon.Navigation
 			Uri uri, 
 			NavigationType navigationType, 
 			bool cancellable = true, 
-			bool isNavigationInitiator = true)
+			bool isNavigationInitiator = true,
+			object parameter = null,
+			object builtInArgs = null)
 		{
 			Uri = uri;
 			NavigationType = navigationType;
 			Cancellable = cancellable;
 			IsNavigationInitiator = isNavigationInitiator;
+			Parameter = parameter;
+			BuiltInArgs = builtInArgs;
 		}
 
 		public NavigatingArgs(
@@ -108,13 +112,15 @@ namespace Codon.Navigation
 			NavigationType navigationType, 
 			bool cancellable = true, 
 			bool isNavigationInitiator = true, 
-			object parameter = null)
+			object parameter = null,
+			object builtInArgs = null)
 		{
 			TargetPageType = targetPageType;
 			NavigationType = navigationType;
 			Cancellable = cancellable;
 			IsNavigationInitiator = isNavigationInitiator;
 			Parameter = parameter;
+			BuiltInArgs = builtInArgs;
 		}
 
 		public NavigatingArgs(NavigatingCancelEventArgs args)
@@ -125,6 +131,8 @@ namespace Codon.Navigation
 
 			Uri = args.Uri;
 			NavigationType = args.NavigationType;
+			Parameter = args.ExtraData;
+			IsNavigationInitiator = args.IsNavigationInitiator;
 		}
 	}
 }
