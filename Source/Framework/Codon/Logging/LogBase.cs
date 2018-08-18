@@ -28,7 +28,7 @@ namespace Codon.Logging
 	/// </summary>
 	public abstract class LogBase : ILog
 	{
-		public LogLevel MinimumLogLevel { get; set; } 
+		public virtual LogLevel MinimumLogLevel { get; set; } 
 			= Debugger.IsAttached ? LogLevel.All : LogLevel.Error;
 
 		/// <summary>

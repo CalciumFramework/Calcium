@@ -148,7 +148,7 @@ namespace Codon.Networking
 			}
 
 			WifiInfo wifiInfo = wifiManager.ConnectionInfo;
-			var result = wifiInfo.ToString();
+			var result = wifiInfo.SSID;
 
 			return result;
 		}

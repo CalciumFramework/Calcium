@@ -20,8 +20,8 @@ namespace Codon.Networking
 	/// </summary>
 	public enum NetworkConnectionType
 	{
-		None,
-		Lan,
-		MobileBroadband
+		None = 0,
+		Lan = 1,
+		MobileBroadband = 2
 	}
 }

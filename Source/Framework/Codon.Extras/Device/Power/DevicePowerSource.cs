@@ -23,11 +23,11 @@ namespace Codon.Device
 		/// <summary>
 		/// The device is powered by its battery.
 		/// </summary>
-		Battery,
+		Battery = 0,
 
 		/// <summary>
 		/// The device is powered by mains power.
 		/// </summary>
-		External
+		External = 1
 	}
 }

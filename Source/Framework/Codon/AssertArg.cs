@@ -246,6 +246,42 @@ namespace Codon
 
 		/// <summary>
 		/// Throws an exception if the specified value is not greater 
+		/// than the specified expected value.
+		/// </summary>
+		/// <param name="expected">
+		/// The number which must be greater than the value.</param>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is not greater 
+		/// than the expected value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static long IsGreaterThan(
+			long expected, long value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (value > expected)
+			{
+				return value;
+			}
+
+			throw new ArgumentOutOfRangeException(
+				$"Argument must be greater than {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
+				parameterName);
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is not greater 
 		/// than or equal to the specified expected value.
 		/// </summary>
 		/// <param name="expected">
@@ -313,6 +349,42 @@ namespace Codon
 
 			throw new ArgumentOutOfRangeException(
 				$"Argument must be greater than or equal to {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'", 
+				parameterName);
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is not greater 
+		/// than or equal to the specified expected value.
+		/// </summary>
+		/// <param name="expected">
+		/// The number which must be greater than or equal to the value.</param>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is not greater 
+		/// than or equal to the expected value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static long IsGreaterThanOrEqual(
+			long expected, long value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (value >= expected)
+			{
+				return value;
+			}
+
+			throw new ArgumentOutOfRangeException(
+				$"Argument must be greater than or equal to {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
 				parameterName);
 		}
 
@@ -390,6 +462,42 @@ namespace Codon
 
 		/// <summary>
 		/// Throws an exception if the specified value is not less 
+		/// than the specified expected value.
+		/// </summary>
+		/// <param name="expected">
+		/// The number which must be less than the value.</param>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is not less 
+		/// than the expected value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static long IsLessThan(
+			long expected, long value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (value >= expected)
+			{
+				throw new ArgumentOutOfRangeException(
+					$"Argument must be less than {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
+					parameterName);
+			}
+
+			return value;
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is not less 
 		/// than or equal to the specified expected value.
 		/// </summary>
 		/// <param name="expected">
@@ -446,6 +554,42 @@ namespace Codon
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double IsLessThanOrEqual(
 			double expected, double value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (value > expected)
+			{
+				throw new ArgumentOutOfRangeException(
+					$"Argument must be less than or equal to {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
+					parameterName);
+			}
+
+			return value;
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is not less 
+		/// than or equal to the specified expected value.
+		/// </summary>
+		/// <param name="expected">
+		/// The number which must be less than or equal to the value.</param>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is not less 
+		/// than or equal to the expected value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static long IsLessThanOrEqual(
+			long expected, long value, string parameterName,
 			[CallerMemberName] string memberName = null,
 			[CallerFilePath] string filePath = null,
 			[CallerLineNumber] int lineNumber = 0)

@@ -23,9 +23,10 @@ using Codon.ComponentModel;
 using Codon.Device;
 using Codon.Services;
 using Codon.Concurrency;
+using Codon.Devices;
 using Codon.Logging;
 
-namespace Codon.Devices
+namespace Codon.Device
 {
 	/// <summary>
 	/// Android implementation of the <see cref="IPowerService"/>.
@@ -195,7 +196,7 @@ namespace Codon.Devices
 				messenger.PublishAsync(new PowerSourceChangeEvent(this, oldPowerSource, PowerSource));
 			}
 			else if (intentAction == Intent.ActionBatteryLow || intentAction == Intent.ActionBatteryOkay
-				|| intentAction == Intent.ActionBatteryChanged)
+															|| intentAction == Intent.ActionBatteryChanged)
 			{
 				if (intentAction == Intent.ActionBatteryChanged)
 				{
@@ -226,7 +227,10 @@ namespace Codon.Devices
 			}
 		}
 	}
+}
 
+namespace Codon.Devices
+{
 	static class BatteryStatusExtensions
 	{
 		internal static BatteryState ToBatteryState(this BatteryStatus status)

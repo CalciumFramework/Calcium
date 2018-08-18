@@ -19,10 +19,10 @@ namespace Codon.Device
 	/// </summary>
 	public enum BatteryState
 	{
-		Unknown,
-		Charging,
-		Discharging,
-		Full,
-		NotCharging
+		Unknown = 0,
+		Charging = 1,
+		Discharging = 2,
+		Full = 4,
+		NotCharging = 8
 	}
 }
