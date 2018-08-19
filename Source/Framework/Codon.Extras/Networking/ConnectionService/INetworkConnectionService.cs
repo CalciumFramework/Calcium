@@ -13,6 +13,8 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Codon.InversionOfControl;
 using Codon.Networking;
 
@@ -86,5 +88,10 @@ namespace Codon.Services
 		/// </summary>
 		string IPAddress { get; }
 #endif
+		/// <summary>
+		/// Asynchronously retrieves a list of wireless networks.
+		/// </summary>
+		/// <returns>A list of networks visible to the device.</returns>
+		Task<IEnumerable<WirelessNetwork>> GetWirelessNetworksAsync();
 	}
 }

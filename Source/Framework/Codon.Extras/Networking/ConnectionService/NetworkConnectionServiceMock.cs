@@ -13,6 +13,8 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Codon.Services;
 
 namespace Codon.Networking
@@ -38,6 +40,13 @@ namespace Codon.Networking
 		}
 
 		public string Ssid { get; set; }
+
+		public Task<IEnumerable<WirelessNetwork>> GetWirelessNetworksAsync()
+		{
+			return Task.FromResult((IEnumerable<WirelessNetwork>)WirelessNetworks);
+		}
+
+		public IList<WirelessNetwork> WirelessNetworks { get; } = new List<WirelessNetwork>();
 
 		public virtual bool Connected 
 			=> networkConnectionType != NetworkConnectionType.None;

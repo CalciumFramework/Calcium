@@ -19,8 +19,9 @@ using Android.Net;
 using Android.Net.Wifi;
 
 using System;
+using System.Collections.Generic;
 using System.Net;
-
+using System.Threading.Tasks;
 using Codon.ComponentModel;
 using Codon.Services;
 
@@ -105,6 +106,7 @@ namespace Codon.Networking
 				wifiReceiver = new WifiReceiver(this);
 				var context = Application.Context;
 				context.RegisterReceiver(wifiReceiver, new IntentFilter(WifiManager.NetworkStateChangedAction));
+				context.RegisterReceiver(wifiReceiver, new IntentFilter(WifiManager.ScanResultsAvailableAction));
 			}
 			catch (Exception ex)
 			{
@@ -200,6 +202,62 @@ namespace Codon.Networking
 			get => iPAddress;
 			private set => Set(ref iPAddress, value);
 		}
+
+		readonly IList<WirelessNetwork> wiFiNetworks = new List<WirelessNetwork>();
+
+		public Task<IEnumerable<WirelessNetwork>> GetWirelessNetworksAsync()
+		{
+			var tcs = new TaskCompletionSource<IEnumerable<WirelessNetwork>>();
+
+			void HandleWifiScanComplete(object sender, EventArgs args)
+			{
+				WifiScanComplete -= HandleWifiScanComplete;
+
+				tcs.TrySetResult(wiFiNetworks);
+			}
+
+			var wifi = (WifiManager)Activity.GetSystemService(Context.WifiService);
+
+			WifiScanComplete += HandleWifiScanComplete;
+			wifi.StartScan();
+
+			return tcs.Task;
+		}
+
+		Activity Activity => Dependency.Resolve<Activity>();
+
+		internal void HandleScanResultsAvailable()
+		{
+			var wifi = (WifiManager)Activity.GetSystemService(Context.WifiService);
+			IList<ScanResult> scanResults = wifi.ScanResults;
+			wiFiNetworks.Clear();
+			if (scanResults != null)
+			{
+				foreach (ScanResult scanResult in scanResults)
+				{
+					wiFiNetworks.Add(ConvertToWirelessNetwork(scanResult));
+				}
+			}
+
+			WifiScanComplete?.Invoke(this, EventArgs.Empty);
+		}
+
+		event EventHandler<EventArgs> WifiScanComplete;
+
+		public static WirelessNetwork ConvertToWirelessNetwork(ScanResult scanResult)
+		{
+			var result = new WirelessNetwork
+			{
+				Bssid = scanResult.Bssid,
+				Ssid = scanResult.Ssid,
+				Capabilities = scanResult.Capabilities,
+				IsPasspointNetwork = scanResult.IsPasspointNetwork,
+				OperatorFriendlyName = scanResult.OperatorFriendlyName?.ToString(),
+				Level = scanResult.Level
+			};
+
+			return result;
+		}
 	}
 
 	public class WifiReceiver : BroadcastReceiver
@@ -213,7 +271,14 @@ namespace Codon.Networking
 
 		public override void OnReceive(Context context, Intent intent)
 		{
-			networkConnectionService.HandleNetworkStatusChanged(this);
+			if (intent.Action == WifiManager.NetworkStateChangedAction)
+			{
+				networkConnectionService.HandleNetworkStatusChanged(this);
+			}
+			else if (intent.Action == WifiManager.ScanResultsAvailableAction)
+			{
+				networkConnectionService.HandleScanResultsAvailable();
+			}
 
 			//var wifi = (WifiManager)context.GetSystemService(Context.WifiService);
 			//var state = wifi.WifiState;
