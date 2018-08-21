@@ -28,7 +28,7 @@ namespace Codon.Concurrency
 	public sealed partial class UISynchronizationContext : ISynchronizationContext
 	{
 		SystemContext systemContext;
-		int? uiThreadID;
+		int? uiThreadId;
 		readonly object initializationLock = new object();
 
 		SystemContext Context
@@ -54,7 +54,7 @@ namespace Codon.Concurrency
 			EnsureInitialized();
 
 			Action wrapper = GetWrappedAction(
-								action, null,
+								action, null, false,
 								memberName, filePath, lineNumber);
 
 			Context.Post(state => wrapper(), null);
@@ -62,6 +62,7 @@ namespace Codon.Concurrency
 
 		public Task PostAsync(
 			Action action, 
+			bool ignoreExceptionHandler = false,
 			string memberName = null, 
 			string filePath = null, 
 			int lineNumber = 0)
@@ -72,7 +73,7 @@ namespace Codon.Concurrency
 			var source = new TaskCompletionSource<object>();
 
 			Action wrapper = GetWrappedAction(
-								action, source,
+								action, source, ignoreExceptionHandler,
 								memberName, filePath, lineNumber);
 
 			Context.Post(state => wrapper(), null);
@@ -86,7 +87,7 @@ namespace Codon.Concurrency
 			EnsureInitialized();
 
 			Action wrapper = GetWrappedAction(
-								action, null,
+								action, null, false,
 								memberName, filePath, lineNumber);
 
 			if (InvokeRequired)
@@ -101,6 +102,7 @@ namespace Codon.Concurrency
 
 		public Task SendAsync(
 			Func<Task> action, 
+			bool ignoreExceptionHandler = false,
 			string memberName = null, 
 			string filePath = null, 
 			int lineNumber = 0)
@@ -116,7 +118,7 @@ namespace Codon.Concurrency
 
 			Func<Task> wrappedAction
 				= GetWrappedAction(
-					action, source,
+					action, source, ignoreExceptionHandler,
 					memberName, filePath, lineNumber);
 
 			if (isBackground)
@@ -134,8 +136,8 @@ namespace Codon.Concurrency
 			{
 				EnsureInitialized();
 
-				return !uiThreadID.HasValue || 
-					uiThreadID.Value != Environment.CurrentManagedThreadId;
+				return !uiThreadId.HasValue || 
+					uiThreadId.Value != Environment.CurrentManagedThreadId;
 			}
 		}
 
@@ -152,7 +154,7 @@ namespace Codon.Concurrency
 
 				if (systemContext != null)
 				{
-					uiThreadID = Environment.CurrentManagedThreadId;
+					uiThreadId = Environment.CurrentManagedThreadId;
 				}
 				else
 				{

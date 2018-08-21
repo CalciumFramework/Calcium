@@ -104,17 +104,18 @@ namespace Codon.Concurrency
 		Action GetWrappedAction(
 			Action action,
 			TaskCompletionSource<object> source,
+			bool ignoreExceptionHandler,
 			string memberName = null,
 			string filePath = null,
 			int lineNumber = 0)
 		{
 			var handler = ExceptionHandler;
-			if (handler == null)
+			if (ignoreExceptionHandler || handler == null)
 			{
 				return EmbedTaskCompletionSource(action, source);
 			}
 
-			Action invokableAction = () =>
+			void InvokeAction()
 			{
 				try
 				{
@@ -122,9 +123,7 @@ namespace Codon.Concurrency
 				}
 				catch (Exception ex)
 				{
-					bool rethrow = handler.ShouldRethrowException(
-										ex, this,
-										memberName, filePath, lineNumber);
+					bool rethrow = handler.ShouldRethrowException(ex, this, memberName, filePath, lineNumber);
 					if (rethrow)
 					{
 						if (source != null)
@@ -138,25 +137,26 @@ namespace Codon.Concurrency
 				}
 
 				source?.SetResult(null);
-			};
+			}
 
-			return invokableAction;
+			return InvokeAction;
 		}
 
 		Func<Task> GetWrappedAction(
 			Func<Task> action,
 			TaskCompletionSource<object> source,
+			bool ignoreExceptionHandler,
 			string memberName = null,
 			string filePath = null,
 			int lineNumber = 0)
 		{
 			var handler = ExceptionHandler;
-			if (handler == null)
+			if (ignoreExceptionHandler || handler == null)
 			{
 				return EmbedTaskCompletionSource(action, source);
 			}
 
-			Func<Task> invokableAction = async () =>
+			async Task InvokeAction()
 			{
 				try
 				{
@@ -164,8 +164,7 @@ namespace Codon.Concurrency
 				}
 				catch (Exception ex)
 				{
-					bool rethrow = handler.ShouldRethrowException(
-										ex, this, memberName, filePath, lineNumber);
+					bool rethrow = handler.ShouldRethrowException(ex, this, memberName, filePath, lineNumber);
 					if (rethrow)
 					{
 						if (source != null)
@@ -179,9 +178,9 @@ namespace Codon.Concurrency
 				}
 
 				source?.SetResult(null);
-			};
+			}
 
-			return invokableAction;
+			return InvokeAction;
 		}
 
 		#endregion

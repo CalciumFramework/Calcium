@@ -46,6 +46,8 @@ namespace Codon.Networking
 			return Task.FromResult((IEnumerable<WirelessNetwork>)WirelessNetworks);
 		}
 
+		public bool WifiEnabled { get; set; }
+
 		public IList<WirelessNetwork> WirelessNetworks { get; } = new List<WirelessNetwork>();
 
 		public virtual bool Connected 

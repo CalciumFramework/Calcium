@@ -17,6 +17,7 @@ namespace Codon.Concurrency
 
 		public Task PostAsync(
 			Action action, 
+			bool ignoreExceptionHandler = false, 
 			[CallerMemberName] string memberName = null, 
 			[CallerFilePath] string filePath = null, 
 			[CallerLineNumber] int lineNumber = 0)
@@ -36,7 +37,8 @@ namespace Codon.Concurrency
 		}
 
 		public async Task SendAsync(
-			Func<Task> action,
+			Func<Task> action, 
+			bool ignoreExceptionHandler = false,
 			[CallerMemberName] string memberName = null,
 			[CallerFilePath] string filePath = null,
 			[CallerLineNumber] int lineNumber = 0)

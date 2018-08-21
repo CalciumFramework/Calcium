@@ -244,7 +244,7 @@ namespace Codon.Networking
 
 		event EventHandler<EventArgs> WifiScanComplete;
 
-		public static WirelessNetwork ConvertToWirelessNetwork(ScanResult scanResult)
+		internal static WirelessNetwork ConvertToWirelessNetwork(ScanResult scanResult)
 		{
 			var result = new WirelessNetwork
 			{
@@ -257,6 +257,22 @@ namespace Codon.Networking
 			};
 
 			return result;
+		}
+
+		WifiManager WifiManager
+		{
+			get
+			{
+				var context = Application.Context;
+				var result = (WifiManager)context.GetSystemService(Context.WifiService);
+				return result;
+			}
+		}
+
+		public bool WifiEnabled
+		{
+			get => WifiManager.IsWifiEnabled;
+			set => WifiManager.SetWifiEnabled(value);
 		}
 	}
 

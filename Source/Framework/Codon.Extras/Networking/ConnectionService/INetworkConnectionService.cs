@@ -93,5 +93,11 @@ namespace Codon.Services
 		/// </summary>
 		/// <returns>A list of networks visible to the device.</returns>
 		Task<IEnumerable<WirelessNetwork>> GetWirelessNetworksAsync();
+
+		/// <summary>
+		/// Gets or sets whether the device is able
+		/// to connect to wireless networks.
+		/// </summary>
+		bool WifiEnabled { get; set; }
 	}
 }

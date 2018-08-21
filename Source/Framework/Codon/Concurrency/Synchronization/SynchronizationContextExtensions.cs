@@ -39,19 +39,25 @@ namespace Codon.Concurrency
 		/// <param name="memberName"></param>
 		/// <param name="filePath"></param>
 		/// <param name="lineNumber"></param>
+		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
+		/// to the exception handling mechanism, but are re-thrown.
+		/// This is useful where you would like to handle an exception raised
+		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// Default is <c>false</c>.</param>
 		public static async Task PostWithDeferralAsync(
 			this ISynchronizationContext context,
 			Action action,
 			uint deferralDepth,
 			[CallerMemberName] string memberName = null, 
 			[CallerFilePath] string filePath = null, 
-			[CallerLineNumber] int lineNumber = 0)
+			[CallerLineNumber] int lineNumber = 0,
+			bool ignoreExceptionHandler = false)
 		{
 			AssertArg.IsNotNull(context, nameof(context));
 			AssertArg.IsNotNull(action, nameof(action));
 
 			await PostWithDeferralCoreAsync(
-						context, action, deferralDepth,
+						context, action, deferralDepth, ignoreExceptionHandler,
 						memberName, filePath, lineNumber);
 		}
 
@@ -59,13 +65,14 @@ namespace Codon.Concurrency
 			this ISynchronizationContext context,
 			Action action,
 			uint deferralDepth,
+			bool ignoreExceptionHandler,
 			string memberName,
 			string filePath,
 			int lineNumber)
 		{
 			if (deferralDepth < 1)
 			{
-				await context.PostAsync(action, memberName, filePath, lineNumber);
+				await context.PostAsync(action, ignoreExceptionHandler, memberName, filePath, lineNumber);
 				return;
 			}
 
@@ -73,7 +80,7 @@ namespace Codon.Concurrency
 				async () =>
 				{
 					await PostWithDeferralCoreAsync(
-						context, action, deferralDepth - 1,
+						context, action, deferralDepth - 1, ignoreExceptionHandler,
 						memberName, filePath, lineNumber);
 				});
 		}
@@ -89,13 +96,19 @@ namespace Codon.Concurrency
 		/// The action to execute once the delay expires.</param>
 		/// <param name="delayMs">
 		/// The time, in milleseconds, to wait before executing the action.</param>
+		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
+		/// to the exception handling mechanism, but are re-thrown.
+		/// This is useful where you would like to handle an exception raised
+		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// Default is <c>false</c>.</param>
 		public static async Task PostWithDelayAsync(
 			this ISynchronizationContext context, 
 			Action action, 
 			int delayMs,
 			[CallerMemberName]string memberName = null,
 			[CallerFilePath]string filePath = null,
-			[CallerLineNumber]int lineNumber = 0)
+			[CallerLineNumber]int lineNumber = 0,
+			bool ignoreExceptionHandler = false)
 		{
 			AssertArg.IsNotNull(context, nameof(context));
 			AssertArg.IsNotNull(action, nameof(action));
@@ -107,7 +120,7 @@ namespace Codon.Concurrency
 			}
 			
 			await context.PostAsync(
-				action, memberName, filePath, lineNumber);
+				action, ignoreExceptionHandler, memberName, filePath, lineNumber);
 		}
 	}
 }

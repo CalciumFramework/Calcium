@@ -51,6 +51,11 @@ namespace Codon.Concurrency
 		/// Method blocks until the specified callback completes.
 		/// </summary>
 		/// <param name="action">The delegate to invoke.</param>
+		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
+		/// to the exception handling mechanism, but are re-thrown.
+		/// This is useful where you would like to handle an exception raised
+		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// Default is <c>false</c>.</param>
 		/// <param name="memberName">The caller member name, 
 		/// which indicates the property or method location of the method call. 
 		/// This parameter is optional and in most cases should not be supplied.</param>
@@ -62,6 +67,7 @@ namespace Codon.Concurrency
 		/// This parameter is optional and in most cases should not be supplied.</param>
 		Task PostAsync(
 			Action action,
+			bool ignoreExceptionHandler = false,
 			[CallerMemberName]string memberName = null,
 			[CallerFilePath]string filePath = null,
 			[CallerLineNumber]int lineNumber = 0);
@@ -92,6 +98,11 @@ namespace Codon.Concurrency
 		/// Method blocks until the specified callback completes.
 		/// </summary>
 		/// <param name="action">The delegate to invoke.</param>
+		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
+		/// to the exception handling mechanism, but are re-thrown.
+		/// This is useful where you would like to handle an exception raised
+		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// Default is <c>false</c>.</param>
 		/// <param name="memberName">The caller member name, 
 		/// which indicates the property or method location of the method call. 
 		/// This parameter is optional and in most cases should not be supplied.</param>
@@ -103,6 +114,7 @@ namespace Codon.Concurrency
 		/// This parameter is optional and in most cases should not be supplied.</param>
 		Task SendAsync(
 			Func<Task> action, 
+			bool ignoreExceptionHandler = false,
 			[CallerMemberName] string memberName = null, 
 			[CallerFilePath] string filePath = null, 
 			[CallerLineNumber] int lineNumber = 0);
