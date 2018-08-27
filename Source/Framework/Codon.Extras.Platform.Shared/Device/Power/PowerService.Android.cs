@@ -14,76 +14,68 @@
 #endregion
 
 using System;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
-
+using Codon.ApplicationModel;
 using Codon.ComponentModel;
 using Codon.Device;
 using Codon.Services;
 using Codon.Concurrency;
 using Codon.Devices;
 using Codon.Logging;
+using Codon.Messaging;
 
 namespace Codon.Device
 {
 	/// <summary>
 	/// Android implementation of the <see cref="IPowerService"/>.
 	/// </summary>
-	public class PowerService : ObservableBase, IPowerService
+	public class PowerService : ObservableBase, IPowerService, IMessageSubscriber<ApplicationLifeCycleMessage>
 	{
 		PowerConnectionReceiver receiver;
 		bool listening;
-		readonly object listeningLock = new object();
 		const double batteryFullChargeHours = 8.0;
 
 		public void Start()
 		{
 			if (!listening)
 			{
-				var synchronizationContext = Dependency.Resolve<ISynchronizationContext>();
+				stoppedByUserCode = false;
 
-				synchronizationContext.Send(() => { 
-					lock (listeningLock)
-					{
-						if (!listening)
-						{
-							var intentFilter = new IntentFilter(/*Intent.ActionBatteryChanged*/);
-							intentFilter.AddAction(Intent.ActionBatteryLow);
-							intentFilter.AddAction(Intent.ActionBatteryOkay);
+				var intentFilter = new IntentFilter();
+				intentFilter.AddAction(Intent.ActionBatteryLow);
+				intentFilter.AddAction(Intent.ActionBatteryOkay);
 
-							intentFilter.AddAction(Intent.ActionPowerConnected);
-							intentFilter.AddAction(Intent.ActionPowerDisconnected);
-							intentFilter.AddAction(Intent.ActionBatteryChanged);
+				intentFilter.AddAction(Intent.ActionPowerConnected);
+				intentFilter.AddAction(Intent.ActionPowerDisconnected);
+				intentFilter.AddAction(Intent.ActionBatteryChanged);
 
-							//var context = Application.Context;
-							var context = Dependency.Resolve<Activity>();
-							receiver = new PowerConnectionReceiver(this);
-							/*batteryStatusIntent = */context.RegisterReceiver(receiver, intentFilter);
+				var context = Dependency.Resolve<Activity>();
+				receiver = new PowerConnectionReceiver(this);
+				context.RegisterReceiver(receiver, intentFilter);
 
-							listening = true;
-						}
-					}
-				});
+				listening = true;
 			}
 		}
 
+		bool stoppedByUserCode;
+
 		public void Stop()
+		{
+			stoppedByUserCode = true;
+			StopCore();
+		}
+
+		void StopCore()
 		{
 			if (listening)
 			{
-				lock (listeningLock)
-				{
-					if (listening)
-					{
-						//var context = Application.Context;
-						var context = Dependency.Resolve<Activity>();
-						context.UnregisterReceiver(receiver);
+				var context = Dependency.Resolve<Activity>();
+				context.UnregisterReceiver(receiver);
 
-						listening = false;
-					}
-				}
+				listening = false;
 			}
 		}
 
@@ -193,7 +185,7 @@ namespace Codon.Device
 				}
 			
 				var messenger = Dependency.Resolve<IMessenger>();
-				messenger.PublishAsync(new PowerSourceChangeEvent(this, oldPowerSource, PowerSource));
+				messenger.PublishAsync(new PowerSourceChangeEvent(this, oldPowerSource, PowerSource), true);
 			}
 			else if (intentAction == Intent.ActionBatteryLow || intentAction == Intent.ActionBatteryOkay
 															|| intentAction == Intent.ActionBatteryChanged)
@@ -208,13 +200,13 @@ namespace Codon.Device
 				TimeSpan remainingTime = EstimateRemainingTime(remainingBatteryChargePercent);
 
 				var messenger = Dependency.Resolve<IMessenger>();
-				messenger.PublishAsync(new RemainingBatteryChargeEvent(this, remainingBatteryChargePercent, remainingTime));
+				messenger.PublishAsync(new RemainingBatteryChargeEvent(this, remainingBatteryChargePercent, remainingTime), true);
 			}
 		}
 
 		public class PowerConnectionReceiver : BroadcastReceiver
 		{
-			PowerService powerService;
+			readonly PowerService powerService;
 
 			public PowerConnectionReceiver(PowerService powerService)
 			{
@@ -225,6 +217,26 @@ namespace Codon.Device
 			{
 				powerService.Update(intent);
 			}
+		}
+
+		Task IMessageSubscriber<ApplicationLifeCycleMessage>.ReceiveMessageAsync(ApplicationLifeCycleMessage message)
+		{
+			switch (message.State)
+			{
+				case ApplicationLifeCycleState.Closing:
+				case ApplicationLifeCycleState.Deactivated:
+					StopCore();
+					break;
+				case ApplicationLifeCycleState.Launching:
+				case ApplicationLifeCycleState.Activated:
+					if (!stoppedByUserCode)
+					{
+						Start();
+					}
+					break;
+			}
+
+			return Task.CompletedTask;
 		}
 	}
 }
