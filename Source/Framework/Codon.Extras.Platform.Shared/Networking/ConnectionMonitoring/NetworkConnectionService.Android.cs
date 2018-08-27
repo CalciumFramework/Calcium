@@ -22,7 +22,10 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Codon.ApplicationModel;
 using Codon.ComponentModel;
+using Codon.Logging;
+using Codon.Messaging;
 using Codon.Services;
 
 namespace Codon.Networking
@@ -31,7 +34,7 @@ namespace Codon.Networking
 	/// Android implementation of <see cref="INetworkConnectionService"/>.
 	/// </summary>
 	public class NetworkConnectionService : ObservableBase, 
-		INetworkConnectionService
+		INetworkConnectionService, IMessageSubscriber<ApplicationLifeCycleMessage>
 	{
 		const int DefaultSampleRateMs = 1000;
 		WifiReceiver wifiReceiver;
@@ -99,14 +102,27 @@ namespace Codon.Networking
 		{
 			this.sampleRateMs = sampleRateMs;
 
-			Update();
+			UpdateInBackground();
 
+			RegisterReceiver();
+
+			var messenger = Dependency.Resolve<IMessenger>();
+			messenger.Subscribe(this);
+		}
+
+		/// <summary>
+		/// If this WiFi receiver is not registered in the application manifest,
+		/// call this method to subscribe to network events.
+		/// </summary>
+		public void RegisterReceiver()
+		{
 			try
 			{
 				wifiReceiver = new WifiReceiver(this);
 				var context = Application.Context;
-				context.RegisterReceiver(wifiReceiver, new IntentFilter(WifiManager.NetworkStateChangedAction));
-				context.RegisterReceiver(wifiReceiver, new IntentFilter(WifiManager.ScanResultsAvailableAction));
+				var filter = new IntentFilter(WifiManager.NetworkStateChangedAction);
+				filter.AddAction(WifiManager.ScanResultsAvailableAction);
+				context.RegisterReceiver(wifiReceiver, filter);
 			}
 			catch (Exception ex)
 			{
@@ -116,21 +132,34 @@ namespace Codon.Networking
 			}
 		}
 
-		internal void HandleNetworkStatusChanged(object sender)
+		/// <summary>
+		/// Stops the service from receiving network connection events.
+		/// </summary>
+		public void UnregisterReceiver()
 		{
-			Update();
-
-			UIContext.Instance.Post(() =>
+			if (wifiReceiver != null)
 			{
-				NetworkConnectionChanged?.Invoke(this, EventArgs.Empty);
+				var context = Application.Context;
+				context.UnregisterReceiver(wifiReceiver);
+			}
+		}
 
-				IMessenger messenger;
-				if (Dependency.TryResolve<IMessenger>(out messenger))
-				{
-					messenger.PublishAsync(new NetworkAvailabilityChangedMessage(
-						this, new NetworkConnectionInfo(NetworkConnectionType, LimitData)));
-				}
-			});
+		internal void HandleNetworkStatusChanged()
+		{
+			UpdateInBackground();
+
+			UIContext.Instance.Post(SendConnectionChangedEvents);
+		}
+
+		void SendConnectionChangedEvents()
+		{
+			NetworkConnectionChanged?.Invoke(this, EventArgs.Empty);
+
+			if (Dependency.TryResolve<IMessenger>(out IMessenger messenger))
+			{
+				messenger.PublishAsync(new NetworkAvailabilityChangedMessage(
+					this, new NetworkConnectionInfo(NetworkConnectionType, LimitData)), true);
+			}
 		}
 
 		string ssid;
@@ -153,6 +182,22 @@ namespace Codon.Networking
 			var result = wifiInfo.SSID;
 
 			return result;
+		}
+
+		void UpdateInBackground()
+		{
+			Task.Run(() =>
+			{
+				try
+				{
+					Update();
+				}
+				catch (Exception ex)
+				{
+					var log = Dependency.Resolve<ILog>();
+					log.Error("Error raised updating network connection service.", ex);
+				}
+			});
 		}
 
 		public void Update()
@@ -274,6 +319,46 @@ namespace Codon.Networking
 			get => WifiManager.IsWifiEnabled;
 			set => WifiManager.SetWifiEnabled(value);
 		}
+
+		void DetectConnectionStatusChange()
+		{
+			Task.Run(() =>
+			{
+				try
+				{
+					var temp = connected;
+					Update();
+					if (temp != connected)
+					{
+						UIContext.Instance.Post(SendConnectionChangedEvents);
+					}
+				}
+				catch (Exception ex)
+				{
+					var log = Dependency.Resolve<ILog>();
+					log.Error("Exception raised within DetectConnectionStatusChange." ,ex);
+				}
+			});
+		}
+
+		Task IMessageSubscriber<ApplicationLifeCycleMessage>.ReceiveMessageAsync(ApplicationLifeCycleMessage message)
+		{
+			var sd = message.State;
+			switch (sd)
+			{
+				case ApplicationLifeCycleState.Launching:
+				case ApplicationLifeCycleState.Activated:
+					RegisterReceiver();
+					DetectConnectionStatusChange();
+					break;
+				case ApplicationLifeCycleState.Closing:
+				case ApplicationLifeCycleState.Deactivated:
+					UnregisterReceiver();
+					break;
+			}
+
+			return Task.CompletedTask;
+		}
 	}
 
 	public class WifiReceiver : BroadcastReceiver
@@ -289,7 +374,7 @@ namespace Codon.Networking
 		{
 			if (intent.Action == WifiManager.NetworkStateChangedAction)
 			{
-				networkConnectionService.HandleNetworkStatusChanged(this);
+				networkConnectionService.HandleNetworkStatusChanged();
 			}
 			else if (intent.Action == WifiManager.ScanResultsAvailableAction)
 			{
