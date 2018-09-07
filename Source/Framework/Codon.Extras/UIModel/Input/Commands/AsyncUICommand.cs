@@ -125,7 +125,7 @@ namespace Codon.UIModel.Input
 		/// </summary>
 		public string Text
 		{
-			get => text;
+			get => text ?? textFunc?.Invoke(DefaultParameter).Result;
 			set => Set(ref text, value, false);
 		}
 
