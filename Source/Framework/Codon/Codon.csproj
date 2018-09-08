@@ -20,6 +20,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

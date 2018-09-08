@@ -69,8 +69,8 @@ namespace Codon.Navigation
 						return;
 					}
 
-					var mode = Translate(e.NavigationMode);
-					var args = new NavigatingArgs(e.Uri, mode, true, e.IsNavigationInitiator, e.ExtraData, e);
+					NavigationType navigationType = Translate(e.NavigationMode);
+					var args = new NavigatingArgs(e.Uri, navigationType, true, e.IsNavigationInitiator, e.ExtraData, e);
 
 					var messenger = Dependency.Resolve<IMessenger>();
 					messenger.PublishAsync(new NavigatingMessage(args));

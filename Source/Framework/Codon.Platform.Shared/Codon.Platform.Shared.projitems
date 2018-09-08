@@ -9,6 +9,7 @@
     <Import_RootNamespace>Codon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Uwp\DialogService.MultipleChoiceQuestion.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Input\AttachedCommand\AttachedCommand.UwpWpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\DependencyPropertyListener.UwpWpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationService\NavigationService.Wpf.cs" />
@@ -24,11 +25,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)SettingsModel\SettingsStores\LocalSettingsStore.Wpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Input\AttachedCommand\AttachedCommandBehavior.UwpWpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentModel\ImplicitTypeConverter.WpfMono.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\DialogService.Android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\DialogService.Ios.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\DialogService.Uwp.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\DialogService.Wpf.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\MesssageBoxEnumTranslator.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Android\DialogService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Ios\DialogService.Ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Uwp\DialogService.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Wpf\DialogService.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DialogModel\Wpf\MesssageBoxEnumTranslator.Wpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationMonitors\NavigationMonitor.Uwp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationMonitors\NavigationMonitor.Wpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationMonitors\NavigationMonitor.Android.cs" />
@@ -41,6 +42,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\LogicalTree\LogicalTree.Uwp.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)DialogModel\Android\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DialogModel\Ios\" />
+    <Folder Include="$(MSBuildThisFileDirectory)DialogModel\Wpf\" />
     <Folder Include="$(MSBuildThisFileDirectory)StatePreservation\" />
     <Folder Include="$(MSBuildThisFileDirectory)SettingsModel\State\" />
     <Folder Include="$(MSBuildThisFileDirectory)StatePreservation\TransientState\" />

@@ -52,6 +52,20 @@ namespace Codon.Concurrency
 		{
 		}
 
+		public Task PostAsync(Action action, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
+		{
+			action();
+
+			return Task.CompletedTask;
+		}
+
+		public Task SendAsync(Func<Task> action, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
+		{
+			action();
+
+			return Task.CompletedTask;
+		}
+
 		public bool InitializeRequired { get; } = false;
 	}
 }

@@ -33,7 +33,7 @@ namespace Codon.DialogModel
 	/// <summary>
 	/// UWP implementation of <see cref="Services.IDialogService"/>.
 	/// </summary>
-	public class DialogService : DialogServiceBase
+	public partial class DialogService : DialogServiceBase
 	{
 		public override async Task<DialogResult> ShowDialogAsync(
 			object message, 
@@ -51,7 +51,7 @@ namespace Codon.DialogModel
 
 					result = await ShowDialogAsync(
 						message, 
-						new List<object> { "OK" }, 
+						new List<object> { Strings.OK }, 
 						caption);
 
 					if (result == 0)
@@ -65,7 +65,7 @@ namespace Codon.DialogModel
 
 					result = await ShowDialogAsync(
 						message, 
-						new List<object> { "OK", "Cancel" }, 
+						new List<object> { Strings.OK, Strings.Cancel }, 
 						caption);
 
 					if (result == 0)
@@ -83,7 +83,7 @@ namespace Codon.DialogModel
 
 					result = await ShowDialogAsync(
 						message, 
-						new List<object> { "Yes", "No" }, 
+						new List<object> { Strings.Yes, Strings.No }, 
 						caption);
 
 					if (result == 0)
@@ -100,7 +100,7 @@ namespace Codon.DialogModel
 				case DialogButton.YesNoCancel:
 					result = await ShowDialogAsync(
 								message, 
-								new List<object> { "Yes", "No", "Cancel" },
+								new List<object> { Strings.Yes, Strings.No, Strings.Cancel },
 								caption);
 
 					if (result == 0)
@@ -166,7 +166,7 @@ namespace Codon.DialogModel
 			}
 			else
 			{
-				messageDialog.Commands.Add(new UICommand("OK"));
+				messageDialog.Commands.Add(new UICommand(Strings.OK));
 			}
 
 			await messageDialog.ShowAsync();
@@ -256,8 +256,7 @@ namespace Codon.DialogModel
 		{
 			AssertArg.IsNotNull(question, nameof(question));
 
-			var textQuestion = question as TextQuestion;
-			if (textQuestion != null)
+			if (question is TextQuestion textQuestion)
 			{
 				var response = await ShowTextDialogAsync(textQuestion.Question);
 				if (response.Item1)
@@ -267,6 +266,12 @@ namespace Codon.DialogModel
 				}
 				var noResponse = new TextResponse(OkCancelQuestionResult.Cancel, null);
 				return new QuestionResponse<TResponse>((TResponse)(object)noResponse, question);
+			}
+
+			if (question is MultipleChoiceQuestion multipleChoiceQuestion)
+			{
+				var r = await AskMultipleChoiceAsync(multipleChoiceQuestion);
+				return new QuestionResponse<TResponse>((TResponse)(object)r, question);
 			}
 			
 			throw new NotSupportedException();
@@ -282,8 +287,8 @@ namespace Codon.DialogModel
 				Content = inputTextBox,
 				Title = title,
 				IsSecondaryButtonEnabled = true,
-				PrimaryButtonText = "OK",
-				SecondaryButtonText = "Cancel"
+				PrimaryButtonText = Strings.OK,
+				SecondaryButtonText = Strings.Cancel
 			};
 			var dialogResult = await dialog.ShowAsync();
 			if (dialogResult == ContentDialogResult.Primary)
@@ -292,6 +297,11 @@ namespace Codon.DialogModel
 			}
 
 			return new Tuple<bool, string>(false, null);
+		}
+
+		public static class TemplateNames
+		{
+			public static string MultipleChoiceItem { get; set; } = "DialogService_MultipleChoiceItem";
 		}
 	}
 }
