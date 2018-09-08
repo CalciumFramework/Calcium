@@ -172,5 +172,19 @@ namespace Codon.Services
 		/// has an open dialog.
 		/// </summary>
 		bool DialogOpen { get; }
+
+		/// <summary>
+		/// Present a list of items to the user so that he or she can pick one or more.
+		/// You can provide a <c>Func</c> to get the text to display to the user for each item,
+		/// or you can provide your own template.
+		/// </summary>
+		/// <typeparam name="TSelectableItem">The type of the items to pick.</typeparam>
+		/// <param name="question">Contains various parameters for the dialog.</param>
+		/// <returns>An response with the list of items that the user chose.
+		/// If the <see cref="MultipleChoiceResponse{T}.UserPressedOK"/> is <c>true</c>,
+		/// then the user confirmed the selection. If <c>false</c>, the resulting
+		/// item list should be disregarded.</returns>
+		Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
+			MultipleChoiceQuestion<TSelectableItem> question);
 	}
 }

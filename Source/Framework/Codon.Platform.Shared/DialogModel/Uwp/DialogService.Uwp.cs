@@ -18,13 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Windows.Data.Xml.Dom;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Codon.ResourcesModel.Extensions;
 using Codon.Services;
 
@@ -258,7 +261,7 @@ namespace Codon.DialogModel
 
 			if (question is TextQuestion textQuestion)
 			{
-				var response = await ShowTextDialogAsync(textQuestion.Question);
+				var response = await ShowTextDialogAsync(textQuestion);
 				if (response.Item1)
 				{
 					var r = new TextResponse(OkCancelQuestionResult.OK, response.Item2);
@@ -267,33 +270,69 @@ namespace Codon.DialogModel
 				var noResponse = new TextResponse(OkCancelQuestionResult.Cancel, null);
 				return new QuestionResponse<TResponse>((TResponse)(object)noResponse, question);
 			}
-
-			if (question is MultipleChoiceQuestion multipleChoiceQuestion)
-			{
-				var r = await AskMultipleChoiceAsync(multipleChoiceQuestion);
-				return new QuestionResponse<TResponse>((TResponse)(object)r, question);
-			}
 			
 			throw new NotSupportedException();
 		}
 
-		async Task<Tuple<bool, string>> ShowTextDialogAsync(string title)
+		public override async Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
+			MultipleChoiceQuestion<TSelectableItem> question)
 		{
-			var inputTextBox = new TextBox();
-			inputTextBox.AcceptsReturn = false;
-			inputTextBox.Height = 32;
+			AssertArg.IsNotNull(question, nameof(question));
+
+			var r = await AskMultipleChoiceAsync(question);
+			return r;
+		}
+
+		async Task<Tuple<bool, string>> ShowTextDialogAsync(ITextDialogParameters parameters)
+		{
+			var textBox = new TextBox();
+			textBox.AcceptsReturn = false;
+			textBox.Height = 32;
+			
 			ContentDialog dialog = new ContentDialog
 			{
-				Content = inputTextBox,
-				Title = title,
+				Content = textBox,
+				Title = parameters.Caption,
 				IsSecondaryButtonEnabled = true,
 				PrimaryButtonText = Strings.OK,
 				SecondaryButtonText = Strings.Cancel
 			};
-			var dialogResult = await dialog.ShowAsync();
-			if (dialogResult == ContentDialogResult.Primary)
+
+			void ValidateText()
 			{
-				return new Tuple<bool, string>(true, inputTextBox.Text);
+				if (!string.IsNullOrWhiteSpace(parameters.ValidationExpression))
+				{
+					bool match = Regex.Match(textBox.Text, parameters.ValidationExpression).Success;
+					dialog.IsPrimaryButtonEnabled = match;
+				}
+			}
+
+			textBox.TextChanged += (sender, args) => { ValidateText(); };
+			// textBox.BeforeTextChanging += (sender, args) =>
+			// {
+			// 	// Implement restricted text when we update to Fall Creators update.
+			// };
+
+			/* Use an array to avoid a closure. */
+			bool[] enterPressed = new[] {false};
+			textBox.KeyDown += (sender, args) =>
+			{
+				if (dialog.IsPrimaryButtonEnabled)
+				{
+					if (args.Key == VirtualKey.Enter)
+					{
+						enterPressed[0] = true;
+						dialog.Hide();
+					}
+				}
+			};
+
+			ValidateText();
+
+			var dialogResult = await dialog.ShowAsync();
+			if (dialogResult == ContentDialogResult.Primary || enterPressed[0])
+			{
+				return new Tuple<bool, string>(true, textBox.Text);
 			}
 
 			return new Tuple<bool, string>(false, null);

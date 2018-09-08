@@ -205,6 +205,9 @@ namespace Codon.DialogModel
 								});
 		}
 
+		public abstract Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
+			MultipleChoiceQuestion<TSelectableItem> question);
+
 		public static class Strings
 		{
 			public static string OK = "OK";

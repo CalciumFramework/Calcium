@@ -20,12 +20,17 @@ namespace Codon.DialogModel
 	/// Represents a question that requires a text
 	/// response from the user.
 	/// </summary>
-	public class TextQuestion : IQuestion<TextResponse>
+	public class TextQuestion : IQuestion<TextResponse>, ITextDialogParameters
 	{
 		/// <summary>
 		/// The body text of the question.
 		/// </summary>
 		public string Question { get; set; }
+
+		/// <summary>
+		/// A regular expression that restricts the text entered. 
+		/// </summary>
+		public string RestictionExpression { get; }
 
 		/// <summary>
 		/// The type of software keyboard to display.

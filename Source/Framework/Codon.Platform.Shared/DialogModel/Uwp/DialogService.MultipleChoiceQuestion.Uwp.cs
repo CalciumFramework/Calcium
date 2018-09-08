@@ -15,13 +15,12 @@
 # endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Markup;
 
 namespace Codon.DialogModel
@@ -67,7 +66,7 @@ namespace Codon.DialogModel
 
 	partial class DialogService
 	{
-		protected virtual async Task<MultipleChoiceResponse> AskMultipleChoiceAsync(MultipleChoiceQuestion question)
+		protected virtual async Task<MultipleChoiceResponse<T>> AskMultipleChoiceAsync<T>(MultipleChoiceQuestion<T> question)
 		{
 			if (!question.Items.Any())
 			{
@@ -93,8 +92,11 @@ namespace Codon.DialogModel
 				template = (DataTemplate)templateObject;
 			}
 
-			var items = question.Items;
+			IEnumerable items = question.Items;
 			bool usingSelectableItems = false;
+			object selectedItem = question.SelectedItem;
+			bool multiSelect = question.MultiSelect;
+			var selectedItems = new List<object>();
 
 			if (template == null)
 			{
@@ -135,11 +137,28 @@ namespace Codon.DialogModel
 				template = (DataTemplate)XamlReader.Load(xaml);
 
 				var tempList = new List<SelectableItem>();
-
-				foreach (object o in question.Items)
+				
+				var questionSelectedItems = question.SelectedItems?.ToList();
+				
+				foreach (T o in question.Items)
 				{
 					var item = new SelectableItem(question.TextFunc(o), o);
 					tempList.Add(item);
+					
+					if (multiSelect)
+					{
+						if (questionSelectedItems != null && questionSelectedItems.Contains(o))
+						{
+							selectedItems.Add(item);
+						}
+					}
+					else
+					{
+						if (Equals(question.SelectedItem, o))
+						{
+							selectedItem = item;
+						}
+					}
 				}
 
 				items = tempList;
@@ -151,9 +170,20 @@ namespace Codon.DialogModel
 			{
 				ItemsSource = items,
 				ItemTemplate = template,
-				SelectedItem = question.SelectedItem ?? question.Items.First(),
 				SelectionMode = question.MultiSelect ? SelectionMode.Multiple : SelectionMode.Single
 			};
+
+			if (multiSelect)
+			{
+				foreach (var item in selectedItems)
+				{
+					box.SelectedItems.Add(item);
+				}
+			}
+			else
+			{
+				box.SelectedItem = selectedItem;
+			}
 			
 			ContentDialog dialog = new ContentDialog
 			{
@@ -169,16 +199,16 @@ namespace Codon.DialogModel
 
 			if (dialogResult == ContentDialogResult.None || dialogResult == ContentDialogResult.Secondary)
 			{
-				return new MultipleChoiceResponse();
+				return new MultipleChoiceResponse<T>();
 			}
 
 			if (usingSelectableItems)
 			{
-				var objects = box.SelectedItems.Cast<SelectableItem>().Select(x => x.Item).ToList();
-				return new MultipleChoiceResponse(objects);
+				var objects = box.SelectedItems.Cast<SelectableItem>().Select(x => (T)x.Item).ToList();
+				return new MultipleChoiceResponse<T>(objects);
 			}
 
-			return new MultipleChoiceResponse(box.SelectedItems);
+			return new MultipleChoiceResponse<T>(box.SelectedItems?.Cast<T>());
 		}
 	}
 }

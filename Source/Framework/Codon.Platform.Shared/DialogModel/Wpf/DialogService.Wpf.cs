@@ -141,6 +141,12 @@ namespace Codon.DialogModel
 		{
 			throw new NotImplementedException();
 		}
+
+		public override Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
+			MultipleChoiceQuestion<TSelectableItem> question)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
 #endif

@@ -17,21 +17,39 @@ using System.Linq;
 
 namespace Codon.DialogModel
 {
-	public class MultipleChoiceResponse
+	/// <summary>
+	/// Provides the result of a call to the <see cref="Services.IDialogService.AskMultipleChoiceQuestionAsync"/> method.
+	/// </summary>
+	/// <typeparam name="TSelectableItem">The type of objects in the items collection,
+	/// which the user is able to select.</typeparam>
+	public class MultipleChoiceResponse<T>
 	{
-		public IEnumerable<object> SelectedItems { get; }
+		/// <summary>
+		/// The items that the user selected if
+		/// <see cref="MultipleChoiceQuestion{TSelectableItem}.MultiSelect"/> is <c>true</c>.
+		/// </summary>
+		public IEnumerable<T> SelectedItems { get; }
 
-		public object SelectedItem => SelectedItems?.FirstOrDefault();
+		/// <summary>
+		/// The item that the user selected if
+		/// <see cref="MultipleChoiceQuestion{TSelectableItem}.MultiSelect"/> is <c>false</c>.
+		/// May be null.
+		/// </summary>
+		public T SelectedItem => SelectedItems != null ? SelectedItems.FirstOrDefault() : default;
 
-		//public DialogResult DialogResult { get; internal set; }
+
+		/// <summary>
+		/// Indicates that the user confirmed his or her choice
+		/// and did not cancel out of the dialog.
+		/// </summary>
 		public bool UserPressedOK { get; set; }
 
 		public MultipleChoiceResponse()
 		{
-			SelectedItems = new object[0];
+			SelectedItems = new T[0];
 		}
 
-		public MultipleChoiceResponse(IEnumerable<object> selectedItems)
+		public MultipleChoiceResponse(IEnumerable<T> selectedItems)
 		{
 			this.SelectedItems = selectedItems;
 			UserPressedOK = true;

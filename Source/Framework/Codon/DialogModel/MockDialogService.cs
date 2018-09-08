@@ -90,5 +90,12 @@ namespace Codon.DialogModel
 		{
 			return Task.FromResult((object)null);
 		}
+
+		public object AskMultipleChoiceQuestion_Response { get; set; }
+
+		public override Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(MultipleChoiceQuestion<TSelectableItem> question)
+		{
+			return Task.FromResult((MultipleChoiceResponse<TSelectableItem>)AskMultipleChoiceQuestion_Response);
+		}
 	}
 }
