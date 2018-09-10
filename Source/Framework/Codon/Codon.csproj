@@ -26,7 +26,10 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NuGet.CommandLine" Version="4.4.1" />
+    <PackageReference Include="NuGet.CommandLine" Version="4.7.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.IO.IsolatedStorage" Version="4.3.0" />
   </ItemGroup>
   <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
