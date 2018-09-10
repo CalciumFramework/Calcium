@@ -19,6 +19,7 @@ namespace Codon.DialogModel
 	public interface ITextDialogParameters
 	{
 		string Caption { get; }
+		string Body { get; }
 
 		string ValidationExpression { get; }
 		string ValidationFailedMessage { get; }

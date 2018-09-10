@@ -26,6 +26,7 @@ using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Codon.ResourcesModel.Extensions;
@@ -285,10 +286,13 @@ namespace Codon.DialogModel
 
 		async Task<Tuple<bool, string>> ShowTextDialogAsync(ITextDialogParameters parameters)
 		{
-			var textBox = new TextBox();
-			textBox.AcceptsReturn = false;
-			textBox.Height = 32;
-			
+			var textBox = new TextBox
+			{
+				AcceptsReturn = false,
+				VerticalAlignment = VerticalAlignment.Center,
+				Header = parameters.Body ?? string.Empty
+			};
+
 			ContentDialog dialog = new ContentDialog
 			{
 				Content = textBox,
