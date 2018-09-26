@@ -18,6 +18,7 @@ using Codon.UI.Elements;
 
 namespace Codon.UI.Data
 {
+	[Preserve(AllMembers = true)]
 	public class MarkupExtensionRegistry : IMarkupExtensionRegistry
 	{
 		readonly Dictionary<string, Type> extensionDictionary = new Dictionary<string, Type>();

@@ -42,7 +42,7 @@ namespace Codon.Concurrency
 		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
 		/// to the exception handling mechanism, but are re-thrown.
 		/// This is useful where you would like to handle an exception raised
-		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// on the synchronization context thread but have an ExceptionHandler defined.
 		/// Default is <c>false</c>.</param>
 		public static async Task PostWithDeferralAsync(
 			this ISynchronizationContext context,

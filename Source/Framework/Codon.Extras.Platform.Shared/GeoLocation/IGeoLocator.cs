@@ -19,6 +19,9 @@ using Windows.Devices.Geolocation;
 
 namespace Codon.GeoLocation
 {
+	/// <summary>
+	/// Provides a platform agnostic abstraction to monitor location changes.
+	/// </summary>
 	public interface IGeoLocator
 	{
 		event EventHandler<PositionChangedProxyEventArgs> PositionChanged;

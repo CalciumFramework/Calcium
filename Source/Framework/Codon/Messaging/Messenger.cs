@@ -30,6 +30,7 @@ namespace Codon.Messaging
 	/// See the <see cref="IMessenger"/> interface for
 	/// API documentation.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class Messenger : IMessenger
 	{
 		readonly Dictionary<Type, List<WeakReference>> subscriberLists 

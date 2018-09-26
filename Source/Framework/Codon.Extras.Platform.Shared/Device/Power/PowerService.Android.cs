@@ -190,17 +190,29 @@ namespace Codon.Device
 			else if (intentAction == Intent.ActionBatteryLow || intentAction == Intent.ActionBatteryOkay
 															|| intentAction == Intent.ActionBatteryChanged)
 			{
+				bool sendMessage = true;
 				if (intentAction == Intent.ActionBatteryChanged)
 				{
-					RemainingBatteryChargePercent = (int)GetRemainingBatteryPercent(intent);
+					var newValue = (int)GetRemainingBatteryPercent(intent);
+					/* Only send the message if the change is greater than 1%.
+					 * This is because when charging, the value goes up and down. */
+					if (Math.Abs(remainingBatteryChargePercent - newValue) < 2)
+					{
+						sendMessage = false;
+					}
+
+					RemainingBatteryChargePercent = newValue;
 					var status = GetBatteryStatus(intent);
 					BatteryState = status.ToBatteryState();
 				}
 
 				TimeSpan remainingTime = EstimateRemainingTime(remainingBatteryChargePercent);
 
-				var messenger = Dependency.Resolve<IMessenger>();
-				messenger.PublishAsync(new RemainingBatteryChargeEvent(this, remainingBatteryChargePercent, remainingTime), true);
+				if (sendMessage)
+				{
+					var messenger = Dependency.Resolve<IMessenger>();
+					messenger.PublishAsync(new RemainingBatteryChargeEvent(this, remainingBatteryChargePercent, remainingTime), true);
+				}
 			}
 		}
 

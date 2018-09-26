@@ -11,6 +11,7 @@ namespace Codon.UI.Data
 		bool TryResolveType(string alias, string typeShortName, out Type type);
 	}
 
+	[Preserve(AllMembers = true)]
 	public class NamespaceAliasRegistry : INamespaceAliasRegistry
 	{
 		readonly Dictionary<string, string> aliasDictionary 

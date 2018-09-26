@@ -29,6 +29,7 @@ namespace Codon.Logging.Loggers
 	/// that writes log messages 
 	/// to the <c>System.Diagnostics.Debug</c> class.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class DebugLog : LogBase
 	{
 		bool useConsole;

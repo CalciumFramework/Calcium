@@ -25,6 +25,7 @@ namespace Codon.Concurrency
 	/// <see cref="ISynchronizationContext"/> interface. 
 	/// See the interface for API documentation.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public sealed partial class UISynchronizationContext : ISynchronizationContext
 	{
 		SystemContext systemContext;

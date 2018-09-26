@@ -27,6 +27,7 @@ namespace Codon.Reflection
 	/// <see cref="IReflectionCache"/> interface.
 	/// See the interface for API documentation.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	sealed class ReflectionCache : IReflectionCache
 	{
 		readonly Dictionary<PropertyInfo, object> getterDictionary

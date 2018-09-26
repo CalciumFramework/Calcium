@@ -25,6 +25,7 @@ namespace Codon.IO
 	/// See the <see cref="IBinarySerializer"/> for API
 	/// documentation.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class BinarySerializer : IBinarySerializer
 	{
 		public byte[] Serialize(object item, bool makeVerbose)
