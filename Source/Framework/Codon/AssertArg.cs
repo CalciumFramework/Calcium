@@ -584,7 +584,7 @@ namespace Codon
 		/// Compiler populated parameter that provides 
 		/// the line number of where the method was called.</param>
 		/// <returns>The specified value.</returns>
-		/// <exception cref="ArgumentNullException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// Occurs if the specified value is not less 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -598,6 +598,44 @@ namespace Codon
 			{
 				throw new ArgumentOutOfRangeException(
 					$"Argument must be less than or equal to {expected} but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
+					parameterName);
+			}
+
+			return value;
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value does not fall
+		/// between the expected low and expected high parameters. 
+		/// </summary>
+		/// <param name="expectedLow">
+		/// The number which must be greater than or equal to the value.</param>
+		/// <param name="expectedHigh">
+		/// The number which must be less than or equal to the value.</param>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// Occurs if the specified value is less 
+		/// than or equal to the expected low value or greater than the expected high value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int IsBetweenInclusive(
+			int expectedLow, int expectedHigh, int value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (value < expectedLow || value > expectedHigh)
+			{
+				throw new ArgumentOutOfRangeException(
+					$"Argument must be less than or equal to {expectedLow} and greater than or equal to {expectedHigh}, but was {value}. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
 					parameterName);
 			}
 
