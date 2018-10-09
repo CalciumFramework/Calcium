@@ -27,6 +27,8 @@ using Codon.ComponentModel;
 using Codon.Logging;
 using Codon.Messaging;
 using Codon.Services;
+using Java.Lang;
+using Exception = System.Exception;
 
 namespace Codon.Networking
 {
@@ -39,6 +41,8 @@ namespace Codon.Networking
 		const int DefaultSampleRateMs = 1000;
 		WifiReceiver wifiReceiver;
 		int sampleRateMs;
+		bool registered;
+		readonly object registeredLock = new object();
 
 		public int SampleRateMs => sampleRateMs;
 
@@ -122,7 +126,17 @@ namespace Codon.Networking
 				var context = Application.Context;
 				var filter = new IntentFilter(WifiManager.NetworkStateChangedAction);
 				filter.AddAction(WifiManager.ScanResultsAvailableAction);
-				context.RegisterReceiver(wifiReceiver, filter);
+				lock (registeredLock)
+				{
+					if (registered)
+					{
+						UnregisterReceiver();
+					}
+
+					context.RegisterReceiver(wifiReceiver, filter);
+					registered = true;
+				}
+				
 			}
 			catch (Exception ex)
 			{
@@ -140,7 +154,25 @@ namespace Codon.Networking
 			if (wifiReceiver != null)
 			{
 				var context = Application.Context;
-				context.UnregisterReceiver(wifiReceiver);
+				lock (registeredLock)
+				{
+					if (!registered)
+					{
+						return;
+					}
+
+					try
+					{
+						context.UnregisterReceiver(wifiReceiver);
+					}
+					catch (IllegalArgumentException)
+					{
+						/* Occurs if not registered.
+						 * Perhaps the activity is being destroyed. */
+					}
+
+					registered = false;
+				}
 			}
 		}
 
@@ -250,6 +282,11 @@ namespace Codon.Networking
 
 		readonly IList<WirelessNetwork> wiFiNetworks = new List<WirelessNetwork>();
 
+		/// <summary>
+		/// As of Android 6 your app must ask permission for course and fine location
+		/// to retrieve a list of networks.
+		/// </summary>
+		/// <returns></returns>
 		public Task<IEnumerable<WirelessNetwork>> GetWirelessNetworksAsync()
 		{
 			var tcs = new TaskCompletionSource<IEnumerable<WirelessNetwork>>();
