@@ -22,14 +22,14 @@ namespace Codon.SettingsModel
 		/// <summary>
 		/// Stored within the applications local storage.
 		/// </summary>
-		Local,
+		Local = 0,
 		/// <summary>
 		/// Stored in roaming storage associated with the user's account.
 		/// </summary>
-		Roaming,
+		Roaming = 1,
 		/// <summary>
 		/// Persists only for a single launch/exit cycle.
 		/// </summary>
-		Transient
+		Transient = 2
 	}
 }
