@@ -142,6 +142,8 @@ namespace Codon.DialogModel
 
 					AlertDialog alertDialog = builder.Show();
 
+					alertDialog.SetCanceledOnTouchOutside(false);
+
 					var dialogStyles = dialogController?.DialogStyles;
 
 					if (dialogStyles.HasValue)
@@ -458,7 +460,8 @@ namespace Codon.DialogModel
 
 			Interlocked.Increment(ref openDialogCount);
 
-			builder.Show();
+			var dialog = builder.Show();
+			dialog.SetCanceledOnTouchOutside(false);
 
 			/* Focussing the EditText and showing the keyboard, 
 			 * must be done after the alert is show, else it has no effect. */
