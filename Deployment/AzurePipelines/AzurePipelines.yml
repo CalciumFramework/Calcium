@@ -6,5 +6,5 @@ variables:
 
 steps:
   - script: dotnet restore
-  – script: echo hello world
+  - script: echo hello world
   - script: dotnet build Source/Framework/Codon.sln --configuration $(buildConfiguration)
