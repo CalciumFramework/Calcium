@@ -5,6 +5,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+  - script: dotnet restore Source/Framework/Codon.sln
   - task: VSBuild@1
     displayName: Build solution Codon.sln
     inputs:
