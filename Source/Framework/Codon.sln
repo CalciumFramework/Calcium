@@ -85,7 +85,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{F0B98B
 		Codon.UndoModel\Codon.UndoModel.nuspec = Codon.UndoModel\Codon.UndoModel.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.UndoModel", "Codon.UndoModel\Codon.UndoModel.csproj", "{80EE2A33-33C9-4A48-9454-E587EE3216E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.UndoModel", "Codon.UndoModel\Codon.UndoModel.csproj", "{80EE2A33-33C9-4A48-9454-E587EE3216E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Wpf.Tests", "Platforms\Wpf\Codon.Extras.Platform.Tests\Codon.Extras.Platform.Wpf.Tests.csproj", "{06CCC2B4-8862-45D6-8755-1F41840DE5A3}"
 EndProject
@@ -103,6 +103,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{B68881AB-C12C-413C-8DCD-6CB58C5EDA92}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Profiling", "Profiling", "{3B2E2ED3-E599-467A-95A0-A012F560D89E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePipelines", "AzurePipelines", "{76209721-0435-4B48-A1D7-7EE519940D57}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Deployment\AzurePipelines\AzurePipelines.yml = ..\..\Deployment\AzurePipelines\AzurePipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -498,5 +503,9 @@ Global
 		{010A488D-F942-4CDA-843D-9FF7EE7822E9} = {70C00858-BFC4-408A-945D-73FA1EF27434}
 		{63BEDAD2-489F-40DC-8526-A2302C84200C} = {70C00858-BFC4-408A-945D-73FA1EF27434}
 		{3B2E2ED3-E599-467A-95A0-A012F560D89E} = {B68881AB-C12C-413C-8DCD-6CB58C5EDA92}
+		{76209721-0435-4B48-A1D7-7EE519940D57} = {70C00858-BFC4-408A-945D-73FA1EF27434}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {220C101C-60A0-48BD-BF0A-6DE62CF1686E}
 	EndGlobalSection
 EndGlobal
