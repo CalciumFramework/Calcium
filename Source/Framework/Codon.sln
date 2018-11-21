@@ -106,7 +106,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Profiling", "Profiling", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePipelines", "AzurePipelines", "{76209721-0435-4B48-A1D7-7EE519940D57}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Deployment\AzurePipelines\AzurePipelines.yml = ..\..\Deployment\AzurePipelines\AzurePipelines.yml
+		AzurePipelines.yml = AzurePipelines.yml
 	EndProjectSection
 EndProject
 Global
