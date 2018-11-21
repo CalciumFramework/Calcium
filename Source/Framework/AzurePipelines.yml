@@ -8,7 +8,7 @@ steps:
   - task: VSBuild@1
     displayName: Build solution Codon.sln
     inputs:
-        solution: '$(repo.)/Source/Framework/Codon.sln' 
+        solution: 'Source/Framework/Codon.sln' 
         configuration: $(buildConfiguration)
         restoreNugetPackages: 'true'
         logProjectEvents: 'true'
