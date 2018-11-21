@@ -5,7 +5,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-  - script: echo DV Starting Restore
-  - script: dotnet restore
-  - script: echo DV Restore Complete
-  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet restore Source/Framework/Codon.sln
+  - script: dotnet build Source/Framework/Codon.sln --configuration $(buildConfiguration)
