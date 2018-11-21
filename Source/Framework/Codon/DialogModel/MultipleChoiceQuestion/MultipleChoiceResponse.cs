@@ -20,7 +20,7 @@ namespace Codon.DialogModel
 	/// <summary>
 	/// Provides the result of a call to the <see cref="Services.IDialogService.AskMultipleChoiceQuestionAsync"/> method.
 	/// </summary>
-	/// <typeparam name="TSelectableItem">The type of objects in the items collection,
+	/// <typeparam name="T">The type of objects in the items collection,
 	/// which the user is able to select.</typeparam>
 	public class MultipleChoiceResponse<T>
 	{

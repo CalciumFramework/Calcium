@@ -88,9 +88,6 @@ namespace Codon.IO
 		/// </summary>
 		/// <param name="inputStream">
 		/// The serialized object stream.</param>
-//		/// <param name="instance">This may be a collection
-//		/// that is populated with the contents of a collection 
-//		/// in the specified input stream.</param>
 		/// <returns>The object represented by the specified stream.
 		/// </returns>
 		object Deserialize(Stream inputStream/*, object instance = null*/);

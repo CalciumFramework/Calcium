@@ -178,12 +178,15 @@ namespace Codon.InversionOfControl
 		bool IsRegistered<T>(string key = null);
 
 		/// <summary>
-		/// Determines if there is a type registeration from the 
+		/// Determines if there is a type registration from the 
 		/// specified from type <c>fromType</c>.
 		/// </summary>
 		/// <param name="fromType">
 		/// The registered from type mapping.</param>
-		/// <returns><c>true</c> if a type registeration exists;
+		/// <param name="key">The ID of the item, which
+		/// can be used to retrieve the item if there are multiple
+		/// instances that use the same <c>fromType</c>.</param>
+		/// <returns><c>true</c> if a type registration exists;
 		/// <c>false</c> otherwise.</returns>
 		bool IsRegistered(Type fromType, string key = null);
 

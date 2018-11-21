@@ -83,9 +83,6 @@ namespace Codon.ComponentModel
 		/// Otherwise, the non-generic types are used, and they are cached 
 		/// to decrease heap fragmentation.</param>
 		/// of the <code>PropertyChanged</code> event.</param>
-		/// <param name="useExtendedEventArgs">If <c>true</c> an instance of
-		/// <c>IPropertyChangedEventArgs</c> will accompany the raising of this event,
-		/// which include the old and new values.</param>
 		public PropertyChangeNotifier(object owner, bool useExtendedEventArgs)
 		{
 			AssertArg.IsNotNull(owner, nameof(owner));

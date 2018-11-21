@@ -19,10 +19,22 @@ namespace Codon.ApplicationModel
 {
 	public class ActivityResultMessage
 	{
+		/// <summary>
+		/// The Android request code that was used when launching the intent.
+		/// </summary>
 		public int RequestCode { get; set; }
-		public Result ResultCode { get; set; }
-		public Intent Intent { get; set; }
 
+		/// <summary>
+		/// The Android result code which indicates the result of the intent.
+		/// </summary>
+		public Result ResultCode { get; set; }
+
+		/// <summary>
+		/// The Android intent that was used when launching the intent.
+		/// </summary>
+		public Intent Intent { get; set; }
+		
+		/// <inheritdoc />
 		public ActivityResultMessage(
 			int requestCode, Result resultCode, Intent intent)
 		{

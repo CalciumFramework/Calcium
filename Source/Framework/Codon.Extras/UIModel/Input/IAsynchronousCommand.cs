@@ -20,7 +20,6 @@ namespace Codon.UIModel.Input
 	/// This interface represents an
 	/// <see cref="System.Windows.Input.ICommand"/>
 	/// that is able to be refreshed asynchronously.
-	/// <seealso cref="ISynchronousCommand"/>
 	/// </summary>
 	public interface IAsynchronousCommand : ICommandBase
 	{

@@ -95,12 +95,15 @@ namespace Codon.Concurrency
 		/// <param name="action">
 		/// The action to execute once the delay expires.</param>
 		/// <param name="delayMs">
-		/// The time, in milleseconds, to wait before executing the action.</param>
+		/// The time, in milliseconds, to wait before executing the action.</param>
+		/// <param name="lineNumber"></param>
 		/// <param name="ignoreExceptionHandler">If <c>true</c> exceptions are not delivered
 		/// to the exception handling mechanism, but are re-thrown.
 		/// This is useful where you would like to handle an exception raised
-		/// on the synchonization context thread but have an ExceptionHandler defined.
+		/// on the synchronization context thread but have an ExceptionHandler defined.
 		/// Default is <c>false</c>.</param>
+		/// <param name="memberName"></param>
+		/// <param name="filePath"></param>
 		public static async Task PostWithDelayAsync(
 			this ISynchronizationContext context, 
 			Action action, 

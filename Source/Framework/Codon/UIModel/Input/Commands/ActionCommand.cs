@@ -96,6 +96,7 @@ namespace Codon.UIModel.Input
 
 		#region ICommand Members
 
+		/// <inheritdoc />
 		public override bool CanExecute(object parameter = null)
 		{
 			TParameter coercedParameter = ProcessParameterNonGeneric(parameter);
@@ -135,6 +136,10 @@ namespace Codon.UIModel.Input
 			}
 		}
 
+		/// <summary>
+		/// Causes the command's execute action to be invoked.
+		/// </summary>
+		/// <param name="parameter">A parameter that is passed to the execute action.</param>
 		public virtual void Execute(TParameter parameter = default(TParameter))
 		{
 			try
@@ -187,12 +192,19 @@ namespace Codon.UIModel.Input
 
 		bool enabled = true;
 
+		/// <summary>
+		/// Indicates whether the command can execute.
+		/// </summary>
 		public bool Enabled
 		{
 			get => enabled;
 			protected internal set => Set(ref enabled, value, false);
 		}
 
+		/// <summary>
+		/// Refreshes the command's properties.
+		/// </summary>
+		/// <param name="parameter"></param>
 		protected virtual void RefreshCore(TParameter parameter)
 		{
 			bool canCurrentlyExecute = Enabled;
@@ -204,6 +216,10 @@ namespace Codon.UIModel.Input
 			}
 		}
 
+		/// <summary>
+		/// Refreshes the command's properties.
+		/// </summary>
+		/// <param name="commandParameter"></param>
 		public override void Refresh(object commandParameter = null)
 		{
 			TParameter parameter = ProcessParameterNonGeneric(commandParameter);

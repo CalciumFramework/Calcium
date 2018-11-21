@@ -77,6 +77,7 @@ namespace Codon.Services
 		/// When calling Parse, if the text contains a string "Greeting from ${Country}." 
 		/// The specified converter will be used to create a string replacement 
 		/// for the ${Country} tag.</param>
+		/// <param name="convertFunc">A func that is used to convert a value.</param>
 		void RegisterConverter(string tagName, Func<object, object> convertFunc);
 	}
 }

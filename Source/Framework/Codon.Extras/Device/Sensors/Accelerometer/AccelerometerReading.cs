@@ -5,6 +5,9 @@ namespace Codon.Device.Sensors
 {
 	public class AccelerometerReading
 	{
+		/// <summary>
+		/// DateTimeOffset of when the event occured.
+		/// </summary>
 		public DateTimeOffset Timestamp { get; set; }
 
 		/// <summary>

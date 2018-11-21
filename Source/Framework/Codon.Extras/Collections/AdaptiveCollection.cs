@@ -428,12 +428,16 @@ namespace Codon.Collections
 			base.SetItem(index, item);
 		}
 
+		/// <inheritdoc />
 		public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
+		/// <summary> 
+		/// </summary>
+		/// <param name="disposing"></param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)

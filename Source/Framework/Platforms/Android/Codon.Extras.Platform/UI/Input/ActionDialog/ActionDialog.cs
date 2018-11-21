@@ -14,6 +14,8 @@ namespace Codon.UI.Elements
 		readonly ActionDialogArguments arguments;
 		readonly LinearLayout layout;
 
+
+		/// <inheritdoc />
 		public ActionDialog(ActionDialogArguments actionArguments, Context context)
 			: base(context)
 		{
@@ -55,6 +57,7 @@ namespace Codon.UI.Elements
 			arguments.SetResult(result);
 		}
 
+		/// <inheritdoc />
 		public override void Cancel()
 		{
 			base.Cancel();
@@ -62,6 +65,7 @@ namespace Codon.UI.Elements
 			arguments.SetResult(-1);
 		}
 
+		/// <inheritdoc />
 		public override void Dismiss()
 		{
 			base.Dismiss();
@@ -69,6 +73,7 @@ namespace Codon.UI.Elements
 			arguments.SetResult(-1);
 		}
 
+		/// <inheritdoc />
 		public override void OnAttachedToWindow()
 		{
 			base.OnAttachedToWindow();
@@ -76,6 +81,7 @@ namespace Codon.UI.Elements
 			Window.SetLayout(-1, -2);
 		}
 
+		/// <inheritdoc />
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			string actionSheetTitle = arguments.ActionSheetTitle;

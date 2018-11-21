@@ -57,23 +57,27 @@ namespace Codon.Collections
 
 		public long ListId { get; set; }
 
+		/// <inheritdoc />
 		public GroupedList(TKey key, IEnumerable<TElement> items) : base(items)
 		{
 			this.key = key;
 		}
 
+		/// <inheritdoc />
 		public GroupedList(TKey key, IEnumerable<TElement> items, Func<object> titleFunc) 
 			: this(key, items)
 		{
 			this.titleFunc = titleFunc;
 		}
 
+		/// <inheritdoc />
 		public GroupedList(TKey key, IEnumerable<TElement> items, object title)
 			: this(key, items)
 		{
 			this.title = title;
 		}
 
+		/// <inheritdoc />
 		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
 		{
 			base.OnCollectionChanged(e);
@@ -82,8 +86,12 @@ namespace Codon.Collections
 			OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
 		}
 
+		/// <inheritdoc />
 		public TKey Key => key;
 
+		/// <summary>
+		/// The displayable title.
+		/// </summary>
 		public object Title
 		{
 			get

@@ -1,5 +1,5 @@
 ﻿//#region File and License Information
-///*
+//*
 //<File>
 //	<License>
 //		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.

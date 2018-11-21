@@ -32,6 +32,7 @@ namespace Codon.Device.Sensors
 		Sensor accelerometer;
 		readonly float[] gravityArray = new float[3];
 
+		/// <inheritdoc />
 		public void StartMonitoring()
 		{
 			if (monitoring)
@@ -57,6 +58,7 @@ namespace Codon.Device.Sensors
 				SensorDelay.Ui);
 		}
 
+		/// <inheritdoc />
 		public void StopMonitoring()
 		{
 			if (!monitoring)
@@ -139,19 +141,30 @@ namespace Codon.Device.Sensors
 				return accelerometer != null;
 			}
 		}
+
+		/// <inheritdoc />
 		public AccelerometerReading Reading { get; private set; }
+
+		/// <inheritdoc />
 		public event EventHandler<AccelerometerReadingChangedEventArgs> ReadingChanged;
 
+
+		/// <summary>
+		/// Raises the ReadingChanged event.
+		/// </summary>
+		/// <param name="e"></param>
 		protected virtual void OnReadingChanged(AccelerometerReadingChangedEventArgs e)
 		{
 			ReadingChanged?.Invoke(this, e);
 		}
 
+		/// <inheritdoc />
 		public bool CanCalibrate()
 		{
 			return false;
 		}
 
+		/// <inheritdoc />
 		public bool Calibrate()
 		{
 			return true;

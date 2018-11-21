@@ -40,11 +40,13 @@ namespace Codon.Collections
 									resolveKeyFunc, nameof(resolveKeyFunc));;
 		}
 
+		/// <inheritdoc />
 		public bool Equals(T x, T y)
 		{
 			return resolveKeyFunc(x).Equals(resolveKeyFunc(y));
 		}
 
+		/// <inheritdoc />
 		public int GetHashCode(T obj)
 		{
 			var key = resolveKeyFunc(obj);

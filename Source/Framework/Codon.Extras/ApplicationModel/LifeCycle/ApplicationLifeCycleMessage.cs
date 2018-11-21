@@ -26,6 +26,7 @@ namespace Codon.ApplicationModel
 	{
 		public ApplicationLifeCycleState State => Payload;
 
+		/// <inheritdoc />
 		public ApplicationLifeCycleMessage(
 			object sender, ApplicationLifeCycleState payload) 
 			: base(sender, payload)
