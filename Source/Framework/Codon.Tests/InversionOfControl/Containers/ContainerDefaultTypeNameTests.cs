@@ -24,6 +24,8 @@ namespace Codon.InversionOfControl.Containers
 		{
 			var container = new FrameworkContainer();
 
+			IHaveDefaultTypeAndName makeSureExists = new Class2();
+
 			var r1 = container.Resolve<IHaveDefaultTypeAndName>();
 
 			Assert.IsInstanceOfType(r1, typeof(Class2));
@@ -62,12 +64,12 @@ namespace Codon.InversionOfControl.Containers
 
 		//[DefaultTypeName(nameof(ContainerDefaultTypeNameTests) + "+" + nameof(ClassForResolvingViaDefaultTypeName))]
 		[DefaultTypeName("Codon.InversionOfControl.Containers.ContainerDefaultTypeNameTests+ClassForResolvingViaDefaultTypeName, Codon.Tests")]
-		interface IHaveDefaultTypeName
+		public interface IHaveDefaultTypeName
 		{
 
 		}
 
-		class ClassForResolvingViaDefaultTypeName : IHaveDefaultTypeName
+		public class ClassForResolvingViaDefaultTypeName : IHaveDefaultTypeName
 		{
 
 		}
@@ -79,7 +81,7 @@ namespace Codon.InversionOfControl.Containers
 
 		[DefaultType(typeof(Class1))]
 		[DefaultTypeName(nameof(Codon) + "." + nameof(InversionOfControl) + "." + nameof(Containers) + "." + nameof(ContainerDefaultTypeNameTests) + "+" + nameof(Class2) + ", Codon.Tests")]
-		interface IHaveDefaultTypeAndName
+		public interface IHaveDefaultTypeAndName
 		{
 			
 		}
@@ -88,7 +90,7 @@ namespace Codon.InversionOfControl.Containers
 		{
 		}
 
-		class Class2 : IHaveDefaultTypeAndName
+		public class Class2 : IHaveDefaultTypeAndName
 		{
 		}
 
