@@ -27,6 +27,7 @@ namespace Codon.InversionOfControl.Containers
 			//IHaveDefaultTypeAndName makeSureExists = new Class2();
 
 			var r1 = container.Resolve<IHaveDefaultTypeAndName>();
+			r1.Foo();
 
 			Assert.IsInstanceOfType(r1, typeof(Class2));
 		}
