@@ -35,7 +35,7 @@ steps:
              **\*Tests*.dll
              !**\*Microsoft.VisualStudio.TestPlatform*
              !**\obj\**
-
+        codeCoverageEnabled: true
         #testPlan: # Required when testSelector == TestPlan
         #testSuite: # Required when testSelector == TestPlan
         #testConfiguration: # Required when testSelector == TestPlan
@@ -72,3 +72,4 @@ steps:
         #rerunFailedThreshold: '30' # Optional
         #rerunFailedTestCasesMaxLimit: '5' # Optional
         #rerunMaxAttempts: '3' # Optional
+
