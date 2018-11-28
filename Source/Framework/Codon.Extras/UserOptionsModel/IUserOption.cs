@@ -58,5 +58,7 @@ namespace Codon.UserOptionsModel
 		string FormattedSetting { get; }
 
 		object Setting { get; set; }
+
+		bool Enabled { get; set; }
 	}
 }

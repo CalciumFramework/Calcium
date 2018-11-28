@@ -144,6 +144,21 @@ namespace Codon.UserOptionsModel.UserOptions
 
 		public object Setting { get; set; }
 
+		bool enabled = true;
+
+		public bool Enabled
+		{
+			get => enabled;
+			set
+			{
+				if (value != enabled)
+				{
+					enabled = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
 		public Func<CommandOption<TSetting>, Task<SaveOptionResult>> SaveAction { get; private set; }
 
 		public async Task<SaveOptionResult> Save()

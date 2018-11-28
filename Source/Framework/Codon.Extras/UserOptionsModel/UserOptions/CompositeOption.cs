@@ -191,5 +191,24 @@ namespace Codon.UserOptionsModel
 		}
 
 		public IUserOptionReaderWriter ProvidedItem => this;
+
+		bool enabled = true;
+
+		public bool Enabled
+		{
+			get => enabled;
+			set
+			{
+				if (value != enabled)
+				{
+					enabled = value;
+					foreach (var option in userOptions)
+					{
+						option.Enabled = enabled;
+					}
+					OnPropertyChanged();
+				}
+			}
+		}
 	}
 }

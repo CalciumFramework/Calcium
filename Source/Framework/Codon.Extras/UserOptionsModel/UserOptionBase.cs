@@ -363,6 +363,21 @@ namespace Codon.UserOptionsModel
 			set => throw new NotImplementedException();
 		}
 
+		bool enabled = true;
+
+		public bool Enabled
+		{
+			get => enabled;
+			set
+			{
+				if (value != enabled)
+				{
+					enabled = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
 		string imagePath;
 		
 		public string ImagePath
