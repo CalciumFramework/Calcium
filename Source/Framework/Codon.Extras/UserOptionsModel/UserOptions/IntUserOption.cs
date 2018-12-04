@@ -31,5 +31,7 @@ namespace Codon.UserOptionsModel.UserOptions
 
 		public int MinValue { get; set; }
 		public int MaxValue { get; set; }
+
+		public uint Step { get; set; }
 	}
 }
