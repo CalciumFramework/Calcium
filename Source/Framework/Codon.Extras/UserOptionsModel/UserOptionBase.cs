@@ -67,9 +67,9 @@ namespace Codon.UserOptionsModel
 		/// which is used to retrieve the default value of the setting 
 		/// if not setting has been previously saved to the settings service.</param>
 		/// <param name="saveSettingFunc">A custom action to save the setting.
-		/// This is used to override the default behavour or to add further logic.</param>
+		/// This is used to override the default behaviour or to add further logic.</param>
 		/// <param name="getSettingFunc">A custom action to retrieve the setting.
-		/// This is used to override the default behavour or to add further logic.</param>
+		/// This is used to override the default behaviour or to add further logic.</param>
 		protected UserOptionBase(
 			Func<string> titleFunc, 
 			string settingKey,
