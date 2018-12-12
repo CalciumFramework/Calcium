@@ -138,6 +138,14 @@ namespace Codon.DialogModel
 			{
 				try
 				{
+					/* If the dialog controllers Close method has been called
+					 * before having a chance to show the dialog, do nothing. */
+					if (dialogController != null && dialogController.CloseCalled)
+					{
+						resultSource.TrySetResult(-1);
+						return;
+					}
+
 					Interlocked.Increment(ref openDialogCount);
 
 					AlertDialog alertDialog = builder.Show();
@@ -177,6 +185,7 @@ namespace Codon.DialogModel
 					{
 						dialogController.CloseRequested += delegate
 						{
+							/* DialogController uses UI thread. */
 							if (alertDialog.IsShowing)
 							{
 								alertDialog.Cancel();

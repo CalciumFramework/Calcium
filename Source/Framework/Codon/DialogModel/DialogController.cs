@@ -14,6 +14,7 @@
 
 using System;
 using System.ComponentModel;
+using Codon.Concurrency;
 
 namespace Codon.DialogModel
 {
@@ -24,6 +25,9 @@ namespace Codon.DialogModel
 	/// </summary>
 	public class DialogController
 	{
+		// Should be internal but Xamarin Android doesn't support strong name for internals visible attribute.
+		public bool CloseCalled { get; private set; }
+
 		/// <summary>
 		/// This event is not intended for user code.
 		/// This event is used by the 
@@ -44,7 +48,13 @@ namespace Codon.DialogModel
 		/// <see cref="Services.IDialogService" /> implementation</param>
 		public virtual void Close(EventArgs e = null)
 		{
-			CloseRequested?.Invoke(this, e ?? EventArgs.Empty);
+			CloseCalled = true;
+
+			var synchronizationContext = Dependency.Resolve<ISynchronizationContext>();
+			synchronizationContext.Send(() =>
+			{
+				CloseRequested?.Invoke(this, e ?? EventArgs.Empty);
+			});
 		}
 
 		/// <summary>
