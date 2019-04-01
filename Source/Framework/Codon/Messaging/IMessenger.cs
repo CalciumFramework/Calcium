@@ -70,7 +70,7 @@ namespace Codon.Services
 		/// If <c>true</c> messages are dispatched using the UI thread.
 		/// If <c>false</c> and the call to <c>PublishAsync</c>
 		/// is made not from the UI thread, then messages are
-		/// dispatched are dispatched on the current thread.</param>
+		/// dispatched on the current thread.</param>
 		/// <param name="recipientType">
 		/// Allows you to restrict messages to those subscribers
 		/// deriving from this type.</param>
