@@ -1,11 +1,9 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Codon.Reflection;
-
-namespace Codon.UI.Data
+namespace Codon.Reflection
 {
 	class DelegateUtility
 	{
@@ -38,9 +36,9 @@ namespace Codon.UI.Data
 			MethodInfo methodInfo = eventInfo.GetAddMethod();
 #endif
 			var invoker = ReflectionCache.GetVoidMethodInvoker(
-							methodInfo, 
+							methodInfo,
 							DelegateCreationMode.FastCreationSlowPerformance);
-			invoker(target, new object[] {dynamicHandler});
+			invoker(target, new object[] { dynamicHandler });
 
 			void Result() => RemoveHandler(target, eventName, dynamicHandler);
 
@@ -65,9 +63,9 @@ namespace Codon.UI.Data
 			MethodInfo methodInfo = eventInfo.GetRemoveMethod();
 #endif
 			var invoker = ReflectionCache.GetVoidMethodInvoker(
-								methodInfo, 
+								methodInfo,
 								DelegateCreationMode.FastCreationSlowPerformance);
-			invoker(target, new object[] {dynamicHandler});
+			invoker(target, new object[] { dynamicHandler });
 		}
 
 		/// <summary>
@@ -87,10 +85,10 @@ namespace Codon.UI.Data
 			ParameterExpression[] parameters = invokeMethod.GetParameters().Select(
 				parameterInfo => Expression.Parameter(parameterInfo.ParameterType, parameterInfo.Name)).ToArray();
 
-			ConstantExpression instance = methodToExecute.Target == null 
+			ConstantExpression instance = methodToExecute.Target == null
 				? null : Expression.Constant(methodToExecute.Target);
 
-			MethodCallExpression call = Expression.Call(instance, methodToExecute.GetMethodInfoEx());
+			MethodCallExpression call = Expression.Call(instance, methodToExecute.GetMethodInfo());
 			Expression body = invokeMethod.ReturnType == typeof(void)
 				? (Expression)call
 				: Expression.Convert(call, invokeMethod.ReturnType);
@@ -109,8 +107,8 @@ namespace Codon.UI.Data
 			if (eventInfo == null)
 			{
 				throw new ArgumentException(
-					nameof(eventName) + " " + eventName 
-					+ " does not exist on target of type:" 
+					nameof(eventName) + " " + eventName
+					+ " does not exist on target of type:"
 					+ target.GetType());
 			}
 
@@ -123,7 +121,7 @@ namespace Codon.UI.Data
 			var methodInfo = eventInfo.GetAddMethod();
 #endif
 			var invoker = ReflectionCache.GetVoidMethodInvoker(
-							methodInfo, 
+							methodInfo,
 							DelegateCreationMode.FastCreationSlowPerformance);
 
 			invoker(target, new object[] { dynamicHandler });
@@ -134,14 +132,14 @@ namespace Codon.UI.Data
 		}
 
 		static IReflectionCache reflectionCacheUseProperty;
-		static IReflectionCache ReflectionCache 
-			=> reflectionCacheUseProperty 
+		static IReflectionCache ReflectionCache
+			=> reflectionCacheUseProperty
 			?? (reflectionCacheUseProperty = Dependency.Resolve<IReflectionCache>());
 
 		static Delegate BuildDynamicHandler(Type delegateType, Action<object, EventArgs> methodToExecute)
 		{
 #if NETSTANDARD
-			MethodInfo invokeMethod = delegateType.GetRuntimeMethods().FirstOrDefault(x => x.Name == "Invoke");
+			MethodInfo invokeMethod = delegateType.GetRuntimeMethods().First(x => x.Name == "Invoke");
 #else
 			MethodInfo invokeMethod = delegateType.GetMethod("Invoke");
 #endif
@@ -151,7 +149,7 @@ namespace Codon.UI.Data
 			ConstantExpression instance = methodToExecute.Target == null
 											? null : Expression.Constant(methodToExecute.Target);
 
-			MethodCallExpression callExpression = Expression.Call(instance, methodToExecute.GetMethodInfoEx(), parameters);
+			MethodCallExpression callExpression = Expression.Call(instance, methodToExecute.GetMethodInfo(), parameters);
 			Expression body = invokeMethod.ReturnType == typeof(void)
 				? (Expression)callExpression
 				: Expression.Convert(callExpression, invokeMethod.ReturnType);

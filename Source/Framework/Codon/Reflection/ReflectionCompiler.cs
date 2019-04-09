@@ -925,20 +925,47 @@ namespace Codon.Reflection
 
 			/* Source: http://stackoverflow.com/questions/3478218/using-reflection-emit-to-implement-a-interface */
 			Type handlerType = eventInfo.EventHandlerType;
-			ParameterInfo[] eventParams = handlerType.GetTypeInfo().GetDeclaredMethod("Invoke").GetParameters();
+			MethodInfo invokeMethodInfo = handlerType.GetTypeInfo().GetDeclaredMethod("Invoke");
+			ParameterInfo[] eventParams = invokeMethodInfo.GetParameters();
 
 			//lambda: (object x0, EventArgs x1) => d()
 			IEnumerable<ParameterExpression> parameters
-				= eventParams.Select(p => Expression.Parameter(p.ParameterType, "x"));
+				= eventParams.Select(p => Expression.Parameter(p.ParameterType, p.Name));
 			// - assumes void method with no arguments but can be
 			//   changed to accomodate any supplied method
 			MethodCallExpression body = Expression.Call(
 				Expression.Constant(action), action.GetType().GetTypeInfo().GetDeclaredMethod("Invoke"));
 			LambdaExpression lambda = Expression.Lambda(body, parameters.ToArray());
-			MethodInfo invokeMethodInfo = handlerType.GetTypeInfo().GetDeclaredMethod("Invoke");
-			Delegate result = invokeMethodInfo.CreateDelegate(handlerType, lambda.Compile());
+			
+			Delegate compiledLambda = lambda.Compile();
+			Delegate result = invokeMethodInfo.CreateDelegate(handlerType, compiledLambda);
 
 			return result;
+		}
+
+		public static Delegate CreateEventHandlerUntyped(
+			EventInfo eventInfo, Action action)
+		{
+			AssertArg.IsNotNull(eventInfo, nameof(eventInfo));
+			AssertArg.IsNotNull(action, nameof(action));
+
+			/* Source: http://stackoverflow.com/questions/3478218/using-reflection-emit-to-implement-a-interface */
+			Type handlerType = eventInfo.EventHandlerType;
+			MethodInfo invokeMethodInfo = handlerType.GetTypeInfo().GetDeclaredMethod("Invoke");
+			ParameterInfo[] eventParams = invokeMethodInfo.GetParameters();
+
+			//lambda: (object x0, EventArgs x1) => d()
+			IEnumerable<ParameterExpression> parameters
+				= eventParams.Select(p => Expression.Parameter(p.ParameterType, p.Name));
+			// - assumes void method with no arguments but can be
+			//   changed to accomodate any supplied method
+			MethodCallExpression body = Expression.Call(
+				Expression.Constant(action), action.GetType().GetTypeInfo().GetDeclaredMethod("Invoke"));
+			LambdaExpression lambda = Expression.Lambda(body, parameters.ToArray());
+
+			Delegate compiledLambda = lambda.Compile();
+			
+			return compiledLambda;
 		}
 
 		#endregion

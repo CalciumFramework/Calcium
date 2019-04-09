@@ -1,6 +1,8 @@
 ﻿#if WPF || WINDOWS_UWP
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Input;
 
@@ -187,9 +189,8 @@ namespace Codon.UIModel.Input
 #endif
 					else
 					{
-						handler = ReflectionCompiler.CreateEventHandler(eventInfo, ExecuteCommand);
-						eventInfo.AddEventHandler(element, handler);
-						removeHandlerAction = () => eventInfo.RemoveEventHandler(element, handler);
+						removeHandlerAction = DelegateUtility.AddHandler(element, eventInfo.Name, ExecuteCommand);
+						return;
 					}
 
 					handlerCache[eventInfo.EventHandlerType] = handler;
