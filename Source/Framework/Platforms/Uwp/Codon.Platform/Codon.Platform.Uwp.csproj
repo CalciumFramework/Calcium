@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.2</Version>
+      <Version>6.2.9</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\..\..\Codon.Platform.Shared\Codon.Platform.Shared.projitems" Label="Shared" />
