@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 using Codon.ComponentModel;
+using Codon.Concurrency;
 using Codon.Reflection;
 
 namespace Codon.UIModel.Input
@@ -30,7 +31,7 @@ namespace Codon.UIModel.Input
 	/// for all commands.
 	/// </summary>
 	/// <typeparam name="TParameter"></typeparam>
-    public abstract class CommandBase<TParameter> : 
+	public abstract class CommandBase<TParameter> : 
 		ICommand,
 		ICommandBase,
 		INotifyPropertyChanged,
@@ -144,8 +145,16 @@ namespace Codon.UIModel.Input
 			var tempEvent = CanExecuteChanged;
 			if (tempEvent != null)
 			{
-				UIContext.Instance.Send(() => tempEvent(this, e));
+				SynchronizationContext.Send(() => tempEvent(this, e));
 			}
+		}
+
+		ISynchronizationContext synchronizationContext;
+
+		public ISynchronizationContext SynchronizationContext
+		{
+			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
+			set => synchronizationContext = value;
 		}
 
 		public void RaiseCanExecuteChanged()

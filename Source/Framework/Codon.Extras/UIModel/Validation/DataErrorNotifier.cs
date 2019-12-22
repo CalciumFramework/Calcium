@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 using Codon.Collections;
+using Codon.Concurrency;
 using Codon.Logging;
 using Codon.Reflection;
 
@@ -337,7 +338,7 @@ namespace Codon.UIModel.Validation
 		/// for which the list of errors changed.</param>
 		protected virtual void OnErrorsChanged(string property)
 		{
-			UIContext.Instance.Send(
+			SynchronizationContext.Send(
 				() => ErrorsChanged?.Invoke(
 						this, new DataErrorsChangedEventArgs(property)));
 		}
@@ -490,6 +491,17 @@ namespace Codon.UIModel.Validation
 			{
 				OnErrorsChanged(propertyName);
 			}
+		}
+
+		ISynchronizationContext synchronizationContext;
+
+		/// <summary>
+		/// Use this property to override the current synchronization context.
+		/// </summary>
+		public ISynchronizationContext SynchronizationContext
+		{
+			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
+			set => synchronizationContext = value;
 		}
 	}
 }

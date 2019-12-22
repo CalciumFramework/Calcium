@@ -46,7 +46,7 @@ namespace Codon.InversionOfControl
 		/// <param name="toType">The type to be created.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>toType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		void Register(Type fromType, Type toType, bool singleton = false, string key = null);
@@ -74,7 +74,7 @@ namespace Codon.InversionOfControl
 		/// of type <c>TFrom</c>.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>TFrom</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		void Register<TFrom>(Func<TFrom> getInstanceFunc, bool singleton = false, string key = null);
@@ -96,7 +96,7 @@ namespace Codon.InversionOfControl
 		/// of type <c>fromType</c>.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>fromType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		void Register(Type type, Func<object> getInstanceFunc, bool singleton = false, string key = null);
@@ -144,7 +144,7 @@ namespace Codon.InversionOfControl
 		object Resolve(Type type, string key = null);
 
 		/// <summary>
-		/// Resolves all types that have a type registeration
+		/// Resolves all types that have a type registration
 		/// for the specified <c>TFrom</c> type.
 		/// </summary>
 		/// <typeparam name="TFrom">The from type mapping.</typeparam>
@@ -153,7 +153,7 @@ namespace Codon.InversionOfControl
 		IEnumerable<TFrom> ResolveAll<TFrom>() where TFrom : class;
 
 		/// <summary>
-		/// Resolves all types that have a type registeration
+		/// Resolves all types that have a type registration
 		/// for the specified <c>fromType</c> type.
 		/// </summary>
 		/// <returns>All objects that are registered with the 
@@ -161,7 +161,7 @@ namespace Codon.InversionOfControl
 		IEnumerable<object> ResolveAll(Type fromType);
 
 		/// <summary>
-		/// Resolves all objects that have a type registeration
+		/// Resolves all objects that have a type registration
 		/// with the specified key.
 		/// </summary>
 		/// <returns>All objects that are registered with the 
@@ -169,11 +169,11 @@ namespace Codon.InversionOfControl
 		IEnumerable<object> ResolveAll(string key);
 
 		/// <summary>
-		/// Determines if there is a type registeration from the 
+		/// Determines if there is a type registration from the 
 		/// specified from type <c>T</c>.
 		/// </summary>
 		/// <typeparam name="T">The registered from type.</typeparam>
-		/// <returns><c>true</c> if a type registeration exists;
+		/// <returns><c>true</c> if a type registration exists;
 		/// <c>false</c> otherwise.</returns>
 		bool IsRegistered<T>(string key = null);
 

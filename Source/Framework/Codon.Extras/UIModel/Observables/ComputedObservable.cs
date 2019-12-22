@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using Codon.Concurrency;
 using Codon.Logging;
 using Codon.Reflection;
 
@@ -224,7 +225,7 @@ namespace Codon.UIModel
 				return;
 			}
 
-			UIContext.Instance.Send(() =>
+			SynchronizationContext.Send(() =>
 			{
 				temp.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			});
@@ -233,6 +234,17 @@ namespace Codon.UIModel
 		void OnValueChanged()
 		{
 			OnPropertyChanged(nameof(Value));
+		}
+
+		ISynchronizationContext synchronizationContext;
+
+		/// <summary>
+		/// Use this property to override the current synchronization context.
+		/// </summary>
+		public ISynchronizationContext SynchronizationContext
+		{
+			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
+			set => synchronizationContext = value;
 		}
 
 		bool disposed;

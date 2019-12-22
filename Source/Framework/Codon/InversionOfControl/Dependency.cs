@@ -84,7 +84,7 @@ namespace Codon
 		/// <param name="toType">The type to be created.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>toType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register(Type fromType, Type toType, bool singleton = false, string key = null)
@@ -118,7 +118,7 @@ namespace Codon
 		/// </summary>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>T</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register<T>(string key, bool singleton = false)
@@ -138,7 +138,7 @@ namespace Codon
 		/// of type <c>TFrom</c>.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>TFrom</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register<TFrom>(
@@ -166,7 +166,7 @@ namespace Codon
 		/// of type <c>fromType</c>.</param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>fromType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register(
@@ -179,11 +179,11 @@ namespace Codon
 		}
 
 		/// <summary>
-		/// Determines if there is a type registeration from the 
+		/// Determines if there is a type registration from the 
 		/// specified from type <c>T</c>.
 		/// </summary>
 		/// <typeparam name="T">The registered from type.</typeparam>
-		/// <returns><c>true</c> if a type registeration exists;
+		/// <returns><c>true</c> if a type registration exists;
 		/// <c>false</c> otherwise.</returns>
 		public static bool IsRegistered<T>()
 		{
@@ -192,12 +192,12 @@ namespace Codon
 		}
 
 		/// <summary>
-		/// Determines if there is a type registeration from the 
+		/// Determines if there is a type registration from the 
 		/// specified from type <c>fromType</c>.
 		/// </summary>
 		/// <param name="fromType">
 		/// The registered from type mapping.</param>
-		/// <returns><c>true</c> if a type registeration exists;
+		/// <returns><c>true</c> if a type registration exists;
 		/// <c>false</c> otherwise.</returns>
 		public static bool IsRegistered(Type fromType)
 		{
@@ -257,7 +257,7 @@ namespace Codon
 		/// </typeparam>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>fromType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		/// <returns>An instance of <c>T</c>.
@@ -305,7 +305,7 @@ namespace Codon
 		/// </param>
 		/// <param name="singleton">If <c>true</c> once an instance
 		/// of <c>fromType</c> is created, it is retained, and returned
-		/// uppon subsequent calls to <c>Resolve</c>.</param>
+		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		/// <returns>An instance of <c>T</c>.
@@ -416,7 +416,7 @@ namespace Codon
 		}
 
 		/// <summary>
-		/// Resolves all types that have a type registeration
+		/// Resolves all types that have a type registration
 		/// for the specified <c>TFrom</c> type.
 		/// </summary>
 		/// <typeparam name="TFrom">The from type mapping.</typeparam>

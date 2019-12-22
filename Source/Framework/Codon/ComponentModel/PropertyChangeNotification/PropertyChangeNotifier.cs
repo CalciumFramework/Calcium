@@ -168,7 +168,7 @@ namespace Codon.ComponentModel
 
 					if (blockWhenRaisingEvents)
 					{
-						/* TODO: change ui syncronization API to use Boolean blocking and non blocking. */
+						/* TODO: change ui synchronization API to use Boolean blocking and non blocking. */
 						
 						if (!context.InvokeRequired)
 						{

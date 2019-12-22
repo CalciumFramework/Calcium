@@ -15,6 +15,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Codon.Concurrency;
 
 namespace Codon.UIModel
 {
@@ -90,10 +91,21 @@ namespace Codon.UIModel
 				return;
 			}
 
-			UIContext.Instance.Send(() =>
+			SynchronizationContext.Send(() =>
 			{
 				temp.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			});			
+		}
+
+		ISynchronizationContext synchronizationContext;
+
+		/// <summary>
+		/// Use this property to override the current synchronization context.
+		/// </summary>
+		public ISynchronizationContext SynchronizationContext
+		{
+			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
+			set => synchronizationContext = value;
 		}
 	}
 }

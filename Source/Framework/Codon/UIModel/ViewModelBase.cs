@@ -39,7 +39,7 @@ namespace Codon.UIModel
 		/// <param name="action"></param>
 		protected void InvokeIfRequired(Action action)
 		{
-			UIContext.Instance.Send(action);
+			PropertyChangeNotifier.SynchronizationContext.Send(action);
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace Codon.UIModel
 		/// <param name="action"></param>
 		protected void BeginInvoke(Action action)
 		{
-			UIContext.Instance.Post(action);
+			PropertyChangeNotifier.SynchronizationContext.Post(action);
 		}
 
 		/// <summary>

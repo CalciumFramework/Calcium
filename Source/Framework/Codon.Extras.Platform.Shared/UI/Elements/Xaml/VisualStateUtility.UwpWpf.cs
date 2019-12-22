@@ -82,8 +82,8 @@ namespace Codon.UI.Elements
 	                        }                            
 //                        });
 #else
-				UIContext.Instance.Post(
-					() => VisualStateManager.GoToState(control, stateName, true));
+				System.Threading.SynchronizationContext.Current.Post(
+					_ => VisualStateManager.GoToState(control, stateName, true), null);
 #endif
 			}
 		}

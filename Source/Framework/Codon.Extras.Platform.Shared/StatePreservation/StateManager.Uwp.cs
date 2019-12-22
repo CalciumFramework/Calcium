@@ -1,4 +1,7 @@
-﻿#if WINDOWS_UWP || NETFX_CORE
+﻿
+
+using Codon.Concurrency;
+#if WINDOWS_UWP || NETFX_CORE
 #region File and License Information
 /*
 <File>
@@ -33,7 +36,7 @@ namespace Codon.StatePreservation
             if (frame == null)
 			{
 				/* This is invoked in case this call is made before the RootVisual has been assigned. */
-				UIContext.Instance.Post(InitializeCore);
+				SynchronizationContext.Post(InitializeCore);
 			}
 			else
 			{
@@ -139,6 +142,17 @@ namespace Codon.StatePreservation
 		bool shouldLoadTransientState = true;
 
 		public bool ShouldLoadTransientState => shouldLoadTransientState;
+
+		ISynchronizationContext synchronizationContext;
+
+		/// <summary>
+		/// Use this property to override the current synchronization context.
+		/// </summary>
+		public ISynchronizationContext SynchronizationContext
+		{
+			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
+			set => synchronizationContext = value;
+		}
 	}
 }
 #endif
