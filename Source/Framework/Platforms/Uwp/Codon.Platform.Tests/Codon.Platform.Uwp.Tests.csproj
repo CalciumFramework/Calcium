@@ -18,9 +18,10 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <!--<PackageCertificateKeyFile>Codon.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>-->
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
-    <PackageCertificateThumbprint>D93ECACA98EFC3345BF767769F807618CBAB2508</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>99DF63F7800F781F35413146C0E392EC354BE647</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>Codon.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
