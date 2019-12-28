@@ -26,7 +26,7 @@ namespace Codon.Device
 		{
 			var vibrator = (Vibrator)Application.Context.GetSystemService(
 													Android.Content.Context.VibratorService);
-			if (Build.VERSION.SdkInt > BuildVersionCodes.O)
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
 			{
 				vibrator.Vibrate(VibrationEffect.CreateOneShot((long)duration.TotalMilliseconds, 
 																	VibrationEffect.DefaultAmplitude));
