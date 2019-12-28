@@ -17,7 +17,7 @@ namespace Codon.UndoModel
 	/// <summary>
 	/// Allows a <see cref="UnitBase{T}"/> to indicate 
 	/// to the <see cref="UndoService"/>
-	/// that its <see cref="IInternalUnit.Repeatable"/> property has changed.
+	/// that its <c>Repeatable</c> property has changed.
 	/// </summary>
 	interface IInternalUndoService
 	{

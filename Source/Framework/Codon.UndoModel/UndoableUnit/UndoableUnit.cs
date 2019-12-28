@@ -35,7 +35,8 @@ namespace Codon.UndoModel
 		/// <param name="descriptionForUser">
 		/// The description for the user.</param>
 		public UndoableUnit(Action<UnitEventArgs<T>> execute, 
-			Action<UnitEventArgs<T>> undo, string descriptionForUser)
+							Action<UnitEventArgs<T>> undo, 
+							string descriptionForUser)
 		{
 //			AssertArg.IsNotNullOrEmpty(descriptionForUser, nameof(descriptionForUser));
 //			AssertArg.IsNotNull(execute, nameof(execute));
@@ -53,12 +54,6 @@ namespace Codon.UndoModel
 			DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
 			Execute += (o, args) => execute(args);
 			Undo += (o, args) => undo(args);
-		}
-
-		public new bool Repeatable
-		{
-			get => base.Repeatable;
-			set => base.Repeatable = value;
 		}
 	}
 }

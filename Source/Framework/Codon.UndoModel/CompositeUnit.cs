@@ -36,9 +36,7 @@ namespace Codon.UndoModel
 		/// that may be displayed in the UI to initiate undo or redo.</param>
 		public CompositeUnit(IDictionary<UnitBase<T>, T> units, string descriptionForUser)
 		{
-			//AssertArg.IsNotNull(descriptionForUser, nameof(descriptionForUser));
-			//AssertArg.IsNotNull(units, nameof(units));
-			DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
+			base.DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
 			unitDictionary = new Dictionary<UnitBase<T>, T>(
 				units ?? throw new ArgumentNullException(nameof(units)));
 
@@ -61,6 +59,13 @@ namespace Codon.UndoModel
 			ExecuteInternal(unitDictionary, e.UnitMode);
 		}
 
+		/// <summary>
+		/// Executes all units in the specified dictionary
+		/// according to the <see cref="UnitMode"/> parameter.
+		/// </summary>
+		/// <param name="unitDictionary">The collection of <see cref="UndoableUnit{T}"/>
+		/// that will be performed.</param>
+		/// <param name="unitMode">The reason for the execution of the units.</param>
 		protected internal virtual void ExecuteInternal(
 			Dictionary<UnitBase<T>, T> unitDictionary, UnitMode unitMode)
 		{
@@ -95,8 +100,6 @@ namespace Codon.UndoModel
 		static void ExecuteInParallel(
 			Dictionary<UnitBase<T>, T> unitDictionary, UnitMode unitMode)
 		{
-			var performedUnits = new List<UnitBase<T>>();
-			object performedUnitsLock = new object();
 			var exceptions = new List<Exception>();
 			object exceptionsLock = new object();
 			var events = unitDictionary.ToDictionary(x => x, x => new AutoResetEvent(false));
@@ -105,7 +108,6 @@ namespace Codon.UndoModel
 			{
 				AutoResetEvent autoResetEvent = events[pair];
 				IInternalUnit unit = pair.Key;
-				UnitBase<T> undoableUnit = pair.Key;
 				T arg = pair.Value;
 				
 				Task.Run(
@@ -114,10 +116,6 @@ namespace Codon.UndoModel
 						try
 						{
 							unit.PerformUnit(arg, unitMode);
-							lock (performedUnitsLock)
-							{
-								performedUnits.Add(undoableUnit);
-							}
 						}
 						catch (Exception ex)
 						{

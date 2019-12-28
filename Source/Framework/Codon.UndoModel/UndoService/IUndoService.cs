@@ -40,16 +40,16 @@ namespace Codon.Services
 		/// <returns>The result of performing the unit.</returns>
 		UnitResult PerformUnit<T>(UnitBase<T> unit, T argument, object contextKey = null);
 
-		///// <summary>
-		///// Executes the specified unit.
-		///// </summary>
-		///// <param name="unit">The command to execute.</param>
-		///// <param name="argument">The argument passed to the unit on execution.</param>
-		///// <param name="ownerKey">A key representing the owner of the unit. 
-		///// This might be, for example, a text editor.
-		///// This allows for a set of units to be associated with a control. 
-		///// Can be <c>null</c>, in which case the unit is deemed to be global.</param>
-		///// <returns>The result of performing the unit.</returns>
+		/// <summary>
+		/// Executes the specified unit.
+		/// </summary>
+		/// <param name="unit">The command to execute.</param>
+		/// <param name="argument">The argument passed to the unit on execution.</param>
+		/// <param name="ownerKey">A key representing the owner of the unit. 
+		/// This might be, for example, a text editor.
+		/// This allows for a set of units to be associated with a control. 
+		/// Can be <c>null</c>, in which case the unit is deemed to be global.</param>
+		/// <returns>The result of performing the unit.</returns>
 		UnitResult PerformUnit<T>(UndoableUnitBase<T> unit, T argument, object ownerKey = null);
 
 		/// <summary>

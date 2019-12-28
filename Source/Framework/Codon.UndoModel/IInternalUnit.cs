@@ -29,10 +29,6 @@ namespace Codon.UndoModel
 			get;
 		}
 
-		//		bool Repeatable
-//		{ 
-//			get;
-//		}
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="IInternalUnit"/> 
 		/// can be executed more than once.

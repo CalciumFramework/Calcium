@@ -35,6 +35,7 @@ namespace Codon.UndoModel
 		readonly string descriptionForUser;
 		readonly Dictionary<UndoableUnitBase<T>, T> unitDictionary;
 
+		/// <inheritdoc />
 		public CompositeUndoableUnit(IDictionary<UndoableUnitBase<T>, T> units, string descriptionForUser)
 		{
 			this.descriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser)); //AssertArg.IsNotNull(descriptionForUser, nameof(descriptionForUser));
@@ -61,6 +62,13 @@ namespace Codon.UndoModel
 			ExecuteInternal(unitDictionary, e.UnitMode);
 		}
 
+		/// <summary>
+		/// Executes all units in the specified dictionary
+		/// according to the <see cref="UnitMode"/> parameter.
+		/// </summary>
+		/// <param name="unitDictionary">The collection of <see cref="UndoableUnit{T}"/>
+		/// that will be performed.</param>
+		/// <param name="unitMode">The reason for the execution of the units.</param>
 		protected internal virtual void ExecuteInternal(
 			Dictionary<UndoableUnitBase<T>, T> unitDictionary, UnitMode unitMode)
 		{
@@ -136,8 +144,13 @@ namespace Codon.UndoModel
 			UndoInternal(unitDictionary);
 		}
 
+		/// <summary>
+		/// Undo each of the <see cref="IUndoableUnit"/> objects
+		/// in the specified collection.
+		/// </summary>
+		/// <param name="unitDictionary">The collection contain the undoable units.</param>
 		protected internal virtual void UndoInternal(
-			Dictionary<UndoableUnitBase<T>, T> unitDictionary)
+			IDictionary<UndoableUnitBase<T>, T> unitDictionary)
 		{
 			if (Parallel)
 			{
@@ -149,7 +162,7 @@ namespace Codon.UndoModel
 			}
 		}
 
-		static void UndoSequentially(Dictionary<UndoableUnitBase<T>, T> undoDictionary)
+		static void UndoSequentially(IDictionary<UndoableUnitBase<T>, T> undoDictionary)
 		{
 			/* Undo sequentially. */
 			foreach (KeyValuePair<UndoableUnitBase<T>, T> pair in undoDictionary)
@@ -160,11 +173,16 @@ namespace Codon.UndoModel
 		}
 
 		#region Parallel Execution
+		
+		/// <summary>
+		/// This property determines how the child units are performed.
+		/// If <c>true</c>, the units may be performed concurrently.
+		/// If <c>false</c>, the units are performed is series; one after the other.
+		/// </summary>
 		public bool Parallel { get; set; }
 
-		static void ExecuteInParallel(Dictionary<UndoableUnitBase<T>, T> unitDictionary, UnitMode unitMode)
+		static void ExecuteInParallel(IDictionary<UndoableUnitBase<T>, T> unitDictionary, UnitMode unitMode)
 		{
-			/* When we move to .NET 4 we may use System.Threading.Parallel for the Desktop CLR. */
 			var performedUnits = new List<UndoableUnitBase<T>>();
 			object performedUnitsLock = new object();
 			var exceptions = new List<Exception>();
@@ -173,10 +191,10 @@ namespace Codon.UndoModel
 
 			foreach (KeyValuePair<UndoableUnitBase<T>, T> pair in unitDictionary)
 			{
-				var autoResetEvent = events[pair];
-				var unit = (IInternalUnit)pair.Key;
-				var undoableUnit = pair.Key;
-				var arg = pair.Value;
+				AutoResetEvent autoResetEvent = events[pair];
+				IInternalUnit unit = pair.Key;
+				UndoableUnitBase<T> undoableUnit = pair.Key;
+				T arg = pair.Value;
 
 				Task.Run(
 					() =>
@@ -214,9 +232,8 @@ namespace Codon.UndoModel
 			}
 		}
 
-		static void UndoInParallel(Dictionary<UndoableUnitBase<T>, T> unitDictionary)
+		static void UndoInParallel(IDictionary<UndoableUnitBase<T>, T> unitDictionary)
 		{
-			/* When we move to .NET 4 we may use System.Threading.Parallel for the Desktop CLR. */
 			var performedUnits = new List<UndoableUnitBase<T>>();
 			object performedUnitsLock = new object();
 			var exceptions = new List<Exception>();
@@ -249,7 +266,6 @@ namespace Codon.UndoModel
 						}
 						autoResetEvent.Set();
 					});
-
 			}
 
 			foreach (var autoResetEvent in events.Values)

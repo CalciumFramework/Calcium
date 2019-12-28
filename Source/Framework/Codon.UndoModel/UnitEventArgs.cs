@@ -67,9 +67,11 @@ namespace Codon.UndoModel
 	/// </summary>
 	public enum UnitMode
 	{
+#pragma warning disable 1591
 		Unknown,
 		FirstTime,
 		Redo,
 		Repeat,
+#pragma warning restore 1591
 	}
 }

@@ -28,6 +28,7 @@ namespace Codon.UndoModel
 		/// <value>The unit.</value>
 		public IUnit Unit { get; private set; }
 
+		/// <inheritdoc />
 		public UndoServiceEventArgs()
 		{
 			/* Intentionally left blank. */
@@ -78,6 +79,7 @@ namespace Codon.UndoModel
 
 		internal object OwnerKey { get; set; }
 
+		/// <inheritdoc />
 		public CancellableUndoServiceEventArgs()
 		{
 			/* Intentionally left blank. */

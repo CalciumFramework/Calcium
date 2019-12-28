@@ -22,11 +22,15 @@ namespace Codon.UndoModel
 	/// </summary>
 	public abstract class UndoableUnitBase<T> : UnitBase<T>, IUndoableUnit
 	{
+		/// <inheritdoc />
 		protected UndoableUnitBase()
 		{
 			Undoable = true;
 		}
 
+		/// <summary>
+		/// Occurs when this unit is about to be undone. 
+		/// </summary>
 		protected event EventHandler<UnitEventArgs<T>> Undo;
 
 		void OnUndo(UnitEventArgs<T> e)
