@@ -191,8 +191,8 @@ namespace Codon.DialogModel
 				Title = question.Caption,
 				IsPrimaryButtonEnabled = true,
 				IsSecondaryButtonEnabled = true,
-				PrimaryButtonText = Strings.Okay(),
-				SecondaryButtonText = Strings.Cancel()
+				PrimaryButtonText = Strings.Okay,
+				SecondaryButtonText = Strings.Cancel
 			};
 
 			ContentDialogResult dialogResult = await dialog.ShowAsync();

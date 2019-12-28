@@ -300,23 +300,23 @@ namespace Codon.DialogModel
 
 			if (dialogButton == DialogButton.OK)
 			{
-				buttons.Add(Strings.Okay());
+				buttons.Add(Strings.Okay);
 			}
 			else if (dialogButton == DialogButton.OKCancel)
 			{
-				buttons.Add(Strings.Cancel());
-				buttons.Add(Strings.Okay());
+				buttons.Add(Strings.Cancel);
+				buttons.Add(Strings.Okay);
 			}
 			else if (dialogButton == DialogButton.YesNo)
 			{
-				buttons.Add(Strings.No());
-				buttons.Add(Strings.Yes());
+				buttons.Add(Strings.No);
+				buttons.Add(Strings.Yes);
 			}
 			else if (dialogButton == DialogButton.YesNoCancel)
 			{
-				buttons.Add(Strings.No());
-				buttons.Add(Strings.Cancel());
-				buttons.Add(Strings.Yes());
+				buttons.Add(Strings.No);
+				buttons.Add(Strings.Cancel);
+				buttons.Add(Strings.Yes);
 			}
 
 			var selectedIndex = await ShowDialogAsync(
@@ -431,7 +431,7 @@ namespace Codon.DialogModel
 
 			var source = new TaskCompletionSource<QuestionResponse<TResponse>>();
 
-			builder.SetPositiveButton(Strings.Okay(),
+			builder.SetPositiveButton(Strings.Okay,
 				(s, e) =>
 				{
 					Interlocked.Decrement(ref openDialogCount);
@@ -444,7 +444,7 @@ namespace Codon.DialogModel
 					source.TrySetResult(result);
 				});
 
-			builder.SetNegativeButton(Strings.Cancel(), (s, e) =>
+			builder.SetNegativeButton(Strings.Cancel, (s, e) =>
 			{
 				Interlocked.Decrement(ref openDialogCount);
 

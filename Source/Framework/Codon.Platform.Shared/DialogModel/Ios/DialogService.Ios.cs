@@ -87,10 +87,12 @@ namespace Codon.DialogModel
 			{
 				caption = stringParserService.Parse(caption);
 
+				IUIAlertViewDelegate viewDelegate = new UIAlertViewDelegate();
+				
 				alert = new UIAlertView(
 								caption, 
-								bodyText, 
-								null, 
+								bodyText,
+								viewDelegate, 
 								cancelButtonLabel, 
 								buttonLabelArray);
 			}

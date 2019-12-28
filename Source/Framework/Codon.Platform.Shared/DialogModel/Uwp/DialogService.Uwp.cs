@@ -55,7 +55,7 @@ namespace Codon.DialogModel
 
 					result = await ShowDialogAsync(
 						message, 
-						new List<object> { Strings.OK }, 
+						new List<object> { Strings.Okay }, 
 						caption);
 
 					if (result == 0)
@@ -69,7 +69,7 @@ namespace Codon.DialogModel
 
 					result = await ShowDialogAsync(
 						message, 
-						new List<object> { Strings.OK, Strings.Cancel }, 
+						new List<object> { Strings.Okay, Strings.Cancel }, 
 						caption);
 
 					if (result == 0)
@@ -170,7 +170,7 @@ namespace Codon.DialogModel
 			}
 			else
 			{
-				messageDialog.Commands.Add(new UICommand(Strings.OK));
+				messageDialog.Commands.Add(new UICommand(Strings.Okay));
 			}
 
 			await messageDialog.ShowAsync();
@@ -298,7 +298,7 @@ namespace Codon.DialogModel
 				Content = textBox,
 				Title = parameters.Caption,
 				IsSecondaryButtonEnabled = true,
-				PrimaryButtonText = Strings.OK,
+				PrimaryButtonText = Strings.Okay,
 				SecondaryButtonText = Strings.Cancel
 			};
 

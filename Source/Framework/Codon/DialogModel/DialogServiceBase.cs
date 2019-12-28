@@ -208,14 +208,30 @@ namespace Codon.DialogModel
 		public abstract Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
 			MultipleChoiceQuestion<TSelectableItem> question);
 
+		/// <summary>
+		/// This property allows the strings used by the service to be localized.
+		/// Use the Func properties to set a func for the particular string property.
+		/// <seealso cref="LocalizedStrings"/>
+		/// </summary>
 		public LocalizedStrings Strings { get; } = new LocalizedStrings();
 
+		/// <summary>
+		/// This class allows the strings used by the service to be localized.
+		/// Use the Func properties to set a func for the particular string property.
+		/// </summary>
 		public class LocalizedStrings
 		{
-			public Func<string> Okay { get; set; } = () => "OK";
-			public Func<string> Cancel { get; set; } = () => "Cancel";
-			public Func<string> Yes { get; set; } = () => "Yes";
-			public Func<string> No { get; set; } = () => "No";
+			public string Okay => OkayFunc();
+			public Func<string> OkayFunc { get; set; } = () => "OK";
+
+			public string Cancel => CancelFunc();
+			public Func<string> CancelFunc { get; set; } = () => "Cancel";
+
+			public string Yes => YesFunc();
+			public Func<string> YesFunc { get; set; } = () => "Yes";
+
+			public string No => NoFunc();
+			public Func<string> NoFunc { get; set; } = () => "No";
 		}
 	}
 }
