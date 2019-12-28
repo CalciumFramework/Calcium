@@ -27,14 +27,18 @@ namespace Codon.UndoModel
 	/// </summary>
 	public class CompositeUnit<T> : UnitBase<T>
 	{
-		readonly string descriptionForUser;
 		readonly Dictionary<UnitBase<T>, T> unitDictionary;
 
+		/// <summary>
+		/// </summary>
+		/// <param name="units">The units that are performed as a singular unit.</param>
+		/// <param name="descriptionForUser">A label for this group of units
+		/// that may be displayed in the UI to initiate undo or redo.</param>
 		public CompositeUnit(IDictionary<UnitBase<T>, T> units, string descriptionForUser)
 		{
 			//AssertArg.IsNotNull(descriptionForUser, nameof(descriptionForUser));
 			//AssertArg.IsNotNull(units, nameof(units));
-			this.descriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
+			DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
 			unitDictionary = new Dictionary<UnitBase<T>, T>(
 				units ?? throw new ArgumentNullException(nameof(units)));
 
@@ -70,8 +74,6 @@ namespace Codon.UndoModel
 			}
 		}
 
-		public override string DescriptionForUser => descriptionForUser;
-
 		#region Parallel Execution
 		/// <summary>
 		/// Gets or sets a value indicating whether the composite units
@@ -90,10 +92,9 @@ namespace Codon.UndoModel
 			}
 		}
 
-		static async void ExecuteInParallel(
+		static void ExecuteInParallel(
 			Dictionary<UnitBase<T>, T> unitDictionary, UnitMode unitMode)
 		{
-			/* When we move to .NET 4 we may use System.Threading.Parallel for the Desktop CLR. */
 			var performedUnits = new List<UnitBase<T>>();
 			object performedUnitsLock = new object();
 			var exceptions = new List<Exception>();
@@ -102,14 +103,12 @@ namespace Codon.UndoModel
 
 			foreach (KeyValuePair<UnitBase<T>, T> pair in unitDictionary)
 			{
-				var autoResetEvent = events[pair];
-				var unit = (IInternalUnit)pair.Key;
-				var undoableUnit = pair.Key;
-				var arg = pair.Value;
-
-#pragma warning disable 4014
+				AutoResetEvent autoResetEvent = events[pair];
+				IInternalUnit unit = pair.Key;
+				UnitBase<T> undoableUnit = pair.Key;
+				T arg = pair.Value;
+				
 				Task.Run(
-#pragma warning restore 4014
 					delegate
 					{
 						try
@@ -130,7 +129,6 @@ namespace Codon.UndoModel
 						}
 						autoResetEvent.Set();
 					});
-
 			}
 
 			foreach (var autoResetEvent in events.Values)

@@ -56,6 +56,9 @@ namespace Codon.UndoModel
 			UnitMode = unitMode;
 		}
 
+		/// <summary>
+		/// The <c>UnitMode</c> provided for this instance.
+		/// </summary>
 		public UnitMode UnitMode { get; private set; }
 	}
 

@@ -26,7 +26,7 @@ namespace Codon.UndoModel
 	{
 		/// <summary>
 		/// Initializes a new instance 
-		/// of the <see cref="UndoableUnitUnit{T}"/> class.
+		/// of the <see cref="UndoableUnit{T}"/> class.
 		/// </summary>
 		/// <param name="execute">The execution handler. 
 		/// This will be performed when the unit is performed.</param>
@@ -50,14 +50,10 @@ namespace Codon.UndoModel
 				throw new ArgumentNullException(nameof(undo));
 			}
 
-			this.descriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
+			DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
 			Execute += (o, args) => execute(args);
 			Undo += (o, args) => undo(args);
 		}
-
-		readonly string descriptionForUser;
-
-		public override string DescriptionForUser => descriptionForUser;
 
 		public new bool Repeatable
 		{

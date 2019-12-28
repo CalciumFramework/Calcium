@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Codon.Messaging
 {
 	/// <summary>
-	/// This class allows subscription to the <see cref="IMessenger"/>
+	/// This class allows subscription to the <c>IMessenger</c> implementation
 	/// for the specified <c>TMessage</c>.
 	/// It is intended to be used in places where implementing <c>IMessageSubscriber</c>
 	/// on a parent class is deemed unnecessary.

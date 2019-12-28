@@ -180,6 +180,7 @@ namespace Codon.UndoModel
              
 		#endregion
 
+		/// <inheritdoc />
 		public bool CanUndo(object ownerKey = null)
 		{
 			if (ownerKey == null)
@@ -274,6 +275,7 @@ namespace Codon.UndoModel
 			return result;
 		}
 
+		/// <inheritdoc />
 		public UnitResult Undo(int undoCount, object ownerKey)
 		{
 			if (undoCount <= 0)
@@ -312,6 +314,7 @@ namespace Codon.UndoModel
 			return UnitResult.Completed;
 		}
 
+		/// <inheritdoc />
 		public bool CanRedo(object ownerKey)
 		{
 			if (ownerKey == null)
@@ -414,6 +417,7 @@ namespace Codon.UndoModel
 			return result;
 		}
 
+		/// <inheritdoc />
 		public UnitResult Repeat(object ownerKey)
 		{
 			if (ownerKey == null)
@@ -573,6 +577,7 @@ namespace Codon.UndoModel
 			return result;
 		}
 
+		/// <inheritdoc />
 		public bool CanRepeat(object ownerKey = null)
 		{
 			UnitCollection<IInternalUnit> units;
@@ -592,6 +597,7 @@ namespace Codon.UndoModel
 			return units.Count > 0 && units.Peek().Repeatable;
 		}
 
+		/// <inheritdoc />
 		public IEnumerable<IUnit> GetUndoableUnits(object ownerKey = null)
 		{
 			if (ownerKey == null)
@@ -608,6 +614,7 @@ namespace Codon.UndoModel
 			return new List<IUnit>(units.Cast<IUnit>());
 		}
 
+		/// <inheritdoc />
 		public IEnumerable<IUnit> GetRedoableUnits(object ownerKey = null)
 		{
 			if (ownerKey == null)
@@ -624,6 +631,7 @@ namespace Codon.UndoModel
 			return new List<IUnit>(units.Cast<IUnit>());
 		}
 
+		/// <inheritdoc />
 		public IEnumerable<IUnit> GetRepeatableUnits(object ownerKey = null)
 		{
 			List<IUnit> result;
@@ -645,6 +653,7 @@ namespace Codon.UndoModel
 
 		long unitCountMax = long.MaxValue;
 
+		/// <inheritdoc />
 		public void SetMaximumUndoCount(int count, object ownerKey = null)
 		{
 			//AssertArg.IsGreaterThan(0, count, nameof(count));
@@ -701,175 +710,99 @@ namespace Codon.UndoModel
 
 		#region event Executing
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<CancellableUndoServiceEventArgs> executing;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<CancellableUndoServiceEventArgs> Executing
-		{
-			add
-			{
-				executing += value;
-			}
-			remove
-			{
-				executing -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> is about to be performed.
+		/// </summary>
+		public event EventHandler<CancellableUndoServiceEventArgs> Executing;
 
 		void OnExecuting(CancellableUndoServiceEventArgs e)
 		{
-			executing?.Invoke(this, e);
+			Executing?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Executed
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<UndoServiceEventArgs> executed;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<UndoServiceEventArgs> Executed
-		{
-			add
-			{
-				executed += value;
-			}
-			remove
-			{
-				executed -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> has been performed.
+		/// </summary>
+		public event EventHandler<UndoServiceEventArgs> Executed;
 
 		void OnExecuted(UndoServiceEventArgs e)
 		{
-			executed?.Invoke(this, e);
+			Executed?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Undoing
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<CancellableUndoServiceEventArgs> undoing;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<CancellableUndoServiceEventArgs> Undoing
-		{
-			add
-			{
-				undoing += value;
-			}
-			remove
-			{
-				undoing -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> is about to be undone.
+		/// </summary>
+		public event EventHandler<CancellableUndoServiceEventArgs> Undoing;
 
 		void OnUndoing(CancellableUndoServiceEventArgs e)
 		{
-			undoing?.Invoke(this, e);
+			Undoing?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Undone
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<UndoServiceEventArgs> undone;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<UndoServiceEventArgs> Undone
-		{
-			add
-			{
-				undone += value;
-			}
-			remove
-			{
-				undone -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> has been undone.
+		/// </summary>
+		public event EventHandler<UndoServiceEventArgs> Undone;
 
 		void OnUndone(UndoServiceEventArgs e)
 		{
-			undone?.Invoke(this, e);
+			Undone?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Redoing
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<CancellableUndoServiceEventArgs> redoing;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<CancellableUndoServiceEventArgs> Redoing
-		{
-			add
-			{
-				redoing += value;
-			}
-			remove
-			{
-				redoing -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> is about to be performed again.
+		/// </summary>
+		public event EventHandler<CancellableUndoServiceEventArgs> Redoing;
 
 		void OnRedoing(CancellableUndoServiceEventArgs e)
 		{
-			redoing?.Invoke(this, e);
+			Redoing?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Redone
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<UndoServiceEventArgs> redone;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<UndoServiceEventArgs> Redone
-		{
-			add
-			{
-				redone += value;
-			}
-			remove
-			{
-				redone -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when a <see cref="IUnit"/> has been performed again.
+		/// </summary>
+		public event EventHandler<UndoServiceEventArgs> Redone;
 
 		void OnRedone(UndoServiceEventArgs e)
 		{
-			redone?.Invoke(this, e);
+			Redone?.Invoke(this, e);
 		}
 
 		#endregion
 
 		#region event Cleared
 
-#pragma warning disable IDE1006 // Naming Styles
-		event EventHandler<EventArgs> cleared;
-#pragma warning restore IDE1006 // Naming Styles
-
-		public event EventHandler<EventArgs> Cleared
-		{
-			add
-			{
-				cleared += value;
-			}
-			remove
-			{
-				cleared -= value;
-			}
-		}
+		/// <summary>
+		/// This event occurs when the service's list
+		/// of undoable and re-doable units is being cleared.
+		/// </summary>
+		public event EventHandler<EventArgs> Cleared;
 
 		void OnCleared(EventArgs e)
 		{
-			cleared?.Invoke(this, e);
+			Cleared?.Invoke(this, e);
 		}
 
 		#endregion
@@ -877,7 +810,7 @@ namespace Codon.UndoModel
 		void IInternalUndoService.NotifyUnitRepeatableChanged(IInternalUnit unit)
 		{
 			/* Here we should notify listeners that a unit has changed its repeatable property. 
-			 * This will prompt repopulation of any Repeatable unit lists etc. */
+			 * This will prompt re-population of any Repeatable unit lists etc. */
 		}
 
 		class UnitCollection<T> : LinkedList<T>
@@ -892,7 +825,7 @@ namespace Codon.UndoModel
 			public T Peek()
 			{
 				var last = Last;
-				return last != null ? last.Value : default(T);
+				return last != null ? last.Value : default;
 			}
 		}
 

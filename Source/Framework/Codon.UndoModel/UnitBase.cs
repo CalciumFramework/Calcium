@@ -18,12 +18,13 @@ namespace Codon.UndoModel
 {
 	/// <summary>
 	/// The base class for <see cref="IUnit"/>s.
-	/// An unit performs an application unit.
-	/// An unit may be a command behaviour, that is, it may encapsulate 
+	/// A unit performs an application unit.
+	/// A unit may be a command behaviour, that is, it may encapsulate 
 	/// the logic performed when a command is initiated.
 	/// </summary>
 	public abstract class UnitBase<T> : IInternalUnit
 	{
+		/// <inheritdoc />
 		public bool Undoable { get; protected internal set; }
 
 		#region event PerformUnit
@@ -36,14 +37,8 @@ namespace Codon.UndoModel
 		/// </summary>
 		protected event EventHandler<UnitEventArgs<T>> Execute
 		{
-			add
-			{
-				execute += value;
-			}
-			remove
-			{
-				execute -= value;
-			}
+			add => execute += value;
+			remove => execute -= value;
 		}
 
 		void OnExecute(UnitEventArgs<T> e)
@@ -79,10 +74,12 @@ namespace Codon.UndoModel
 			return eventArgs.UnitResult;
 		}
 
-		public abstract string DescriptionForUser { get; }
+		/// <inheritdoc />
+		public virtual string DescriptionForUser { get; protected set; }
 
 		bool repeatable;
 
+		/// <inheritdoc />
 		public bool Repeatable
 		{
 			get => repeatable;

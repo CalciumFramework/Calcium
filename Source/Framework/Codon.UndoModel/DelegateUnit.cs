@@ -42,19 +42,9 @@ namespace Codon.UndoModel
 				throw new ArgumentNullException(nameof(execute));
 			}
 
-			this.descriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
+			DescriptionForUser = descriptionForUser ?? throw new ArgumentNullException(nameof(descriptionForUser));
 
 			Execute += (o, args) => execute(args);
-		}
-
-		readonly string descriptionForUser;
-
-		public override string DescriptionForUser => descriptionForUser;
-
-		public new bool Repeatable
-		{
-			get => base.Repeatable;
-			set => base.Repeatable = value;
 		}
 	}
 }

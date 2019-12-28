@@ -159,8 +159,6 @@ namespace Codon.UndoModel
 			}
 		}
 
-		public override string DescriptionForUser => descriptionForUser;
-
 		#region Parallel Execution
 		public bool Parallel { get; set; }
 
