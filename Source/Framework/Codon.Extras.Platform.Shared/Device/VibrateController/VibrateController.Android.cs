@@ -26,7 +26,17 @@ namespace Codon.Device
 		{
 			var vibrator = (Vibrator)Application.Context.GetSystemService(
 													Android.Content.Context.VibratorService);
-			vibrator.Vibrate((long)duration.TotalMilliseconds);
+			if (Build.VERSION.SdkInt > BuildVersionCodes.O)
+			{
+				vibrator.Vibrate(VibrationEffect.CreateOneShot((long)duration.TotalMilliseconds, 
+																	VibrationEffect.DefaultAmplitude));
+			}
+			else
+			{
+#pragma warning disable CS0618 // Type or member is obsolete
+				vibrator.Vibrate((long)duration.TotalMilliseconds);
+#pragma warning restore CS0618 // Type or member is obsolete
+			}
 		}
 
 		public void Stop()

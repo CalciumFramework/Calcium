@@ -263,17 +263,6 @@ namespace Codon.DialogModel
 			return resultSource.Task;
 		}
 
-		public LocalizedStrings Strings { get; } = new LocalizedStrings();
-
-		public class LocalizedStrings
-		{
-			public Func<string> Okay { get; set; } = () => "OK";
-			public Func<string> Cancel { get; set; } = () => "Cancel";
-
-			public Func<string> Yes { get; set; } = () => "Yes";
-			public Func<string> No { get; set; } = () => "No";
-		}
-
 		Context ResolveContext()
 		{
 			Context context = Context;

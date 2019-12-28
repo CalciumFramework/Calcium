@@ -208,12 +208,14 @@ namespace Codon.DialogModel
 		public abstract Task<MultipleChoiceResponse<TSelectableItem>> AskMultipleChoiceQuestionAsync<TSelectableItem>(
 			MultipleChoiceQuestion<TSelectableItem> question);
 
-		public static class Strings
+		public LocalizedStrings Strings { get; } = new LocalizedStrings();
+
+		public class LocalizedStrings
 		{
-			public static string OK = "OK";
-			public static string Cancel = "Cancel";
-			public static string Yes = "Yes";
-			public static string No = "No";
+			public Func<string> Okay { get; set; } = () => "OK";
+			public Func<string> Cancel { get; set; } = () => "Cancel";
+			public Func<string> Yes { get; set; } = () => "Yes";
+			public Func<string> No { get; set; } = () => "No";
 		}
 	}
 }
