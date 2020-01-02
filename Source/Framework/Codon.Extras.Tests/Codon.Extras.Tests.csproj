@@ -63,6 +63,9 @@
     <Compile Include="..\Codon.ApiProfiling\UI\Data\ViewModelTestClass.cs">
       <Link>UI\Data\ViewModelTestClass.cs</Link>
     </Compile>
+    <Compile Include="Collections\AdaptiveCollectionTests.cs" />
+    <Compile Include="Collections\AttachableStringMock.cs" />
+    <Compile Include="Collections\ReadOnlyAdaptiveCollectionTests.cs" />
     <Compile Include="UIModel\Input\Commands\AsyncActionCommandTests.cs" />
     <Compile Include="UIModel\Input\Commands\AsyncUICommandTests.cs" />
     <Compile Include="UIModel\Validation\DataErrorNotifierTests.cs" />
