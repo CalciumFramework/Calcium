@@ -26,22 +26,43 @@ namespace Codon
 	public static class Dependency
 	{
 		static IContainer container;
+		static readonly object containerLock = new object();
 
 		internal static IContainer Container
 		{
 			get
 			{
-				if (container == null)
+				if (!Initialized || container == null)
 				{
-					container = new FrameworkContainer();
-					container.InitializeContainer();
-					container.Register<IContainer>(container);
-					Initialized = true;
+					lock (containerLock)
+					{
+						if (!Initialized || container == null)
+						{
+							if (container == null)
+							{
+								container = new FrameworkContainer();
+							}
+
+							container.InitializeContainer();
+							container.Register<IContainer>(container);
+							Initialized = true;
+						}
+					}
 				}
 
 				return container;
 			}
-			set => container = value;
+			set
+			{
+				lock (containerLock)
+				{
+					if (container != value)
+					{
+						container = value;
+						Initialized = false;
+					}
+				}
+			}
 		}
 
 		/// <summary>
