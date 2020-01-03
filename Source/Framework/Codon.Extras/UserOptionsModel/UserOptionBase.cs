@@ -203,14 +203,18 @@ namespace Codon.UserOptionsModel
 				if (!preventGetSettingFromBeingCalled)
 				{
 					preventGetSettingFromBeingCalled = true;
+#pragma warning disable 4014
 					GetSetting();
+#pragma warning restore 4014
 				}
 
 				return lastSetting;
 			}
 			set
 			{
+#pragma warning disable 4014
 				SaveSetting(value);
+#pragma warning restore 4014
 			}
 		}
 
