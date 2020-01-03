@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -47,6 +48,7 @@ namespace Codon
 		/// }
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static T IsNotNull<T>(T value, string parameterName,
 			[CallerMemberName] string memberName = null,
 			[CallerFilePath] string filePath = null,
@@ -85,6 +87,7 @@ namespace Codon
 		/// }
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static string IsNotNullOrEmpty(
 			string value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -124,6 +127,7 @@ namespace Codon
 		/// Occurs if the specified value 
 		/// is <code>null</code> or consists of only white space.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static string IsNotNullOrWhiteSpace(
 			string value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -157,6 +161,7 @@ namespace Codon
 		/// Occurs if the specified value is an empty guid. 
 		/// That is, if <c>value</c> equals <c>Guid.Empty</c>.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static Guid IsNotEmpty(Guid value, string parameterName,
 			[CallerMemberName] string memberName = null,
 			[CallerFilePath] string filePath = null,
@@ -192,6 +197,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static int IsGreaterThan(
 			int expected, int value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -228,6 +234,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static double IsGreaterThan(
 			double expected, double value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -264,6 +271,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static long IsGreaterThan(
 			long expected, long value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -300,6 +308,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static int IsGreaterThanOrEqual(
 			int expected, int value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -336,6 +345,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static double IsGreaterThanOrEqual(
 			double expected, double value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -372,6 +382,7 @@ namespace Codon
 		/// Occurs if the specified value is not greater 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static long IsGreaterThanOrEqual(
 			long expected, long value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -408,6 +419,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static int IsLessThan(
 			int expected, int value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -444,6 +456,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static double IsLessThan(
 			double expected, double value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -480,6 +493,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static long IsLessThan(
 			long expected, long value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -516,6 +530,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static int IsLessThanOrEqual(
 			int expected, int value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -552,6 +567,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static double IsLessThanOrEqual(
 			double expected, double value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -588,6 +604,7 @@ namespace Codon
 		/// Occurs if the specified value is not less 
 		/// than or equal to the expected value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static long IsLessThanOrEqual(
 			long expected, long value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -626,6 +643,7 @@ namespace Codon
 		/// Occurs if the specified value is less 
 		/// than or equal to the expected low value or greater than the expected high value.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static int IsBetweenInclusive(
 			int expectedLow, int expectedHigh, int value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -666,6 +684,7 @@ namespace Codon
 		/// }
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static T IsNotNullAndOfType<T>(
 			object value, string parameterName,
 			[CallerMemberName] string memberName = null,
@@ -709,6 +728,7 @@ namespace Codon
 		/// If the specified value is not of the type
 		/// denoted by the type parameter <c>T</c>.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
 		public static T IsOfType<T>(object value, string parameterName,
 			[CallerMemberName] string memberName = null,
 			[CallerFilePath] string filePath = null,

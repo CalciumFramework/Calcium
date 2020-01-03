@@ -57,6 +57,32 @@ namespace Codon.InversionOfControl
 		readonly ReaderWriterLockSlim constructorDictionaryLockSlim
 			= new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
+		bool cacheEnabled = true;
+
+		public bool CacheEnabled
+		{
+			get => cacheEnabled;
+			set
+			{
+				if (cacheEnabled != value)
+				{
+					cacheEnabled = value;
+					if (!cacheEnabled)
+					{
+						ClearCache();
+					}
+				}
+			}
+		}
+
+		void ClearCache()
+		{
+			constructorDictionary.Clear();
+			injectablePropertyDictionary.Clear();
+			propertyActionDictionary.Clear();
+			propertyDictionary.Clear();
+		}
+
 		/// <summary>
 		/// Prevents multiple threads from creating more 
 		/// than one singleton instance.
@@ -239,6 +265,10 @@ namespace Codon.InversionOfControl
 					finally
 					{
 						keys.Remove(key);
+						if (!keys.Any())
+						{
+							cycleDictionary.Remove(type);
+						}
 					}
 
 					if (resolver.Singleton)
@@ -858,7 +888,10 @@ namespace Codon.InversionOfControl
 #else
 						properties = type.GetProperties();
 #endif
-						propertyDictionary[type] = properties;
+						if (cacheEnabled)
+						{
+							propertyDictionary[type] = properties;
+						}
 					}
 
 					injectableProperties = new List<PropertyInfo>();
@@ -878,7 +911,10 @@ namespace Codon.InversionOfControl
 						injectableProperties.Add(propertyInfo);
 					}
 
-					injectablePropertyDictionary[type] = injectableProperties;
+					if (cacheEnabled)
+					{
+						injectablePropertyDictionary[type] = injectableProperties;
+					}
 				}
 			}
 			finally
@@ -913,7 +949,10 @@ namespace Codon.InversionOfControl
 				{
 					var setMethod = propertyInfo.SetMethod;
 					setter = (owner, newValue) => setMethod.Invoke(owner, new[] { newValue });//ReflectionCompiler.CreatePropertySetter(propertyInfo);
-					propertyActionDictionary[fullPropertyName] = setter;
+					if (cacheEnabled)
+					{
+						propertyActionDictionary[fullPropertyName] = setter;
+					}
 				}
 
 				setter(instance, propertyValue);
@@ -962,13 +1001,59 @@ namespace Codon.InversionOfControl
 			return Instantiate(type);
 		}
 
+		// class ConstructorInvokeInfo
+		// {
+		// 	internal ParameterInfo[] ParameterInfos
+		// 	{
+		// 		get
+		// 		{
+		// 			constructorInfoReference.TryGetTarget(out var target);
+		// 			return target?.GetParameters();
+		// 		}
+		// 	}
+		//
+		// 	//Func<object[], object> constructorFunc;
+		//
+		// 	//internal Func<object[], object> ConstructorFunc => 
+		// 	//constructorFunc ?? (constructorFunc = Constructor.Invoke);// = ReflectionCompiler.CreateConstructorFunc(Constructor);
+		//
+		// 	internal Func<object[], object> ConstructorFunc {
+		// 		get
+		// 		{
+		// 			var constructor = Constructor;
+		// 			if (constructor == null)
+		// 			{
+		// 				return null;
+		// 			}
+		//
+		// 			return objects => constructor.Invoke(objects);
+		// 		}
+		// 	}
+		//
+		// 	readonly WeakReference<ConstructorInfo> constructorInfoReference;
+		//
+		// 	internal ConstructorInfo Constructor
+		// 	{
+		// 		get
+		// 		{
+		// 			constructorInfoReference.TryGetTarget(out var target);
+		// 			return target;
+		// 		}
+		// 	}
+		//
+		// 	internal ConstructorInvokeInfo(ConstructorInfo constructor)
+		// 	{
+		// 		constructorInfoReference = new WeakReference<ConstructorInfo>(constructor);
+		// 	}
+		// }
+
 		class ConstructorInvokeInfo
 		{
 			internal readonly ParameterInfo[] ParameterInfos;
 
 			Func<object[], object> constructorFunc;
 
-			internal Func<object[], object> ConstructorFunc => 
+			internal Func<object[], object> ConstructorFunc =>
 				constructorFunc ?? (constructorFunc = Constructor.Invoke);// = ReflectionCompiler.CreateConstructorFunc(Constructor);
 
 			internal readonly ConstructorInfo Constructor;
@@ -988,11 +1073,21 @@ namespace Codon.InversionOfControl
 			for (int i = 0; i < length; i++)
 			{
 				ParameterInfo parameterInfo = constructorParameters[i];
-				object parameter = Resolve(parameterInfo.ParameterType);
+				object parameter;
+				try
+				{
+					parameter = Resolve(parameterInfo.ParameterType);
+				}
+				catch (Exception ex)
+				{
+					throw new ResolutionException(
+						$"Failed to resolve parameter '{parameterInfo.Name}' in constructor for type '{info.Constructor?.DeclaringType}'", ex);
+				}
+				
 				if (parameter == null && !parameterInfo.IsOptional)
 				{
 					throw new ResolutionException(
-						"Failed to instantiate parameter " + parameterInfo.Name);
+						$"Failed to instantiate non-optional parameter '{parameterInfo.Name}' in constructor for type '{info.Constructor?.DeclaringType}'");
 				}
 
 				parametersList[i] = parameter;
@@ -1127,7 +1222,10 @@ namespace Codon.InversionOfControl
 
 			try
 			{
-				constructorDictionary[type] = invokeInfo;
+				if (cacheEnabled)
+				{
+					constructorDictionary[type] = invokeInfo;
+				}
 			}
 			finally
 			{
