@@ -1,13 +1,13 @@
-#region File and License Information
+﻿#region File and License Information
 /*
 <File>
 	<License>
-		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		Copyright © 2009 - 2020, Daniel Vaughan. All rights reserved.
 		This file is part of Codon (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
-	<CreationDate>2017-03-13 18:22:50Z</CreationDate>
+	<CreationDate>2020-01-02 23:24:07Z</CreationDate>
 </File>
 */
 #endregion
@@ -16,51 +16,37 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Codon.InversionOfControl.Containers
 {
-	[TestClass]
-	public class ContainerDefaultTypeNameTests
+	class ContainerDefaultTypeNameTests
 	{
 		/* These are raising an InvalidCastException in Release builds
-		 * when using the MS Test runner.
-		 * It would appear that the interface type is being loaded 
-		 * in a different App domain, cause the type mismatch. It's rather strange.
-		 * That's just a guess. */
+			 * when using the MS Test runner.
+			 * It would appear that the interface type is being loaded 
+			 * in a different App domain, cause the type mismatch. It's rather strange.
+			 * That's just a guess. */
 #if DEBUG
-		[TestMethod]
-		public void ShouldResolveDefaultTypeByName()
+		internal void ShouldResolveDefaultTypeByName(IContainer container)
 		{
-			var container = new FrameworkContainer();
-
 			var r1 = container.Resolve<IHaveDefaultTypeAndName>();
 
 			Assert.IsInstanceOfType(r1, typeof(Class2));
 		}
 
-		[TestMethod]
-		public void ShouldFallbackToDefaultType()
+		internal void ShouldFallbackToDefaultType(IContainer container)
 		{
-			var container = new FrameworkContainer();
-
 			var r1 = container.Resolve<IHaveDefaultTypeName>();
 
 			Assert.IsInstanceOfType(r1, typeof(ClassForResolvingViaDefaultTypeName));
 		}
 #endif
-		[TestMethod]
-		public void ShouldFallbackToType()
+		internal void ShouldFallbackToType(IContainer container)
 		{
-			var container = new FrameworkContainer();
-
 			var r1 = container.Resolve<IHaveDefaultTypeAndWrongName>();
 
 			Assert.IsInstanceOfType(r1, typeof(Class3));
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ResolutionException))]
-		public void ShouldNotResolveNonDefaultType()
+		internal void ShouldNotResolveNonDefaultType(IContainer container)
 		{
-			var container = new FrameworkContainer();
-
 			string typeName = typeof(ClassForResolvingViaDefaultTypeName).AssemblyQualifiedName;
 
 			var r1 = container.Resolve<IDontHaveDefaultTypeName>();
@@ -98,7 +84,6 @@ namespace Codon.InversionOfControl.Containers
 		[DefaultTypeName("InvalidTypeName123123")]
 		interface IHaveDefaultTypeAndWrongName
 		{
-
 		}
 
 		class Class3 : IHaveDefaultTypeAndWrongName

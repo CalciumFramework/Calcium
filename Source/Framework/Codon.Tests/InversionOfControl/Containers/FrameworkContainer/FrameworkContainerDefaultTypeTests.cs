@@ -12,46 +12,31 @@
 */
 #endregion
 
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Codon.InversionOfControl.Containers
 {
 	[TestClass]
-	public class ContainerDefaultTypeTests
+	public class FrameworkContainerDefaultTypeTests
 	{
+		readonly ContainerDefaultTypeTests sharedTests 
+						= new ContainerDefaultTypeTests();
+
+		[DebuggerStepThrough]
+		IContainer CreateContainer() => new FrameworkContainer();
+
 		[TestMethod]
 		public void ShouldResolveDefaultType()
 		{
-			var container = new FrameworkContainer();
-
-			var r1 = container.Resolve<IHaveDefaultType>();
-
-			Assert.IsInstanceOfType(r1, typeof(ClassForResolvingViaDefaultType));
+			sharedTests.ShouldResolveDefaultType(CreateContainer());
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ResolutionException))]
 		public void ShouldNotResolveNonDefaultType()
 		{
-			var container = new FrameworkContainer();
-
-			var r1 = container.Resolve<IDontHaveDefaultType>();
-		}
-
-		[DefaultType(typeof(ClassForResolvingViaDefaultType))]
-		interface IHaveDefaultType
-		{
-
-		}
-
-		class ClassForResolvingViaDefaultType : IHaveDefaultType
-		{
-
-		}
-
-		interface IDontHaveDefaultType
-		{
-
+			sharedTests.ShouldNotResolveNonDefaultType(CreateContainer());
 		}
 	}
 }
