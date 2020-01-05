@@ -1,4 +1,4 @@
-﻿$packageVersion = "2.4.0";
+﻿$packageVersion = "2.4.1";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
@@ -16,12 +16,14 @@ $nuspecFiles = @(cls
 	"../../Source/Framework/Platforms/Ios/Codon.Platform/Codon.Platform.Ios.nuspec",	
 	"../../Source/Framework/Platforms/Uwp/Codon.Platform/Codon.Platform.Uwp.nuspec",
 	"../../Source/Framework/Platforms/Wpf/Codon.Platform/Codon.Platform.Wpf.nuspec",
+	"../../Source/Framework/Platforms/WpfCore/Codon.Platform.WpfCore.nuspec",
 	"Codon.Extras.nuspec",
 	"../../Source/Framework/Codon.Extras/Codon.Extras.Core.nuspec",
 	"../../Source/Framework/Platforms/Android/Codon.Extras.Platform/Codon.Extras.Platform.Android.nuspec",	
 	"../../Source/Framework/Platforms/Ios/Codon.Extras.Platform/Codon.Extras.Platform.Ios.nuspec",	
 	"../../Source/Framework/Platforms/Uwp/Codon.Extras.Platform/Codon.Extras.Platform.Uwp.nuspec",
 	"../../Source/Framework/Platforms/Wpf/Codon.Extras.Platform/Codon.Extras.Platform.Wpf.nuspec",
+	"../../Source/Framework/Platforms/WpfCore/Codon.Extras.Platform.WpfCore.nuspec",
 	"../../Source/Framework/Codon.UI.Data/Codon.UI.Data.nuspec",
 	"../../Source/Framework/Codon.UndoModel/Codon.UndoModel.nuspec")
 
@@ -31,11 +33,13 @@ $assemblyToEnsureJustBuilt = @(
 	"../../Source/Framework/Platforms/Ios/Codon.Platform/bin/Release/Codon.Platform.dll",
 	"../../Source/Framework/Platforms/Uwp/Codon.Platform/bin/Release/Codon.Platform.dll",
 	"../../Source/Framework/Platforms/Wpf/Codon.Platform/bin/Release/Codon.Platform.dll",
+	"../../Source/Framework/Platforms/WpfCore/Codon.Platform/bin/Release/netcoreapp3.1/Codon.Platform.dll",
 	"../../Source/Framework/Platforms/Android/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
 	"../../Source/Framework/Codon.Extras/bin/Release/netstandard1.4/Codon.Extras.dll",
 	"../../Source/Framework/Platforms/Ios/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
 	"../../Source/Framework/Platforms/Uwp/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
 	"../../Source/Framework/Platforms/Wpf/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
+	"../../Source/Framework/Platforms/WpfCore/Codon.Extras.Platform/bin/Release/netcoreapp3.1/Codon.Extras.Platform.dll",
 	"../../Source/Framework/Codon.UI.Data/bin/Release/netstandard1.4/Codon.UI.Data.dll",
 	"../../Source/Framework/Codon.UndoModel/bin/Release/netstandard1.4/Codon.UndoModel.dll")
 

@@ -36,6 +36,7 @@ namespace Codon.Platform
 			internal const string Ios = "Ios";
 			internal const string Uwp = "Uwp";
 			internal const string Wpf = "Wpf";
+			internal const string WpfCore = "WpfCore";
 		}
 
 		static readonly List<string> platformNames
@@ -44,7 +45,8 @@ namespace Codon.Platform
 				PlatformNameString.Android,
 				PlatformNameString.Ios,
 				PlatformNameString.Uwp,
-				PlatformNameString.Wpf
+				PlatformNameString.Wpf,
+				PlatformNameString.WpfCore
 			};
 
 		static string platformName;
@@ -102,6 +104,8 @@ namespace Codon.Platform
 					return PlatformId.Uwp;
 				case PlatformNameString.Wpf:
 					return PlatformId.Wpf;
+				case PlatformNameString.WpfCore:
+					return PlatformId.WpfCore;
 				default:
 					return PlatformId.Unknown;
 			}
@@ -114,7 +118,8 @@ namespace Codon.Platform
 		Android,
 		Ios,
 		Uwp,
-		Wpf
+		Wpf,
+		WpfCore
 	}
 
 	static class PlatformIdExtensions
@@ -131,6 +136,8 @@ namespace Codon.Platform
 					return PlatformDetector.PlatformNameString.Uwp;
 				case PlatformId.Wpf:
 					return PlatformDetector.PlatformNameString.Wpf;
+				case PlatformId.WpfCore:
+					return PlatformDetector.PlatformNameString.WpfCore;
 				default:
 					return null;
 			}

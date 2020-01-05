@@ -1,4 +1,4 @@
-﻿#if WPF
+﻿#if WPF || WPF_CORE
 #region File and License Information
 /*
 <File>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <Import Project="..\..\..\Codon.Platform.Shared\Codon.Platform.Shared.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants);WPF_CORE</DefineConstants>
+		<AssemblyName>Codon.Platform</AssemblyName>
+		<RootNamespace>Codon</RootNamespace>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DocumentationFile>bin\Release\netcoreapp3.1\Codon.Platform.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Codon\Codon.csproj" />
+	</ItemGroup>
+
+</Project>

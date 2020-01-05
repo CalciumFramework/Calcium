@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Codon.Ios</id>
-    <title>Codon for Xamarin.iOS</title>
+    <id>Codon.Wpf</id>
+    <title>Codon for WPF (.NET Core)</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -12,7 +12,7 @@
 	  <iconUrl>$IconUrl$</iconUrl>
 		<projectUrl>http://codonfx.com</projectUrl>
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
-		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml core</tags>
 		
 		<description>This package provides the platform specific implementations to support Codon Core features.
 
@@ -23,16 +23,16 @@ $Desc$
 		<summary>This package provides the platform specific implementations to support Codon Core features.
 
 Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
-		
+
 		<dependencies>
-      <group>
-        <dependency id="Codon" version="$version$" />
-      </group>
+			<group>
+				<dependency id="Codon" version="$version$" />
+			</group>
     </dependencies>
   </metadata>
-  <files>
-    <file src="bin\Release\Codon.Platform.dll" target="lib\xamarin.ios10" />
-		<file src="bin\Release\Codon.Platform.pdb" target="lib\xamarin.ios10" />
-		<file src="bin\Release\Codon.Platform.xml" target="lib\xamarin.ios10" />
+  <files>	
+    <file src="Codon.Platform\bin\Release\netcoreapp3.1\Codon.Platform.dll" target="lib\netcore" />
+		<file src="Codon.Platform\bin\Release\netcoreapp3.1\Codon.Platform.pdb" target="lib\netcore" />
+		<file src="Codon.Platform\bin\Release\netcoreapp3.1\Codon.Platform.xml" target="lib\netcore" />
   </files>
 </package>

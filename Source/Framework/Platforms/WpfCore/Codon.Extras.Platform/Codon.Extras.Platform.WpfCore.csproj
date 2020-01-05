@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <AssemblyName>Codon.Extras.Platform</AssemblyName>
+    <RootNamespace>Codon.Extras</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp3.1\Codon.Extras.Platform.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj" />
+    <ProjectReference Include="..\..\..\Codon\Codon.csproj" />
+    <ProjectReference Include="..\Codon.Platform\Codon.Platform.WpfCore.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems" Label="Shared" />
+
+</Project>

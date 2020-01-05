@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Codon.Extras.Ios</id>
-    <title>Codon Extras for Xamarin.iOS</title>
+    <id>Codon.Extras.WpfCore</id>
+    <title>Codon Extras for WPF (.NET Core)</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -12,9 +12,9 @@
 	  <iconUrl>$IconUrl$</iconUrl>
 		<projectUrl>http://codonfx.com</projectUrl>
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
-		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml core</tags>
 		
-				<description>This package provides the platform specific implementations to support Codon Extras features.
+		<description>This package provides the platform specific implementations to support Codon Extras features.
 
 Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
 
@@ -24,17 +24,17 @@ $Desc$
 
 Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.</summary>
 		
-		<dependencies>
+    <dependencies>
 			<group>
 				<dependency id="Codon" version="$version$" />
-				<dependency id="Codon.Ios" version="$version$" />
+				<dependency id="Codon.WpfCore" version="$version$" />
 				<dependency id="Codon.Extras.Core" version="$version$" />
 			</group>
     </dependencies>
   </metadata>
 	<files>
-		<file src="bin\Release\Codon.Extras.Platform.dll" target="lib\xamarin.ios10" />
-		<file src="bin\Release\Codon.Extras.Platform.pdb" target="lib\xamarin.ios10" />
-		<file src="bin\Release\Codon.Extras.Platform.xml" target="lib\xamarin.ios10" />
+		<file src="Codon.Extras.Platform\bin\Release\netcoreapp3.1\Codon.Extras.Platform.dll" target="lib\netcore" />
+		<file src="Codon.Extras.Platform\bin\Release\netcoreapp3.1\Codon.Extras.Platform.pdb" target="lib\netcore" />
+		<file src="Codon.Extras.Platform\bin\Release\netcoreapp3.1\Codon.Extras.Platform.xml" target="lib\netcore" />
 	</files>
 </package>

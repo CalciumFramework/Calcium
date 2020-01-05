@@ -23,7 +23,7 @@ using Windows.UI.Xaml;
 #elif __ANDROID__ || __IOS__
 using System.Globalization;
 using Codon.MissingTypes.System.Windows.Data;
-#elif WPF
+#elif WPF || WPF_CORE
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;

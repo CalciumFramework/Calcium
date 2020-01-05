@@ -11,7 +11,7 @@
 		<licenseUrl>$LicenseUrl$</licenseUrl>
 	  <iconUrl>$IconUrl$</iconUrl>
 		<projectUrl>http://codonfx.com</projectUrl>
-		<copyright>Copyright © $Owners$ 2017</copyright>
+		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
 		
     <description>Codon Extras' core functionality is a shared code base in a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Extras.Android, Codon.Extras.Ios, Codon.Extras.Uwp, and Codon.Extras.Wpf.

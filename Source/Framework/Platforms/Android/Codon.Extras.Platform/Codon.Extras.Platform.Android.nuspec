@@ -11,7 +11,7 @@
 		<licenseUrl>$LicenseUrl$</licenseUrl>
 	  <iconUrl>$IconUrl$</iconUrl>
 		<projectUrl>http://codonfx.com</projectUrl>
-		<copyright>Copyright © $Owners$ 2017</copyright>
+		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
 
 		<description>This package provides the platform specific implementations to support Codon Extras features.

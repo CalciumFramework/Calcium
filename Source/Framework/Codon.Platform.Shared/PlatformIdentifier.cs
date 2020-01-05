@@ -24,6 +24,8 @@ namespace Codon.Platform
 			PlatformId.Ios;
 #elif WPF
 			PlatformId.Wpf;
+#elif WPF_CORE
+			PlatformId.WpfCore;
 #else
 			PlatformId.Unknown;
 #endif

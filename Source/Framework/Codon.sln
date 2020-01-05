@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon", "Codon\Codon.csproj", "{71D965C6-6FA9-4ABF-87F6-8A249A8FE5A7}"
 EndProject
@@ -71,6 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{208F3645-9
 		Platforms\Ios\Codon.Platform\Codon.Platform.Ios.nuspec = Platforms\Ios\Codon.Platform\Codon.Platform.Ios.nuspec
 		Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.nuspec = Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.nuspec
 		Platforms\Wpf\Codon.Platform\Codon.Platform.Wpf.nuspec = Platforms\Wpf\Codon.Platform\Codon.Platform.Wpf.nuspec
+		Platforms\WpfCore\Codon.Platform.WpfCore.nuspec = Platforms\WpfCore\Codon.Platform.WpfCore.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{F0B98B69-AA56-4A2C-ABFE-2E84C7DF9777}"
@@ -81,6 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{F0B98B
 		Platforms\Ios\Codon.Extras.Platform\Codon.Extras.Platform.Ios.nuspec = Platforms\Ios\Codon.Extras.Platform\Codon.Extras.Platform.Ios.nuspec
 		Platforms\Uwp\Codon.Extras.Platform\Codon.Extras.Platform.Uwp.nuspec = Platforms\Uwp\Codon.Extras.Platform\Codon.Extras.Platform.Uwp.nuspec
 		Platforms\Wpf\Codon.Extras.Platform\Codon.Extras.Platform.Wpf.nuspec = Platforms\Wpf\Codon.Extras.Platform\Codon.Extras.Platform.Wpf.nuspec
+		Platforms\WpfCore\Codon.Extras.Platform.WpfCore.nuspec = Platforms\WpfCore\Codon.Extras.Platform.WpfCore.nuspec
 		Codon.UI.Data\Codon.UI.Data.nuspec = Codon.UI.Data\Codon.UI.Data.nuspec
 		Codon.UndoModel\Codon.UndoModel.nuspec = Codon.UndoModel\Codon.UndoModel.nuspec
 	EndProjectSection
@@ -108,6 +110,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePipelines", "AzurePipe
 	ProjectSection(SolutionItems) = preProject
 		AzurePipelines.yml = AzurePipelines.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.WpfCore", "Platforms\WpfCore\Codon.Platform\Codon.Platform.WpfCore.csproj", "{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.WpfCore", "Platforms\WpfCore\Codon.Extras.Platform\Codon.Extras.Platform.WpfCore.csproj", "{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -466,6 +472,38 @@ Global
 		{06CCC2B4-8862-45D6-8755-1F41840DE5A3}.Release|x64.Build.0 = Release|Any CPU
 		{06CCC2B4-8862-45D6-8755-1F41840DE5A3}.Release|x86.ActiveCfg = Release|Any CPU
 		{06CCC2B4-8862-45D6-8755-1F41840DE5A3}.Release|x86.Build.0 = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|x64.Build.0 = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Debug|x86.Build.0 = Debug|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|ARM.Build.0 = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|x64.ActiveCfg = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|x64.Build.0 = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}.Release|x86.Build.0 = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|x64.Build.0 = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|ARM.Build.0 = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|x64.ActiveCfg = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|x64.Build.0 = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -505,6 +543,8 @@ Global
 		{63BEDAD2-489F-40DC-8526-A2302C84200C} = {70C00858-BFC4-408A-945D-73FA1EF27434}
 		{3B2E2ED3-E599-467A-95A0-A012F560D89E} = {B68881AB-C12C-413C-8DCD-6CB58C5EDA92}
 		{76209721-0435-4B48-A1D7-7EE519940D57} = {70C00858-BFC4-408A-945D-73FA1EF27434}
+		{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E} = {E538AD14-2742-4331-8F75-50D477A23C34}
+		{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32} = {47454FF9-1412-4595-B0A9-D597E9EC67DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {220C101C-60A0-48BD-BF0A-6DE62CF1686E}
