@@ -23,7 +23,9 @@ $Desc$
 		<summary>Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger.
 
 Most of Codon's functionality is located in this shared code base, which is a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Android, Codon.Ios, Codon.Uwp, and Codon.Wpf.</summary>
-		
+		<dependencies>
+			<dependency id="System.IO.IsolatedStorage" version="4.3.0" />
+		</dependencies>
   </metadata>
   <files>
     <file src="bin\Release\netstandard1.4\Codon.dll" target="lib\netstandard1.4" />

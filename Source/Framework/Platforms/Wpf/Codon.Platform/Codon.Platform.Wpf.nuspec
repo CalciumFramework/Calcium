@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Codon.WpfCore</id>
+    <id>Codon.Wpf</id>
     <title>Codon for WPF (.NET Framework)</title>
 
 		<version>$version$</version>
