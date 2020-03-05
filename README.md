@@ -51,11 +51,13 @@ together with the platform specific support packages.
 | -------- | -------- | ------- | ------- |
 | .NET Standard | Codon.dll | [Codon][1] | [![21]][1] |
 | WPF | Codon.Platform.dll | [Codon.Wpf][6] | [![26]][6] |
+| WPF .NET Core | Codon.Platform.dll | [Codon.WpfCore][15] | [![35]][15] |
 | UWP | Codon.Platform.dll | [Codon.Uwp][5] | [![25]][5] |
 | Xamarin.Android | Codon.Platform.dll | [Codon.Android][3] | [![23]][3] |
 | Xamarin.iOS | Codon.Platform.dll | [Codon.Ios][4] | [![24]][4] |
 | .NET Standard | Codon.Extras.dll | [Codon.Extras][7] | [![27]][7] |
 | WPF | Codon.Extras.Platform.dll | [Codon.Extras.Wpf][12] | [![32]][12] |
+| WPF .NET Core | Codon.Extras.Platform.dll | [Codon.Extras.Wpf][16] | [![36]][16] |
 | UWP | Codon.Extras.Platform.dll | [Codon.Extras.Uwp][11] | [![25]][11] |
 | Xamarin.Android | Codon.Extras.Platform.dll | [Codon.Extras.Android][9] | [![29]][9] |
 | Xamarin.iOS | Codon.Extras.Platform.dll | [Codon.Extras.Ios][10] | [![30]][10] |
@@ -76,6 +78,8 @@ together with the platform specific support packages.
 [12]: https://www.nuget.org/packages/Codon.Extras.Wpf/
 [13]: https://www.nuget.org/packages/Codon.UI.Data/
 [14]: https://www.nuget.org/packages/Codon.UndoModel/
+[15]: https://www.nuget.org/packages/Codon.WpfCore/
+[16]: https://www.nuget.org/packages/Codon.Extras.WpfCore/
 
 [21]: https://img.shields.io/nuget/vpre/Codon.svg
 [22]: https://img.shields.io/nuget/vpre/Codon.Essentials.svg
@@ -91,3 +95,5 @@ together with the platform specific support packages.
 [32]: https://img.shields.io/nuget/vpre/Codon.Extras.Wpf.svg
 [33]: https://img.shields.io/nuget/vpre/Codon.UI.Data.svg
 [34]: https://img.shields.io/nuget/vpre/Codon.UndoModel.svg
+[35]: https://img.shields.io/nuget/vpre/Codon.WpfCore.svg
+[36]: https://img.shields.io/nuget/vpre/Codon.Extras.WpfCore.svg
