@@ -31,8 +31,8 @@ Codon includes an easy to use ICommand implementation, frictionless INPC, a cros
     </dependencies>
   </metadata>
   <files>	
-    <file src="bin\Release\Codon.Platform.dll" target="lib\net461" />
-		<file src="bin\Release\Codon.Platform.pdb" target="lib\net461" />
-		<file src="bin\Release\Codon.Platform.xml" target="lib\net461" />
+    <file src="..\..\..\..\..\Bin\Wpf\Release\Codon.Platform.dll" target="lib\net461" />
+		<file src="..\..\..\..\..\Bin\Wpf\Release\Codon.Platform.pdb" target="lib\net461" />
+		<file src="..\..\..\..\..\Bin\Wpf\Release\Codon.Platform.xml" target="lib\net461" />
   </files>
 </package>

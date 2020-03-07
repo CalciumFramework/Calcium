@@ -8,10 +8,12 @@
     <DelaySign>false</DelaySign>
     <AssemblyName>Codon.Extras.Platform</AssemblyName>
     <RootNamespace>Codon.Extras</RootNamespace>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\..\..\..\Bin\WpfCore\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp3.1\Codon.Extras.Platform.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\Bin\WpfCore\$(Configuration)\Codon.Extras.Platform.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

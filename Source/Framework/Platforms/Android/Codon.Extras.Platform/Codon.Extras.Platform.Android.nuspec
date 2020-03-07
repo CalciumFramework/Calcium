@@ -34,8 +34,8 @@ Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo
     </dependencies>
   </metadata>
 	<files>
-		<file src="bin\Release\Codon.Extras.Platform.dll" target="lib\MonoAndroid10" />
-		<file src="bin\Release\Codon.Extras.Platform.pdb" target="lib\MonoAndroid10" />
-		<file src="bin\Release\Codon.Extras.Platform.xml" target="lib\MonoAndroid10" />
+		<file src="..\..\..\..\..\Bin\Android\Release\Codon.Extras.Platform.dll" target="lib\MonoAndroid10" />
+		<file src="..\..\..\..\..\Bin\Android\Release\Codon.Extras.Platform.pdb" target="lib\MonoAndroid10" />
+		<file src="..\..\..\..\..\Bin\Android\Release\Codon.Extras.Platform.xml" target="lib\MonoAndroid10" />
 	</files>
 </package>

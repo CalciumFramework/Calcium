@@ -39,6 +39,9 @@ $Desc$
 			<group targetFramework="uap">
 				<dependency id="Codon.Extras.Uwp" version="$version$" />
 			</group>
+      <group targetFramework="netcoreapp3.1">
+        <dependency id="Codon.Extras.WpfCore" version="$version$" />
+      </group>
     </dependencies>
   </metadata>
 </package>

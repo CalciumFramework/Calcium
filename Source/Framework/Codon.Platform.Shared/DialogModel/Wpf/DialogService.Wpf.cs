@@ -29,6 +29,7 @@ namespace Codon.DialogModel
 	/// </summary>
 	public class DialogService : DialogServiceBase
 	{
+		/// <inheritdoc />
 		public override Task<DialogResult> ShowDialogAsync(
 			object content, string caption,
 			DialogButton dialogButton, 
@@ -114,6 +115,7 @@ namespace Codon.DialogModel
 			return Task.FromResult(result);
 		}
 
+		/// <inheritdoc />
 		public override Task<int?> ShowDialogAsync(
 			object question, 
 			IEnumerable<object> buttons,
@@ -137,6 +139,7 @@ namespace Codon.DialogModel
 			return result;
 		}
 
+		/// <inheritdoc />
 		public override Task<object> ShowToastAsync(ToastParameters toastParameters)
 		{
 			throw new NotImplementedException();

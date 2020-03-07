@@ -81,6 +81,7 @@ namespace Codon.UI.Elements.ValueConverters
 		}
 
 #if !NETFX_CORE
+		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return Convert(value, targetType, parameter);

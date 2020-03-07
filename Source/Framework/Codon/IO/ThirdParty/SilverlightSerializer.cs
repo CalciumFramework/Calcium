@@ -230,7 +230,7 @@ namespace Codon.IO.Serialization
 				{
 					if (attribute != null)
 					{
-						var attrs = tp.GetCustomAttributes(attribute, false);// Attribute.GetCustomAttributes(tp, attribute, false);
+						var attrs = tp.GetCustomAttributes(attribute, false).Cast<Attribute>();
 						if (attrs != null)
 						{
 							foreach (var attr in attrs)

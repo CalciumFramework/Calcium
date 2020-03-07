@@ -1,4 +1,4 @@
-﻿$packageVersion = "2.4.5";
+﻿$packageVersion = "2.5.0-beta03";
 $sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
@@ -28,20 +28,20 @@ $nuspecFiles = @(cls
 	"../../Source/Framework/Codon.UndoModel/Codon.UndoModel.nuspec")
 
 $assemblyToEnsureJustBuilt = @(
-	"../../Source/Framework/Platforms/Android/Codon.Platform/bin/Release/Codon.Platform.dll",
-	"../../Source/Framework/Codon/bin/Release/netstandard1.4/Codon.dll",
-	"../../Source/Framework/Platforms/Ios/Codon.Platform/bin/Release/Codon.Platform.dll",
-	"../../Source/Framework/Platforms/Uwp/Codon.Platform/bin/Release/Codon.Platform.dll",
-	"../../Source/Framework/Platforms/Wpf/Codon.Platform/bin/Release/Codon.Platform.dll",
-	"../../Source/Framework/Platforms/WpfCore/Codon.Platform/bin/Release/netcoreapp3.1/Codon.Platform.dll",
-	"../../Source/Framework/Platforms/Android/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
-	"../../Source/Framework/Codon.Extras/bin/Release/netstandard1.4/Codon.Extras.dll",
-	"../../Source/Framework/Platforms/Ios/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
-	"../../Source/Framework/Platforms/Uwp/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
-	"../../Source/Framework/Platforms/Wpf/Codon.Extras.Platform/bin/Release/Codon.Extras.Platform.dll",
-	"../../Source/Framework/Platforms/WpfCore/Codon.Extras.Platform/bin/Release/netcoreapp3.1/Codon.Extras.Platform.dll",
-	"../../Source/Framework/Codon.UI.Data/bin/Release/netstandard1.4/Codon.UI.Data.dll",
-	"../../Source/Framework/Codon.UndoModel/bin/Release/netstandard1.4/Codon.UndoModel.dll")
+	"../../Bin/Android/Release/Codon.Platform.dll",
+	"../../Bin/NetStandard/Release/Codon.dll",
+	"../../Bin/Ios/Release/Codon.Platform.dll",
+	"../../Bin/Uwp/Release/Codon.Platform.dll",
+	"../../Bin/Wpf/Release/Codon.Platform.dll",
+	"../../Bin/WpfCore/Release/Codon.Platform.dll",
+	"../../Bin/Android/Release/Codon.Extras.Platform.dll",
+	"../../Bin/NetStandard/Release/Codon.Extras.dll",
+	"../../Bin/Ios/Release/Codon.Extras.Platform.dll",
+	"../../Bin/Uwp/Release/Codon.Extras.Platform.dll",
+	"../../Bin/Wpf/Release/Codon.Extras.Platform.dll",
+	"../../Bin/WpfCore/Release/Codon.Extras.Platform.dll",
+	"../../Bin/NetStandard/Release/Codon.UI.Data.dll",
+	"../../Bin/NetStandard/Release/Codon.UndoModel.dll")
 
 $mustBeBuiltAfter = [DateTime]::Now.AddMinutes(-15)
 

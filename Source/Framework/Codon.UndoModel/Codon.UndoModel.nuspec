@@ -22,8 +22,8 @@ $Desc$
 		
   </metadata>
 	<files>
-		<file src="bin\Release\netstandard1.4\Codon.UndoModel.dll" target="lib\netstandard1.4" />
-		<file src="bin\Release\netstandard1.4\Codon.UndoModel.pdb" target="lib\netstandard1.4" />
-		<file src="bin\Release\netstandard1.4\Codon.UndoModel.xml" target="lib\netstandard1.4" />
+		<file src="..\..\..\Bin\NetStandard\Release\Codon.UndoModel.dll" target="lib\netstandard1.4" />
+		<file src="..\..\..\Bin\NetStandard\Release\Codon.UndoModel.pdb" target="lib\netstandard1.4" />
+		<file src="..\..\..\Bin\NetStandard\Release\Codon.UndoModel.xml" target="lib\netstandard1.4" />
 	</files>
 </package>

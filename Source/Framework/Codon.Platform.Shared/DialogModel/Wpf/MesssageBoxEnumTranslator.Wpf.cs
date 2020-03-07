@@ -24,6 +24,11 @@ namespace Codon.DialogModel
 	/// </summary>
 	public static class MessageBoxEnumTranslator
 	{
+		/// <summary>
+		/// Converts a framework DialogButton to a <see cref="System.Windows.MessageBoxButton" />.
+		/// </summary>
+		/// <param name="messageBoxButton"></param>
+		/// <returns></returns>
 		public static MessageBoxButton TranslateToMessageBoxButton(this DialogButton messageBoxButton)
 		{
 			return Translate(messageBoxButton);
@@ -45,11 +50,13 @@ namespace Codon.DialogModel
 			throw new InvalidOperationException("Unknown button type: " + button);
 		}
 
-				public static MessageBoxImage TranslateToMessageBoxButton(this DialogImage image)
+		/// <inheritdoc />
+		public static MessageBoxImage TranslateToMessageBoxButton(this DialogImage image)
 		{
 			return Translate(image);
 		}
 
+		/// <inheritdoc />
 		public static MessageBoxImage Translate(DialogImage image)
 		{
 			switch (image)
@@ -81,6 +88,7 @@ namespace Codon.DialogModel
 			return Translate(messageResult);
 		}
 
+		/// <inheritdoc />
 		public static MessageBoxResult Translate(DialogResult messageResult)
 		{
 			switch (messageResult)
@@ -104,6 +112,7 @@ namespace Codon.DialogModel
 			return Translate(messageBoxResult);
 		}
 
+		/// <inheritdoc />
 		public static DialogResult Translate(MessageBoxResult messageBoxResult)
 		{
 			switch (messageBoxResult)

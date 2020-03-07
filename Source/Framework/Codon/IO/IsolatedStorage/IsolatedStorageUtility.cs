@@ -64,21 +64,19 @@ namespace Codon.IO
 						string destination = sourceAndDestination.Value;
 						if (string.IsNullOrWhiteSpace(destination))
 						{
-							throw new ArgumentException(
-								string.Format("Key '{0}' has null pair Value. A destination must be specified."));
+							throw new ArgumentException($"Key '{sourceAndDestination.Key}' has null pair Value. A destination must be specified.");
 						}
 
-						int seperatorIndex = destination.LastIndexOf("/");
-						if (seperatorIndex == destination.Length - 1)
+						int separatorIndex = destination.LastIndexOf("/");
+						if (separatorIndex == destination.Length - 1)
 						{
 							throw new InvalidOperationException(
-								string.Format("Destination '{0}' should not end with '/'",
-												destination));
+								$"Destination '{destination}' should not end with '/'");
 						}
 						string directory = null;
-						if (seperatorIndex != -1)
+						if (separatorIndex != -1)
 						{
-							directory = destination.Substring(0, seperatorIndex);
+							directory = destination.Substring(0, separatorIndex);
 						}
 
 						if (!string.IsNullOrWhiteSpace(directory)

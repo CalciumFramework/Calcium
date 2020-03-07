@@ -5,13 +5,15 @@
     <SignAssembly>True</SignAssembly>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
 	<PropertyGroup>
 		<DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.4\Codon.UndoModel.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Codon.UndoModel.xml</DocumentationFile>
   </PropertyGroup>
 
   <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />

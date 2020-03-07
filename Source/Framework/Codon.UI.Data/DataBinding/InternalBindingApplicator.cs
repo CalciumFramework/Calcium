@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Codon.InversionOfControl;
 using Codon.MissingTypes.System.Windows.Data;
+using IContainer = Codon.InversionOfControl.IContainer;
 
 namespace Codon.UI.Data
 {

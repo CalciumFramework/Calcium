@@ -15,6 +15,7 @@ namespace Codon.Platform
 	[System.Runtime.CompilerServices.CompilerGenerated]
 	public class PlatformIdentifier : IPlatformIdentifier
 	{
+		/// <inheritdoc />
 		public PlatformId PlatformId { get; } =
 #if __ANDROID__
 			PlatformId.Android;

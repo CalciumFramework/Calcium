@@ -37,6 +37,9 @@ If you're not sure which package to install, install this.
       <group targetFramework="net45">
 				<dependency id="Codon.Wpf" version="$version$" />
       </group>
+      <group targetFramework="netcoreapp3.1">
+        <dependency id="Codon.WpfCore" version="$version$" />
+      </group>
       <group targetFramework="uap">
 				<dependency id="Codon.Uwp" version="$version$" />
       </group>

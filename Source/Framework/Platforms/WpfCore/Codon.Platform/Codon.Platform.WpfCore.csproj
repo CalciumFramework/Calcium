@@ -16,12 +16,14 @@
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>..\..\..\..\..\Bin\WpfCore\$(Configuration)\</OutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>bin\Release\netcoreapp3.1\Codon.Platform.xml</DocumentationFile>
+	  <DocumentationFile>..\..\..\..\..\Bin\WpfCore\$(Configuration)\Codon.Platform.xml</DocumentationFile>
 	</PropertyGroup>
-
+		
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Codon\Codon.csproj" />
 	</ItemGroup>
