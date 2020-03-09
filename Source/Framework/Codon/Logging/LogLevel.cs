@@ -50,7 +50,7 @@ namespace Codon.Logging
 		/// <summary>
 		/// When the application is no longer
 		/// able to function or is in an unreliable state.
-		/// Highly restrive logging.
+		/// Highly restrictive logging.
 		/// </summary>
 		Fatal = 32,
 		/// <summary>
