@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Android.OS;
 using Codon.ApplicationModel;
 using Codon.ComponentModel;
 using Codon.Logging;
@@ -98,8 +99,27 @@ namespace Codon.Networking
 
 		bool IsConnected(ConnectivityManager connectivityManager)
 		{
-			NetworkInfo info = connectivityManager.ActiveNetworkInfo;
-			return info != null && info.IsConnected;
+			bool result;
+
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+			{
+				var networkCapabilities = connectivityManager.ActiveNetwork;
+
+				NetworkCapabilities capabilities = connectivityManager.GetNetworkCapabilities(networkCapabilities);
+
+				result = capabilities.HasTransport(Android.Net.TransportType.Wifi);
+				result |= capabilities.HasTransport(Android.Net.TransportType.Cellular);
+				result |= capabilities.HasTransport(Android.Net.TransportType.Ethernet);
+			}
+			else
+			{
+#pragma warning disable 618
+				NetworkInfo info = connectivityManager.ActiveNetworkInfo;
+				result = info != null && info.IsConnected;
+#pragma warning restore 618
+			}
+
+			return result;
 		}
 
 		public NetworkConnectionService(int sampleRateMs = DefaultSampleRateMs)
