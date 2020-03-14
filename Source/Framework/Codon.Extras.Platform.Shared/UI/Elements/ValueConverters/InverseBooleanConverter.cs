@@ -59,11 +59,13 @@ namespace Codon.UI.Elements
 		}
 		
 #if !NETFX_CORE
+		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return Convert(value, targetType, parameter);
 		}
 
+		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return ConvertBack(value, targetType, parameter);

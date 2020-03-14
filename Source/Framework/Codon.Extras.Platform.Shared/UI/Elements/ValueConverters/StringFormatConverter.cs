@@ -51,31 +51,39 @@ namespace Codon.UI.Elements
 		}
 
 #if __ANDROID__ || __IOS__
+
+		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return Convert(value, targetType, parameter);
 		}
 
+		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return ConvertBack(value, targetType, parameter);
 		}
 #elif !NETFX_CORE
+
+		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return Convert(value, targetType, parameter);
 		}
 
+		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return ConvertBack(value, targetType, parameter);
 		}
 #else
+		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
 			return Convert(value, targetType, parameter);
 		}
 
+		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, string language)
 		{
 			return ConvertBack(value, targetType, parameter);

@@ -87,6 +87,7 @@ namespace Codon.UI.Elements.ValueConverters
 			return Convert(value, targetType, parameter);
 		}
 
+		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return ConvertBack(value, targetType, parameter);

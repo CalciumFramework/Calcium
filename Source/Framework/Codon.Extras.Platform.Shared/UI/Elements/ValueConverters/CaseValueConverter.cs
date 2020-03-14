@@ -26,6 +26,7 @@ using System.Windows.Data;
 
 namespace Codon.UI.Elements
 {
+	/// <inheritdoc />
 	public class CaseValueConverter : IValueConverter
 	{
 		object Convert(object value, Type targetType, object parameter)

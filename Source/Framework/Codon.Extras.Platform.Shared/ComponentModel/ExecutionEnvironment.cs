@@ -18,6 +18,9 @@ namespace Codon.ComponentModel
 	{
 		static bool? designTime;
 
+		/// <summary>
+		/// Indicates if the app code is running in a designer.
+		/// </summary>
 		public static bool DesignTime
 		{
 			get
