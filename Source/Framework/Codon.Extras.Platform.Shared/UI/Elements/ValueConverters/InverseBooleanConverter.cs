@@ -26,6 +26,9 @@ using System.Globalization;
 
 namespace Codon.UI.Elements
 {
+	/// <summary>
+	/// Negates a boolean value, or its string representation.
+	/// </summary>
 #if WPF
 	[ValueConversion(typeof(bool), typeof(bool))]
 #endif

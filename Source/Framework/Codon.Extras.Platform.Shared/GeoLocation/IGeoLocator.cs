@@ -68,6 +68,9 @@ namespace Codon.GeoLocation
 #endif
 	}
 
+	/// <summary>
+	/// Provides information for a position changed event.
+	/// </summary>
 	public class PositionChangedProxyEventArgs : EventArgs
 	{
 		public GeopositionWrapper Position { get; private set; }
@@ -78,6 +81,9 @@ namespace Codon.GeoLocation
 		}
 	}
 
+	/// <summary>
+	/// Provides information for a status changed event.
+	/// </summary>
 	public class StatusChangedProxyEventArgs : EventArgs
 	{
 		/// <summary>

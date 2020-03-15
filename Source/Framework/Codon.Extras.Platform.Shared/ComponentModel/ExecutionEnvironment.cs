@@ -14,6 +14,10 @@
 
 namespace Codon.ComponentModel
 {
+	/// <summary>
+	/// Provides information about the execution environment
+	/// of the application.
+	/// </summary>
 	public partial class ExecutionEnvironment
 	{
 		static bool? designTime;
