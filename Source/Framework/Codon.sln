@@ -111,9 +111,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePipelines", "AzurePipe
 		AzurePipelines.yml = AzurePipelines.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.WpfCore", "Platforms\WpfCore\Codon.Platform\Codon.Platform.WpfCore.csproj", "{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.Platform.WpfCore", "Platforms\WpfCore\Codon.Platform\Codon.Platform.WpfCore.csproj", "{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.WpfCore", "Platforms\WpfCore\Codon.Extras.Platform\Codon.Extras.Platform.WpfCore.csproj", "{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.Extras.Platform.WpfCore", "Platforms\WpfCore\Codon.Extras.Platform\Codon.Extras.Platform.WpfCore.csproj", "{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -123,10 +123,16 @@ Global
 		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{2b2108d8-bd6b-4689-8ed3-b0335bea118a}*SharedItemsImports = 4
 		Codon.Common\Codon.Common.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
 		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
+		Codon.Common\Codon.Common.projitems*{3c067f07-51b1-4611-909a-649fa071762c}*SharedItemsImports = 5
 		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{502d95e0-bc5a-499e-a5fb-3a0e041cf701}*SharedItemsImports = 13
 		Codon.Common\Codon.Common.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
 		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
+		Codon.Common\Codon.Common.projitems*{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}*SharedItemsImports = 5
+		Codon.Common\Codon.Common.projitems*{7c182224-dc51-4095-8b59-37faf18ef4a8}*SharedItemsImports = 5
+		Codon.Common\Codon.Common.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
+		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
 		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{7d00d947-7a2d-4ca8-9787-89144c579498}*SharedItemsImports = 4
+		Codon.Common\Codon.Common.projitems*{80ee2a33-33c9-4a48-9454-e587ee3216e3}*SharedItemsImports = 5
 		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{8eff0e04-4e9e-498c-bdca-cb9f933a66b7}*SharedItemsImports = 13
 		Codon.Common\Codon.Common.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
 		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
@@ -140,6 +146,8 @@ Global
 		Codon.Common\Codon.Common.projitems*{bc90bcaf-8e17-4bdb-b908-39c7b5496471}*SharedItemsImports = 13
 		Codon.Common\Codon.Common.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
 		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
+		Codon.Common\Codon.Common.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
+		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
