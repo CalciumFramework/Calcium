@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -16,10 +16,10 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using Codon.Logging;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.Logging;
+using Calcium.MissingTypes.System.Windows.Data;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	internal class ViewValueChangedHandler
 	{

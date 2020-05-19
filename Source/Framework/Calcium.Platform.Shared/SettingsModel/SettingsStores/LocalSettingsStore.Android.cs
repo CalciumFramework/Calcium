@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -20,13 +20,13 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 
-using Codon.Concurrency;
+using Calcium.Concurrency;
 using Double = Java.Lang.Double;
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
-	/// This class is an <see cref="Codon.SettingsModel.ISettingsStore"/> 
+	/// This class is an <see cref="Calcium.SettingsModel.ISettingsStore"/> 
 	/// implementation for Android for persistent local settings.
 	/// </summary>
 	public class AndroidLocalSettingsStore : ISettingsStore

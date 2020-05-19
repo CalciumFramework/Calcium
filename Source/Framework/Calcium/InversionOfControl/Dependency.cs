@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -15,9 +15,9 @@
 using System;
 using System.Collections.Generic;
 
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon
+namespace Calcium
 {
 	/// <summary>
 	/// This class is used to retrieve object instances, using type associations,
@@ -384,9 +384,9 @@ namespace Codon
 		{
 //			try
 //			{
-//				/* When a developer has built the Codon on his or her machine, installed it, 
-//                 * and is building applications using Codon, Visual Studio is over eager 
-//                 * in breaking on exceptions that occur and are handled within the Codon assemblies. 
+//				/* When a developer has built the Calcium on his or her machine, installed it, 
+//                 * and is building applications using Calcium, Visual Studio is over eager 
+//                 * in breaking on exceptions that occur and are handled within the Calcium assemblies. 
 //                 * This can be rectified by turning of "Enable Just my code" 
 //                 * in Visual Studio options under Debugging. Checking to see if a type 
 //                 * is registered before resolving it, avoids an exception from being raised. */

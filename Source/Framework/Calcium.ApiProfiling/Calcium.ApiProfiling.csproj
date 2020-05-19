@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Codon</RootNamespace>
-    <AssemblyName>Codon.ApiProfiling</AssemblyName>
+    <RootNamespace>Calcium</RootNamespace>
+    <AssemblyName>Calcium.ApiProfiling</AssemblyName>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon.UI.Data\Codon.UI.Data.csproj" />
-    <ProjectReference Include="..\Codon\Codon.csproj" />
+    <ProjectReference Include="..\Calcium.UI.Data\Calcium.UI.Data.csproj" />
+    <ProjectReference Include="..\Calcium\Calcium.csproj" />
   </ItemGroup>
 </Project>

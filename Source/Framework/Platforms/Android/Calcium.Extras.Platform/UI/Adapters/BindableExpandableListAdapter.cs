@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -20,12 +20,12 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 
-using Codon.Collections;
-using Codon.Logging;
-using Codon.UI.Data;
+using Calcium.Collections;
+using Calcium.Logging;
+using Calcium.UI.Data;
 using Object = Java.Lang.Object;
 
-namespace Codon.UI.Adapters
+namespace Calcium.UI.Adapters
 {
 	public class BindableExpandableListAdapter<TItem> : BaseExpandableListAdapter
 	{

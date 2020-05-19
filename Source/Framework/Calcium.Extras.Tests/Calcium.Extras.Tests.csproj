@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.0.0\build\net45\MSTest.TestAdapter.props')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.4.0\build\net40\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.4.0\build\net40\Microsoft.NET.Test.Sdk.props')" />
@@ -9,8 +9,8 @@
     <ProjectGuid>{B2C22F53-8338-447E-B4CB-FCED5C745895}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon</RootNamespace>
-    <AssemblyName>Codon.Extras.Tests</AssemblyName>
+    <RootNamespace>Calcium</RootNamespace>
+    <AssemblyName>Calcium.Extras.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -44,7 +44,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -60,7 +60,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Codon.ApiProfiling\UI\Data\ViewModelTestClass.cs">
+    <Compile Include="..\Calcium.ApiProfiling\UI\Data\ViewModelTestClass.cs">
       <Link>UI\Data\ViewModelTestClass.cs</Link>
     </Compile>
     <Compile Include="Collections\AdaptiveCollectionTests.cs" />
@@ -77,25 +77,25 @@
     <Compile Include="UserOptionsModel\UserOptions\BooleanUserOptionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.Tests\Codon.Tests.csproj">
+    <ProjectReference Include="..\Calcium.Tests\Calcium.Tests.csproj">
       <Project>{7b912463-2bb6-416f-a5b7-8772342cc15b}</Project>
-      <Name>Codon.Tests</Name>
+      <Name>Calcium.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.UI.Data\Codon.UI.Data.csproj">
+    <ProjectReference Include="..\Calcium.UI.Data\Calcium.UI.Data.csproj">
       <Project>{7c182224-dc51-4095-8b59-37faf18ef4a8}</Project>
-      <Name>Codon.UI.Data</Name>
+      <Name>Calcium.UI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.UndoModel\Codon.UndoModel.csproj">
+    <ProjectReference Include="..\Calcium.UndoModel\Calcium.UndoModel.csproj">
       <Project>{80ee2a33-33c9-4a48-9454-e587ee3216e3}</Project>
-      <Name>Codon.UndoModel</Name>
+      <Name>Calcium.UndoModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon\Codon.csproj">
+    <ProjectReference Include="..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

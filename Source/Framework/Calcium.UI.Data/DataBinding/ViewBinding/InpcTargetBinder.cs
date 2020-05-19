@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	internal class InpcTargetBinder
 	{

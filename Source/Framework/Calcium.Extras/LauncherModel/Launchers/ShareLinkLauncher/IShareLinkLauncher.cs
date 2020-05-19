@@ -1,7 +1,7 @@
-﻿using System;
-using Codon.InversionOfControl;
+using System;
+using Calcium.InversionOfControl;
 
-namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	[DefaultTypeName(AssemblyConstants.Namespace + "." +
 		nameof(LauncherModel) + "." + nameof(Launchers) + ".ShareLinkLauncher, " +

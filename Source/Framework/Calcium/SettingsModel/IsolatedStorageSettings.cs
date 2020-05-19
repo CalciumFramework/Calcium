@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,13 +18,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
 
-using Codon.ComponentModel;
-using Codon.ComponentModel.ExceptionHandlers;
-using Codon.InversionOfControl;
-using Codon.IO;
-using Codon.Logging;
+using Calcium.ComponentModel;
+using Calcium.ComponentModel.ExceptionHandlers;
+using Calcium.InversionOfControl;
+using Calcium.IO;
+using Calcium.Logging;
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
 	/// This class is used to persist and dictionary
@@ -47,7 +47,7 @@ namespace Codon.SettingsModel
 		readonly System.IO.IsolatedStorage.IsolatedStorageFile container;
 		readonly Dictionary<string, object> settings;
 
-		const string localSettingsFileName = "CodonLocalSettings";
+		const string localSettingsFileName = "CalciumLocalSettings";
 
 		internal IsolatedStorageSettings(IsolatedStorageFile storageFile)
 		{

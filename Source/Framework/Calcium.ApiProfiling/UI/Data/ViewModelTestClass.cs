@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Globalization;
-using Codon.ComponentModel;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.ComponentModel;
+using Calcium.MissingTypes.System.Windows.Data;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	/// <summary>
 	/// This class is used for testing the <see cref="BindingApplicator"/>.

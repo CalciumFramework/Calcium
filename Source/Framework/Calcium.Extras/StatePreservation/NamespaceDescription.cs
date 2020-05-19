@@ -1,7 +1,7 @@
-﻿namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	/// <summary>
-	/// The <see cref="Codon.StatePreservation"/> namespace 
+	/// The <see cref="Calcium.StatePreservation"/> namespace 
 	/// contains types to preserve object state across app deactivations.
 	/// </summary>
 	[System.Runtime.CompilerServices.CompilerGenerated]

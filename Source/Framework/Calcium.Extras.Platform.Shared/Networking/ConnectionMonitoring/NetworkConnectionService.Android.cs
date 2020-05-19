@@ -1,10 +1,10 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -23,15 +23,15 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Android.OS;
-using Codon.ApplicationModel;
-using Codon.ComponentModel;
-using Codon.Logging;
-using Codon.Messaging;
-using Codon.Services;
+using Calcium.ApplicationModel;
+using Calcium.ComponentModel;
+using Calcium.Logging;
+using Calcium.Messaging;
+using Calcium.Services;
 using Java.Lang;
 using Exception = System.Exception;
 
-namespace Codon.Networking
+namespace Calcium.Networking
 {
 	/// <summary>
 	/// Android implementation of <see cref="INetworkConnectionService"/>.

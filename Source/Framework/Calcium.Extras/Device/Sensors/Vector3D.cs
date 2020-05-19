@@ -1,7 +1,7 @@
-﻿/* Based on code by Dave Edson http://windowsteamblog.com/windows_phone/b/wpdev/archive/2010/09/08/using-the-accelerometer-on-windows-phone-7.aspx */
+/* Based on code by Dave Edson http://windowsteamblog.com/windows_phone/b/wpdev/archive/2010/09/08/using-the-accelerometer-on-windows-phone-7.aspx */
 using System;
 
-namespace Codon.Device.Sensors
+namespace Calcium.Device.Sensors
 {
 	public sealed class Vector3D
 	{

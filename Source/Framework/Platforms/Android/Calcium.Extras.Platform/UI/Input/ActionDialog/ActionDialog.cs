@@ -7,7 +7,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public class ActionDialog : Dialog, View.IOnClickListener
 	{

@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Codon.UI.Elements.ValueConverters
+namespace Calcium.UI.Elements.ValueConverters
 {
 	partial class BooleanToVisibilityConverterTests
 	{

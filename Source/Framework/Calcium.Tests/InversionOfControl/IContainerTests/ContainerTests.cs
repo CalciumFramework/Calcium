@@ -1,7 +1,7 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.InversionOfControl.Containers
+namespace Calcium.InversionOfControl.Containers
 {
 	class ContainerTests
 	{

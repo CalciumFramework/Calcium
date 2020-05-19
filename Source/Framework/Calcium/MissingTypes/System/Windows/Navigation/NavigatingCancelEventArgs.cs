@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.ComponentModel;
-using Codon.Navigation;
+using Calcium.Navigation;
 
-namespace Codon.MissingTypes.System.Windows.Navigation
+namespace Calcium.MissingTypes.System.Windows.Navigation
 {
 	/// <summary>
 	/// Placeholder class to for compatibility.

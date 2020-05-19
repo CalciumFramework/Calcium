@@ -1,7 +1,7 @@
-﻿using System;
-using Codon.InversionOfControl;
+using System;
+using Calcium.InversionOfControl;
 
-namespace Codon.ComponentModel
+namespace Calcium.ComponentModel
 {
 	/// <summary>
 	/// A class implementing this interface is designed to convert

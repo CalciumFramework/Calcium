@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Reflection;
 
-namespace Codon.Reflection
+namespace Calcium.Reflection
 {
     static class MethodInfoExtensions
     {

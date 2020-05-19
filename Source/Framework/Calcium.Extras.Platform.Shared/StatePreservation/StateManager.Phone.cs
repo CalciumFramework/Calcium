@@ -1,10 +1,10 @@
-﻿#if WINDOWS_PHONE
+#if WINDOWS_PHONE
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -21,7 +21,7 @@ using System.Windows.Navigation;
 
 using Microsoft.Phone.Shell;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	public class StateManager : IStateManager
 	{

@@ -1,4 +1,4 @@
-﻿namespace Codon.Navigation
+namespace Calcium.Navigation
 {
 	/// <summary>
 	/// Classes implementing this interface are

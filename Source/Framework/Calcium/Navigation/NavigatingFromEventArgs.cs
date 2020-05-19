@@ -1,8 +1,8 @@
 using System;
 
-using Codon.MissingTypes.System.ComponentModel;
+using Calcium.MissingTypes.System.ComponentModel;
 
-namespace Codon.Navigation
+namespace Calcium.Navigation
 {
 	/// <summary>
 	/// Arguments used in conjunction with the 

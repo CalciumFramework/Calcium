@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[DefaultType(typeof(NamespaceAliasRegistry), Singleton = true)]
 	public interface INamespaceAliasRegistry
@@ -22,7 +22,7 @@ namespace Codon.UI.Data
 
 		public NamespaceAliasRegistry()
 		{
-			RegisterNamespaceAlias("x", "Codon.UI.Elements", "Codon.Platform");
+			RegisterNamespaceAlias("x", "Calcium.UI.Elements", "Calcium.Platform");
 		}
 
 		public void RegisterNamespaceAlias(string xamlAlias, string @namespace, string assemblyName)

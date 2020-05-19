@@ -1,7 +1,7 @@
-﻿#if WINDOWS_UWP
+#if WINDOWS_UWP
 using Windows.Graphics.Display;
 
-namespace Codon.UI
+namespace Calcium.UI
 {
 	public static class DisplayOrientationsExtensions
 	{

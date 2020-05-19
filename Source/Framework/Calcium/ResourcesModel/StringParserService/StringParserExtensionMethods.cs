@@ -1,6 +1,6 @@
-﻿using Codon.Services;
+using Calcium.Services;
 
-namespace Codon.ResourcesModel.Extensions
+namespace Calcium.ResourcesModel.Extensions
 {
 	/// <summary>
 	/// Extension methods for the parsing strings using the <see cref="IStringParserService"/>.

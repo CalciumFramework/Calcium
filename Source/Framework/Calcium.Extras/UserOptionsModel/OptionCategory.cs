@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Codon.UserOptionsModel
+namespace Calcium.UserOptionsModel
 {
 	public class OptionCategory : IOptionCategory, IEquatable<IOptionCategory>, INotifyPropertyChanged
 	{

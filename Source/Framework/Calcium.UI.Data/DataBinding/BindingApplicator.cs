@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.MissingTypes.System.Windows.Data;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	public class BindingApplicator
 	{

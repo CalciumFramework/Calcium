@@ -2,11 +2,11 @@ using System;
 using System.Globalization;
 using System.Reflection;
 
-using Codon.ComponentModel;
-using Codon.MissingTypes.System.Windows.Data;
-using Codon.Reflection;
+using Calcium.ComponentModel;
+using Calcium.MissingTypes.System.Windows.Data;
+using Calcium.Reflection;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	partial class InternalBindingApplicator
 	{

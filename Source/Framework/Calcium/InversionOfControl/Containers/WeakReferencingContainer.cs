@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2020, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2020, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,12 +18,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Codon.Collections;
-using Codon.Logging;
-using Codon.Platform;
-using Codon.Reflection;
+using Calcium.Collections;
+using Calcium.Logging;
+using Calcium.Platform;
+using Calcium.Reflection;
 
-namespace Codon.InversionOfControl
+namespace Calcium.InversionOfControl
 {
 	/// <summary>
 	/// This is an experimental container that supports weak referencing
@@ -697,7 +697,7 @@ namespace Codon.InversionOfControl
 										throw new ResolutionException(
 											"Unable to resolve mapping for type '" + type + "' There is a default type '" + typeNameAttribute.TypeName +
 											"' that was expected to be found in a platform specific library. " +
-											"You may be missing a NuGet reference to Codon.YourPlatform or Codon.Extras.YourPlatform" +
+											"You may be missing a NuGet reference to Calcium.YourPlatform or Calcium.Extras.YourPlatform" +
 											"Please add a reference to the platform specified library containing an implementation for this interface, " +
 											"or register another implementation with the container.");
 									}

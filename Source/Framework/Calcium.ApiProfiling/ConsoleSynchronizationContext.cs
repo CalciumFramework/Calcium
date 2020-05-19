@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
-namespace Codon.Concurrency
+namespace Calcium.Concurrency
 {
 	class ConsoleSynchronizationContext : ISynchronizationContext
 	{

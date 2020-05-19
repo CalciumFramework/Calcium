@@ -1,6 +1,6 @@
 using System;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	/// <summary>
 	/// This option is a settable double value.

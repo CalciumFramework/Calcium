@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	/// <summary>
 	/// Represents a user settable range value. 

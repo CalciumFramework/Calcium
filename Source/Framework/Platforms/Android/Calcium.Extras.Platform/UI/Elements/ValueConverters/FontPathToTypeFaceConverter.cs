@@ -4,9 +4,9 @@ using System.Globalization;
 
 using Android.Content;
 using Android.Graphics;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.MissingTypes.System.Windows.Data;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public class FontPathToTypefaceConverter : IValueConverter
 	{

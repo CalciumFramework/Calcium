@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -13,9 +13,9 @@
 #endregion
 
 using System;
-using Codon.Logging;
+using Calcium.Logging;
 
-namespace Codon.ComponentModel.ExceptionHandlers
+namespace Calcium.ComponentModel.ExceptionHandlers
 {
 	/// <summary>
 	/// The default implementation of <see cref="IExceptionHandler"/>.

@@ -1,6 +1,6 @@
 using Android.Content;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	static class ApplicationContextHolder
 	{

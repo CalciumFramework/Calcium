@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -19,9 +19,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 
-using Codon.LauncherModel;
+using Calcium.LauncherModel;
 
-namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	/// <summary>
 	/// Android implementation of <see cref="IEmailComposeLauncher"/>.

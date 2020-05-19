@@ -1,10 +1,10 @@
-﻿#if WPF || WINDOWS_UWP || __ANDROID__
+#if WPF || WINDOWS_UWP || __ANDROID__
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -20,14 +20,14 @@ using System.Collections.Generic;
 using Windows.UI.Xaml.Data;
 #elif __ANDROID__
 using System.Globalization;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.MissingTypes.System.Windows.Data;
 #else
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 #endif
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	/// <summary>
 	/// This class allows the visibility of an element

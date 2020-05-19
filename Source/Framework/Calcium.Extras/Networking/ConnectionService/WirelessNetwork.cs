@@ -1,4 +1,4 @@
-﻿namespace Codon.Services
+namespace Calcium.Services
 {
 	/// <summary>
 	/// Represents a scan result of local networks that a device can potentially connect to.

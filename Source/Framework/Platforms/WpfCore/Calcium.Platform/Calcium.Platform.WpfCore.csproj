@@ -1,31 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <Import Project="..\..\..\Codon.Platform.Shared\Codon.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Platform.Shared\Calcium.Platform.Shared.projitems" Label="Shared" />
 
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
 
 	<PropertyGroup>
 		<DefineConstants>$(DefineConstants);WPF_CORE</DefineConstants>
-		<AssemblyName>Codon.Platform</AssemblyName>
-		<RootNamespace>Codon</RootNamespace>
+		<AssemblyName>Calcium.Platform</AssemblyName>
+		<RootNamespace>Calcium</RootNamespace>
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
-		<AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>..\..\..\..\..\Bin\WpfCore\$(Configuration)\</OutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>..\..\..\..\..\Bin\WpfCore\$(Configuration)\Codon.Platform.xml</DocumentationFile>
+	  <DocumentationFile>..\..\..\..\..\Bin\WpfCore\$(Configuration)\Calcium.Platform.xml</DocumentationFile>
 	</PropertyGroup>
 		
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Codon\Codon.csproj" />
+	  <ProjectReference Include="..\..\..\Calcium\Calcium.csproj" />
 	</ItemGroup>
 
 </Project>

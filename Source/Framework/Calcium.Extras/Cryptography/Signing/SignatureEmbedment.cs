@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Codon.Cryptography
+namespace Calcium.Cryptography
 {
 	/// <summary>
 	/// This class is used in conjunction with an <see cref="ISigner"/>

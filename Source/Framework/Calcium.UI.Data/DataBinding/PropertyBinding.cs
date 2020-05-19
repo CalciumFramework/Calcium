@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -14,14 +14,14 @@
 
 using System.Diagnostics;
 using System.Reflection;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.MissingTypes.System.Windows.Data;
 #if !(MONODROID || __ANDROID__)
 using View = System.Object;
 #else
 using Android.Views;
 #endif
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[DebuggerDisplay("View={View}, SourceProperty={SourceProperty?.Name}, TargetProperty={TargetProperty?.Name}, TargetMethod={TargetMethod?.Name}, Converter={Converter}, ConverterParameter={ConverterParameter}")]
 	public class PropertyBinding

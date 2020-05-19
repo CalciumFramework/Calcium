@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -7,8 +7,8 @@
     <ProjectGuid>{97E9C47E-C4BA-42F3-B8F3-0543C8B91984}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon.Wpf</RootNamespace>
-    <AssemblyName>Codon.Platform</AssemblyName>
+    <RootNamespace>Calcium.Wpf</RootNamespace>
+    <AssemblyName>Calcium.Platform</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\..\..\Bin\Wpf\$(Configuration)\Codon.Platform.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\Bin\Wpf\$(Configuration)\Calcium.Platform.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -39,7 +39,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -61,12 +61,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Platform.Shared\Codon.Platform.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Platform.Shared\Calcium.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

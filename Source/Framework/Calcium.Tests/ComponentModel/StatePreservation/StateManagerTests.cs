@@ -1,4 +1,4 @@
-﻿namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	class StateManagerTests
 	{

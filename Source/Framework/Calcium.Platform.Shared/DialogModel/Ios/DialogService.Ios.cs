@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Codon.Services;
+using Calcium.Services;
 using UIKit;
 
-namespace Codon.DialogModel
+namespace Calcium.DialogModel
 {
 	/// <summary>
 	/// iOS implementation of <see cref="Services.IDialogService"/>.

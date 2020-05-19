@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Codon.Essentials</id>
-    <title>Codon Essentials</title>
+    <id>Calcium.Essentials</id>
+    <title>Calcium Essentials</title>
     
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -16,32 +16,32 @@
 		
 		<description>$Desc$
 		
-Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. 
+Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. 
 
 This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.
 
 If you're not sure which package to install, install this.
 </description>
-		<summary>Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
+		<summary>Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
 		
 		<dependencies>
 			<group>
-				<dependency id="Codon" version="$version$" />
+				<dependency id="Calcium" version="$version$" />
 			</group>
       <group targetFramework="MonoAndroid1.0">
-        <dependency id="Codon.Android" version="$version$" />
+        <dependency id="Calcium.Android" version="$version$" />
       </group>
       <group targetFramework="Xamarin.iOS10">
-				<dependency id="Codon.Ios" version="$version$" />
+				<dependency id="Calcium.Ios" version="$version$" />
       </group>
       <group targetFramework="net45">
-				<dependency id="Codon.Wpf" version="$version$" />
+				<dependency id="Calcium.Wpf" version="$version$" />
       </group>
       <group targetFramework="netcoreapp3.1">
-        <dependency id="Codon.WpfCore" version="$version$" />
+        <dependency id="Calcium.WpfCore" version="$version$" />
       </group>
       <group targetFramework="uap">
-				<dependency id="Codon.Uwp" version="$version$" />
+				<dependency id="Calcium.Uwp" version="$version$" />
       </group>
     </dependencies>
   </metadata>

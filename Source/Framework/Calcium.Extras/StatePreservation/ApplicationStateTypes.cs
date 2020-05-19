@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	[Flags]
 	public enum ApplicationStateTypes

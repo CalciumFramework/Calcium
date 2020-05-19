@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 
-using Codon.InversionOfControl;
-using Codon.UI.Data;
+using Calcium.InversionOfControl;
+using Calcium.UI.Data;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public class IocContainerExtension : MarkupExtensionBase
 	{

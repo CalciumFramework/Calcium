@@ -3,7 +3,7 @@ using System.IO;
 
 using Android.Content;
 
-namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	public class PhotoResult : PhotoResultBase
 	{

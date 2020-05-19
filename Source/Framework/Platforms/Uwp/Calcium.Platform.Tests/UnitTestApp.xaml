@@ -1,8 +1,8 @@
-﻿<Application
-    x:Class="Codon.Uwp.Tests.App"
+<Application
+    x:Class="Calcium.Uwp.Tests.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Codon.Uwp.Tests"
+    xmlns:local="using:Calcium.Uwp.Tests"
     RequestedTheme="Light">
 
 </Application>

@@ -1,4 +1,4 @@
-﻿#if WINDOWS_UWP
+#if WINDOWS_UWP
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // File origin: https://github.com/Microsoft/WindowsCommunityToolkit/blob/master/Microsoft.Toolkit.Uwp.UI/Extensions/Tree/LogicalTree.cs
@@ -11,7 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
-namespace Codon.UI.Extensions
+namespace Calcium.UI.Extensions
 {
 	/// <summary>
 	/// Defines a collection of extensions methods for UI.

@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Codon.UI.Elements.ValueConverters
+namespace Calcium.UI.Elements.ValueConverters
 {
 	partial class BooleanToVisibilityConverterTests
 	{

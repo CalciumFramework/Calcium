@@ -1,7 +1,7 @@
-﻿using System.Windows;
+using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.UI.Elements.ValueConverters
+namespace Calcium.UI.Elements.ValueConverters
 {
 	[TestClass]
 	public partial class BooleanToVisibilityConverterTests

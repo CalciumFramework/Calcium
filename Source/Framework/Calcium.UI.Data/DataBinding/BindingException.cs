@@ -1,6 +1,6 @@
 using System;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	public class BindingException : Exception
 	{

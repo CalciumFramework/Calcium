@@ -10,7 +10,7 @@ using Windows.UI.Xaml;
 using System.Windows;
 #endif
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public static class Validation
 	{

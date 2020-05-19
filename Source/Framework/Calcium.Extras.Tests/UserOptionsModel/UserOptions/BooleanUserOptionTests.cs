@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	[TestClass]
 	public class BooleanUserOptionTests

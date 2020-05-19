@@ -1,4 +1,4 @@
-﻿// SilverlightSerializer by Mike Talbot
+// SilverlightSerializer by Mike Talbot
 //                          http://whydoidoit.com
 //                          email:   mike.talbot@alterian.com
 //                          twitter: mike_talbot
@@ -15,9 +15,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using Codon.Reflection;
+using Calcium.Reflection;
 
-namespace Codon.IO.Serialization
+namespace Calcium.IO.Serialization
 {
 	/// <summary>
 	///   Indicates that a property or field should not be serialized

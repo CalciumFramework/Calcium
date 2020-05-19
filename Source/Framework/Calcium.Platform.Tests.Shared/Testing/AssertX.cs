@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 #if __ANDROID__
 using NUnit.Framework;
@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace Codon.Testing
+namespace Calcium.Testing
 {
     class AssertX
     {

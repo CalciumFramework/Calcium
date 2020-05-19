@@ -1,17 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);CORE;NETSTANDARD</DefineConstants>
-    <Description>Codon is an framework for building UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly build sophisticated yet maintainable applications. Codon provides the essentials for building highly maintainable applications using the MVVM architecture pattern.</Description>
+    <Description>Calcium is an framework for building UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly build sophisticated yet maintainable applications. Calcium provides the essentials for building highly maintainable applications using the MVVM architecture pattern.</Description>
     <Copyright>Daniel Vaughan</Copyright>
     <Version>1.0.0-beta</Version>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Codon.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.xml</DocumentationFile>
     <LangVersion>latest</LangVersion>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
@@ -22,11 +22,11 @@
 		<SignAssembly>true</SignAssembly>
 	</PropertyGroup>
 	<PropertyGroup>
-		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
 </Project>

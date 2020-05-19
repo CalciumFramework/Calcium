@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Windows;
 using Android.Views;
 
-namespace Codon.UI.Elements.ValueConverters
+namespace Calcium.UI.Elements.ValueConverters
 {
 	partial class BooleanToVisibilityConverterTests
 	{

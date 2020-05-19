@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6EB8D4A6-4297-4870-888D-027C3DFC511B}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>Codon.Extras</RootNamespace>
-    <AssemblyName>Codon.Extras.Platform</AssemblyName>
+    <RootNamespace>Calcium.Extras</RootNamespace>
+    <AssemblyName>Calcium.Extras.Platform</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\..\..\Bin\Wpf\$(Configuration)\Codon.Extras.Platform.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\Bin\Wpf\$(Configuration)\Calcium.Extras.Platform.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -43,7 +43,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,20 +91,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Wpf.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Wpf.csproj">
       <Project>{97e9c47e-c4ba-42f3-b8f3-0543c8b91984}</Project>
-      <Name>Codon.Platform.Wpf</Name>
+      <Name>Calcium.Platform.Wpf</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

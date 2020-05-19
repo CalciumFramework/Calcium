@@ -1,10 +1,10 @@
-﻿#if IGNOREFORNOW && (WINDOWS_UWP || WPF)
+#if IGNOREFORNOW && (WINDOWS_UWP || WPF)
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -17,7 +17,7 @@ using System;
 using System.Reflection;
 using System.Windows.Input;
 
-using Codon.Reflection;
+using Calcium.Reflection;
 
 #if WINDOWS_UWP
 using Windows.UI.Xaml;
@@ -27,7 +27,7 @@ using System.Windows;
 using System.Windows.Controls;
 #endif
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 #if WINDOWS_PHONE
 	public class CommandBehavior : System.Windows.Interactivity.Behavior<UIElement>

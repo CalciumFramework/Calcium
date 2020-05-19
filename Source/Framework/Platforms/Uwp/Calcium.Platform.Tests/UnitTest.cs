@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.Uwp.Tests
+namespace Calcium.Uwp.Tests
 {
     [TestClass]
     public class UnitTest1

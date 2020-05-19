@@ -1,27 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
-    <AssemblyName>Codon.UI.Data</AssemblyName>
-    <RootNamespace>Codon.UI.Data</RootNamespace>
-    <PackageId>Codon.Markup</PackageId>
+    <AssemblyName>Calcium.UI.Data</AssemblyName>
+    <RootNamespace>Calcium.UI.Data</RootNamespace>
+    <PackageId>Calcium.Markup</PackageId>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Codon.UI.Data.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.UI.Data.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 	<PropertyGroup>
 		<DebugType>full</DebugType>
 		<SignAssembly>True</SignAssembly>
 		<DelaySign>False</DelaySign>
-		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
-  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
   <ItemGroup>
-    <ProjectReference Include="..\Codon\Codon.csproj" />
+    <ProjectReference Include="..\Calcium\Calcium.csproj" />
   </ItemGroup>
 </Project>

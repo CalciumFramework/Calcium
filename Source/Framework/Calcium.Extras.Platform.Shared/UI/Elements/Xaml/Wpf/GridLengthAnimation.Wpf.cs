@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	/* Sourced from http://www.codeproject.com/KB/WPF/GridLengthAnimation.aspx */
 	public class GridLengthAnimation : AnimationTimeline

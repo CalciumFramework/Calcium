@@ -1,4 +1,4 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 using Android.Views;
 using NUnit.Framework;
 using TestClass = NUnit.Framework.TestFixtureAttribute;
@@ -7,7 +7,7 @@ using TestMethod = NUnit.Framework.TestAttribute;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace Codon.UI.Elements.ValueConverters
+namespace Calcium.UI.Elements.ValueConverters
 {
 	[TestClass]
 	public partial class BooleanToVisibilityConverterTests

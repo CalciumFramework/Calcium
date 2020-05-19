@@ -1,13 +1,13 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Codon;
+using Calcium;
 
-[assembly: AssemblyTitle("Codon.Tests")]
+[assembly: AssemblyTitle("Calcium.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Codon.Tests")]
+[assembly: AssemblyProduct("Calcium.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,4 +21,4 @@ using Codon;
 [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly:InternalsVisibleTo(nameof(Codon) + ".Extras.Tests, PublicKey=" + AssemblyConstants.PublicKey)]
+[assembly:InternalsVisibleTo(nameof(Calcium) + ".Extras.Tests, PublicKey=" + AssemblyConstants.PublicKey)]

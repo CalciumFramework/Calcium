@@ -1,6 +1,6 @@
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	public interface IMarkupExtension
 	{

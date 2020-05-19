@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Reflection;
 
-namespace Codon.Reflection
+namespace Calcium.Reflection
 {
 	/// <summary>
 	/// Extension methods for <see cref="Assembly"/>.

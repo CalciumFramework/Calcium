@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Codon.Extras.Platform.Wpf.Tests")]
+[assembly: AssemblyTitle("Calcium.Extras.Platform.Wpf.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Codon.Extras.Platform.Wpf.Tests")]
+[assembly: AssemblyProduct("Calcium.Extras.Platform.Wpf.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

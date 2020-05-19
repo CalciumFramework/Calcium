@@ -1,10 +1,10 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,16 +18,16 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Codon.ApplicationModel;
-using Codon.ComponentModel;
-using Codon.Device;
-using Codon.Services;
-using Codon.Concurrency;
-using Codon.Devices;
-using Codon.Logging;
-using Codon.Messaging;
+using Calcium.ApplicationModel;
+using Calcium.ComponentModel;
+using Calcium.Device;
+using Calcium.Services;
+using Calcium.Concurrency;
+using Calcium.Devices;
+using Calcium.Logging;
+using Calcium.Messaging;
 
-namespace Codon.Device
+namespace Calcium.Device
 {
 	/// <summary>
 	/// Android implementation of the <see cref="IPowerService"/>.
@@ -253,7 +253,7 @@ namespace Codon.Device
 	}
 }
 
-namespace Codon.Devices
+namespace Calcium.Devices
 {
 	static class BatteryStatusExtensions
 	{

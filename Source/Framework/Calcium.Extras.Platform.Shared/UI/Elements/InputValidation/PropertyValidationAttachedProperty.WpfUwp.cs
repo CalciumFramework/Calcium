@@ -1,10 +1,10 @@
-﻿#if WPF || WINDOWS_UWP
+#if WPF || WINDOWS_UWP
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -27,7 +27,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 #endif
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	/// <summary>
 	/// This class is used by UWP and WPF to enable 

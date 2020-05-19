@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Codon.Tests.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Calcium.Tests.Resource", IsApplication=true)]
 
-namespace Codon.Tests
+namespace Calcium.Tests
 {
 	
 	
@@ -26,28 +26,28 @@ namespace Codon.Tests
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Android.NUnitLite.Resource.Id.OptionHostName = global::Codon.Tests.Resource.Id.OptionHostName;
-			global::Xamarin.Android.NUnitLite.Resource.Id.OptionPort = global::Codon.Tests.Resource.Id.OptionPort;
-			global::Xamarin.Android.NUnitLite.Resource.Id.OptionRemoteServer = global::Codon.Tests.Resource.Id.OptionRemoteServer;
-			global::Xamarin.Android.NUnitLite.Resource.Id.OptionsButton = global::Codon.Tests.Resource.Id.OptionsButton;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultFullName = global::Codon.Tests.Resource.Id.ResultFullName;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultMessage = global::Codon.Tests.Resource.Id.ResultMessage;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultResultState = global::Codon.Tests.Resource.Id.ResultResultState;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultRunSingleMethodTest = global::Codon.Tests.Resource.Id.ResultRunSingleMethodTest;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsFailed = global::Codon.Tests.Resource.Id.ResultsFailed;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsId = global::Codon.Tests.Resource.Id.ResultsId;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsIgnored = global::Codon.Tests.Resource.Id.ResultsIgnored;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsInconclusive = global::Codon.Tests.Resource.Id.ResultsInconclusive;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsMessage = global::Codon.Tests.Resource.Id.ResultsMessage;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsPassed = global::Codon.Tests.Resource.Id.ResultsPassed;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsResult = global::Codon.Tests.Resource.Id.ResultsResult;
-			global::Xamarin.Android.NUnitLite.Resource.Id.ResultStackTrace = global::Codon.Tests.Resource.Id.ResultStackTrace;
-			global::Xamarin.Android.NUnitLite.Resource.Id.RunTestsButton = global::Codon.Tests.Resource.Id.RunTestsButton;
-			global::Xamarin.Android.NUnitLite.Resource.Id.TestSuiteListView = global::Codon.Tests.Resource.Id.TestSuiteListView;
-			global::Xamarin.Android.NUnitLite.Resource.Layout.options = global::Codon.Tests.Resource.Layout.options;
-			global::Xamarin.Android.NUnitLite.Resource.Layout.results = global::Codon.Tests.Resource.Layout.results;
-			global::Xamarin.Android.NUnitLite.Resource.Layout.test_result = global::Codon.Tests.Resource.Layout.test_result;
-			global::Xamarin.Android.NUnitLite.Resource.Layout.test_suite = global::Codon.Tests.Resource.Layout.test_suite;
+			global::Xamarin.Android.NUnitLite.Resource.Id.OptionHostName = global::Calcium.Tests.Resource.Id.OptionHostName;
+			global::Xamarin.Android.NUnitLite.Resource.Id.OptionPort = global::Calcium.Tests.Resource.Id.OptionPort;
+			global::Xamarin.Android.NUnitLite.Resource.Id.OptionRemoteServer = global::Calcium.Tests.Resource.Id.OptionRemoteServer;
+			global::Xamarin.Android.NUnitLite.Resource.Id.OptionsButton = global::Calcium.Tests.Resource.Id.OptionsButton;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultFullName = global::Calcium.Tests.Resource.Id.ResultFullName;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultMessage = global::Calcium.Tests.Resource.Id.ResultMessage;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultResultState = global::Calcium.Tests.Resource.Id.ResultResultState;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultRunSingleMethodTest = global::Calcium.Tests.Resource.Id.ResultRunSingleMethodTest;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsFailed = global::Calcium.Tests.Resource.Id.ResultsFailed;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsId = global::Calcium.Tests.Resource.Id.ResultsId;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsIgnored = global::Calcium.Tests.Resource.Id.ResultsIgnored;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsInconclusive = global::Calcium.Tests.Resource.Id.ResultsInconclusive;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsMessage = global::Calcium.Tests.Resource.Id.ResultsMessage;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsPassed = global::Calcium.Tests.Resource.Id.ResultsPassed;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultsResult = global::Calcium.Tests.Resource.Id.ResultsResult;
+			global::Xamarin.Android.NUnitLite.Resource.Id.ResultStackTrace = global::Calcium.Tests.Resource.Id.ResultStackTrace;
+			global::Xamarin.Android.NUnitLite.Resource.Id.RunTestsButton = global::Calcium.Tests.Resource.Id.RunTestsButton;
+			global::Xamarin.Android.NUnitLite.Resource.Id.TestSuiteListView = global::Calcium.Tests.Resource.Id.TestSuiteListView;
+			global::Xamarin.Android.NUnitLite.Resource.Layout.options = global::Calcium.Tests.Resource.Layout.options;
+			global::Xamarin.Android.NUnitLite.Resource.Layout.results = global::Calcium.Tests.Resource.Layout.results;
+			global::Xamarin.Android.NUnitLite.Resource.Layout.test_result = global::Calcium.Tests.Resource.Layout.test_result;
+			global::Xamarin.Android.NUnitLite.Resource.Layout.test_suite = global::Calcium.Tests.Resource.Layout.test_suite;
 		}
 		
 		public partial class Attribute

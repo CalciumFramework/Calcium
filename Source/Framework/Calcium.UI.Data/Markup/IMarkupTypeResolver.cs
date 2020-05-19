@@ -1,7 +1,7 @@
 using System;
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[DefaultType(typeof(MarkupTypeResolver), Singleton = true)]
 	public interface IMarkupTypeResolver

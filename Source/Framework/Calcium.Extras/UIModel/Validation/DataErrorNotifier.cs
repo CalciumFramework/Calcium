@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -22,12 +22,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
-using Codon.Collections;
-using Codon.Concurrency;
-using Codon.Logging;
-using Codon.Reflection;
+using Calcium.Collections;
+using Calcium.Concurrency;
+using Calcium.Logging;
+using Calcium.Reflection;
 
-namespace Codon.UIModel.Validation
+namespace Calcium.UIModel.Validation
 {
 	/// <summary>
 	/// This class is used to validate forms,

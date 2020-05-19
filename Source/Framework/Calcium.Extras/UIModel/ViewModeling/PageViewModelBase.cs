@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -19,11 +19,11 @@ using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 
-using Codon.Navigation;
-using Codon.Networking;
-using Codon.UIModel.Validation;
+using Calcium.Navigation;
+using Calcium.Networking;
+using Calcium.UIModel.Validation;
 
-namespace Codon.UIModel
+namespace Calcium.UIModel
 {
 	/// <summary>
 	/// A feature rich view-model base class that supports

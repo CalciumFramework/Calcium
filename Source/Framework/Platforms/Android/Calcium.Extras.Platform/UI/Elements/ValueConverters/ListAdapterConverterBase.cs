@@ -5,10 +5,10 @@ using System.Linq;
 using System.Reflection;
 
 using Android.Content;
-using Codon.MissingTypes.System.Windows.Data;
-using Codon.UI.Data;
+using Calcium.MissingTypes.System.Windows.Data;
+using Calcium.UI.Data;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public abstract class ListAdapterConverterBase<TAdapter> : IValueConverter
 	{

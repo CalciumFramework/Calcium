@@ -1,11 +1,11 @@
-﻿#if WINDOWS_UWP || NETFX_CORE
+#if WINDOWS_UWP || NETFX_CORE
 #region File and License Information
 
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -29,10 +29,10 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Codon.ResourcesModel.Extensions;
-using Codon.Services;
+using Calcium.ResourcesModel.Extensions;
+using Calcium.Services;
 
-namespace Codon.DialogModel
+namespace Calcium.DialogModel
 {
 	/// <summary>
 	/// UWP implementation of <see cref="Services.IDialogService"/>.

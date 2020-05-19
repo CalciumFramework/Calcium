@@ -1,10 +1,10 @@
-﻿#if WPF
+#if WPF
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -16,14 +16,14 @@
 using System;
 using System.Threading.Tasks;
 
-using Codon.Concurrency;
+using Calcium.Concurrency;
 
-using Settings = Codon.SettingsModel.IsolatedStorageSettingsWpf;
+using Settings = Calcium.SettingsModel.IsolatedStorageSettingsWpf;
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
-	/// This class is an <see cref="Codon.SettingsModel.ISettingsStore"/> 
+	/// This class is an <see cref="Calcium.SettingsModel.ISettingsStore"/> 
 	/// implementation for WPF persistent local settings.
 	/// </summary>
 	public class LocalSettingsStoreForWpf : ISettingsStore

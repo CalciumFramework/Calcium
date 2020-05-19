@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using Codon.Concurrency;
+using System.ComponentModel;
+using Calcium.Concurrency;
 
-namespace Codon
+namespace Calcium
 {
 	/// <summary>
 	/// This class is not intended for public consumption.

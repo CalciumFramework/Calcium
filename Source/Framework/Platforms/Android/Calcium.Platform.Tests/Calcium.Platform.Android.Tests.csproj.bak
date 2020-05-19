@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon.Tests</RootNamespace>
-    <AssemblyName>Codon.Platform.Tests</AssemblyName>
+    <RootNamespace>Calcium.Tests</RootNamespace>
+    <AssemblyName>Calcium.Platform.Tests</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -52,7 +52,7 @@
     <Reference Include="Xamarin.Android.NUnitLite" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Wpf\Codon.Extras.Platform.Tests\UI\Elements\ValueConverters\BooleanToVisibilityConverterTests.ConvertParameters.cs">
+    <Compile Include="..\..\Wpf\Calcium.Extras.Platform.Tests\UI\Elements\ValueConverters\BooleanToVisibilityConverterTests.ConvertParameters.cs">
       <Link>UI\Elements\ValueConverters\BooleanToVisibilityConverterTests.ConvertParameters.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
@@ -76,24 +76,24 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon.Extras.Platform\Codon.Extras.Platform.Android.csproj">
+    <ProjectReference Include="..\Calcium.Extras.Platform\Calcium.Extras.Platform.Android.csproj">
       <Project>{bad9b4fb-61da-42e0-af34-6cefe0a5c286}</Project>
-      <Name>Codon.Extras.Platform.Android</Name>
+      <Name>Calcium.Extras.Platform.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Android.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Android.csproj">
       <Project>{914703b3-eefe-48b9-afae-93aed9b113e3}</Project>
-      <Name>Codon.Platform.Android</Name>
+      <Name>Calcium.Platform.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

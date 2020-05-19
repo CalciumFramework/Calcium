@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	/// <summary>
 	/// This class represents a option that normally requires

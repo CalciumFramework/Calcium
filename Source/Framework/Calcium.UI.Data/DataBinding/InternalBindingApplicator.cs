@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,17 +18,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Codon.InversionOfControl;
-using Codon.MissingTypes.System.Windows.Data;
-using IContainer = Codon.InversionOfControl.IContainer;
+using Calcium.InversionOfControl;
+using Calcium.MissingTypes.System.Windows.Data;
+using IContainer = Calcium.InversionOfControl.IContainer;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	/// <summary>
 	/// This class is not intended to be consumed publicly.
 	/// This class should be internal. 
 	/// The assembly's strong name, however, prevents Xamarin 
-	/// based libraries, namely Codon.Extras.Platform.Android, 
+	/// based libraries, namely Calcium.Extras.Platform.Android, 
 	/// from opening up visibility with the InternalsVisibleTo. 
 	/// Xamarin based libraries can't be strong named, 
 	/// and InternalsVisibleTo requires a strong named assembly 

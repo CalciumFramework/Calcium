@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -14,10 +14,10 @@
 
 using System;
 using System.Globalization;
-using Codon.ApiProfiling;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.ApiProfiling;
+using Calcium.MissingTypes.System.Windows.Data;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[Profilable]
     class BindingApplicatorProfiling : IProfilable
@@ -117,7 +117,7 @@ namespace Codon.UI.Data
 				{
 					Path = nameof(ViewModelTestClass.Bool1),
 					Target = nameof(ViewTestClass.Visibility),
-					//Converter = "Codon.UI.Data.DummyBooleanToVisibilityConverter, Codon.ApiProfiling"
+					//Converter = "Calcium.UI.Data.DummyBooleanToVisibilityConverter, Calcium.ApiProfiling"
 				};
 
 				var target = new ViewTestClass();

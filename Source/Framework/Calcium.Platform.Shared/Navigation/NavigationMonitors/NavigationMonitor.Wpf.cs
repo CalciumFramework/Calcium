@@ -1,10 +1,10 @@
-﻿#if WPF
+#if WPF
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -17,12 +17,12 @@ using System;
 using System.Windows;
 using System.Windows.Navigation;
 
-using Codon.Concurrency;
-using Codon.Services;
-using Codon.UIModel;
+using Calcium.Concurrency;
+using Calcium.Services;
+using Calcium.UIModel;
 using BuiltInNavigation = System.Windows.Navigation;
 
-namespace Codon.Navigation
+namespace Calcium.Navigation
 {
 	public class NavigationMonitor : INavigationMonitor
 	{

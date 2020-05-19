@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -19,11 +19,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-using Codon.ComponentModel;
-using Codon.Concurrency;
-using Codon.Reflection;
+using Calcium.ComponentModel;
+using Calcium.Concurrency;
+using Calcium.Reflection;
 
-namespace Codon.UIModel.Input
+namespace Calcium.UIModel.Input
 {
 	/// <summary>
 	/// The base implementation of the <see cref="ICommandBase"/>

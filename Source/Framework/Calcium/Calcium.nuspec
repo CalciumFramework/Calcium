@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Codon</id>
-    <title>Codon's Core .NET Standard library</title>
+    <id>Calcium</id>
+    <title>Calcium's Core .NET Standard library</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -14,19 +14,19 @@
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
 		
-    <description>Most of Codon's functionality is located in this shared code base, which is a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Android, Codon.Ios, Codon.Uwp, and Codon.Wpf.
+    <description>Most of Calcium's functionality is located in this shared code base, which is a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Calcium.Android, Calcium.Ios, Calcium.Uwp, and Calcium.Wpf.
 
-Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger.
+Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger.
 
 $Desc$
 		</description>
-		<summary>Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger.
+		<summary>Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger.
 
-Most of Codon's functionality is located in this shared code base, which is a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Codon.Android, Codon.Ios, Codon.Uwp, and Codon.Wpf.</summary>
+Most of Calcium's functionality is located in this shared code base, which is a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Calcium.Android, Calcium.Ios, Calcium.Uwp, and Calcium.Wpf.</summary>
   </metadata>
   <files>
-    <file src="..\..\..\Bin\NetStandard\Release\Codon.dll" target="lib\netstandard2.0" />
-		<file src="..\..\..\Bin\NetStandard\Release\Codon.pdb" target="lib\netstandard2.0" />
-		<file src="..\..\..\Bin\NetStandard\Release\Codon.xml" target="lib\netstandard2.0" />
+    <file src="..\..\..\Bin\NetStandard\Release\Calcium.dll" target="lib\netstandard2.0" />
+		<file src="..\..\..\Bin\NetStandard\Release\Calcium.pdb" target="lib\netstandard2.0" />
+		<file src="..\..\..\Bin\NetStandard\Release\Calcium.xml" target="lib\netstandard2.0" />
   </files>
 </package>

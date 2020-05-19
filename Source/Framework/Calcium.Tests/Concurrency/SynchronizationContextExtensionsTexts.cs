@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.Concurrency
+namespace Calcium.Concurrency
 {
 	[TestClass]
 	public class SynchronizationContextExtensionsTexts

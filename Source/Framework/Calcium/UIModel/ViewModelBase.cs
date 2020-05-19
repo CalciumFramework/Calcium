@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -13,10 +13,10 @@
 #endregion
 
 using System;
-using Codon.ComponentModel;
-using Codon.Services;
+using Calcium.ComponentModel;
+using Calcium.Services;
 
-namespace Codon.UIModel
+namespace Calcium.UIModel
 {
 	/// <summary>
 	/// A simple base implementation of an <see cref="IViewModel"/>.

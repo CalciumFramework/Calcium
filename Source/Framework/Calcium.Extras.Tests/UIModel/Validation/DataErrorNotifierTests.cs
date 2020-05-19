@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Codon.ComponentModel;
+using Calcium.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Codon.Concurrency;
+using Calcium.Concurrency;
 
-namespace Codon.UIModel.Validation
+namespace Calcium.UIModel.Validation
 {
 	[TestClass]
 	public class DataErrorNotifierTests

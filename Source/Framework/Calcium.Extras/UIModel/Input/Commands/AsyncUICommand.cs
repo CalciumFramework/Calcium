@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Codon.UIModel.Input
+namespace Calcium.UIModel.Input
 {
 	/// <summary>
 	/// A command that includes various auxiliary properties

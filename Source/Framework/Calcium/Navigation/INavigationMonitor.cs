@@ -1,6 +1,6 @@
-﻿using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.Navigation
+namespace Calcium.Navigation
 {
 	/// <summary>
 	/// Placeholder interface for a class that is tasked

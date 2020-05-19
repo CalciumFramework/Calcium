@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	public class StateLoadEventArgs : EventArgs
 	{

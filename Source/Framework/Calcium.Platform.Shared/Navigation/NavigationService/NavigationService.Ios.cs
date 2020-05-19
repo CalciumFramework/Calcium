@@ -1,11 +1,11 @@
-﻿#if __IOS__
+#if __IOS__
 
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -15,10 +15,10 @@
 #endregion
 
 using System;
-using Codon.Services;
+using Calcium.Services;
 using UIKit;
 
-namespace Codon.Navigation
+namespace Calcium.Navigation
 {
 	/// <summary>
 	/// iOS implementation of <see cref="INavigationService"/>.

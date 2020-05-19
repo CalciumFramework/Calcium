@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Codon.UserOptionsModel
+namespace Calcium.UserOptionsModel
 {
 	public interface IUserOptionGroupings 
 		: IEnumerable<IGrouping<IOptionCategory, IUserOptionReaderWriter>>

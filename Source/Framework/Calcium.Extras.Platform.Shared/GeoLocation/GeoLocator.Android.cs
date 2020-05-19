@@ -1,10 +1,10 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -23,12 +23,12 @@ using Android.Content;
 using Android.Locations;
 using Android.OS;
 
-using Codon.ApplicationModel;
-using Codon.ComponentModel;
-using Codon.Concurrency;
-using Codon.Messaging;
+using Calcium.ApplicationModel;
+using Calcium.ComponentModel;
+using Calcium.Concurrency;
+using Calcium.Messaging;
 
-namespace Codon.GeoLocation
+namespace Calcium.GeoLocation
 {
 	public class GeoLocator : Java.Lang.Object, IGeoLocator, ILocationListener
 		, IMessageSubscriber<ApplicationLifeCycleMessage>

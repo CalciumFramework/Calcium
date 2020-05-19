@@ -1,6 +1,6 @@
-﻿using Codon.ComponentModel;
+using Calcium.ComponentModel;
 
-namespace Codon.Collections
+namespace Calcium.Collections
 {
 	/// <summary>
 	/// Implements <see cref="IAttachObject{T}"/>

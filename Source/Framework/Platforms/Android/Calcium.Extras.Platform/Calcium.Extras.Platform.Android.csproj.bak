@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon.Extras</RootNamespace>
-    <AssemblyName>Codon.Extras.Platform</AssemblyName>
+    <RootNamespace>Calcium.Extras</RootNamespace>
+    <AssemblyName>Calcium.Extras.Platform</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Codon.Extras.Platform.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Calcium.Extras.Platform.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);CORE</DefineConstants>
@@ -50,7 +50,7 @@
     <Compile Include="ApplicationModel\ActivityResultMessage.cs" />
     <Compile Include="LauncherModel\Launchers\LauncherRequestIds.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
-      <CustomToolNamespace>Codon.Extras</CustomToolNamespace>
+      <CustomToolNamespace>Calcium.Extras</CustomToolNamespace>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Adapters\BindableExpandableListAdapter.cs" />
@@ -75,26 +75,26 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Android.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Android.csproj">
       <Project>{914703b3-eefe-48b9-afae-93aed9b113e3}</Project>
-      <Name>Codon.Platform.Android</Name>
+      <Name>Calcium.Platform.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon.UI.Data\Codon.UI.Data.csproj">
+    <ProjectReference Include="..\..\..\Calcium.UI.Data\Calcium.UI.Data.csproj">
       <Project>{7c182224-dc51-4095-8b59-37faf18ef4a8}</Project>
-      <Name>Codon.UI.Data</Name>
+      <Name>Calcium.UI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="..\..\..\Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

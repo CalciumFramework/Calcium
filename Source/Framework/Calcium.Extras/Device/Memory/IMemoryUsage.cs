@@ -1,6 +1,6 @@
-﻿using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.Device
+namespace Calcium.Device
 {
 	/// <summary>
 	/// Classes that implement this interface provide

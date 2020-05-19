@@ -1,6 +1,6 @@
-﻿using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	/// <summary>
 	/// This interface is the code contract for a class 

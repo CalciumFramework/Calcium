@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -7,8 +7,8 @@
     <ProjectGuid>{2B2108D8-BD6B-4689-8ED3-B0335BEA118A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon.Extras</RootNamespace>
-    <AssemblyName>Codon.Extras.Platform</AssemblyName>
+    <RootNamespace>Calcium.Extras</RootNamespace>
+    <AssemblyName>Calcium.Extras.Platform</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
@@ -36,7 +36,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Codon.Extras.Platform.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Calcium.Extras.Platform.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -60,7 +60,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-	<DocumentationFile>bin\Release\Codon.Extras.Platform.XML</DocumentationFile>
+	<DocumentationFile>bin\Release\Calcium.Extras.Platform.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
@@ -83,7 +83,7 @@
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-	<DocumentationFile>bin\Release\Codon.Extras.Platform.XML</DocumentationFile>
+	<DocumentationFile>bin\Release\Calcium.Extras.Platform.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -106,31 +106,31 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-	<DocumentationFile>bin\Release\Codon.Extras.Platform.XML</DocumentationFile>
+	<DocumentationFile>bin\Release\Calcium.Extras.Platform.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MissingFrameworkItems\System\Windows\Controls\ValidationErrorEventAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Codon.Extras.Platform.Uwp.rd.xml" />
+    <EmbeddedResource Include="Properties\Calcium.Extras.Platform.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Uwp.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Uwp.csproj">
       <Project>{be4345bc-7313-4521-80e6-ce41d1ee56fd}</Project>
-      <Name>Codon.Platform.Uwp</Name>
+      <Name>Calcium.Platform.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -138,8 +138,8 @@
       <Version>6.2.9</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

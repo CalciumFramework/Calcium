@@ -1,4 +1,4 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -13,15 +13,15 @@ using Android.Text.Method;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 using Java.Lang;
-using Codon.Logging;
-using Codon.MissingTypes.System.Windows.Input;
-using Codon.ResourcesModel.Extensions;
-using Codon.Services;
+using Calcium.Logging;
+using Calcium.MissingTypes.System.Windows.Input;
+using Calcium.ResourcesModel.Extensions;
+using Calcium.Services;
 using Exception = System.Exception;
 
-namespace Codon.DialogModel
+namespace Calcium.DialogModel
 {
 	/// <summary>
 	/// Android implementation of <see cref="Services.IDialogService"/>.

@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Codon.Extras.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Calcium.Extras.Resource", IsApplication=false)]
 
-namespace Codon.Extras
+namespace Calcium.Extras
 {
 	
 	

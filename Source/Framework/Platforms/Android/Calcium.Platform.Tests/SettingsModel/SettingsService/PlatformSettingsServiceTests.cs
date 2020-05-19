@@ -1,7 +1,7 @@
-﻿//using System.Threading.Tasks;
+//using System.Threading.Tasks;
 //using NUnit.Framework;
 //
-//namespace Codon.SettingsModel
+//namespace Calcium.SettingsModel
 //{
 //	[TestFixture]
 //	public class

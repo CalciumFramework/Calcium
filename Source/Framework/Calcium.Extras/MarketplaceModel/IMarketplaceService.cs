@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -13,10 +13,10 @@
 #endregion
 
 using System.Threading.Tasks;
-using Codon.InversionOfControl;
-using Codon.MarketplaceModel;
+using Calcium.InversionOfControl;
+using Calcium.MarketplaceModel;
 
-namespace Codon.Services
+namespace Calcium.Services
 {
 	/// <summary>
 	/// The marketplace service is able to interact with a platform

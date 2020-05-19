@@ -1,4 +1,4 @@
-﻿namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	/// <summary>
 	/// This enum indicates the result 

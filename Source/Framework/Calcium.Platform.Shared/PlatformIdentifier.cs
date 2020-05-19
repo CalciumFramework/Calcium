@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
-namespace Codon.Platform
+namespace Calcium.Platform
 {
 	/// <summary>
 	/// This class's only purpose is to allow identification

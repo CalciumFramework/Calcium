@@ -1,6 +1,6 @@
-﻿#if __IOS__
+#if __IOS__
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
     public class StateManager : IStateManager
     {

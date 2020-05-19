@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using Codon.Concurrency;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.Concurrency;
+using Calcium.MissingTypes.System.Windows.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[TestClass]
 	public class BindingApplicatorTests

@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,7 +18,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 
-namespace Codon.IO
+namespace Calcium.IO
 {
 	/// <summary>
 	/// The default implementation of the <see cref="IIsolatedStorageUtility"/>

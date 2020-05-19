@@ -1,13 +1,13 @@
-﻿#if WPF || __ANDROID__ || __IOS__
+#if WPF || __ANDROID__ || __IOS__
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 
-using Codon.Reflection;
+using Calcium.Reflection;
 
-namespace Codon.ComponentModel
+namespace Calcium.ComponentModel
 {
 	/// <summary>
 	/// Advanced implementation of the <see cref="IImplicitTypeConverter"/>

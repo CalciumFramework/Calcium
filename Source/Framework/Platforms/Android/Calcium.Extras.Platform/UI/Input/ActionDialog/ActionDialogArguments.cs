@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	/// <summary>
 	/// The arguments supplied when opening an ActionDialog.

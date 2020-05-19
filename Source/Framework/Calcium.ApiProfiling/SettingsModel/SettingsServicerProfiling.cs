@@ -1,6 +1,6 @@
-﻿using Codon.ApiProfiling;
+using Calcium.ApiProfiling;
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
     class SettingsServiceProfiling : IProfilable
 	{

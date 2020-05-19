@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -21,12 +21,12 @@ using Android.Content;
 using Android.Provider;
 using Android.Webkit;
 
-using Codon.ApplicationModel;
-using Codon.Concurrency;
-using Codon.Services;
-using Codon.Messaging;
+using Calcium.ApplicationModel;
+using Calcium.Concurrency;
+using Calcium.Services;
+using Calcium.Messaging;
 
-namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	/// <summary>
 	/// Android implementation of <see cref="IPhotoLauncher"/>.

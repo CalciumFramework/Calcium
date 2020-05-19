@@ -1,13 +1,13 @@
-﻿
 
-using Codon.Concurrency;
+
+using Calcium.Concurrency;
 #if WINDOWS_UWP || NETFX_CORE
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -23,10 +23,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-using Codon.SettingsModel;
-using Codon.UIModel;
+using Calcium.SettingsModel;
+using Calcium.UIModel;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	public class StateManager : IStateManager
 	{

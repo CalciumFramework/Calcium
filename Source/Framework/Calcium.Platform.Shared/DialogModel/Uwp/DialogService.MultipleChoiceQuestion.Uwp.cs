@@ -1,11 +1,11 @@
-﻿#if WINDOWS_UWP || NETFX_CORE
+#if WINDOWS_UWP || NETFX_CORE
 
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2018, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2018, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -23,7 +23,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
-namespace Codon.DialogModel
+namespace Calcium.DialogModel
 {
 	public class SelectableItem
 	{
@@ -112,7 +112,7 @@ namespace Codon.DialogModel
 				// var xaml = $@"<DataTemplate 
 				// 				xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
 				// 				xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-				// 				xmlns:dialogModel=""using:Codon.DialogModel""> 
+				// 				xmlns:dialogModel=""using:Calcium.DialogModel""> 
 				// 				<Border>
 				// 					<Border.Resources>
 				// 						<dialogModel:TextFuncConverter x:Name=""TextFuncConverter""/>
@@ -123,7 +123,7 @@ namespace Codon.DialogModel
 				//
 				// template = (DataTemplate)XamlReader.Load(xaml);
 				// var rd = new ResourceDictionary();
-				// rd.Source = new Uri("ms-appx:///Codon.Platform/DialogResources.xaml");
+				// rd.Source = new Uri("ms-appx:///Calcium.Platform/DialogResources.xaml");
 				// template = (DataTemplate)rd["DialogService_MultipleChoiceItem"];
 
 				var xaml = $@"<DataTemplate 

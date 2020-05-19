@@ -1,6 +1,6 @@
-﻿$packageVersion = "2.5.0-beta04";
-$sharedDescription = "Codon is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
-$iconUrl = "https://codonframework.github.io/External/Images/CodonLogo_128x128.png";
+$packageVersion = "2.5.0-beta04";
+$sharedDescription = "Calcium is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
+$iconUrl = "https://codonframework.github.io/External/Images/CalciumLogo_128x128.png";
 $licenseUrl = "https://codonframework.github.io/External/License.txt";
 $nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 
@@ -10,38 +10,38 @@ $nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 $sourceRoot = "../../Source/Framework/";
 $nuspecFiles = @(cls
 
-	"Codon.Essentials.nuspec",
-	"../../Source/Framework/Codon/Codon.nuspec",
-	"../../Source/Framework/Platforms/Android/Codon.Platform/Codon.Platform.Android.nuspec",	
-	"../../Source/Framework/Platforms/Ios/Codon.Platform/Codon.Platform.Ios.nuspec",	
-	"../../Source/Framework/Platforms/Uwp/Codon.Platform/Codon.Platform.Uwp.nuspec",
-	"../../Source/Framework/Platforms/Wpf/Codon.Platform/Codon.Platform.Wpf.nuspec",
-	"../../Source/Framework/Platforms/WpfCore/Codon.Platform.WpfCore.nuspec",
-	"Codon.Extras.nuspec",
-	"../../Source/Framework/Codon.Extras/Codon.Extras.Core.nuspec",
-	"../../Source/Framework/Platforms/Android/Codon.Extras.Platform/Codon.Extras.Platform.Android.nuspec",	
-	"../../Source/Framework/Platforms/Ios/Codon.Extras.Platform/Codon.Extras.Platform.Ios.nuspec",	
-	"../../Source/Framework/Platforms/Uwp/Codon.Extras.Platform/Codon.Extras.Platform.Uwp.nuspec",
-	"../../Source/Framework/Platforms/Wpf/Codon.Extras.Platform/Codon.Extras.Platform.Wpf.nuspec",
-	"../../Source/Framework/Platforms/WpfCore/Codon.Extras.Platform.WpfCore.nuspec",
-	"../../Source/Framework/Codon.UI.Data/Codon.UI.Data.nuspec",
-	"../../Source/Framework/Codon.UndoModel/Codon.UndoModel.nuspec")
+	"Calcium.Essentials.nuspec",
+	"../../Source/Framework/Calcium/Calcium.nuspec",
+	"../../Source/Framework/Platforms/Android/Calcium.Platform/Calcium.Platform.Android.nuspec",	
+	"../../Source/Framework/Platforms/Ios/Calcium.Platform/Calcium.Platform.Ios.nuspec",	
+	"../../Source/Framework/Platforms/Uwp/Calcium.Platform/Calcium.Platform.Uwp.nuspec",
+	"../../Source/Framework/Platforms/Wpf/Calcium.Platform/Calcium.Platform.Wpf.nuspec",
+	"../../Source/Framework/Platforms/WpfCore/Calcium.Platform.WpfCore.nuspec",
+	"Calcium.Extras.nuspec",
+	"../../Source/Framework/Calcium.Extras/Calcium.Extras.Core.nuspec",
+	"../../Source/Framework/Platforms/Android/Calcium.Extras.Platform/Calcium.Extras.Platform.Android.nuspec",	
+	"../../Source/Framework/Platforms/Ios/Calcium.Extras.Platform/Calcium.Extras.Platform.Ios.nuspec",	
+	"../../Source/Framework/Platforms/Uwp/Calcium.Extras.Platform/Calcium.Extras.Platform.Uwp.nuspec",
+	"../../Source/Framework/Platforms/Wpf/Calcium.Extras.Platform/Calcium.Extras.Platform.Wpf.nuspec",
+	"../../Source/Framework/Platforms/WpfCore/Calcium.Extras.Platform.WpfCore.nuspec",
+	"../../Source/Framework/Calcium.UI.Data/Calcium.UI.Data.nuspec",
+	"../../Source/Framework/Calcium.UndoModel/Calcium.UndoModel.nuspec")
 
 $assemblyToEnsureJustBuilt = @(
-	"../../Bin/Android/Release/Codon.Platform.dll",
-	"../../Bin/NetStandard/Release/Codon.dll",
-	"../../Bin/Ios/Release/Codon.Platform.dll",
-	"../../Bin/Uwp/Release/Codon.Platform.dll",
-	"../../Bin/Wpf/Release/Codon.Platform.dll",
-	"../../Bin/WpfCore/Release/Codon.Platform.dll",
-	"../../Bin/Android/Release/Codon.Extras.Platform.dll",
-	"../../Bin/NetStandard/Release/Codon.Extras.dll",
-	"../../Bin/Ios/Release/Codon.Extras.Platform.dll",
-	"../../Bin/Uwp/Release/Codon.Extras.Platform.dll",
-	"../../Bin/Wpf/Release/Codon.Extras.Platform.dll",
-	"../../Bin/WpfCore/Release/Codon.Extras.Platform.dll",
-	"../../Bin/NetStandard/Release/Codon.UI.Data.dll",
-	"../../Bin/NetStandard/Release/Codon.UndoModel.dll")
+	"../../Bin/Android/Release/Calcium.Platform.dll",
+	"../../Bin/NetStandard/Release/Calcium.dll",
+	"../../Bin/Ios/Release/Calcium.Platform.dll",
+	"../../Bin/Uwp/Release/Calcium.Platform.dll",
+	"../../Bin/Wpf/Release/Calcium.Platform.dll",
+	"../../Bin/WpfCore/Release/Calcium.Platform.dll",
+	"../../Bin/Android/Release/Calcium.Extras.Platform.dll",
+	"../../Bin/NetStandard/Release/Calcium.Extras.dll",
+	"../../Bin/Ios/Release/Calcium.Extras.Platform.dll",
+	"../../Bin/Uwp/Release/Calcium.Extras.Platform.dll",
+	"../../Bin/Wpf/Release/Calcium.Extras.Platform.dll",
+	"../../Bin/WpfCore/Release/Calcium.Extras.Platform.dll",
+	"../../Bin/NetStandard/Release/Calcium.UI.Data.dll",
+	"../../Bin/NetStandard/Release/Calcium.UndoModel.dll")
 
 $mustBeBuiltAfter = [DateTime]::Now.AddMinutes(-15)
 

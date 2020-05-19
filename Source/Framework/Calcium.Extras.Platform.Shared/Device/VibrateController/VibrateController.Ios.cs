@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -15,9 +15,9 @@
 
 using AudioToolbox;
 
-using Codon.Services;
+using Calcium.Services;
 
-namespace Codon.Device
+namespace Calcium.Device
 {
 	public class VibrateController : IVibrateController
 	{

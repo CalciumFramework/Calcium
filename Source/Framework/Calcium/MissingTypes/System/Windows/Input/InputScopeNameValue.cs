@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
-namespace Codon.MissingTypes.System.Windows.Input
+namespace Calcium.MissingTypes.System.Windows.Input
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public enum InputScopeNameValue

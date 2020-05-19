@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 
-namespace Codon.MissingTypes.System.ComponentModel
+namespace Calcium.MissingTypes.System.ComponentModel
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class CancelEventArgs : EventArgs

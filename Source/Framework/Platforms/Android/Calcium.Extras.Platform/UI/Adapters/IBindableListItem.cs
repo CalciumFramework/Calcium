@@ -1,4 +1,4 @@
-namespace Codon.UI.Adapters
+namespace Calcium.UI.Adapters
 {
 	public interface IBindableListItem
 	{

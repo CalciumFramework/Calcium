@@ -1,24 +1,24 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 #pragma warning disable CS0436 // Type conflicts with imported type
 
 /* The purpose of the following InternalsVisibleTo attributes 
  * is to make all framework library internals visible to one another. */
 #if __ANDROID__ || __IOS__
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Tests")]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Tests")]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Platform")]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Platform")]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Platform.Tests")]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Tests")]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Tests")]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Platform")]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Platform")]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Platform.Tests")]
 #else
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Tests" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Tests" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Platform" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Platform" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".Extras.Platform.Tests" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".UI.Data" + Tokens.PublicKeySuffix)]
-[assembly: InternalsVisibleTo(nameof(Codon) + ".UndoModel" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Tests" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Tests" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Platform" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Platform" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".Extras.Platform.Tests" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".UI.Data" + Tokens.PublicKeySuffix)]
+[assembly: InternalsVisibleTo(nameof(Calcium) + ".UndoModel" + Tokens.PublicKeySuffix)]
 #endif
 
 #pragma warning restore CS0436 // Type conflicts with imported type

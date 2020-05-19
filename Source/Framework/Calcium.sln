@@ -1,55 +1,55 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon", "Codon\Codon.csproj", "{71D965C6-6FA9-4ABF-87F6-8A249A8FE5A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium", "Calcium\Calcium.csproj", "{71D965C6-6FA9-4ABF-87F6-8A249A8FE5A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Android", "Platforms\Android\Codon.Extras.Platform\Codon.Extras.Platform.Android.csproj", "{BAD9B4FB-61DA-42E0-AF34-6CEFE0A5C286}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Platform.Android", "Platforms\Android\Calcium.Extras.Platform\Calcium.Extras.Platform.Android.csproj", "{BAD9B4FB-61DA-42E0-AF34-6CEFE0A5C286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Android", "Platforms\Android\Codon.Platform\Codon.Platform.Android.csproj", "{914703B3-EEFE-48B9-AFAE-93AED9B113E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Android", "Platforms\Android\Calcium.Platform\Calcium.Platform.Android.csproj", "{914703B3-EEFE-48B9-AFAE-93AED9B113E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{924A816C-EB75-41AD-9728-D61A2DA2A6E8}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Codon.Extras.Platform.Shared", "Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.shproj", "{9381B88A-8D04-4562-BC90-18EB24A45A0E}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Calcium.Extras.Platform.Shared", "Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.shproj", "{9381B88A-8D04-4562-BC90-18EB24A45A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Wpf", "Platforms\Wpf\Codon.Extras.Platform\Codon.Extras.Platform.Wpf.csproj", "{6EB8D4A6-4297-4870-888D-027C3DFC511B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Platform.Wpf", "Platforms\Wpf\Calcium.Extras.Platform\Calcium.Extras.Platform.Wpf.csproj", "{6EB8D4A6-4297-4870-888D-027C3DFC511B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Uwp", "Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.csproj", "{BE4345BC-7313-4521-80E6-CE41D1EE56FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Uwp", "Platforms\Uwp\Calcium.Platform\Calcium.Platform.Uwp.csproj", "{BE4345BC-7313-4521-80E6-CE41D1EE56FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Ios", "Platforms\Ios\Codon.Platform\Codon.Platform.Ios.csproj", "{015AB170-24CE-4FCD-9D90-547403524AB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Ios", "Platforms\Ios\Calcium.Platform\Calcium.Platform.Ios.csproj", "{015AB170-24CE-4FCD-9D90-547403524AB0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Codon.Platform.Shared", "Codon.Platform.Shared\Codon.Platform.Shared.shproj", "{8EFF0E04-4E9E-498C-BDCA-CB9F933A66B7}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Calcium.Platform.Shared", "Calcium.Platform.Shared\Calcium.Platform.Shared.shproj", "{8EFF0E04-4E9E-498C-BDCA-CB9F933A66B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{E538AD14-2742-4331-8F75-50D477A23C34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.Extras", "Codon.Extras\Codon.Extras.csproj", "{3C067F07-51B1-4611-909A-649FA071762C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.Extras", "Calcium.Extras\Calcium.Extras.csproj", "{3C067F07-51B1-4611-909A-649FA071762C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Uwp", "Platforms\Uwp\Codon.Extras.Platform\Codon.Extras.Platform.Uwp.csproj", "{2B2108D8-BD6B-4689-8ED3-B0335BEA118A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Platform.Uwp", "Platforms\Uwp\Calcium.Extras.Platform\Calcium.Extras.Platform.Uwp.csproj", "{2B2108D8-BD6B-4689-8ED3-B0335BEA118A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Wpf", "Platforms\Wpf\Codon.Platform\Codon.Platform.Wpf.csproj", "{97E9C47E-C4BA-42F3-B8F3-0543C8B91984}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Wpf", "Platforms\Wpf\Calcium.Platform\Calcium.Platform.Wpf.csproj", "{97E9C47E-C4BA-42F3-B8F3-0543C8B91984}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Essentials", "Essentials", "{A8B7980E-014B-4316-95AE-F5702E701A0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{47454FF9-1412-4595-B0A9-D597E9EC67DF}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Codon.Common", "Codon.Common\Codon.Common.shproj", "{BC90BCAF-8E17-4BDB-B908-39C7B5496471}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Calcium.Common", "Calcium.Common\Calcium.Common.shproj", "{BC90BCAF-8E17-4BDB-B908-39C7B5496471}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F35FF94E-0ECD-4B50-AF4D-DBD27B1F920B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Tests", "Codon.Tests\Codon.Tests.csproj", "{7B912463-2BB6-416F-A5B7-8772342CC15B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Tests", "Calcium.Tests\Calcium.Tests.csproj", "{7B912463-2BB6-416F-A5B7-8772342CC15B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.UI.Data", "Codon.UI.Data\Codon.UI.Data.csproj", "{7C182224-DC51-4095-8B59-37FAF18EF4A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.UI.Data", "Calcium.UI.Data\Calcium.UI.Data.csproj", "{7C182224-DC51-4095-8B59-37FAF18EF4A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.ApiProfiling", "Codon.ApiProfiling\Codon.ApiProfiling.csproj", "{93B6FBFB-F559-4012-93C6-DAD2095B1ECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.ApiProfiling", "Calcium.ApiProfiling\Calcium.ApiProfiling.csproj", "{93B6FBFB-F559-4012-93C6-DAD2095B1ECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Wpf.Tests", "Platforms\Wpf\Codon.Platform.Tests\Codon.Platform.Wpf.Tests.csproj", "{7D00D947-7A2D-4CA8-9787-89144C579498}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Wpf.Tests", "Platforms\Wpf\Calcium.Platform.Tests\Calcium.Platform.Wpf.Tests.csproj", "{7D00D947-7A2D-4CA8-9787-89144C579498}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Codon.Platform.Tests.Shared", "Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.shproj", "{502D95E0-BC5A-499E-A5FB-3A0E041CF701}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Calcium.Platform.Tests.Shared", "Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.shproj", "{502D95E0-BC5A-499E-A5FB-3A0E041CF701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Uwp.Tests", "Platforms\Uwp\Codon.Platform.Tests\Codon.Platform.Uwp.Tests.csproj", "{ADCA141C-5BB1-42EA-947E-1D0425971D23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Uwp.Tests", "Platforms\Uwp\Calcium.Platform.Tests\Calcium.Platform.Uwp.Tests.csproj", "{ADCA141C-5BB1-42EA-947E-1D0425971D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Tests", "Codon.Extras.Tests\Codon.Extras.Tests.csproj", "{B2C22F53-8338-447E-B4CB-FCED5C745895}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Tests", "Calcium.Extras.Tests\Calcium.Extras.Tests.csproj", "{B2C22F53-8338-447E-B4CB-FCED5C745895}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8ED3A2F6-0A2F-435F-98B0-A5AE2B05C736}"
 	ProjectSection(SolutionItems) = preProject
@@ -57,44 +57,44 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Platform.Android.Tests", "Platforms\Android\Codon.Platform.Tests\Codon.Platform.Android.Tests.csproj", "{B979D676-D2EA-45B0-B261-5487A6FC483A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Platform.Android.Tests", "Platforms\Android\Calcium.Platform.Tests\Calcium.Platform.Android.Tests.csproj", "{B979D676-D2EA-45B0-B261-5487A6FC483A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{70C00858-BFC4-408A-945D-73FA1EF27434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Ios", "Platforms\Ios\Codon.Extras.Platform\Codon.Extras.Platform.Ios.csproj", "{3750E22F-78A0-4066-81FC-6FA3DDFE8EAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Platform.Ios", "Platforms\Ios\Calcium.Extras.Platform\Calcium.Extras.Platform.Ios.csproj", "{3750E22F-78A0-4066-81FC-6FA3DDFE8EAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{208F3645-9734-4D46-9BE3-E12F701DC863}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Deployment\NuGet\Codon.Essentials.nuspec = ..\..\Deployment\NuGet\Codon.Essentials.nuspec
-		Codon\Codon.nuspec = Codon\Codon.nuspec
-		Platforms\Android\Codon.Platform\Codon.Platform.Android.nuspec = Platforms\Android\Codon.Platform\Codon.Platform.Android.nuspec
-		Platforms\Ios\Codon.Platform\Codon.Platform.Ios.nuspec = Platforms\Ios\Codon.Platform\Codon.Platform.Ios.nuspec
-		Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.nuspec = Platforms\Uwp\Codon.Platform\Codon.Platform.Uwp.nuspec
-		Platforms\Wpf\Codon.Platform\Codon.Platform.Wpf.nuspec = Platforms\Wpf\Codon.Platform\Codon.Platform.Wpf.nuspec
-		Platforms\WpfCore\Codon.Platform.WpfCore.nuspec = Platforms\WpfCore\Codon.Platform.WpfCore.nuspec
+		..\..\Deployment\NuGet\Calcium.Essentials.nuspec = ..\..\Deployment\NuGet\Calcium.Essentials.nuspec
+		Calcium\Calcium.nuspec = Calcium\Calcium.nuspec
+		Platforms\Android\Calcium.Platform\Calcium.Platform.Android.nuspec = Platforms\Android\Calcium.Platform\Calcium.Platform.Android.nuspec
+		Platforms\Ios\Calcium.Platform\Calcium.Platform.Ios.nuspec = Platforms\Ios\Calcium.Platform\Calcium.Platform.Ios.nuspec
+		Platforms\Uwp\Calcium.Platform\Calcium.Platform.Uwp.nuspec = Platforms\Uwp\Calcium.Platform\Calcium.Platform.Uwp.nuspec
+		Platforms\Wpf\Calcium.Platform\Calcium.Platform.Wpf.nuspec = Platforms\Wpf\Calcium.Platform\Calcium.Platform.Wpf.nuspec
+		Platforms\WpfCore\Calcium.Platform.WpfCore.nuspec = Platforms\WpfCore\Calcium.Platform.WpfCore.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{F0B98B69-AA56-4A2C-ABFE-2E84C7DF9777}"
 	ProjectSection(SolutionItems) = preProject
-		Codon.Extras\Codon.Extras.Core.nuspec = Codon.Extras\Codon.Extras.Core.nuspec
-		..\..\Deployment\NuGet\Codon.Extras.nuspec = ..\..\Deployment\NuGet\Codon.Extras.nuspec
-		Platforms\Android\Codon.Extras.Platform\Codon.Extras.Platform.Android.nuspec = Platforms\Android\Codon.Extras.Platform\Codon.Extras.Platform.Android.nuspec
-		Platforms\Ios\Codon.Extras.Platform\Codon.Extras.Platform.Ios.nuspec = Platforms\Ios\Codon.Extras.Platform\Codon.Extras.Platform.Ios.nuspec
-		Platforms\Uwp\Codon.Extras.Platform\Codon.Extras.Platform.Uwp.nuspec = Platforms\Uwp\Codon.Extras.Platform\Codon.Extras.Platform.Uwp.nuspec
-		Platforms\Wpf\Codon.Extras.Platform\Codon.Extras.Platform.Wpf.nuspec = Platforms\Wpf\Codon.Extras.Platform\Codon.Extras.Platform.Wpf.nuspec
-		Platforms\WpfCore\Codon.Extras.Platform.WpfCore.nuspec = Platforms\WpfCore\Codon.Extras.Platform.WpfCore.nuspec
-		Codon.UI.Data\Codon.UI.Data.nuspec = Codon.UI.Data\Codon.UI.Data.nuspec
-		Codon.UndoModel\Codon.UndoModel.nuspec = Codon.UndoModel\Codon.UndoModel.nuspec
+		Calcium.Extras\Calcium.Extras.Core.nuspec = Calcium.Extras\Calcium.Extras.Core.nuspec
+		..\..\Deployment\NuGet\Calcium.Extras.nuspec = ..\..\Deployment\NuGet\Calcium.Extras.nuspec
+		Platforms\Android\Calcium.Extras.Platform\Calcium.Extras.Platform.Android.nuspec = Platforms\Android\Calcium.Extras.Platform\Calcium.Extras.Platform.Android.nuspec
+		Platforms\Ios\Calcium.Extras.Platform\Calcium.Extras.Platform.Ios.nuspec = Platforms\Ios\Calcium.Extras.Platform\Calcium.Extras.Platform.Ios.nuspec
+		Platforms\Uwp\Calcium.Extras.Platform\Calcium.Extras.Platform.Uwp.nuspec = Platforms\Uwp\Calcium.Extras.Platform\Calcium.Extras.Platform.Uwp.nuspec
+		Platforms\Wpf\Calcium.Extras.Platform\Calcium.Extras.Platform.Wpf.nuspec = Platforms\Wpf\Calcium.Extras.Platform\Calcium.Extras.Platform.Wpf.nuspec
+		Platforms\WpfCore\Calcium.Extras.Platform.WpfCore.nuspec = Platforms\WpfCore\Calcium.Extras.Platform.WpfCore.nuspec
+		Calcium.UI.Data\Calcium.UI.Data.nuspec = Calcium.UI.Data\Calcium.UI.Data.nuspec
+		Calcium.UndoModel\Calcium.UndoModel.nuspec = Calcium.UndoModel\Calcium.UndoModel.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.UndoModel", "Codon.UndoModel\Codon.UndoModel.csproj", "{80EE2A33-33C9-4A48-9454-E587EE3216E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.UndoModel", "Calcium.UndoModel\Calcium.UndoModel.csproj", "{80EE2A33-33C9-4A48-9454-E587EE3216E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codon.Extras.Platform.Wpf.Tests", "Platforms\Wpf\Codon.Extras.Platform.Tests\Codon.Extras.Platform.Wpf.Tests.csproj", "{06CCC2B4-8862-45D6-8755-1F41840DE5A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcium.Extras.Platform.Wpf.Tests", "Platforms\Wpf\Calcium.Extras.Platform.Tests\Calcium.Extras.Platform.Wpf.Tests.csproj", "{06CCC2B4-8862-45D6-8755-1F41840DE5A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AssemblySigning", "AssemblySigning", "{010A488D-F942-4CDA-843D-9FF7EE7822E9}"
 	ProjectSection(SolutionItems) = preProject
-		Codon.snk = Codon.snk
-		..\..\Deployment\AssemblySigning\CodonSnkPublicKey.txt = ..\..\Deployment\AssemblySigning\CodonSnkPublicKey.txt
+		Calcium.snk = Calcium.snk
+		..\..\Deployment\AssemblySigning\CalciumSnkPublicKey.txt = ..\..\Deployment\AssemblySigning\CalciumSnkPublicKey.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{63BEDAD2-489F-40DC-8526-A2302C84200C}"
@@ -111,43 +111,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePipelines", "AzurePipe
 		AzurePipelines.yml = AzurePipelines.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.Platform.WpfCore", "Platforms\WpfCore\Codon.Platform\Codon.Platform.WpfCore.csproj", "{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.Platform.WpfCore", "Platforms\WpfCore\Calcium.Platform\Calcium.Platform.WpfCore.csproj", "{7CD45833-A4A4-4E25-BBCB-7CE759E6F78E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codon.Extras.Platform.WpfCore", "Platforms\WpfCore\Codon.Extras.Platform\Codon.Extras.Platform.WpfCore.csproj", "{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcium.Extras.Platform.WpfCore", "Platforms\WpfCore\Calcium.Extras.Platform\Calcium.Extras.Platform.WpfCore.csproj", "{C8CB467C-33A4-4506-B9A8-DAA3EF98EA32}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Codon.Common\Codon.Common.projitems*{015ab170-24ce-4fcd-9d90-547403524ab0}*SharedItemsImports = 4
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{015ab170-24ce-4fcd-9d90-547403524ab0}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{2b2108d8-bd6b-4689-8ed3-b0335bea118a}*SharedItemsImports = 4
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{2b2108d8-bd6b-4689-8ed3-b0335bea118a}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{3c067f07-51b1-4611-909a-649fa071762c}*SharedItemsImports = 5
-		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{502d95e0-bc5a-499e-a5fb-3a0e041cf701}*SharedItemsImports = 13
-		Codon.Common\Codon.Common.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}*SharedItemsImports = 5
-		Codon.Common\Codon.Common.projitems*{7c182224-dc51-4095-8b59-37faf18ef4a8}*SharedItemsImports = 5
-		Codon.Common\Codon.Common.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
-		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{7d00d947-7a2d-4ca8-9787-89144c579498}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{80ee2a33-33c9-4a48-9454-e587ee3216e3}*SharedItemsImports = 5
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{8eff0e04-4e9e-498c-bdca-cb9f933a66b7}*SharedItemsImports = 13
-		Codon.Common\Codon.Common.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{9381b88a-8d04-4562-bc90-18eb24a45a0e}*SharedItemsImports = 13
-		Codon.Common\Codon.Common.projitems*{97e9c47e-c4ba-42f3-b8f3-0543c8b91984}*SharedItemsImports = 4
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{97e9c47e-c4ba-42f3-b8f3-0543c8b91984}*SharedItemsImports = 4
-		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{adca141c-5bb1-42ea-947e-1d0425971d23}*SharedItemsImports = 4
-		Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems*{b979d676-d2ea-45b0-b261-5487a6fc483a}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{bad9b4fb-61da-42e0-af34-6cefe0a5c286}*SharedItemsImports = 4
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{bad9b4fb-61da-42e0-af34-6cefe0a5c286}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{bc90bcaf-8e17-4bdb-b908-39c7b5496471}*SharedItemsImports = 13
-		Codon.Common\Codon.Common.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
-		Codon.Platform.Shared\Codon.Platform.Shared.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
-		Codon.Common\Codon.Common.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
-		Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
+		Calcium.Common\Calcium.Common.projitems*{015ab170-24ce-4fcd-9d90-547403524ab0}*SharedItemsImports = 4
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{015ab170-24ce-4fcd-9d90-547403524ab0}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{2b2108d8-bd6b-4689-8ed3-b0335bea118a}*SharedItemsImports = 4
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{2b2108d8-bd6b-4689-8ed3-b0335bea118a}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{3750e22f-78a0-4066-81fc-6fa3ddfe8eab}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{3c067f07-51b1-4611-909a-649fa071762c}*SharedItemsImports = 5
+		Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems*{502d95e0-bc5a-499e-a5fb-3a0e041cf701}*SharedItemsImports = 13
+		Calcium.Common\Calcium.Common.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{6eb8d4a6-4297-4870-888d-027c3dfc511b}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}*SharedItemsImports = 5
+		Calcium.Common\Calcium.Common.projitems*{7c182224-dc51-4095-8b59-37faf18ef4a8}*SharedItemsImports = 5
+		Calcium.Common\Calcium.Common.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{7cd45833-a4a4-4e25-bbcb-7ce759e6f78e}*SharedItemsImports = 5
+		Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems*{7d00d947-7a2d-4ca8-9787-89144c579498}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{80ee2a33-33c9-4a48-9454-e587ee3216e3}*SharedItemsImports = 5
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{8eff0e04-4e9e-498c-bdca-cb9f933a66b7}*SharedItemsImports = 13
+		Calcium.Common\Calcium.Common.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{914703b3-eefe-48b9-afae-93aed9b113e3}*SharedItemsImports = 4
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{9381b88a-8d04-4562-bc90-18eb24a45a0e}*SharedItemsImports = 13
+		Calcium.Common\Calcium.Common.projitems*{97e9c47e-c4ba-42f3-b8f3-0543c8b91984}*SharedItemsImports = 4
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{97e9c47e-c4ba-42f3-b8f3-0543c8b91984}*SharedItemsImports = 4
+		Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems*{adca141c-5bb1-42ea-947e-1d0425971d23}*SharedItemsImports = 4
+		Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems*{b979d676-d2ea-45b0-b261-5487a6fc483a}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{bad9b4fb-61da-42e0-af34-6cefe0a5c286}*SharedItemsImports = 4
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{bad9b4fb-61da-42e0-af34-6cefe0a5c286}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{bc90bcaf-8e17-4bdb-b908-39c7b5496471}*SharedItemsImports = 13
+		Calcium.Common\Calcium.Common.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
+		Calcium.Platform.Shared\Calcium.Platform.Shared.projitems*{be4345bc-7313-4521-80e6-ce41d1ee56fd}*SharedItemsImports = 4
+		Calcium.Common\Calcium.Common.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
+		Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems*{c8cb467c-33a4-4506-b9a8-daa3ef98ea32}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

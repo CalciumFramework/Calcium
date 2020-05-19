@@ -1,10 +1,10 @@
-﻿#if WINDOWS_UWP
+#if WINDOWS_UWP
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -17,9 +17,9 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
-using Codon.Services;
+using Calcium.Services;
 
-namespace Codon.Device
+namespace Calcium.Device
 {
 	/// <summary>
 	/// UWP implementation of the <see cref="IClipboardService"/>.

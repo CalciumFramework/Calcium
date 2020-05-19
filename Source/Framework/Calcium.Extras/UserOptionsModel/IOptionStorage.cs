@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Codon.UserOptionsModel
+namespace Calcium.UserOptionsModel
 {
 	public interface IOptionStorage<TSetting>
 	{

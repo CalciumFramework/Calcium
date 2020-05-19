@@ -1,30 +1,30 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);EXTRAS;NETSTANDARD</DefineConstants>
-    <AssemblyName>Codon.Extras</AssemblyName>
-    <RootNamespace>Codon</RootNamespace>
-    <PackageId>Codon.Extras.Core</PackageId>
+    <AssemblyName>Calcium.Extras</AssemblyName>
+    <RootNamespace>Calcium</RootNamespace>
+    <PackageId>Calcium.Extras.Core</PackageId>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Codon.Extras.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.Extras.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 	<PropertyGroup>
 		<DebugType>full</DebugType>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
 		<DelaySign>False</DelaySign>
 	</PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon\Codon.csproj" />
+    <ProjectReference Include="..\Calcium\Calcium.csproj" />
   </ItemGroup>
-  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
 </Project>

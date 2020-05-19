@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,9 +8,9 @@
     <ProjectGuid>{3750E22F-78A0-4066-81FC-6FA3DDFE8EAB}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Codon.Extras</RootNamespace>
+    <RootNamespace>Calcium.Extras</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Codon.Extras.Platform</AssemblyName>
+    <AssemblyName>Calcium.Extras.Platform</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>..\..\..\..\..\Bin\Ios\$(Configuration)\Codon.Extras.Platform.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\Bin\Ios\$(Configuration)\Calcium.Extras.Platform.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -45,22 +45,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Codon.Extras\Codon.Extras.csproj">
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj">
       <Project>{3c067f07-51b1-4611-909a-649fa071762c}</Project>
-      <Name>Codon.Extras</Name>
+      <Name>Calcium.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Ios.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Ios.csproj">
       <Project>{015ab170-24ce-4fcd-9d90-547403524ab0}</Project>
-      <Name>Codon.Platform.Ios</Name>
+      <Name>Calcium.Platform.Ios</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Common\Codon.Common.projitems" Label="Shared" />
-  <Import Project="..\..\..\Codon.Extras.Platform.Shared\Codon.Extras.Platform.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2018, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2018, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -15,10 +15,10 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Codon.Cryptography.Implementation;
-using Codon.InversionOfControl;
+using Calcium.Cryptography.Implementation;
+using Calcium.InversionOfControl;
 
-namespace Codon.Cryptography
+namespace Calcium.Cryptography
 {
 	/// <summary>
 	/// A class implementing this interface is used to generate

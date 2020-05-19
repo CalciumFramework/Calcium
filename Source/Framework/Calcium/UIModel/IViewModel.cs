@@ -1,4 +1,4 @@
-namespace Codon.UIModel
+namespace Calcium.UIModel
 {
 	/// <summary>
 	/// The basic code contract for view-model.

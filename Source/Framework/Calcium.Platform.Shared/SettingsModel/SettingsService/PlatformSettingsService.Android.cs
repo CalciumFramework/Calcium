@@ -1,9 +1,9 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
-	/// This class is an <see cref="Codon.Services.ISettingsService"/> 
+	/// This class is an <see cref="Calcium.Services.ISettingsService"/> 
 	/// implementation for Android.
 	/// </summary>
     public class PlatformSettingsService : SettingsService

@@ -1,10 +1,10 @@
-﻿#if WPF
+#if WPF
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -19,11 +19,11 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 
-using Codon.Concurrency;
-using Codon.SettingsModel;
-using Codon.UIModel;
+using Calcium.Concurrency;
+using Calcium.SettingsModel;
+using Calcium.UIModel;
 
-namespace Codon.StatePreservation
+namespace Calcium.StatePreservation
 {
 	public class StateManager : IStateManager
 	{

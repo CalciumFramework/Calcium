@@ -1,4 +1,4 @@
-﻿#if WPF || WINDOWS_UWP
+#if WPF || WINDOWS_UWP
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +14,13 @@ using System.Windows;
 using System.Windows.Controls;
 #endif
 
-using Codon.Reflection;
+using Calcium.Reflection;
 
-namespace Codon.UIModel.Input
+namespace Calcium.UIModel.Input
 {
 	/// <summary>
 	/// This class works in conjunction 
-	/// with <see cref="Codon.UI.Elements.AttachedCommand"/>
+	/// with <see cref="Calcium.UI.Elements.AttachedCommand"/>
 	/// to allow a command to be applied to a UI element.
 	/// </summary>
 	public class AttachedCommandBehavior

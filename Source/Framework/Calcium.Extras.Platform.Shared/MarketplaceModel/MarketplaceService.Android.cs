@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Net;
-using Codon.Services;
+using Calcium.Services;
 
-namespace Codon.MarketplaceModel
+namespace Calcium.MarketplaceModel
 {
 	public class MarketplaceService : IMarketplaceService
 	{

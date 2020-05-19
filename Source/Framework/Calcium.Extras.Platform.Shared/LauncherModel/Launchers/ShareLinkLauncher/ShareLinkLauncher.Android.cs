@@ -1,10 +1,10 @@
-﻿#if __ANDROID__
+#if __ANDROID__
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -17,9 +17,9 @@ using Android.Content;
 using System;
 using System.Threading.Tasks;
 
-using Codon.Concurrency;
+using Calcium.Concurrency;
 
-namespace Codon.LauncherModel.Launchers
+namespace Calcium.LauncherModel.Launchers
 {
 	public class ShareLinkLauncher : IShareLinkLauncher
 	{

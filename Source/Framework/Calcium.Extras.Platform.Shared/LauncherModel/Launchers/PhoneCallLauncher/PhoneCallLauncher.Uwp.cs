@@ -1,4 +1,4 @@
-﻿/* This class is commented out because it requires 
+/* This class is commented out because it requires 
  * Windows Mobile Extentions for UWP. 
  * The PhoneCall capability must also be declared in the app's manifest. */
 
@@ -7,7 +7,7 @@
 //using System;
 //using System.Threading.Tasks;
 //
-//namespace Codon.LauncherModel.Launchers
+//namespace Calcium.LauncherModel.Launchers
 //{
 //    public class PhoneCallLauncher : IPhoneCallLauncher
 //    {

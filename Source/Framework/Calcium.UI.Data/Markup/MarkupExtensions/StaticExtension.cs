@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -16,11 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Codon.InversionOfControl;
-using Codon.Reflection;
-using Codon.UI.Data;
+using Calcium.InversionOfControl;
+using Calcium.Reflection;
+using Calcium.UI.Data;
 
-namespace Codon.UI.Elements
+namespace Calcium.UI.Elements
 {
 	public class StaticExtension : MarkupExtensionBase
 	{

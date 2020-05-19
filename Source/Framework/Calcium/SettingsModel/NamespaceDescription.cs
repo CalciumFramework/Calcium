@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -12,10 +12,10 @@
 */
 #endregion
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
-	/// The <see cref="Codon.SettingsModel"/> namespace contains types
+	/// The <see cref="Calcium.SettingsModel"/> namespace contains types
 	/// that support storing and retrieving persistable application state settings.
 	/// </summary>
 	[System.Runtime.CompilerServices.CompilerGenerated]

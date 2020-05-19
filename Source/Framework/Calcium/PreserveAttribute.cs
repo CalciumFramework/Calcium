@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 
-namespace Codon
+namespace Calcium
 {
 	[AttributeUsage(AttributeTargets.All)]
 	[EditorBrowsable(EditorBrowsableState.Never)]

@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -18,7 +18,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	class TypeUtility
 	{

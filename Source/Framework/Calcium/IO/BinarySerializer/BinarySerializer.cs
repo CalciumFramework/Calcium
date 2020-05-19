@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -13,9 +13,9 @@
 #endregion
 
 using System.IO;
-using Codon.IO.Serialization;
+using Calcium.IO.Serialization;
 
-namespace Codon.IO
+namespace Calcium.IO
 {
 	/// <summary>
 	/// This class is the default implementation of the

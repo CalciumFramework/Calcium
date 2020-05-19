@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -15,7 +15,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	[DebuggerDisplay("Path={Path}; Target={Target}; Source={Source}")]
 	public class BindingExpression
@@ -31,7 +31,7 @@ namespace Codon.UI.Data
 		/// <summary>
 		/// Not for public use. Should be internal.
 		/// The assembly's strong name, however, prevents Xamarin 
-		/// based libraries, namely Codon.Extras.Platform.Android, 
+		/// based libraries, namely Calcium.Extras.Platform.Android, 
 		/// from opening up visibility with the InternalsVisibleTo. 
 		/// Xamarin based libraries can't be strong named, 
 		/// and InternalsVisibleTo requires a strong named assembly 

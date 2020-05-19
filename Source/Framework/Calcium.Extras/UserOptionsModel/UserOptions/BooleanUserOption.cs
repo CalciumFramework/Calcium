@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	/// <summary>
 	/// This option is a settable <c>bool</c> value.

@@ -1,9 +1,9 @@
-﻿#region File and License Information
+#region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2020, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2020, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -14,7 +14,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Codon.InversionOfControl.Containers
+namespace Calcium.InversionOfControl.Containers
 {
 	class ContainerDefaultTypeNameTests
 	{
@@ -53,7 +53,7 @@ namespace Codon.InversionOfControl.Containers
 		}
 
 		//[DefaultTypeName(nameof(ContainerDefaultTypeNameTests) + "+" + nameof(ClassForResolvingViaDefaultTypeName))]
-		[DefaultTypeName("Codon.InversionOfControl.Containers.ContainerDefaultTypeNameTests+ClassForResolvingViaDefaultTypeName, Codon.Tests")]
+		[DefaultTypeName("Calcium.InversionOfControl.Containers.ContainerDefaultTypeNameTests+ClassForResolvingViaDefaultTypeName, Calcium.Tests")]
 		public interface IHaveDefaultTypeName
 		{
 		}
@@ -67,7 +67,7 @@ namespace Codon.InversionOfControl.Containers
 		}
 
 		[DefaultType(typeof(Class1))]
-		[DefaultTypeName(nameof(Codon) + "." + nameof(InversionOfControl) + "." + nameof(Containers) + "." + nameof(ContainerDefaultTypeNameTests) + "+" + nameof(Class2) + ", Codon.Tests")]
+		[DefaultTypeName(nameof(Calcium) + "." + nameof(InversionOfControl) + "." + nameof(Containers) + "." + nameof(ContainerDefaultTypeNameTests) + "+" + nameof(Class2) + ", Calcium.Tests")]
 		interface IHaveDefaultTypeAndName
 		{
 		}

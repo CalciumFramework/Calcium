@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Codon.ComponentModel;
-using Codon.StatePreservation;
-using Codon.Concurrency;
-using Codon.DialogModel;
-using Codon.Navigation;
-using Codon.Services;
-using Codon.SettingsModel;
-using Codon.Testing;
+using Calcium.ComponentModel;
+using Calcium.StatePreservation;
+using Calcium.Concurrency;
+using Calcium.DialogModel;
+using Calcium.Navigation;
+using Calcium.Services;
+using Calcium.SettingsModel;
+using Calcium.Testing;
 
 #if __ANDROID__
 using NUnit.Framework;
@@ -17,7 +17,7 @@ using TestMethod = NUnit.Framework.TestAttribute;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace Codon.InversionOfControl.Containers
+namespace Calcium.InversionOfControl.Containers
 {
 	[TestClass]
 	public class

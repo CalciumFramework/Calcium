@@ -1,10 +1,10 @@
-﻿#if NETSTANDARD2_0 || (!NETSTANDARD1_4 && !NETSTANDARD1_6)
+#if NETSTANDARD2_0 || (!NETSTANDARD1_4 && !NETSTANDARD1_6)
 #region File and License Information
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2018, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		Copyright � 2009 - 2018, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -16,7 +16,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace Codon.Cryptography.Implementation
+namespace Calcium.Cryptography.Implementation
 {
 	public class RsaSigner : ISigner
 	{

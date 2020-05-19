@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Codon.Android</id>
-    <title>Codon for Xamarin.Android</title>
+    <id>Calcium.Android</id>
+    <title>Calcium for Xamarin.Android</title>
 		
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -14,25 +14,25 @@
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
 		
-				<description>This package provides the platform specific implementations to support Codon Core features.
+				<description>This package provides the platform specific implementations to support Calcium Core features.
 
-Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.
+Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.
 
 $Desc$
 		</description>
-		<summary>This package provides the platform specific implementations to support Codon Core features.
+		<summary>This package provides the platform specific implementations to support Calcium Core features.
 
-Codon includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
+Calcium includes an easy to use ICommand implementation, frictionless INPC, a cross-platform settings service, IoC and DI, and a weak referencing pub/sub messenger. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
 		
 		<dependencies>
       <group>
-        <dependency id="Codon" version="$version$" />
+        <dependency id="Calcium" version="$version$" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\..\..\..\Bin\Android\Release\Codon.Platform.dll" target="lib\MonoAndroid10" />
-    <file src="..\..\..\..\..\Bin\Android\Release\Codon.Platform.pdb" target="lib\MonoAndroid10" />
-		<file src="..\..\..\..\..\Bin\Android\Release\Codon.Platform.xml" target="lib\MonoAndroid10" />
+    <file src="..\..\..\..\..\Bin\Android\Release\Calcium.Platform.dll" target="lib\MonoAndroid10" />
+    <file src="..\..\..\..\..\Bin\Android\Release\Calcium.Platform.pdb" target="lib\MonoAndroid10" />
+		<file src="..\..\..\..\..\Bin\Android\Release\Calcium.Platform.xml" target="lib\MonoAndroid10" />
   </files>
 </package>

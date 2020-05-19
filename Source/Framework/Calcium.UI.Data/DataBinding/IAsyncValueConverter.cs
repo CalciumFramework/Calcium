@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	public interface IAsyncValueConverter
 	{

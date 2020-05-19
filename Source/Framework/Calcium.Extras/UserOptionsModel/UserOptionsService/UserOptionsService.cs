@@ -3,7 +3,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -17,10 +17,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-using Codon.Collections;
-using Codon.Services;
+using Calcium.Collections;
+using Calcium.Services;
 
-namespace Codon.UserOptionsModel
+namespace Calcium.UserOptionsModel
 {
 	public class UserOptionsService : IUserOptionsService
 	{

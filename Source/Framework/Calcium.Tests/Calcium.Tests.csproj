@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.5.0\build\net40\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.5.0\build\net40\Microsoft.NET.Test.Sdk.props')" />
   <Import Project="..\packages\Microsoft.CodeCoverage.16.5.0\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.5.0\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
@@ -9,8 +9,8 @@
     <ProjectGuid>{7B912463-2BB6-416F-A5B7-8772342CC15B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon</RootNamespace>
-    <AssemblyName>Codon.Tests</AssemblyName>
+    <RootNamespace>Calcium</RootNamespace>
+    <AssemblyName>Calcium.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -44,7 +44,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -90,9 +90,9 @@
     <Compile Include="ComponentModel\StatePreservation\StateManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon\Codon.csproj">
+    <ProjectReference Include="..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

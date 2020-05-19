@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
-using Codon.Logging;
-using Codon.MissingTypes.System.Windows.Data;
-using Codon.Reflection;
+using Calcium.Logging;
+using Calcium.MissingTypes.System.Windows.Data;
+using Calcium.Reflection;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	partial class InternalBindingApplicator
 	{

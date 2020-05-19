@@ -1,6 +1,6 @@
 using System;
 
-namespace Codon.InversionOfControl
+namespace Calcium.InversionOfControl
 {
 	/// <summary>
 	/// This class is used to specify a default

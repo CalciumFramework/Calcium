@@ -1,4 +1,4 @@
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	/// <summary>
 	/// Indicates the result of SetSetting call in the <see cref="Services.ISettingsService"/>.

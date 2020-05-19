@@ -1,5 +1,5 @@
 The following are the public key and public key token 
-for the Codon.snk strong name key file,
+for the Calcium.snk strong name key file,
 located in the Framework root directory.
 
 Public key (hash algorithm: sha1):

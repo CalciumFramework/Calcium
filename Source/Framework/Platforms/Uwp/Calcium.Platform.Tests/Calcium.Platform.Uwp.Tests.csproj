@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -7,8 +7,8 @@
     <ProjectGuid>{ADCA141C-5BB1-42EA-947E-1D0425971D23}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codon</RootNamespace>
-    <AssemblyName>Codon.Platform.Tests</AssemblyName>
+    <RootNamespace>Calcium</RootNamespace>
+    <AssemblyName>Calcium.Platform.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
@@ -16,10 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <!--<PackageCertificateKeyFile>Codon.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>-->
+    <!--<PackageCertificateKeyFile>Calcium.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>-->
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
     <PackageCertificateThumbprint>99DF63F7800F781F35413146C0E392EC354BE647</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>Codon.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Calcium.Platform.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
@@ -96,11 +96,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <None Include="Codon.Platform.Uwp.Tests_TemporaryKey.pfx">
+    <None Include="Calcium.Platform.Uwp.Tests_TemporaryKey.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
@@ -134,13 +134,13 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Codon.Platform\Codon.Platform.Uwp.csproj">
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.Uwp.csproj">
       <Project>{be4345bc-7313-4521-80e6-ce41d1ee56fd}</Project>
-      <Name>Codon.Platform.Uwp</Name>
+      <Name>Calcium.Platform.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Codon\Codon.csproj">
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj">
       <Project>{71d965c6-6fa9-4abf-87f6-8a249a8fe5a7}</Project>
-      <Name>Codon</Name>
+      <Name>Calcium</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +157,7 @@
       <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\..\Codon.Platform.Tests.Shared\Codon.Platform.Tests.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\..\Calcium.Platform.Tests.Shared\Calcium.Platform.Tests.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

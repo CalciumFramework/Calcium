@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Codon.ApiProfiling
+namespace Calcium.ApiProfiling
 {
     public class ProfilableAttribute : Attribute
     {

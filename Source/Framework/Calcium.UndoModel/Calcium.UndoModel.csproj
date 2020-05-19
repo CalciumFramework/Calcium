@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
     <SignAssembly>True</SignAssembly>
     <DelaySign>False</DelaySign>
-    <AssemblyOriginatorKeyFile>../Codon.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
   </PropertyGroup>
@@ -13,9 +13,9 @@
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Codon.UndoModel.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.UndoModel.xml</DocumentationFile>
   </PropertyGroup>
 
-  <Import Project="..\Codon.Common\Codon.Common.projitems" Label="Shared" />
+  <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
 
 </Project>

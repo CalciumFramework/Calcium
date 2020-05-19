@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Codon.UserOptionsModel.UserOptions
+namespace Calcium.UserOptionsModel.UserOptions
 {
 	/// <summary>
 	/// Represents a user settable string setting.

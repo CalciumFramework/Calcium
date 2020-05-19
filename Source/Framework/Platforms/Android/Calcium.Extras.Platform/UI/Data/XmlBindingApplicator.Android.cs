@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Codon (http://codonfx.com), 
+		This file is part of Calcium (http://codonfx.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
@@ -24,15 +24,15 @@ using System.Xml.Linq;
 using Android.App;
 using Android.Content;
 using Android.Views;
-using Codon.InversionOfControl;
+using Calcium.InversionOfControl;
 using Java.Lang;
 
-using Codon.Logging;
-using Codon.MissingTypes.System.Windows.Data;
+using Calcium.Logging;
+using Calcium.MissingTypes.System.Windows.Data;
 using Enum = System.Enum;
 using Exception = System.Exception;
 
-namespace Codon.UI.Data
+namespace Calcium.UI.Data
 {
 	public class XmlBindingApplicator
 	{

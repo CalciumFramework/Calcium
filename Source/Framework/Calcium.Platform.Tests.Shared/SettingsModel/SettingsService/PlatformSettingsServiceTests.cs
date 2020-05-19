@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 #if __ANDROID__
 using NUnit.Framework;
@@ -8,7 +8,7 @@ using TestMethod = NUnit.Framework.TestAttribute;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace Codon.SettingsModel
+namespace Calcium.SettingsModel
 {
 	[TestClass]
 	public class

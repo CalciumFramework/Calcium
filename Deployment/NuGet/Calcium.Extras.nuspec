@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Codon.Extras</id>
-    <title>Codon Extras</title>
+    <id>Calcium.Extras</id>
+    <title>Calcium Extras</title>
 
 		<version>$version$</version>
 		<authors>$Authors$</authors>
@@ -14,33 +14,33 @@
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
 		
-				<description>Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. 
+				<description>Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. 
 
 This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.
 
 $Desc$
 		</description>
-		<summary>Codon Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
+		<summary>Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth. This package includes all supported platforms: UWP, WPF, Xamarin Android/iOS.</summary>
 		
 		<dependencies>
 			<group>
-				<dependency id="Codon" version="$version$" />
-				<dependency id="Codon.Extras.Core" version="$version$" />
+				<dependency id="Calcium" version="$version$" />
+				<dependency id="Calcium.Extras.Core" version="$version$" />
 			</group>
 			<group targetFramework="MonoAndroid1.0">
-				<dependency id="Codon.Extras.Android" version="$version$" />
+				<dependency id="Calcium.Extras.Android" version="$version$" />
 			</group>
 			<group targetFramework="Xamarin.iOS10">
-				<dependency id="Codon.Extras.Ios" version="$version$" />
+				<dependency id="Calcium.Extras.Ios" version="$version$" />
 			</group>
 			<group targetFramework="net45">
-				<dependency id="Codon.Extras.Wpf" version="$version$" />
+				<dependency id="Calcium.Extras.Wpf" version="$version$" />
 			</group>
 			<group targetFramework="uap">
-				<dependency id="Codon.Extras.Uwp" version="$version$" />
+				<dependency id="Calcium.Extras.Uwp" version="$version$" />
 			</group>
       <group targetFramework="netcoreapp3.1">
-        <dependency id="Codon.Extras.WpfCore" version="$version$" />
+        <dependency id="Calcium.Extras.WpfCore" version="$version$" />
       </group>
     </dependencies>
   </metadata>

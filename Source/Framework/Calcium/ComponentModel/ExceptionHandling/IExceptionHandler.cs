@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.CompilerServices;
-using Codon.ComponentModel.ExceptionHandlers;
-using Codon.InversionOfControl;
+using Calcium.ComponentModel.ExceptionHandlers;
+using Calcium.InversionOfControl;
 
-namespace Codon.ComponentModel
+namespace Calcium.ComponentModel
 {
 	/// <summary>
 	/// Interface specifying the functionality to be implemented 

@@ -1,6 +1,6 @@
-﻿using Codon.ApiProfiling;
+using Calcium.ApiProfiling;
 
-namespace Codon.Messaging
+namespace Calcium.Messaging
 {
     class MessengerProfiling : IProfilable
 	{
