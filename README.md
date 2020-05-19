@@ -1,5 +1,5 @@
 # Calcium
-Calcium is a zero-dependency cross-platform MVVM framework 
+Calcium is a zero-dependency cross-platform framework 
 for creating UWP, WPF, and Xamarin based applications. 
 It provides much of what you need to rapidly create sophisticated 
 yet maintainable applications. 
