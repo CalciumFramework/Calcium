@@ -23,11 +23,11 @@ for use with non-XAML based technologies such as Xamarin.Android and Xamarin.iOS
 and an Undo-Redo system located in the Calcium.UndoModel assembly.
 Calcium.UndoModel is downloadable as an independent package.
 
-Read the [Getting Started Guide](http://codonfx.com/Guides/001_GettingStarted/).
+Read the [Getting Started Guide](http://CalciumFramework.com/Guides/001_GettingStarted/).
 
 # Support
 - You can post bugs and feature requests in our [Issues](https://github.com/CalciumFramework/Calcium/issues).
-- Join our [Slack Channel](https://codonfx.slack.com)
+- Join our [Slack Channel](https://CalciumFramework.slack.com)
 - For general questions and support, post your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/codon)
 
 # NuGet Packages

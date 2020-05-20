@@ -4,7 +4,7 @@
 <File>
 	<License>
 		Copyright © 2009 - 2018, Daniel Vaughan. All rights reserved.
-		This file is part of Calcium (http://codonfx.com), 
+		This file is part of Calcium (http://CalciumFramework.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>

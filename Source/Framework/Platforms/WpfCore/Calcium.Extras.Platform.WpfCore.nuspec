@@ -10,7 +10,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<licenseUrl>$LicenseUrl$</licenseUrl>
 	  <iconUrl>$IconUrl$</iconUrl>
-		<projectUrl>http://codonfx.com</projectUrl>
+		<projectUrl>http://CalciumFramework.com</projectUrl>
 		<copyright>Copyright © $Owners$ 2009-2020</copyright>
 		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml core</tags>
 		
