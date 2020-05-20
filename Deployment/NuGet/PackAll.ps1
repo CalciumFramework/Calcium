@@ -1,7 +1,7 @@
-$packageVersion = "2.5.0-beta04";
+$packageVersion = "2.5.0-rc1";
 $sharedDescription = "Calcium is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
-$iconUrl = "https://codonframework.github.io/External/Images/CalciumLogo_128x128.png";
-$licenseUrl = "https://codonframework.github.io/External/License.txt";
+$iconUrl = "https://calciumframework.github.io/External/Images/CalciumLogo_200x200.png";
+$licenseUrl = "https://calciumframework.github.io/External/License.txt";
 $nugetLocalFeedDirectory = "C:\Dev\NugetLocal";
 
 # These are set later in the script.
