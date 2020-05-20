@@ -28,7 +28,7 @@ Read the [Getting Started Guide](http://CalciumFramework.com/Guides/001_GettingS
 # Support
 - You can post bugs and feature requests in our [Issues](https://github.com/CalciumFramework/Calcium/issues).
 - Join our [Slack Channel](https://CalciumFramework.slack.com)
-- For general questions and support, post your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/codon)
+- For general questions and support, post your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/calcium)
 
 # NuGet Packages
 
