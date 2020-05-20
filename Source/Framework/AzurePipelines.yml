@@ -7,12 +7,12 @@ variables:
 steps:
   - task: NuGetCommand@2
     inputs:
-      restoreSolution: 'Source/Framework/Codon.sln'
-  #- script: dotnet restore Source/Framework/Codon.sln
+      restoreSolution: 'Source/Framework/Calcium.sln'
+  #- script: dotnet restore Source/Framework/Calcium.sln
   - task: VSBuild@1
-    displayName: Build solution Codon.sln
+    displayName: Build solution Calcium.sln
     inputs:
-        solution: 'Source/Framework/Codon.sln' 
+        solution: 'Source/Framework/Calcium.sln' 
         configuration: $(buildConfiguration)
         logProjectEvents: 'true'
         createLogFile: 'false'

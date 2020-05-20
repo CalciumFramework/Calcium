@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    <AssemblyName>Calcium.UI.Data</AssemblyName>
+    <RootNamespace>Calcium.UI.Data</RootNamespace>
+    <PackageId>Calcium.Markup</PackageId>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\..\Bin\NetStandard\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.UI.Data.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+	<PropertyGroup>
+		<DebugType>full</DebugType>
+		<SignAssembly>True</SignAssembly>
+		<DelaySign>False</DelaySign>
+		<AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+  <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\Calcium\Calcium.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../../Calcium.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <AssemblyName>Calcium.Extras.Platform</AssemblyName>
+    <RootNamespace>Calcium.Extras</RootNamespace>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\..\..\..\Bin\WpfCore\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\..\..\..\..\Bin\WpfCore\$(Configuration)\Calcium.Extras.Platform.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Calcium.Extras\Calcium.Extras.csproj" />
+    <ProjectReference Include="..\..\..\Calcium\Calcium.csproj" />
+    <ProjectReference Include="..\Calcium.Platform\Calcium.Platform.WpfCore.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\..\..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\Calcium.Extras.Platform.Shared\Calcium.Extras.Platform.Shared.projitems" Label="Shared" />
+
+</Project>

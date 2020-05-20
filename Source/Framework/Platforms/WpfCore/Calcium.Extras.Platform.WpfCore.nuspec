@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Calcium.Extras.WpfCore</id>
+    <title>Calcium Extras for WPF (.NET Core)</title>
+
+		<version>$version$</version>
+		<authors>$Authors$</authors>
+		<owners>$Owners$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
+	  <iconUrl>$IconUrl$</iconUrl>
+		<projectUrl>http://codonfx.com</projectUrl>
+		<copyright>Copyright © $Owners$ 2009-2020</copyright>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml core</tags>
+		
+		<description>This package provides the platform specific implementations to support Calcium Extras features.
+
+Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
+
+$Desc$
+		</description>
+		<summary>This package provides the platform specific implementations to support Calcium Extras features.
+
+Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.</summary>
+		
+    <dependencies>
+			<group>
+				<dependency id="Calcium" version="$version$" />
+				<dependency id="Calcium.WpfCore" version="$version$" />
+				<dependency id="Calcium.Extras.Core" version="$version$" />
+			</group>
+    </dependencies>
+  </metadata>
+	<files>
+		<file src="..\..\..\..\Bin\WpfCore\Release\Calcium.Extras.Platform.dll" target="lib\netcoreapp3.1" />
+		<file src="..\..\..\..\Bin\WpfCore\Release\Calcium.Extras.Platform.pdb" target="lib\netcoreapp3.1" />
+		<file src="..\..\..\..\Bin\WpfCore\Release\Calcium.Extras.Platform.xml" target="lib\netcoreapp3.1" />
+	</files>
+</package>

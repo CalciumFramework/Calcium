@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9381b88a-8d04-4562-bc90-18eb24a45a0e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Calcium</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentModel\ExecutionEnvironment.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Clipboard\ClipboardService.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Clipboard\ClipboardService.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Memory\MemoryUsage.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Power\PowerService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Sensors\Accelerometer\Accelerometer.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\VibrateController\VibrateController.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\EmailComposeLauncher\EmailComposeLauncher.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\EmailComposeLauncher\EmailComposeLauncher.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhoneCallLauncher\PhoneCallLauncher.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhotoLauncher\MockPhotoResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhotoLauncher\PhotoLauncher.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhotoLauncher\PhotoLauncher.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhotoLauncher\PhotoResult.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\PhotoLauncher\PhotoResultBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\ShareLinkLauncher\ShareLinkLauncher.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LauncherModel\Launchers\ShareLinkLauncher\ShareLinkLauncher.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarketplaceModel\MarketplaceService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarketplaceModel\MarketplaceService.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\ConnectionMonitoring\NetworkConnectionService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\StateManager.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\StateManager.Ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\StateManager.Phone.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\StateManager.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StatePreservation\StateManager.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Mono\BooleanToVisibilityConverter.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Xaml\BooleanToVisibilityConverter.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Interactivity\CommandBehavior.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\Clipboard\ClipboardService.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\VibrateController\VibrateController.Ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Device\VibrateController\VibrateController.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\GeoLocator.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\GeopositionWrapper.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\GeopositionWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\GeopositionWrapper.Phone.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\GeopositionWrapper.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\IGeoLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GeoLocation\PositionAccuracy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemExtensions\StringExtensions.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\InputValidation\PropertyValidationAttachedProperty.WpfUwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Uwp\TypeTemplateSelector.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Mono\StringToTypedObjectConverter.AndroidForms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Mono\StringToUriBaseConverter.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\InputValidation\ErrorsDependencyProperty.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Mono\AbsentValueToVisibilityConverter.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Xaml\AbsentValueToVisibiltyConverter.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\CaseValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\Xaml\ColorToBrushConverter.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\InverseBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\ValueConverters\StringFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Uwp\DisplayOrientationsExtensions.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentModel\ExecutionEnvironment.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentModel\ExecutionEnvironment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Extensions\UIElementExtensions.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Wpf\FocusForcer.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Wpf\GridLengthAnimation.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Interactivity\TriggerActions\CommandAction.Wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\Uwp\UpdateSourceTriggerExtender.Uwp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\Xaml\VisualStateUtility.UwpWpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Elements\UserOptionsModel\UserOptionTemplateSelector.Uwp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)UI\Elements\InputValidation\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Calcium.Extras.Core</id>
+		<title>Calcium Extras .NET Standard library</title>
+
+		<version>$version$</version>
+		<authors>$Authors$</authors>
+		<owners>$Owners$</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>$LicenseUrl$</licenseUrl>
+	  <iconUrl>$IconUrl$</iconUrl>
+		<projectUrl>http://codonfx.com</projectUrl>
+		<copyright>Copyright © $Owners$ 2009-2020</copyright>
+		<tags>mvvm xamarin mvvmcross mvvmlight caliburn android uwp ios xaml</tags>
+		
+    <description>Calcium Extras' core functionality is a shared code base in a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Calcium.Extras.Android, Calcium.Extras.Ios, Calcium.Extras.Uwp, and Calcium.Extras.Wpf.
+
+Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
+
+$Desc$</description>
+		<summary>Calcium Extras includes a User Options system, Form Input Validation, an Undo/Redo Task system, application State Preservation, and various cross-platform launchers for sharing links, sending emails and so forth.
+
+Calcium Extras' core functionality is a shared code base in a .NET Standard library. Features that require platform specific implementation are implemented in respective platform specific packages. In the case of this package, the platform specific packages are: Calcium.Extras.Android, Calcium.Extras.Ios, Calcium.Extras.Uwp, and Calcium.Extras.Wpf.</summary>
+    <dependencies>
+	    <group>
+		    <dependency id="Calcium" version="$version$" exclude="Build,Analyzers" />
+	    </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\..\Bin\NetStandard\Release\Calcium.Extras.dll" target="lib\netstandard2.0" />
+		<file src="..\..\..\Bin\NetStandard\Release\Calcium.Extras.pdb" target="lib\netstandard2.0" />
+		<file src="..\..\..\Bin\NetStandard\Release\Calcium.Extras.xml" target="lib\netstandard2.0" />
+  </files>
+</package>
