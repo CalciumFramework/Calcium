@@ -1,4 +1,4 @@
-$packageVersion = "2.5.0-rc1";
+$packageVersion = "2.5.0";
 $sharedDescription = "Calcium is a zero-dependency cross-platform MVVM framework for creating UWP, WPF, and Xamarin applications. It provides much of what you need to rapidly create sophisticated yet maintainable applications.";
 $iconUrl = "https://calciumframework.github.io/External/Images/CalciumLogo_200x200.png";
 $licenseUrl = "https://calciumframework.github.io/External/License.txt";
