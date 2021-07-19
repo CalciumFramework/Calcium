@@ -65,6 +65,45 @@ namespace Calcium
 		}
 
 		/// <summary>
+		/// Throws an exception if the specified value is equal to its type's default value.
+		/// <seealso cref="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/default-values"/>
+		/// </summary>
+		/// <typeparam name="T">The type of the value.</typeparam>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">Name of the parameter.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">Occurs if the specified value 
+		/// is <code>null</code>.</exception>
+		/// <example>
+		/// public UIElementAdapter(UIElement uiElement)
+		/// {
+		/// 	this.uiElement = AssertArg.IsNotNull(uiElement, nameof(uiElement));	
+		/// }
+		/// </example>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
+		public static T IsNotDefault<T>(T value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			if (ReferenceEquals(value, default(T)))
+			{
+				throw new ArgumentNullException($"{parameterName} of type {typeof(T)} is null or default. " +
+												$"Method '{memberName}', File '{filePath}', Line '{lineNumber}'");
+			}
+
+			return value;
+		}
+
+		/// <summary>
 		/// Throws an exception if the specified value 
 		/// is <code>null</code> or empty (a zero length string).
 		/// </summary>
