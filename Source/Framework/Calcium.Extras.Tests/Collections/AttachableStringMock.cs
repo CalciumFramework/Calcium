@@ -27,7 +27,7 @@ namespace Calcium.Collections
 		{
 			var temp = item;
 			item = default;
-			return item;
+			return temp;
 		}
 
 		/// <inheritdoc />
