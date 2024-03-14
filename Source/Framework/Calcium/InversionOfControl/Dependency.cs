@@ -314,6 +314,87 @@ namespace Calcium
 			return instance;
 		}
 
+        /// <summary>
+        /// Resolves an object instance deriving from the specified
+        /// from type <c>TFrom</c>.
+        /// </summary>
+        /// <typeparam name="TFrom">The registered from type mapping.
+        /// </typeparam>
+        /// <param name="getInstanceFunc">
+        /// If no type mapping is associated with the <c>TFrom</c> type,
+        /// then a type registration is created and the func used
+        /// to return an instance.
+        /// </param>
+        /// <param name="key">Multiple instance can be associated
+        /// with a type. The key is used to differentiate them.</param>
+        /// <returns>An instance of <c>T</c>.
+        /// Can be <c>null</c>.</returns>
+        /// <exception cref="ResolutionException">
+        /// Is raised if the type is unable to be located,
+        /// or an exception is raised during resolution.</exception>
+        public static TFrom Resolve<TFrom>(
+            Func<TFrom> getInstanceFunc,
+            string key = null)
+        {
+            TFrom instance;
+            if (Container.IsRegistered(typeof(TFrom), key))
+            {
+                instance = string.IsNullOrEmpty(key)
+                    ? Container.Resolve<TFrom>()
+                    : Container.Resolve<TFrom>(key);
+            }
+            else
+            {
+                instance = getInstanceFunc();
+            }
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Resolves an object instance deriving from the specified
+        /// from type <c>TFrom</c>.
+        /// </summary>
+        /// <typeparam name="TFrom">The registered from type mapping.
+        /// </typeparam>
+        /// <param name="getInstanceFunc">
+        /// If no type mapping is associated with the <c>TFrom</c> type,
+        /// then a type registration is created and the func used
+        /// to return an instance.
+        /// </param>
+        /// <param name="singleton">If <c>true</c> once an instance
+        /// of <c>fromType</c> is created, it is retained, and returned
+        /// upon subsequent calls to <c>Resolve</c>.</param>
+        /// <param name="key">Multiple instance can be associated
+        /// with a type. The key is used to differentiate them.</param>
+        /// <returns>An instance of <c>T</c>.
+        /// Can be <c>null</c>.</returns>
+        /// <exception cref="ResolutionException">
+        /// Is raised if the type is unable to be located,
+        /// or an exception is raised during resolution.</exception>
+        public static TFrom ResolveOrRegister<TFrom>(
+			Func<TFrom> getInstanceFunc,
+			bool singleton = true,
+			string key = null)
+		{
+			Type fromType = typeof(TFrom);
+			TFrom instance;
+
+			if (Container.IsRegistered(fromType, key))
+			{
+				instance = string.IsNullOrEmpty(key)
+					? Container.Resolve<TFrom>()
+					: Container.Resolve<TFrom>(key);
+			}
+			else
+			{
+				Register<TFrom>(getInstanceFunc, singleton, key);
+				instance = Resolve<TFrom>(key);
+			}
+
+			return instance;
+		}
+
 		/// <summary>
 		/// Resolves an object instance deriving from the specified
 		/// from type <c>TFrom</c>.
