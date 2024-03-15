@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Calcium.InversionOfControl
 {
@@ -12,7 +13,7 @@ namespace Calcium.InversionOfControl
 	[AttributeUsage(AttributeTargets.Interface)]
 	public class DefaultTypeAttribute : Attribute
 	{
-		public DefaultTypeAttribute(Type type)
+		public DefaultTypeAttribute([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type)
 		{
 			Type = type;
 		}

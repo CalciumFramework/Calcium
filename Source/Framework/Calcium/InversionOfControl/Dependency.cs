@@ -14,7 +14,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics.CodeAnalysis;
 using Calcium.InversionOfControl;
 
 namespace Calcium
@@ -76,7 +76,9 @@ namespace Calcium
 		/// <param name="key">The key. Can be <c>null</c>.</param>
 		/// <param name="singleton">if set to <c>true</c> 
 		/// only one instance will be created of the TTo type.</param>
-		public static void Register<TFrom, TTo>(bool singleton = false, string key = null) 
+		public static void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom,
+									[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TTo>(
+			bool singleton = false, string key = null) 
 			where TTo : TFrom
 		{
 			Container.Register<TFrom, TTo>(singleton, key);
@@ -91,7 +93,8 @@ namespace Calcium
 		/// <param name="instance">The instance to be registered as a singleton.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
-		public static void Register<TFrom>(TFrom instance, string key = null)
+		public static void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>(
+			TFrom instance, string key = null)
 		{
 			Container.Register<TFrom>(instance, key);
 		}
@@ -108,7 +111,11 @@ namespace Calcium
 		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
-		public static void Register(Type fromType, Type toType, bool singleton = false, string key = null)
+		public static void Register(
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type toType, 
+			bool singleton = false, 
+			string key = null)
 		{
 			Container.Register(fromType, toType, singleton, key);
 		}
@@ -125,7 +132,9 @@ namespace Calcium
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register(
-			Type fromType, object instance, string key = null)
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType, 
+			object instance, 
+			string key = null)
 		{
 			Container.Register(fromType, instance, key);
 		}
@@ -142,7 +151,9 @@ namespace Calcium
 		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
-		public static void Register<T>(string key, bool singleton = false)
+		public static void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			string key, 
+			bool singleton = false)
 		{
 			Container.Register<T, T>(singleton, key);
 		}
@@ -162,7 +173,7 @@ namespace Calcium
 		/// upon subsequent calls to <c>Resolve</c>.</param>
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
-		public static void Register<TFrom>(
+		public static void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>(
 			Func<TFrom> getInstanceFunc, 
 			bool singleton = false, 
 			string key = null)
@@ -191,7 +202,7 @@ namespace Calcium
 		/// <param name="key">Multiple instance can be associated
 		/// with a type. The key is used to differentiate them.</param>
 		public static void Register(
-			Type fromType, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType, 
 			Func<object> getInstanceFunc, 
 			bool singleton = false, 
 			string key = null)
@@ -237,7 +248,7 @@ namespace Calcium
 		/// <exception cref="ResolutionException">
 		/// Is raised if the type is unable to be located,
 		/// or an exception is raised during resolution.</exception>
-		public static T Resolve<T>(string key = null)
+		public static T Resolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(string key = null)
 		{
 			return Container.Resolve<T>(key);
 		}
@@ -255,7 +266,9 @@ namespace Calcium
 		/// <exception cref="ResolutionException">
 		/// Is raised if the type is unable to be located,
 		/// or an exception is raised during resolution.</exception>
-		public static object ResolveWithType(Type type, string key = null)
+		public static object ResolveWithType(
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, 
+			string key = null)
 		{
 			AssertArg.IsNotNull(type, nameof(type));
 			if (key != null)
@@ -286,7 +299,8 @@ namespace Calcium
 		/// <exception cref="ResolutionException">
 		/// Is raised if the type is unable to be located,
 		/// or an exception is raised during resolution.</exception>
-		public static TFrom Resolve<TFrom, TDefaultImplementation>(
+		public static TFrom Resolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom, 
+									[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDefaultImplementation>(
 			bool singleton = true, 
 			string key = null)
 			where TDefaultImplementation : TFrom
@@ -314,65 +328,65 @@ namespace Calcium
 			return instance;
 		}
 
-        /// <summary>
-        /// Resolves an object instance deriving from the specified
-        /// from type <c>TFrom</c>.
-        /// </summary>
-        /// <typeparam name="TFrom">The registered from type mapping.
-        /// </typeparam>
-        /// <param name="getInstanceFunc">
-        /// If no type mapping is associated with the <c>TFrom</c> type,
-        /// then a type registration is created and the func used
-        /// to return an instance.
-        /// </param>
-        /// <param name="key">Multiple instance can be associated
-        /// with a type. The key is used to differentiate them.</param>
-        /// <returns>An instance of <c>T</c>.
-        /// Can be <c>null</c>.</returns>
-        /// <exception cref="ResolutionException">
-        /// Is raised if the type is unable to be located,
-        /// or an exception is raised during resolution.</exception>
-        public static TFrom Resolve<TFrom>(
-            Func<TFrom> getInstanceFunc,
-            string key = null)
-        {
-            TFrom instance;
-            if (Container.IsRegistered(typeof(TFrom), key))
-            {
-                instance = string.IsNullOrEmpty(key)
-                    ? Container.Resolve<TFrom>()
-                    : Container.Resolve<TFrom>(key);
-            }
-            else
-            {
-                instance = getInstanceFunc();
-            }
+		/// <summary>
+		/// Resolves an object instance deriving from the specified
+		/// from type <c>TFrom</c>.
+		/// </summary>
+		/// <typeparam name="TFrom">The registered from type mapping.
+		/// </typeparam>
+		/// <param name="getInstanceFunc">
+		/// If no type mapping is associated with the <c>TFrom</c> type,
+		/// then a type registration is created and the func used
+		/// to return an instance.
+		/// </param>
+		/// <param name="key">Multiple instance can be associated
+		/// with a type. The key is used to differentiate them.</param>
+		/// <returns>An instance of <c>T</c>.
+		/// Can be <c>null</c>.</returns>
+		/// <exception cref="ResolutionException">
+		/// Is raised if the type is unable to be located,
+		/// or an exception is raised during resolution.</exception>
+		public static TFrom Resolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>(
+			Func<TFrom> getInstanceFunc,
+			string key = null)
+		{
+			TFrom instance;
+			if (Container.IsRegistered(typeof(TFrom), key))
+			{
+				instance = string.IsNullOrEmpty(key)
+					? Container.Resolve<TFrom>()
+					: Container.Resolve<TFrom>(key);
+			}
+			else
+			{
+				instance = getInstanceFunc();
+			}
 
-            return instance;
-        }
+			return instance;
+		}
 
-        /// <summary>
-        /// Resolves an object instance deriving from the specified
-        /// from type <c>TFrom</c>.
-        /// </summary>
-        /// <typeparam name="TFrom">The registered from type mapping.
-        /// </typeparam>
-        /// <param name="getInstanceFunc">
-        /// If no type mapping is associated with the <c>TFrom</c> type,
-        /// then a type registration is created and the func used
-        /// to return an instance.
-        /// </param>
-        /// <param name="singleton">If <c>true</c> once an instance
-        /// of <c>fromType</c> is created, it is retained, and returned
-        /// upon subsequent calls to <c>Resolve</c>.</param>
-        /// <param name="key">Multiple instance can be associated
-        /// with a type. The key is used to differentiate them.</param>
-        /// <returns>An instance of <c>T</c>.
-        /// Can be <c>null</c>.</returns>
-        /// <exception cref="ResolutionException">
-        /// Is raised if the type is unable to be located,
-        /// or an exception is raised during resolution.</exception>
-        public static TFrom ResolveOrRegister<TFrom>(
+		/// <summary>
+		/// Resolves an object instance deriving from the specified
+		/// from type <c>TFrom</c>.
+		/// </summary>
+		/// <typeparam name="TFrom">The registered from type mapping.
+		/// </typeparam>
+		/// <param name="getInstanceFunc">
+		/// If no type mapping is associated with the <c>TFrom</c> type,
+		/// then a type registration is created and the func used
+		/// to return an instance.
+		/// </param>
+		/// <param name="singleton">If <c>true</c> once an instance
+		/// of <c>fromType</c> is created, it is retained, and returned
+		/// upon subsequent calls to <c>Resolve</c>.</param>
+		/// <param name="key">Multiple instance can be associated
+		/// with a type. The key is used to differentiate them.</param>
+		/// <returns>An instance of <c>T</c>.
+		/// Can be <c>null</c>.</returns>
+		/// <exception cref="ResolutionException">
+		/// Is raised if the type is unable to be located,
+		/// or an exception is raised during resolution.</exception>
+		public static TFrom ResolveOrRegister<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>(
 			Func<TFrom> getInstanceFunc,
 			bool singleton = true,
 			string key = null)
@@ -415,7 +429,7 @@ namespace Calcium
 		/// <exception cref="ResolutionException">
 		/// Is raised if the type is unable to be located,
 		/// or an exception is raised during resolution.</exception>
-		public static TFrom ResolveOrRegister<TFrom>(
+		public static TFrom ResolveOrRegister<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>(
 			TFrom defaultImplementation, 
 			bool singleton = true, 
 			string key = null)
@@ -449,7 +463,7 @@ namespace Calcium
 		}
 
 		/// <summary>
-		/// Attempts to resolves an object instance deriving from the specified
+		/// Attempts to resolve an object instance deriving from the specified
 		/// from type <c>T</c>.
 		/// </summary>
 		/// <typeparam name="T">The registered from type mapping.
@@ -460,7 +474,8 @@ namespace Calcium
 		/// with a type. The key is used to differentiate them.</param>
 		/// <returns>An instance of <c>T</c>.
 		/// Can be <c>null</c>.</returns>
-		public static bool TryResolve<T>(out T result, string key = null)
+		public static bool TryResolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			out T result, string key = null)
 			where T : class
 		{
 //			try
@@ -499,22 +514,18 @@ namespace Calcium
 		/// Is raised if the type is unable to be located,
 		/// or an exception is raised during resolution.</exception>
 		public static bool TryResolve(
-			Type type, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, 
 			out object result, 
 			string key = null)
 		{
-			try
+			if (Container.IsRegistered(type, key))
 			{
-				result = Container.IsRegistered(type, key) 
-							? ResolveWithType(type, key) : null;
-			}
-			catch (Exception) /* Unable to be more specific because 
-							   * we don't know the container implementation. */
-			{
-				result = null;
+				result = ResolveWithType(type, key);
+				return true;
 			}
 
-			return result != null;
+			result = null;
+			return false;
 		}
 
 		/// <summary>
@@ -524,7 +535,8 @@ namespace Calcium
 		/// <typeparam name="TFrom">The from type mapping.</typeparam>
 		/// <returns>All objects that are registered with the 
 		/// specified 'from type' mapping.</returns>
-		public static IEnumerable<TFrom> ResolveAll<TFrom>() where TFrom : class
+		public static IEnumerable<TFrom> ResolveAll<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>() 
+			where TFrom : class
 		{
 			return Container.ResolveAll<TFrom>();
 		}

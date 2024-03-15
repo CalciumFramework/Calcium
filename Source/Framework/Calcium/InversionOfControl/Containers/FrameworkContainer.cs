@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -134,16 +135,20 @@ namespace Calcium.InversionOfControl
 			}
 		}
 
-		public void Register<TFrom, TTo>(
-			bool singleton = false, string key = null) where TTo : TFrom
+		public void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom,
+							 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TTo>(
+			bool singleton = false, 
+			string key = null) where TTo : TFrom
 		{
 			Type fromType = typeof(TFrom);
 			Type toType = typeof(TTo);
 			Register(fromType, toType, singleton, key);
 		}
 
-		public void Register(Type fromType, Type toType, 
-			bool singleton = false, string key = null)
+		public void Register([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType,
+							 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type toType, 
+							 bool singleton = false, 
+							 string key = null)
 		{
 			key = GetKeyValueOrDefault(key);
 
@@ -180,7 +185,8 @@ namespace Calcium.InversionOfControl
 			}
 		}
 
-		public void Register<TInterface>(TInterface instance, string key = null)
+		public void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TInterface>(
+			TInterface instance, string key = null)
 		{
 			key = GetKeyValueOrDefault(key);
 			Type type = typeof(TInterface);
@@ -211,7 +217,7 @@ namespace Calcium.InversionOfControl
 			}
 		}
 
-		public void Register<T>(
+		public void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
 			Func<T> getInstanceFunc, 
 			bool singleton = false, 
 			string key = null)
@@ -297,7 +303,7 @@ namespace Calcium.InversionOfControl
 		}
 
 		public void Register(
-			Type type, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, 
 			Func<object> getInstanceFunc, 
 			bool singleton = false, 
 			string key = null)
@@ -352,7 +358,9 @@ namespace Calcium.InversionOfControl
 			}
 		}
 
-		public void Register(Type type, object instance, string key = null)
+		public void Register([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, 
+							 object instance, 
+							 string key = null)
 		{
 			AssertArg.IsNotNull(type, nameof(type));
 
@@ -445,19 +453,19 @@ namespace Calcium.InversionOfControl
 			return false;
 		}
 
-		public T Resolve<T>(string key = null)
+		public T Resolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(string key = null)
 		{
 			return (T)ResolveAux(typeof(T), key);
 		}
 
-		public object Resolve(Type type, string key = null)
+		public object Resolve([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, string key = null)
 		{
 			AssertArg.IsNotNull(type, nameof(type));
 			return ResolveAux(type, key);
 		}
 
 		object ResolveAux(
-			Type type, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, 
 			string key = null, 
 			Dictionary<string, object> resolvedObjects = null)
 		{
@@ -510,7 +518,7 @@ namespace Calcium.InversionOfControl
 			return result;
 		}
 
-		public IEnumerable<object> ResolveAll(Type fromType)
+		public IEnumerable<object> ResolveAll([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType)
 		{
 			AssertArg.IsNotNull(fromType, nameof(fromType));
 
@@ -562,7 +570,8 @@ namespace Calcium.InversionOfControl
 			return list;
 		}
 
-		public IEnumerable<TFrom> ResolveAll<TFrom>() where TFrom : class
+		public IEnumerable<TFrom> ResolveAll<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>()
+			where TFrom : class
 		{
 			Type fromType = typeof(TFrom);
 			List<TFrom> list = new List<TFrom>();
@@ -604,14 +613,28 @@ namespace Calcium.InversionOfControl
 
 		public bool TryResolve<T>(out T result, string key = null)
 		{
-			result = (T)ResolveCore(typeof(T), key, false);
-			return result != null;
+			Type type = typeof(T);
+
+			if (IsRegistered(type, key))
+			{
+				result = (T)ResolveCore(type, key);
+				return true;
+			}
+
+			result = default;
+			return false;
 		}
 
 		public bool TryResolve(Type type, out object result, string key = null)
 		{
-			result = ResolveCore(type, key, false);
-			return result != null;
+			if (IsRegistered(type, key))
+			{
+				result = ResolveCore(type, key);
+				return true;
+			}
+
+			result = null;
+			return false;
 		}
 
 		object ResolveCore(Type type, string key, bool raiseExceptionIfNotResolved = true)

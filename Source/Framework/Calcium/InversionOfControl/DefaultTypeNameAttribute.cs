@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Calcium.InversionOfControl
 {
@@ -21,7 +22,7 @@ namespace Calcium.InversionOfControl
 		/// <param name="typeName">
 		/// The type name of a concrete class that implements
 		/// the interface on which this attribute is placed.</param>
-		public DefaultTypeNameAttribute(string typeName)
+		public DefaultTypeNameAttribute([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] string typeName)
 		{
 			TypeName = typeName;
 		}
