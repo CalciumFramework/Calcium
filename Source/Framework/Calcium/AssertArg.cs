@@ -66,7 +66,7 @@ namespace Calcium
 
 		/// <summary>
 		/// Throws an exception if the specified value is equal to its type's default value.
-		/// <seealso cref="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/default-values"/>
+		/// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/default-values"/>
 		/// </summary>
 		/// <typeparam name="T">The type of the value.</typeparam>
 		/// <param name="value">The value to test.</param>
