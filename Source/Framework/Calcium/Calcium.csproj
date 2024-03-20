@@ -29,4 +29,11 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\Calcium.Common\Calcium.Common.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <AssemblyAttribute Include="Calcium.Reflection.TimeOfBuildAttribute">
+      <_Parameter1>$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>
