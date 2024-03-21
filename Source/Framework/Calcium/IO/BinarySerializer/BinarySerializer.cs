@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Calcium.IO.Serialization;
 
@@ -38,12 +39,12 @@ namespace Calcium.IO
 			return SilverlightSerializer.Serialize(item);
 		}
 
-		public T Deserialize<T>(byte[] array) where T : class
+		public T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(byte[] array) where T : class
 		{
 			return (T)SilverlightSerializer.Deserialize(array);
 		}
 
-		public T Deserialize<T>(Stream stream) where T : class
+		public T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(Stream stream) where T : class
 		{
 			return (T)SilverlightSerializer.Deserialize(stream);
 		}

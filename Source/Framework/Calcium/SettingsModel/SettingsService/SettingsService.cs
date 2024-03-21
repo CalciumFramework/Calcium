@@ -16,6 +16,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,9 +62,9 @@ namespace Calcium.SettingsModel
 		/// <summary>
 		/// Provides thread safety for the dictionary of settings.
 		/// </summary>
-		readonly ReaderWriterLockSlim lockSlim = new ReaderWriterLockSlim();
+		readonly ReaderWriterLockSlim lockSlim = new();
 
-		readonly Dictionary<string, object> cache = new Dictionary<string,object>();
+		readonly Dictionary<string, object> cache = new();
 
 		public void ClearCache()
 		{
@@ -132,13 +133,15 @@ namespace Calcium.SettingsModel
 			return result;
 		}
 
-		public bool TryGetSetting(string key, Type settingType, out object setting)
+		public bool TryGetSetting(string key, 
+								  [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, 
+								  out object setting)
 		{
 			setting = GetSettingCore(key, settingType, null, out bool settingExists);
 			return settingExists;
 		}
 
-		public bool TryGetSetting<TSettingType>(string key, out TSettingType setting)
+		public bool TryGetSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSettingType>(string key, out TSettingType setting)
 		{
 			setting = (TSettingType)GetSettingCore(
 							key, 
@@ -177,14 +180,16 @@ namespace Calcium.SettingsModel
 			return result;
 		}
 
-		public T GetSetting<T>(string key, T defaultValue)
+		public T GetSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(string key, T defaultValue)
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
 			return (T)GetSetting(key, typeof(T), defaultValue);
 		}
 
-		public object GetSetting(string key, Type settingType, object defaultValue)
+		public object GetSetting(string key, 
+								 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, 
+								 object defaultValue)
 		{
 			var result = GetSettingCore(
 							key, 
@@ -227,8 +232,8 @@ namespace Calcium.SettingsModel
 			return result;
 		}
 
-		object GetSettingFromStore(string key, bool xmlConvertible, 
-			Type settingType, object defaultValue, out bool returningDefaultValue)
+		object GetSettingFromStore(string key, bool xmlConvertible,
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, object defaultValue, out bool returningDefaultValue)
 		{
 			returningDefaultValue = false;
 			string cacheKey = key;
@@ -349,7 +354,7 @@ namespace Calcium.SettingsModel
 			return defaultValue;
 		}
 
-		static object InflateEntry(Type settingType, object entry)
+		static object InflateEntry([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, object entry)
 		{
 			if (entry != null && entry.GetType() != settingType && settingType != typeof(byte[]) && entry is byte[])
 			{
@@ -368,7 +373,9 @@ namespace Calcium.SettingsModel
 			return entry;
 		}
 
-		bool TryConvertFromXml(Type settingType, object xmlFragment, out object result)
+		bool TryConvertFromXml([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, 
+							   object xmlFragment, 
+							   out object result)
 		{
 			if (xmlFragment != null)
 			{
@@ -396,7 +403,7 @@ namespace Calcium.SettingsModel
 			return false;
 		}
 
-		public bool ContainsSetting<TSetting>(string key)
+		public bool ContainsSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSetting>(string key)
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
@@ -444,7 +451,10 @@ namespace Calcium.SettingsModel
 			return hasSetting;
 		}
 
-		public SetSettingResult SetSetting<T>(string key, T value, StorageLocation storageLocation = StorageLocation.Local)
+		public SetSettingResult SetSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			string key, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T value, 
+			StorageLocation storageLocation = StorageLocation.Local)
 		{
 			Type settingType = typeof(T);
 			var settingTypeInfo = settingType.GetTypeInfo();
@@ -668,7 +678,12 @@ namespace Calcium.SettingsModel
 			return false;
 		}
 
-		void SaveValueToStore<T>(ISettingsStore settingsStore, string key, T value, bool xmlConvertible, Type settingType)
+		void SaveValueToStore<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			ISettingsStore settingsStore, 
+			string key, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T value, 
+			bool xmlConvertible,
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType)
 		{
 			object existingValue = null;
 			bool valueRestorable = false;
@@ -754,7 +769,8 @@ namespace Calcium.SettingsModel
 			}
 		}
 
-		static void SetTransientStateValue<T>(ISettingsStore transientState, string key, T value)
+		static void SetTransientStateValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			ISettingsStore transientState, string key, T value)
 		{
 			if (value == null)
 			{
@@ -770,7 +786,9 @@ namespace Calcium.SettingsModel
 			}
 		}
 
-		static object GetSavableValue<T>(Type settingType, T value)
+		static object GetSavableValue<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T value)
 		{
 			object savableValue = value;
 

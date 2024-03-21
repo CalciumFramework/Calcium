@@ -12,6 +12,7 @@
 */
 #endregion
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Calcium.InversionOfControl;
 using Calcium.SettingsModel;
@@ -34,7 +35,8 @@ namespace Calcium.Services
 		/// <param name="key">The key.</param>
 		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The located setting, or the default value if <code>null</code>.</returns>
-		TSetting GetSetting<TSetting>(string key, TSetting defaultValue);
+		TSetting GetSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSetting>(
+			string key, TSetting defaultValue);
 
 		/// <summary>
 		/// Gets the setting instance with the specified key that is of the specified type.
@@ -44,7 +46,10 @@ namespace Calcium.Services
 		/// <param name="settingType">The type of the setting value.</param>
 		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The located setting, or the default value if <code>null</code>.</returns>
-		object GetSetting(string key, Type settingType, object defaultValue);
+		object GetSetting(
+			string key, 
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type settingType, 
+			object defaultValue);
 
 		/// <summary>
 		/// Attempts to retrieve the specified setting.
@@ -72,7 +77,7 @@ namespace Calcium.Services
 
 		/// <summary>
 		/// Determines whether the specified key has a registered setting value.
-		/// Note: Favor, whereever possible, the use of the generic form of this method, 
+		/// Note: Favor, wherever possible, the use of the generic form of this method, 
 		/// as it first checks the cache, which is faster.
 		/// </summary>
 		/// <param name="key">The key.</param>
@@ -101,7 +106,8 @@ namespace Calcium.Services
 		/// <returns><code>Successful</code> if the setting was correctly stored,
 		/// <code>Cancelled</code> if a listener intervened an prevented cancelled the setting.
 		/// Default is <c>Local</c>.</returns>
-		SetSettingResult SetSetting<T>(string key, T value, StorageLocation storageLocation = StorageLocation.Local);
+		SetSettingResult SetSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(
+			string key, T value, StorageLocation storageLocation = StorageLocation.Local);
 
 		/// <summary>
 		/// Removes the setting with the specified key from all storage locations and cache.

@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace Calcium.IO.Serialization
 	public class SerializerAttribute : Attribute
 	{
 		internal Type SerializesType;
-		public SerializerAttribute(Type serializesType)
+		public SerializerAttribute([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type serializesType)
 		{
 			SerializesType = serializesType;
 		}
@@ -137,7 +138,7 @@ namespace Calcium.IO.Serialization
 		/// </summary>
 		/// <param name="array"></param>
 		/// <returns></returns>
-		public static T Deserialize<T>(byte[] array) where T : class
+		public static T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(byte[] array) where T : class
 		{
 			return Deserialize(array) as T;
 
@@ -148,7 +149,7 @@ namespace Calcium.IO.Serialization
 		/// </summary>
 		/// <param name="stream"></param>
 		/// <returns></returns>
-		public static T Deserialize<T>(Stream stream) where T : class
+		public static T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(Stream stream) where T : class
 		{
 			return Deserialize(stream) as T;
 		}
@@ -222,7 +223,7 @@ namespace Calcium.IO.Serialization
 		/// <param name="function">The function to call</param>
 		/// <param name="assembly">The assembly to scan</param>
 		/// <param name="attribute">The attribute to look for</param>
-		internal static void ScanAllTypesForAttribute(ScanTypeFunction function, Assembly assembly, Type attribute = null)
+		internal static void ScanAllTypesForAttribute(ScanTypeFunction function, Assembly assembly, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type attribute = null)
 		{
 			try
 			{
@@ -272,7 +273,7 @@ namespace Calcium.IO.Serialization
 		/// <remarks>
 		///   It should be noted that the implementation converts the enumeration returned from reflection to an array as this more than double the speed of subsequent reads
 		/// </remarks>
-		private static IEnumerable<PropertyInfo> GetPropertyInfo(Type itm)
+		private static IEnumerable<PropertyInfo> GetPropertyInfo([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itm)
 		{
 			lock (PropertyLists)
 			{
@@ -308,7 +309,7 @@ namespace Calcium.IO.Serialization
 		/// <remarks>
 		///   It should be noted that the implementation converts the enumeration returned from reflection to an array as this more than double the speed of subsequent reads
 		/// </remarks>
-		private static IEnumerable<FieldInfo> GetFieldInfo(Type itm)
+		private static IEnumerable<FieldInfo> GetFieldInfo([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itm)
 		{
 			lock (FieldLists)
 			{
@@ -476,7 +477,7 @@ namespace Calcium.IO.Serialization
 		///   a compact format where types only have to be specified if they differ from the expected one
 		/// </remarks>
 		private static object DeserializeObject(
-			BinaryReader reader, Type itemType = null, object instance = null)
+			BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType = null, object instance = null)
 		{
 			var tpId = (ushort)reader.ReadUInt16();
 			if (tpId == 0xFFFE)
@@ -554,7 +555,7 @@ namespace Calcium.IO.Serialization
 		/// <remarks>
 		///   This routine optimizes for arrays of primitives and bytes
 		/// </remarks>
-		private static object DeserializeArray(Type itemType, BinaryReader reader, int count)
+		private static object DeserializeArray([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader reader, int count)
 		{
 			// If the count is -1 at this point, then it is being called from the
 			// deserialization of a multi-dimensional array - so we need
@@ -603,7 +604,7 @@ namespace Calcium.IO.Serialization
 		///   This routine deserializes values serialized on a 'row by row' basis, and
 		///   calls into DeserializeArray to do this
 		/// </remarks>
-		private static object DeserializeMultiDimensionArray(Type itemType, BinaryReader reader, int count)
+		private static object DeserializeMultiDimensionArray([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader reader, int count)
 		{
 			//Read the number of dimensions the array has
 			var dimensions = reader.ReadInt32();
@@ -636,7 +637,7 @@ namespace Calcium.IO.Serialization
 			return sourceArrays;
 		}
 
-		private static void DeserializeArrayPart(Array sourceArrays, int i, int[] indices, Type itemType, BinaryReader binaryReader)
+		private static void DeserializeArrayPart(Array sourceArrays, int i, int[] indices, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader binaryReader)
 		{
 			int length = sourceArrays.GetLength(i);
 			for (var l = 0; l < length; l++)
@@ -664,7 +665,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "itemType">The type of the dictionary</param>
 		/// <param name = "reader">The binary reader for the current bytes</param>
 		/// <returns>The dictionary object updated with the values from storage</returns>
-		private static object DeserializeDictionary(IDictionary o, Type itemType, BinaryReader reader)
+		private static object DeserializeDictionary(IDictionary o, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader reader)
 		{
 			Type keyType = null;
 			Type valueType = null;
@@ -695,7 +696,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "itemType">The type of the list</param>
 		/// <param name = "reader">The reader for the current bytes</param>
 		/// <returns>The list updated with values from the stream</returns>
-		private static object DeserializeList(IList o, Type itemType, BinaryReader reader)
+		private static object DeserializeList(IList o, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader reader)
 		{
 			Type valueType = null;
 			if (itemType.IsGenericType())
@@ -720,7 +721,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "itemType">The type of the object</param>
 		/// <param name = "reader">The reader for the current stream of bytes</param>
 		/// <returns>The object updated with values from the stream</returns>
-		private static object DeserializeObjectAndProperties(object o, Type itemType, BinaryReader reader)
+		private static object DeserializeObjectAndProperties(object o, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryReader reader)
 		{
 			DeserializeProperties(reader, itemType, o);
 			DeserializeFields(reader, itemType, o);
@@ -735,7 +736,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "itemType">The type of the object</param>
 		/// <param name = "o">The object to deserialize</param>
 		private static void DeserializeProperties(
-			BinaryReader reader, Type itemType, object o)
+			BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, object o)
 		{
 			//Get the number of properties
 			var propCount = reader.ReadByte();
@@ -780,7 +781,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "reader">The reader of the bytes in the stream</param>
 		/// <param name = "itemType">The type of the object</param>
 		/// <param name = "o">The object to deserialize</param>
-		private static void DeserializeFields(BinaryReader reader, Type itemType, object o)
+		private static void DeserializeFields(BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, object o)
 		{
 			var fieldCount = reader.ReadByte();
 			int length = 0;
@@ -888,7 +889,7 @@ namespace Calcium.IO.Serialization
 				return outputStream.ToArray();
 			}
 		}
-		private static void SerializeObject(object item, BinaryWriter writer, Type propertyType = null)
+		private static void SerializeObject(object item, BinaryWriter writer, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type propertyType = null)
 		{
 			if (item == null)
 			{
@@ -976,7 +977,7 @@ namespace Calcium.IO.Serialization
 			SerializeObjectAndProperties(item, itemType, writer);
 		}
 
-		private static void SerializeList(IList item, Type tp, BinaryWriter writer)
+		private static void SerializeList(IList item, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp, BinaryWriter writer)
 		{
 			Type valueType = null;
 			//Try to optimize the storage of types based on the type of list
@@ -993,7 +994,7 @@ namespace Calcium.IO.Serialization
 			}
 		}
 
-		private static void SerializeDictionary(IDictionary item, Type tp, BinaryWriter writer)
+		private static void SerializeDictionary(IDictionary item, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp, BinaryWriter writer)
 		{
 			Type keyType = null;
 			Type valueType = null;
@@ -1018,7 +1019,7 @@ namespace Calcium.IO.Serialization
 			}
 		}
 
-		private static void SerializeArray(Array item, Type tp, BinaryWriter writer)
+		private static void SerializeArray(Array item, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp, BinaryWriter writer)
 		{
 			var length = item.Length;
 
@@ -1043,7 +1044,7 @@ namespace Calcium.IO.Serialization
 				}
 		}
 
-		private static void SerializeMultiDimensionArray(Array item, Type tp, BinaryWriter writer)
+		private static void SerializeMultiDimensionArray(Array item, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp, BinaryWriter writer)
 		{
 
 			// Multi-dimension serializer data is:
@@ -1117,7 +1118,7 @@ namespace Calcium.IO.Serialization
 			return tp.IsPrimitive() || tp == typeof(DateTime) || tp == typeof(TimeSpan) || tp == typeof(string) || tp.IsEnum() || tp == typeof(Guid) || tp == typeof(decimal);
 		}
 
-		private static void SerializeObjectAndProperties(object item, Type itemType, BinaryWriter writer)
+		private static void SerializeObjectAndProperties(object item, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, BinaryWriter writer)
 		{
 			lock (Vanilla)
 			{
@@ -1133,7 +1134,7 @@ namespace Calcium.IO.Serialization
 			WriteFields(itemType, item, writer);
 		}
 
-		private static object CreateObject(Type itemType)
+		private static object CreateObject([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType)
 		{
 //			try
 //			{
@@ -1148,7 +1149,7 @@ namespace Calcium.IO.Serialization
 
 		}
 
-		private static void WriteProperties(Type itemType, object item, BinaryWriter writer)
+		private static void WriteProperties([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, object item, BinaryWriter writer)
 		{
 			var propertyStream = new MemoryStream();
 			var pw = new BinaryWriter(propertyStream);
@@ -1203,7 +1204,7 @@ namespace Calcium.IO.Serialization
 			propertyStream.WriteTo(writer.BaseStream);
 		}
 
-		private static void WriteFields(Type itemType, object item, BinaryWriter writer)
+		private static void WriteFields([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type itemType, object item, BinaryWriter writer)
 		{
 			var fieldStream = new MemoryStream();
 			var fw = new BinaryWriter(fieldStream);
@@ -1300,7 +1301,7 @@ namespace Calcium.IO.Serialization
 		/// <param name = "reader">The reader with the stream</param>
 		/// <param name = "tp">The type to read</param>
 		/// <returns>The hydrated value</returns>
-		private static object ReadValue(BinaryReader reader, Type tp)
+		private static object ReadValue(BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp)
 		{
 
 			if (tp == typeof(string))
@@ -1354,7 +1355,7 @@ namespace Calcium.IO.Serialization
 		/// </summary>
 		/// <param name = "tp">The type to retrieve a token for</param>
 		/// <returns>A 2 byte token representing the type</returns>
-		private static ushort GetTypeId(Type tp)
+		private static ushort GetTypeId([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type tp)
 		{
 			var tpId = _knownTypes.IndexOf(tp);
 

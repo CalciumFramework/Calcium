@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Calcium.InversionOfControl;
 
@@ -61,7 +62,7 @@ namespace Calcium.IO
 		/// Occurs if the object represented by the specified array
 		/// is not of the type specified by the type parameter <c>T</c>.
 		/// </exception>
-		T Deserialize<T>(byte[] array) where T : class;
+		T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(byte[] array) where T : class;
 
 		/// <summary>
 		/// Converts the specified <c>Stream</c>
@@ -78,7 +79,7 @@ namespace Calcium.IO
 		/// Occurs if the object represented by the specified array
 		/// is not of the type specified by the type parameter <c>T</c>.
 		/// </exception>
-		T Deserialize<T>(Stream stream) where T : class;
+		T Deserialize<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(Stream stream) where T : class;
 
 		/// <summary>
 		/// Converts the specified <c>Stream</c>
