@@ -1,22 +1,18 @@
-using System;
-using System.Globalization;
-using System.Threading.Tasks;
+using FluentAssertions;
+using Xunit;
+
 using Calcium.Concurrency;
-using Calcium.MissingTypes.System.Windows.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calcium.UI.Data
 {
-	[TestClass]
 	public class BindingApplicatorTests
 	{
-		[TestInitialize]
-		public void Initialize()
+		public BindingApplicatorTests()
 		{
 			Dependency.Register<ISynchronizationContext>(new SynchronizationContextForTests());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void BindingShouldAllowUpdate()
 		{
 			var applicator = new BindingApplicator();
@@ -34,12 +30,13 @@ namespace Calcium.UI.Data
 			applicator.ApplyBinding(bindingExpression, target, source);
 
 			source.Bool1 = true;
-			Assert.IsTrue(target.Bool1, "Changing binding value to true should update Bool1.");
+			target.Bool1.Should().BeTrue("Changing binding value to true should update Bool1.");
+
 			source.Bool1 = false;
-			Assert.IsFalse(target.Bool1, "Changing binding value to false should update Bool1.");
+			target.Bool1.Should().BeFalse("Changing binding value to false should update Bool1.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ValueConverterShouldApplyValue()
 		{
 			var applicator = new BindingApplicator();
@@ -58,12 +55,15 @@ namespace Calcium.UI.Data
 			applicator.ApplyBinding(bindingExpression, target, source, converter);
 
 			source.Bool1 = true;
-			Assert.AreEqual(DummyVisibility.Visible, target.Visibility, "Changing binding value to true should update Visibility.");
+			target.Visibility.Should().Be(DummyVisibility.Visible,
+				"Changing binding value to true should update Visibility.");
+
 			source.Bool1 = false;
-			Assert.AreEqual(DummyVisibility.Invisible, target.Visibility, "Changing binding value to false should update Visibility.");
+			target.Visibility.Should().Be(DummyVisibility.Invisible,
+				"Changing binding value to false should update Visibility.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldUnbind()
 		{
 			var applicator = new BindingApplicator();
@@ -80,15 +80,18 @@ namespace Calcium.UI.Data
 			var unbindAction = applicator.ApplyBinding(bindingExpression, target, source);
 
 			source.Bool1 = true;
-			Assert.IsTrue(target.Bool1, "Changing binding value to true should update Bool1.");
-			source.Bool1 = false;
-			Assert.IsFalse(target.Bool1, "Changing binding value to false should update Bool1.");
+			target.Bool1.Should().BeTrue("Changing binding value to true should update Bool1.");
 
-			Assert.IsNotNull(unbindAction);
+			source.Bool1 = false;
+			target.Bool1.Should().BeFalse("Changing binding value to false should update Bool1.");
+
+			unbindAction.Should().NotBeNull();
+
 			unbindAction();
-			Assert.IsFalse(target.Bool1, "Unbinding should not change value.");
+			target.Bool1.Should().BeFalse("Unbinding should not change value.");
+
 			source.Bool1 = true;
-			Assert.IsFalse(target.Bool1, "Changing source value after unbind should have no effect.");
+			target.Bool1.Should().BeFalse("Changing source value after unbind should have no effect.");
 		}
 	}
 }

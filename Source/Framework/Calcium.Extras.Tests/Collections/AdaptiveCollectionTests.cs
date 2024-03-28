@@ -1,14 +1,14 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using FluentAssertions;
+using Xunit;
 
 namespace Calcium.Collections
 {
-	[TestClass]
 	public class AdaptiveCollectionTests
 	{
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldAdaptItem()
 		{
 			const int itemCount = 3;
@@ -18,7 +18,7 @@ namespace Calcium.Collections
 		}
 
 		#region Changes to ObservableCollection affect AdaptiveCollection
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldAddOuterItem()
 		{
 			const int itemCount = 3;
@@ -30,12 +30,12 @@ namespace Calcium.Collections
 			observableCollection.Add(itemCount);
 
 			AssertEqualStrings(observableCollection, adaptiveCollection);
-			Assert.IsNotNull(eventArgs);
-			Assert.AreEqual(NotifyCollectionChangedAction.Add, eventArgs.Action);
-			Assert.AreEqual(eventArgs.NewItems[0], adaptiveCollection.LastOrDefault());
+			eventArgs.Should().NotBeNull();
+			eventArgs.Action.Should().Be(NotifyCollectionChangedAction.Add);
+			adaptiveCollection.LastOrDefault().Should().Be(eventArgs.NewItems[0]);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldRemoveOuterItem()
 		{
 			const int itemCount = 10;
@@ -51,14 +51,17 @@ namespace Calcium.Collections
 				var attachedItemToRemove = adaptiveCollection[removeIndex];
 				observableCollection.RemoveAt(removeIndex);
 
-				Assert.AreEqual(length - 1, observableCollection.Count);
-				Assert.AreEqual(length - 1, adaptiveCollection.Count);
+				observableCollection.Count.Should().Be(length - 1);
+				adaptiveCollection.Count.Should().Be(length - 1);
 
 				AssertEqualStrings(observableCollection, adaptiveCollection);
 
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(NotifyCollectionChangedAction.Remove, eventArgs.Action);
-				Assert.AreEqual(eventArgs.OldItems[0], attachedItemToRemove);
+				eventArgs.Should().NotBeNull();
+				eventArgs.Action.Should().Be(NotifyCollectionChangedAction.Remove);
+				eventArgs.OldItems[0].Should().Be(attachedItemToRemove);
+				//Assert.IsNotNull(eventArgs);
+				//Assert.AreEqual(NotifyCollectionChangedAction.Remove, eventArgs.Action);
+				//Assert.AreEqual(eventArgs.OldItems[0], attachedItemToRemove);
 			}
 
 			PerformRemoveTest(0);
@@ -66,26 +69,26 @@ namespace Calcium.Collections
 			PerformRemoveTest(observableCollection.Count / 2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldResetOuter()
 		{
 			const int itemCount = 3;
 			(ObservableCollection<int> observableCollection, AdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
 
-			Assert.AreEqual(itemCount, adaptiveCollection.Count);
+			adaptiveCollection.Count.Should().Be(itemCount);
 
 			observableCollection.Clear();
 
-			Assert.AreEqual(0, adaptiveCollection.Count);
+			adaptiveCollection.Count.Should().Be(0);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldMoveOuterItem()
 		{
 			const int itemCount = 10;
 			(ObservableCollection<int> observableCollection, AdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
 
-			Assert.AreEqual(observableCollection.Count, adaptiveCollection.Count);
+			adaptiveCollection.Count.Should().Be(observableCollection.Count);
 
 			NotifyCollectionChangedEventArgs eventArgs = null;
 			adaptiveCollection.CollectionChanged += (sender, e) => { eventArgs = e; };
@@ -94,15 +97,16 @@ namespace Calcium.Collections
 
 			void PerformMoveTest(int moveFrom, int moveTo)
 			{
-				Assert.IsNull(eventArgs);
+				eventArgs.Should().BeNull();
 
 				AttachableStringMock<int> movedItem = adaptiveCollection[moveFrom];
 
 				observableCollection.Move(moveFrom, moveTo);
 				AssertEqualStrings(observableCollection, adaptiveCollection);
 
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(observableCollection[moveTo].ToString(), movedItem.Value, "Moved items not equal.");
+				eventArgs.Should().NotBeNull();
+				movedItem.Value.Should().Be(observableCollection[moveTo].ToString());
+
 				eventArgs = null;
 			}
 
@@ -127,7 +131,8 @@ namespace Calcium.Collections
 		#endregion
 
 		#region Changes to AdaptiveCollection affect ObservableCollection
-		[TestMethod]
+
+		[Fact]
 		public void AdaptiveCollection_ShouldAddInnerItem()
 		{
 			const int itemCount = 3;
@@ -141,12 +146,12 @@ namespace Calcium.Collections
 			adaptiveCollection.Add(newItem);
 
 			AssertEqualStrings(observableCollection, adaptiveCollection);
-			Assert.IsNotNull(eventArgs);
-			Assert.AreEqual(NotifyCollectionChangedAction.Add, eventArgs.Action);
-			Assert.AreEqual(eventArgs.NewItems[0], adaptiveCollection.LastOrDefault().GetObject());
+			eventArgs.Should().NotBeNull();
+			eventArgs.Action.Should().Be(NotifyCollectionChangedAction.Add);
+			eventArgs.NewItems[0].Should().Be(adaptiveCollection.LastOrDefault().GetObject());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldRemoveInnerItem()
 		{
 			const int itemCount = 10;
@@ -157,20 +162,22 @@ namespace Calcium.Collections
 
 			void PerformRemoveTest(int removeIndex)
 			{
-				Assert.IsNull(eventArgs);
+				eventArgs.Should().BeNull();
+
 				int length = observableCollection.Count;
 
 				var outerToBeRemoved = observableCollection[removeIndex];
 				adaptiveCollection.RemoveAt(removeIndex);
 
-				Assert.AreEqual(length - 1, observableCollection.Count);
-				Assert.AreEqual(length - 1, adaptiveCollection.Count);
+				observableCollection.Count.Should().Be(length - 1);
+				adaptiveCollection.Count.Should().Be(length - 1);
 
 				AssertEqualStrings(observableCollection, adaptiveCollection);
 
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(NotifyCollectionChangedAction.Remove, eventArgs.Action);
-				Assert.AreEqual(eventArgs.OldItems[0], outerToBeRemoved);
+				eventArgs.Should().NotBeNull();
+				eventArgs.Action.Should().Be(NotifyCollectionChangedAction.Remove);
+				eventArgs.OldItems[0].Should().Be(outerToBeRemoved);
+
 				eventArgs = null;
 			}
 
@@ -179,27 +186,27 @@ namespace Calcium.Collections
 			PerformRemoveTest(observableCollection.Count / 2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldResetInner()
 		{
 			const int itemCount = 3;
 			(ObservableCollection<int> observableCollection, AdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
 
-			Assert.AreEqual(itemCount, observableCollection.Count);
-
+			observableCollection.Count.Should().Be(itemCount);
+			
 			adaptiveCollection.Clear();
 
-			Assert.AreEqual(0,observableCollection.Count);
+			observableCollection.Count.Should().Be(0);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AdaptiveCollection_ShouldMoveInnerItem()
 		{
 			const int itemCount = 10;
 			(ObservableCollection<int> observableCollection, AdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
 
-			Assert.AreEqual(observableCollection.Count, adaptiveCollection.Count);
-
+			adaptiveCollection.Count.Should().Be(observableCollection.Count);
+			
 			NotifyCollectionChangedEventArgs eventArgs = null;
 			observableCollection.CollectionChanged += (sender, e) => { eventArgs = e; };
 
@@ -207,15 +214,16 @@ namespace Calcium.Collections
 
 			void PerformMoveTest(int moveFrom, int moveTo)
 			{
-				Assert.IsNull(eventArgs);
+				eventArgs.Should().BeNull();
 
 				var movedItem = observableCollection[moveFrom];
 
 				adaptiveCollection.Move(moveFrom, moveTo);
 				AssertEqualStrings(observableCollection, adaptiveCollection);
 
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(observableCollection[moveTo], movedItem, "Moved items not equal.");
+				eventArgs.Should().NotBeNull();
+				observableCollection[moveTo].Should().Be(movedItem);
+
 				eventArgs = null;
 			}
 
@@ -257,7 +265,7 @@ namespace Calcium.Collections
 			{
 				var item = adaptiveCollection[i].Value;
 				var expected = observableCollection[i];
-				Assert.AreEqual(expected.ToString(), item, "Items are not equal.");
+				expected.ToString().Should().Be(item);
 			}
 		}
 

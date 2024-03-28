@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+
+using Xunit;
 
 namespace Calcium.UserOptionsModel.UserOptions
 {
-	[TestClass]
 	public class BooleanUserOptionTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task SetterShouldBeInvoked()
 		{
 			var values = new TestValues();
@@ -20,7 +20,7 @@ namespace Calcium.UserOptionsModel.UserOptions
 				() => false);
 
 			var settingValue = await option.GetSetting();
-			Assert.IsTrue(settingValue);
+			settingValue.Should().BeTrue();
 
 			var rw = option.ReaderWriter;
 

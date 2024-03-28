@@ -12,20 +12,20 @@
 */
 #endregion
 
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+
+using Xunit;
 
 namespace Calcium.UIModel.Input
 {
-	[TestClass]
 	public class AsyncUICommandTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetTextAsynchronous()
 		{
 			var command = new AsyncUICommand(o => Task.CompletedTask);
 
-			Assert.IsTrue(string.IsNullOrEmpty(command.Text));
+			string.IsNullOrEmpty(command.Text).Should().BeTrue();
 
 			string[] newText = { "NewText" };
 
@@ -33,14 +33,14 @@ namespace Calcium.UIModel.Input
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(newText[0], command.Text);
+			command.Text.Should().Be(newText[0]);
 
 			const string newText2 = "NewText2";
 			newText[0] = newText2;
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(newText2, command.Text);
+			command.Text.Should().Be(newText2);
 		}
 	}
 }

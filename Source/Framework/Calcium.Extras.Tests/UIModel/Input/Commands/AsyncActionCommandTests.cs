@@ -12,21 +12,20 @@
 */
 #endregion
 
-using System.Threading.Tasks;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Calcium.UIModel.Input;
+
+using FluentAssertions;
+
+using Xunit;
 
 namespace Calcium.Input.CommandModel
 {
 	/// <summary>
 	/// <see cref="AsyncActionCommand"/> tests.
 	/// </summary>
-	[TestClass]
 	public class AsyncActionCommandTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task ShouldExecuteAsynchronous()
 		{
 			bool executeCalled = false;
@@ -38,10 +37,10 @@ namespace Calcium.Input.CommandModel
 
 			await command.ExecuteAsync();
 
-			Assert.IsTrue(executeCalled);
+			executeCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldRaiseCanExecuteChangedGenericAsynchronous()
 		{
 			bool canExecuteCalled = false;
@@ -54,10 +53,10 @@ namespace Calcium.Input.CommandModel
 
 			await command.RefreshAsync();
 
-			Assert.IsTrue(canExecuteCalled);
+			canExecuteCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldRaiseCanExecuteChangedAsynchronous()
 		{
 			bool canExecuteCalled = false;
@@ -70,10 +69,10 @@ namespace Calcium.Input.CommandModel
 
 			await command.RefreshAsync();
 
-			Assert.IsTrue(canExecuteCalled);
+			canExecuteCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldReceiveParameterAsynchronous()
 		{
 			int receivedParameter = 0;
@@ -86,10 +85,10 @@ namespace Calcium.Input.CommandModel
 			int parameterValue = 5;
 			await command.ExecuteAsync(parameterValue);
 
-			Assert.AreEqual(parameterValue, receivedParameter);
+			receivedParameter.Should().Be(parameterValue);
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetEnabledToFalseAsynchronous()
 		{
 			bool[] canExecute = { true };
@@ -102,12 +101,12 @@ namespace Calcium.Input.CommandModel
 				});
 
 			await command.RefreshAsync();
-			Assert.IsTrue(command.Enabled);
+			command.Enabled.Should().BeTrue();
 
 			canExecute[0] = false;
 
 			await command.RefreshAsync();
-			Assert.IsFalse(command.Enabled);
+			command.Enabled.Should().BeFalse();
 		}
 	}
 }

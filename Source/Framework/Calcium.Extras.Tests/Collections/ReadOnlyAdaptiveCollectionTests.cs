@@ -1,151 +1,433 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using FluentAssertions;
+using Xunit;
 
 namespace Calcium.Collections
 {
-	[TestClass]
 	public class ReadOnlyAdaptiveCollectionTests
 	{
-		[TestMethod]
-		public void ReadOnlyAdaptiveCollection_ShouldAdaptItem()
-		{
-			const int itemCount = 3;
-			(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
+		#region Constructor Behavior
 
-			AssertEqualStrings(observableCollection, adaptiveCollection);
+		[Fact]
+		public void Constructor_ShouldPopulateCollection_WhenPassedNonEmptyReadOnlyObservableCollection()
+		{
+			// Arrange
+			var source = new ObservableCollection<string> { "Item1", "Item2", "Item3" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(source);
+			Func<string, int> getItem = item => item.Length;
+
+			// Act
+			var collection = new ReadOnlyAdaptiveCollection<int, string>(readOnlySource, getItem);
+
+			// Assert
+			collection.Should().HaveCount(source.Count)
+				.And.ContainInOrder(source.Select(getItem));
 		}
 
-		[TestMethod]
-		public void ReadOnlyAdaptiveCollection_ShouldAddItem()
+		[Fact]
+		public void Constructor_ShouldThrowArgumentNullException_WhenPassedNullReadOnlyObservableCollection()
 		{
-			const int itemCount = 3;
-			(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
-			
-			NotifyCollectionChangedEventArgs eventArgs = null;
-			adaptiveCollection.CollectionChanged += (sender, e) => { eventArgs = e; };
+			// Arrange
+			ReadOnlyObservableCollection<string>? nullCollection = null;
+			Func<string, int> getItem = int.Parse;
 
-			observableCollection.Add(itemCount);
+			// Act
+			var action = () => new ReadOnlyAdaptiveCollection<int, string>(nullCollection!, getItem);
 
-			AssertEqualStrings(observableCollection, adaptiveCollection);
-			Assert.IsNotNull(eventArgs);
-			Assert.AreEqual(NotifyCollectionChangedAction.Add, eventArgs.Action);
-			Assert.AreEqual(eventArgs.NewItems[0], adaptiveCollection.LastOrDefault());
+			// Assert
+			action.Should().Throw<ArgumentNullException>()
+				.WithMessage("Value cannot be null. (Parameter 'monitoredCollection')");
 		}
 
-		[TestMethod]
-		public void ReadOnlyAdaptiveCollection_ShouldRemoveItem()
+		[Fact]
+		public void Constructor_ShouldThrowArgumentNullException_WhenPassedNullGetItemDelegate()
 		{
-			const int itemCount = 10;
-			(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
+			// Arrange
+			var source = new ObservableCollection<string> { "Item1", "Item2", "Item3" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(source);
+			Func<string, int>? nullGetItem = null;
 
-			NotifyCollectionChangedEventArgs eventArgs = null;
-			adaptiveCollection.CollectionChanged += (sender, e) => { eventArgs = e; };
+			// Act
+			var action = () => new ReadOnlyAdaptiveCollection<int, string>(readOnlySource, nullGetItem!);
 
-			void PerformRemoveTest(int removeIndex)
-			{
-				int length = observableCollection.Count;
-
-				var attachedItemToRemove = adaptiveCollection[removeIndex];
-				observableCollection.RemoveAt(removeIndex);
-
-				Assert.AreEqual(length - 1, observableCollection.Count);
-				Assert.AreEqual(length - 1, adaptiveCollection.Count);
-
-				AssertEqualStrings(observableCollection, adaptiveCollection);
-
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(NotifyCollectionChangedAction.Remove, eventArgs.Action);
-				Assert.AreEqual(eventArgs.OldItems[0], attachedItemToRemove);
-			}
-
-			PerformRemoveTest(0);
-			PerformRemoveTest(observableCollection.Count - 1);
-			PerformRemoveTest(observableCollection.Count / 2);
-		}
-		
-		[TestMethod]
-		public void ReadOnlyAdaptiveCollection_ShouldReset()
-		{
-			const int itemCount = 3;
-			(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
-
-			Assert.AreEqual(observableCollection.Count, adaptiveCollection.Count);
-
-			observableCollection.Clear();
-
-			Assert.AreEqual(observableCollection.Count, adaptiveCollection.Count);
+			// Assert
+			action.Should().Throw<ArgumentNullException>()
+				.WithMessage("Value cannot be null. (Parameter 'getItem')");
 		}
 
-		[TestMethod]
-		public void ReadOnlyAdaptiveCollection_ShouldMoveItem()
+		#endregion
+
+		#region Adaptation Logic
+
+		[Fact]
+		public void Constructor_ShouldCallGetItem_ForEachSourceItem()
 		{
-			const int itemCount = 10;
-			(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) = CreateCollection(itemCount);
-
-			Assert.AreEqual(observableCollection.Count, adaptiveCollection.Count);
-
-			NotifyCollectionChangedEventArgs eventArgs = null;
-			adaptiveCollection.CollectionChanged += (sender, e) => { eventArgs = e; };
-
-			int length = observableCollection.Count;
-
-			void PerformMoveTest(int moveFrom, int moveTo)
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two", "Three" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var getItemCallCount = 0;
+			Func<string, string> getItem = item =>
 			{
-				Assert.IsNull(eventArgs);
+				getItemCallCount++;
+				return item.ToUpperInvariant();
+			};
 
-				AttachableStringMock<int> movedItem = adaptiveCollection[moveFrom];
+			// Act
+			_ = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, getItem);
 
-				observableCollection.Move(moveFrom, moveTo);
-				AssertEqualStrings(observableCollection, adaptiveCollection);
+			// Assert
+			getItemCallCount.Should().Be(sourceItems.Count);
+		}
 
-				Assert.IsNotNull(eventArgs);
-				Assert.AreEqual(observableCollection[moveTo].ToString(), movedItem.Value, "Moved items not equal.");
-				eventArgs = null;
-			}
+		[Fact]
+		public void AdaptedCollection_ShouldReflectChanges_InSourceCollection()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			Func<string, string> getItem = item => item.ToUpperInvariant();
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, getItem);
 
-			/* Forwards */
-			for (int i = 0; i < length; i++)
+			// Act
+			sourceItems.Add("Three");
+
+			// Assert
+			adaptedCollection.Should().HaveCount(3);
+			adaptedCollection.Should().Contain(readOnlySource.Select(getItem));
+		}
+
+		[Fact]
+		public void AdaptedCollection_ShouldReflectItemChanges_WhenSourceCollectionItemIsReplaced()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			Func<string, string> getItem = item => item.ToUpperInvariant();
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, getItem);
+
+			// Act
+			sourceItems[1] = "Three";
+
+			// Assert
+			adaptedCollection.Should().Contain(readOnlySource.Select(getItem));
+		}
+
+		#endregion
+
+		#region Collection Changed Events
+
+		[Fact]
+		public void CollectionChanged_ShouldBeRaised_WithAddAction_WhenItemsAreAdded()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string>();
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<NotifyCollectionChangedEventArgs>();
+
+			adaptedCollection.CollectionChanged += (_, args) => events.Add(args);
+
+			// Act
+			sourceItems.Add("New");
+
+			// Assert
+			events.Should().ContainSingle();
+			events[0].Action.Should().Be(NotifyCollectionChangedAction.Add);
+		}
+
+		[Fact]
+		public void CollectionChanged_ShouldBeRaised_WithRemoveAction_WhenItemsAreRemoved()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<NotifyCollectionChangedEventArgs>();
+
+			adaptedCollection.CollectionChanged += (_, args) => events.Add(args);
+
+			// Act
+			sourceItems.Remove("One");
+
+			// Assert
+			events.Should().ContainSingle();
+			events[0].Action.Should().Be(NotifyCollectionChangedAction.Remove);
+		}
+
+		[Fact]
+		public void CollectionChanged_ShouldBeRaised_WithReplaceAction_WhenItemsAreReplaced()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<NotifyCollectionChangedEventArgs>();
+
+			adaptedCollection.CollectionChanged += (_, args) => events.Add(args);
+
+			// Act
+			sourceItems[0] = "Two";
+
+			// Assert
+			events.Should().ContainSingle();
+			events[0].Action.Should().Be(NotifyCollectionChangedAction.Replace);
+		}
+
+		[Fact]
+		public void CollectionChanged_ShouldBeRaised_WithMoveAction_WhenItemsAreMoved()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<NotifyCollectionChangedEventArgs>();
+
+			adaptedCollection.CollectionChanged += (_, args) => events.Add(args);
+
+			// Act
+			sourceItems.Move(0, 1);
+
+			// Assert
+			events.Should().ContainSingle();
+			events[0].Action.Should().Be(NotifyCollectionChangedAction.Move);
+		}
+
+		[Fact]
+		public void CollectionChanged_ShouldBeRaised_WithResetAction_WhenCollectionIsReset()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<NotifyCollectionChangedEventArgs>();
+
+			adaptedCollection.CollectionChanged += (_, args) => events.Add(args);
+
+			// Act
+			sourceItems.Clear();
+
+			// Assert
+			events.Should().ContainSingle();
+			events[0].Action.Should().Be(NotifyCollectionChangedAction.Reset);
+		}
+
+		#endregion
+
+		#region INotifyPropertyChanged Implementation
+
+		[Fact]
+		public void PropertyChanged_ShouldBeRaised_ForCount_WhenItemsAreAdded()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string>();
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<string?>();
+
+			adaptedCollection.PropertyChanged += (_, args) => events.Add(args.PropertyName);
+
+			// Act
+			sourceItems.Add("New");
+
+			// Assert
+			events.Should().ContainSingle(nameof(adaptedCollection.Count));
+		}
+
+		[Fact]
+		public void PropertyChanged_ShouldBeRaised_ForCount_WhenItemsAreRemoved()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<string?>();
+
+			adaptedCollection.PropertyChanged += (_, args) => events.Add(args.PropertyName);
+
+			// Act
+			sourceItems.Remove("One");
+
+			// Assert
+			events.Should().ContainSingle(nameof(adaptedCollection.Count));
+		}
+
+		[Fact]
+		public void PropertyChanged_ShouldNotBeRaised_ForOtherProperties_WhenItemsAreAdded()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string>();
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<string?>();
+
+			adaptedCollection.PropertyChanged += (_, args) => events.Add(args.PropertyName);
+
+			// Act
+			sourceItems.Add("New");
+
+			// Assert
+			events.Should().NotContain(e => e != nameof(adaptedCollection.Count));
+		}
+
+		[Fact]
+		public void PropertyChanged_ShouldNotBeRaised_ForOtherProperties_WhenItemsAreRemoved()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			var events = new List<string?>();
+
+			adaptedCollection.PropertyChanged += (_, args) => events.Add(args.PropertyName);
+
+			// Act
+			sourceItems.Remove("One");
+
+			// Assert
+			events.Should().NotContain(e => e != nameof(adaptedCollection.Count));
+		}
+
+		#endregion
+
+		#region Enumeration and Access
+
+		[Fact]
+		public void GetEnumerator_ShouldIterateOverAllItems_InCorrectOrder()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two", "Three" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+
+			// Act
+			var enumeratedItems = adaptedCollection.ToList();
+
+			// Assert
+			enumeratedItems.Should().ContainInOrder(sourceItems.Select(item => item.ToUpperInvariant()));
+		}
+
+		[Fact]
+		public void Indexer_ShouldRetrieveCorrectItem_ByIndex()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two", "Three" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+
+			// Act & Assert
+			for (int i = 0; i < sourceItems.Count; i++)
 			{
-				PerformMoveTest(0,i);
-			}
-
-			/* Backwards */
-			for (int i = length - 1; i >= 0; i--)
-			{
-				PerformMoveTest(i, 0);
-			}
-
-			/* From the middle */
-			for (int i = 0; i < length; i++)
-			{
-				PerformMoveTest(length / 2, i);
+				var expectedItem = sourceItems[i].ToUpperInvariant();
+				adaptedCollection[i].Should().Be(expectedItem);
 			}
 		}
 
-		(ObservableCollection<int> observableCollection, ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection) CreateCollection(int length)
+		[Fact]
+		public void Indexer_ShouldThrowArgumentOutOfRangeException_ForInvalidIndex()
 		{
-			var oc = new ObservableCollection<int>();
-			for (int i = 0; i < length; i++)
-			{
-				oc.Add(i);
-			}
-			var roc = new ReadOnlyObservableCollection<int>(oc);
-			var target = new ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int>(roc);
-			return (oc, target);
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two", "Three" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+
+			// Act
+			Action action = () => { string unused = adaptedCollection[-1]; };
+
+			// Assert
+			action.Should().Throw<ArgumentOutOfRangeException>();
+
+			// Act
+			action = () => { string unused = adaptedCollection[sourceItems.Count]; };
+
+			// Assert
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		void AssertEqualStrings(ObservableCollection<int> observableCollection,
-			ReadOnlyAdaptiveCollection<AttachableStringMock<int>, int> adaptiveCollection)
+		#endregion
+
+		#region Disposal Pattern
+
+		[Fact]
+		public void Dispose_ShouldUnsubscribeFromCollectionChangedEvent_OfSourceCollection()
 		{
-			for (int i = 0; i < observableCollection.Count; i++)
-			{
-				var item = adaptiveCollection[i].Value;
-				var expected = observableCollection[i];
-				Assert.AreEqual(expected.ToString(), item, "Items are not equal.");
-			}
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			bool eventRaised = false;
+
+			adaptedCollection.CollectionChanged += (_, _) => eventRaised = true;
+
+			// Act
+			adaptedCollection.Dispose();
+			sourceItems.Add("Three");
+
+			// Assert
+			eventRaised.Should().BeFalse();
 		}
+
+		[Fact]
+		public void Enumerate_ShouldBeSafe_AfterDisposal()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string> { "One", "Two" };
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+
+			// Act
+			adaptedCollection.Dispose();
+			Action action = () => {
+				foreach (var _ in adaptedCollection)
+				{
+					// Enumeration is performed purely to verify that it doesn't
+					// throw exceptions after disposal.
+				}
+			};
+
+			// Assert
+			action.Should().NotThrow();
+		}
+
+		#endregion
+
+		#region Thread Safety
+
+		[Fact]
+		public async Task ConcurrentReads_ShouldNotCauseCollectionToBeInInconsistentState()
+		{
+			// Arrange
+			var sourceItems = new ObservableCollection<string>();
+			for (int i = 0; i < 100; i++)
+			{
+				sourceItems.Add($"Item{i}");
+			}
+			var readOnlySource = new ReadOnlyObservableCollection<string>(sourceItems);
+			var adaptedCollection = new ReadOnlyAdaptiveCollection<string, string>(readOnlySource, item => item.ToUpperInvariant());
+			int numberOfReads = 1000;
+			var tasks = new List<Task>();
+
+			// Act
+			for (int i = 0; i < numberOfReads; i++)
+			{
+				tasks.Add(Task.Run(() =>
+				{
+					// Perform some read operations on the adaptedCollection
+					_ = adaptedCollection.Count;
+					_ = adaptedCollection[0];
+					_ = adaptedCollection[adaptedCollection.Count - 1];
+				}));
+			}
+
+			await Task.WhenAll(tasks);
+
+			// Assert
+			// No assertion is necessary here, we're just ensuring that concurrent reads do not throw exceptions
+		}
+
+		#endregion
+
 
 	}
 }

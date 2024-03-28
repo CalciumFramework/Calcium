@@ -12,21 +12,19 @@
 */
 #endregion
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
+
+using Xunit;
 
 namespace Calcium.UndoModel
 {
-    /// <summary>
-    ///This is a test class for PropertyChangedNotifierTest and is intended
-    ///to contain all PropertyChangedNotifierTest Unit Tests
-    ///</summary>
-	[TestClass]
+	/// <summary>
+	///This is a test class for PropertyChangedNotifierTest and is intended
+	///to contain all PropertyChangedNotifierTest Unit Tests
+	///</summary>
 	public class UndoServiceTests
 	{
-		[TestMethod]
+		[Fact]
 		public void AGlobalTaskShouldBePerformed()
 		{
 			var mockTask = new MockUnit();
@@ -35,17 +33,17 @@ namespace Calcium.UndoModel
 
 			target.PerformUnit(mockTask, expectedValue1, null);
 
-			Assert.AreEqual(mockTask.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask.ExecutionCount, 1);
+			mockTask.LastArgument.Should().Be(expectedValue1);
+			mockTask.ExecutionCount.Should().Be(1);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void TaskServiceShouldUndoGlobalTasks()
 		{
 			TaskServiceShouldUndoTasks(null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void TaskServiceShouldUndoNonGlobalTasks()
 		{
 			TaskServiceShouldUndoTasks(new object());
@@ -58,256 +56,256 @@ namespace Calcium.UndoModel
 			string expectedValue2 = "2";
 			var target = new UndoService();
 
-			Assert.IsFalse(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeFalse();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeFalse();
 
 			target.PerformUnit(mockTask1, expectedValue1, key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 1);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(1);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeTrue();
 
 			target.Undo(key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 0);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(0);
 
-			Assert.IsFalse(target.CanUndo(key));
-			Assert.IsTrue(target.CanRedo(key));
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeFalse();
+			target.CanRedo(key).Should().BeTrue();
+			target.CanRepeat(key).Should().BeFalse();
 
 			target.Redo(key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 1);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(1);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
-
-			target.Repeat(key);
-
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 2);
-
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeTrue();
 
 			target.Repeat(key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 3);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(2);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeTrue();
 
-			target.Undo(key);
+			target.Repeat(key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 2);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(3);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsTrue(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
-
-			target.Undo(key);
-
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 1);
-
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsTrue(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeTrue();
 
 			target.Undo(key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 0);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(2);
 
-			Assert.IsFalse(target.CanUndo(key));
-			Assert.IsTrue(target.CanRedo(key));
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeTrue();
+			target.CanRepeat(key).Should().BeTrue();
+
+			target.Undo(key);
+
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(1);
+
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeTrue();
+			target.CanRepeat(key).Should().BeTrue();
+
+			target.Undo(key);
+
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(0);
+
+			target.CanUndo(key).Should().BeFalse();
+			target.CanRedo(key).Should().BeTrue();
+			target.CanRepeat(key).Should().BeFalse();
 
 			var mockTask2 = new MockUndoableUnit { RepeatableTest = true };
 			target.PerformUnit(mockTask1, expectedValue1, key);
 			target.PerformUnit(mockTask2, expectedValue2, key);
 
-			Assert.AreEqual(mockTask1.LastArgument, expectedValue1);
-			Assert.AreEqual(mockTask1.ExecutionCount, 1);
-			Assert.AreEqual(mockTask2.LastArgument, expectedValue2);
-			Assert.AreEqual(mockTask2.ExecutionCount, 1);
+			mockTask1.LastArgument.Should().Be(expectedValue1);
+			mockTask1.ExecutionCount.Should().Be(1);
+			mockTask2.LastArgument.Should().Be(expectedValue2);
+			mockTask2.ExecutionCount.Should().Be(1);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsFalse(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeFalse();
+			target.CanRepeat(key).Should().BeTrue();
 
 			target.Undo(key);
 
-			Assert.AreEqual(mockTask1.ExecutionCount, 1);
-			Assert.AreEqual(mockTask2.ExecutionCount, 0);
+			mockTask1.ExecutionCount.Should().Be(1);
+			mockTask2.ExecutionCount.Should().Be(0);
 
-			Assert.IsTrue(target.CanUndo(key));
-			Assert.IsTrue(target.CanRedo(key));
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanUndo(key).Should().BeTrue();
+			target.CanRedo(key).Should().BeTrue();
+			target.CanRepeat(key).Should().BeTrue();
 
 			var list = target.GetRepeatableUnits(key);
-			Assert.IsNotNull(list);
-			Assert.IsTrue(list.ToList().Count == 1);
+			list.Should().NotBeNull();
+			list.ToList().Count.Should().Be(1);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetRepeatableTasksShouldReturnRepeatableTasks()
 		{
-			GetRepeatableTasksShouldReturnRepeatableTasks(null);
+			GetRepeatableTasksShouldReturnRepeatableTasks2(null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetRepeatableGlobalTasksShouldReturnRepeatableTasks()
 		{
-			GetRepeatableTasksShouldReturnRepeatableTasks(new object());
+			GetRepeatableTasksShouldReturnRepeatableTasks2(new object());
 		}
 
-		void GetRepeatableTasksShouldReturnRepeatableTasks(object key)
+		void GetRepeatableTasksShouldReturnRepeatableTasks2(object key)
 		{
 			var task1 = new MockUnit { RepeatableTest = true };
 			var target = new UndoService();
 			var list = target.GetRepeatableUnits(key);
-			Assert.IsTrue(list.Count() < 1);
+			list.Count().Should().BeLessThan(1);
 			target.PerformUnit(task1, string.Empty, key);
 			list = target.GetRepeatableUnits(key);
-			Assert.IsTrue(list.Count() > 0);
+			list.Count().Should().BeGreaterThan(0);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void NonRepeatableGlobalTaskShouldNotBeRepeatable()
 		{
 			var task1 = new MockUnit();
 			var target = new UndoService();
 			string arg1 = "1";
-			Assert.IsFalse(target.CanRepeat(null));
+			target.CanRepeat(null).Should().BeFalse();
 			target.PerformUnit(task1, arg1, null);
-			Assert.IsFalse(target.CanRepeat(null));
+			target.CanRepeat(null).Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RepeatableGlobalTaskShouldBeRepeatable()
 		{
 			var task1 = new MockUnit {RepeatableTest = true};
 			var target = new UndoService();
 			string arg1 = "1";
-			Assert.IsFalse(target.CanRepeat(null));
+			target.CanRepeat(null).Should().BeFalse();
 			target.PerformUnit(task1, arg1, null);
-			Assert.IsTrue(target.CanRepeat(null));
+			target.CanRepeat(null).Should().BeTrue();
 			target.Repeat(null);
-			Assert.IsTrue(task1.ExecutionCount == 2);
+			task1.ExecutionCount.Should().Be(2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void NonRepeatableTaskShouldNotBeRepeatable()
 		{
 			var task1 = new MockUnit();
 			var target = new UndoService();
 			object key = new object();
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanRepeat(key).Should().BeFalse();
 			target.PerformUnit(task1, "1", key);
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanRepeat(key).Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RepeatableTaskShouldBeRepeatable()
 		{
 			var task1 = new MockUnit { RepeatableTest = true };
 			var target = new UndoService();
 			object key = new object();
-			Assert.IsFalse(target.CanRepeat(key));
+			target.CanRepeat(key).Should().BeFalse();
 			target.PerformUnit(task1, "1", key);
-			Assert.IsTrue(target.CanRepeat(key));
+			target.CanRepeat(key).Should().BeTrue();
 			target.Repeat(key);
-			Assert.IsTrue(task1.ExecutionCount == 2);
+			task1.ExecutionCount.Should().Be(2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UndoableTaskShouldBeRedoable()
 		{
-			UndoableTaskShouldBeRedoable(null);
+			UndoableTaskShouldBeRedoable2(null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UndoableGlobalTaskShouldBeRedoable()
 		{
-			UndoableTaskShouldBeRedoable(new object());
+			UndoableTaskShouldBeRedoable2(new object());
 		}
 
-		void UndoableTaskShouldBeRedoable(object key)
+		void UndoableTaskShouldBeRedoable2(object key)
 		{
 			var task1 = new MockUndoableUnit();
 			var target = new UndoService();
-			Assert.IsFalse(target.CanRedo(key));
+			target.CanRedo(key).Should().BeFalse();
 			target.PerformUnit(task1, "1", key);
 			target.Undo(key);
-			Assert.IsTrue(target.CanRedo(key));
+			target.CanRedo(key).Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void NonUndoableTasksShouldNotBeUndoable()
 		{
-			NonUndoableTasksShouldNotBeUndoable(null);
+			NonUndoableTasksShouldNotBeUndoable2(null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void NonUndoableGlobalTasksShouldNotBeUndoable()
 		{
-			NonUndoableTasksShouldNotBeUndoable(new object());
+			NonUndoableTasksShouldNotBeUndoable2(new object());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void PerformingGlobalTaskShouldClearUndoableList()
 		{
-			PerformingTaskShouldClearUndoableList(null);
+			PerformingTaskShouldClearUndoableList2(null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void PerformingTaskShouldClearUndoableList()
 		{
-			PerformingTaskShouldClearUndoableList(new object());
+			PerformingTaskShouldClearUndoableList2(new object());
 		}
 		
-		void PerformingTaskShouldClearUndoableList(object key)
+		void PerformingTaskShouldClearUndoableList2(object key)
 		{
 			/* First set up some undoable tasks. */
 			var task1 = new MockUndoableUnit();
 			var target = new UndoService();
 			target.PerformUnit(task1, "1", key);			
-			Assert.IsTrue(target.CanUndo(key));
+			target.CanUndo(key).Should().BeTrue();
 
 			/* Perform a non-undoable unit. This must clear the undoable list. */
 			var task2 = new MockUnit { RepeatableTest = true };
 			target.PerformUnit(task2, "1", key);
-			Assert.IsFalse(target.CanUndo(key));
+			target.CanUndo(key).Should().BeFalse();
 		}
 
-		void NonUndoableTasksShouldNotBeUndoable(object key)
+		void NonUndoableTasksShouldNotBeUndoable2(object key)
 		{
 			var task1 = new MockUnit();
 			var target = new UndoService();
-			Assert.IsFalse(target.CanUndo(key));
+			target.CanUndo(key).Should().BeFalse();
 			target.PerformUnit(task1, "1", key);
-			Assert.IsFalse(target.CanUndo(key));
+			target.CanUndo(key).Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task CompositeTasksShouldbePerformedInParallel()
 		{
 			await CompositeTasksShouldBePerformedInParallel(new object());
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task GlobalCompositeTasksShouldBePerformedInParallel()
 		{
 			await CompositeTasksShouldBePerformedInParallel(null);
@@ -330,17 +328,17 @@ namespace Calcium.UndoModel
 			foreach (KeyValuePair<UnitBase<string>, string> keyValuePair in tasks)
 			{
 				var mockTask = (MockUnit)keyValuePair.Key;
-				Assert.AreEqual(1, mockTask.ExecutionCount);
+				mockTask.ExecutionCount.Should().Be(1);
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void CompositeUndoableTasksShouldbePerformedInParallel()
 		{
 			CompositeUndoableTasksShouldBePerformedInParallel(new object());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GlobalCompositeUndoableTasksShouldBePerformedInParallel()
 		{
 			CompositeUndoableTasksShouldBePerformedInParallel(null);
@@ -359,7 +357,7 @@ namespace Calcium.UndoModel
 			foreach (KeyValuePair<UndoableUnitBase<string>, string> keyValuePair in tasks)
 			{
 				var mockTask = (MockUndoableUnit)keyValuePair.Key;
-				Assert.AreEqual(1, mockTask.ExecutionCount);
+				mockTask.ExecutionCount.Should().Be(1);
 			}
 
 			/* Test undo. */
@@ -368,11 +366,11 @@ namespace Calcium.UndoModel
 			foreach (KeyValuePair<UndoableUnitBase<string>, string> keyValuePair in tasks)
 			{
 				var mockTask = (MockUndoableUnit)keyValuePair.Key;
-				Assert.AreEqual(0, mockTask.ExecutionCount);
+				mockTask.ExecutionCount.Should().Be(0);
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AGlobalUndoLimitShouldBeEnforced()
 		{
 			string key = "key";
@@ -381,18 +379,20 @@ namespace Calcium.UndoModel
 			var target = new UndoService();
 			target.SetMaximumUndoCount(2, key);
 
-			Assert.AreEqual(0, target.GetUnitCount(UndoService.UnitType.Repeatable, key), "Repeatable unit count should be 0.");
-			Assert.AreEqual(0, target.GetUnitCount(UndoService.UnitType.Undoable, key), "Undoable unit count should be 0.");
-			Assert.AreEqual(0, target.GetUnitCount(UndoService.UnitType.Redoable, key), "Redoable unit count should be 0.");
+			target.GetUnitCount(UndoService.UnitType.Repeatable, key).Should()
+				.Be(0, "Repeatable unit count should be 0.");
+
+			target.GetUnitCount(UndoService.UnitType.Undoable, key).Should().Be(0, "Undoable unit count should be 0.");
+			target.GetUnitCount(UndoService.UnitType.Redoable, key).Should().Be(0, "Redoable unit count should be 0.");
 
 			for (int i = 0; i < 5; i++)
 			{
 				target.PerformUnit(mockTask, expectedValue1, key);
 			}
 
-			Assert.AreEqual(2, target.GetUnitCount(UndoService.UnitType.Repeatable, key), "Repeatable tasks.");
-			Assert.AreEqual(0, target.GetUnitCount(UndoService.UnitType.Undoable, key), "Undoable tasks.");
-			Assert.AreEqual(0, target.GetUnitCount(UndoService.UnitType.Redoable, key), "Redoable tasks.");
+			target.GetUnitCount(UndoService.UnitType.Repeatable, key).Should().Be(2, "Repeatable tasks.");
+			target.GetUnitCount(UndoService.UnitType.Undoable, key).Should().Be(0, "Undoable tasks.");
+			target.GetUnitCount(UndoService.UnitType.Redoable, key).Should().Be(0, "Redoable tasks.");
 
 			MockUndoableUnit mockUndoableUnit = new MockUndoableUnit();
 
@@ -401,8 +401,8 @@ namespace Calcium.UndoModel
 				target.PerformUnit(mockUndoableUnit, i.ToString(), key);
 			}
 
-			Assert.AreEqual(2, target.GetUnitCount(UndoService.UnitType.Repeatable, key), "Repeatable tasks.");
-			Assert.AreEqual(2, target.GetUnitCount(UndoService.UnitType.Undoable, key), "Undoable tasks.");
+			target.GetUnitCount(UndoService.UnitType.Repeatable, key).Should().Be(2, "Repeatable tasks.");
+			target.GetUnitCount(UndoService.UnitType.Undoable, key).Should().Be(2, "Undoable tasks.");
 		}
 	}
 }
