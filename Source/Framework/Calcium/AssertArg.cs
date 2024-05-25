@@ -94,7 +94,7 @@ namespace Calcium
 			[CallerFilePath] string filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
-			if (ReferenceEquals(value, default(T)))
+			if (EqualityComparer<T>.Default.Equals(value, default))
 			{
 				throw new ArgumentNullException($"{parameterName} of type {typeof(T)} is null or default. " +
 												$"Method '{memberName}', File '{filePath}', Line '{lineNumber}'");
