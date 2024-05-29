@@ -18,7 +18,7 @@ namespace Calcium.ApplicationModel
 {
 	/// <summary>
 	/// This message is dispatched by the <see cref="Services.IMessenger"/>
-	/// when a corresponding applicatation lifecycle event occurs.
+	/// when a corresponding application lifecycle event occurs.
 	/// <seealso cref="ApplicationLifeCycleState"/>
 	/// </summary>
 	public class ApplicationLifeCycleMessage 
