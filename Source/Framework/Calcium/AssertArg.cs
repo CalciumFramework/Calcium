@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+// ReSharper disable ExplicitCallerInfoArgument
 
 namespace Calcium
 {
@@ -62,6 +63,44 @@ namespace Calcium
 			}
 
 			return value;
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is null.
+		/// </summary>
+		/// <typeparam name="T">The type of the value.</typeparam>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">Name of the parameter.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">Occurs if the specified value 
+		/// is <code>null</code>.</exception>
+		/// <example>
+		/// public void RejectIfNull(UIElement? uiElement)
+		/// {
+		/// 	this.uiElement = AssertArg.IsNotNull(uiElement?, nameof(uiElement));
+		/// }
+		/// </example>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
+		public static T IsNotNull<T>(T? value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0) where T : struct
+		{
+			if (value == null)
+			{
+				throw new ArgumentNullException(parameterName,
+					$"Argument must not be null. Method '{memberName}', File '{filePath}', Line '{lineNumber}'");
+			}
+
+			return value.Value;
 		}
 
 		/// <summary>
@@ -214,6 +253,36 @@ namespace Calcium
 			}
 
 			return value;
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is null or an empty guid.
+		/// </summary>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is null.</exception>
+		/// <exception cref="ArgumentException">
+		/// Occurs if the specified value is an empty Guid. 
+		/// That is, if <c>value</c> equals <c>Guid.Empty</c>.
+		/// </exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
+		public static Guid IsNotNullOrEmpty(Guid? value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			Guid g = IsNotNull(value, parameterName, memberName, filePath, lineNumber);
+			return IsNotEmpty(g, parameterName, memberName, filePath, lineNumber);
 		}
 
 		/// <summary>
