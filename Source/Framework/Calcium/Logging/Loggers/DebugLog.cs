@@ -78,11 +78,22 @@ namespace Calcium.Logging.Loggers
 //			}
 
 			string exceptionMessage = exception != null ? exception.ToString() : string.Empty;
-			string logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4} exception:{5}", 
-									logLevel, message, memberName, filePath,
-									lineNumber.ToString(CultureInfo.InvariantCulture),
-									exceptionMessage);
-			
+			string logMessage;
+
+			if (!string.IsNullOrEmpty(exceptionMessage))
+			{
+				logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4} exception:{5}",
+					logLevel, message, memberName, filePath,
+					lineNumber.ToString(CultureInfo.InvariantCulture),
+					exceptionMessage);
+			}
+			else
+			{
+				logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4}",
+					logLevel, message, memberName, filePath,
+					lineNumber.ToString(CultureInfo.InvariantCulture));
+			}
+
 #if NETSTANDARD || NETFX_CORE
 			if (useConsole)
 			{
