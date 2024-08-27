@@ -85,6 +85,15 @@ namespace Calcium.InversionOfControl
 		}
 
 		/// <summary>
+		/// If <c>true</c>, a <see cref="INamedTypeResolver"/> is used to resolve
+		/// named types that have been declared via a <see cref="DefaultTypeNameAttribute"/>.
+		/// Default value is <c>false</c> (it will not be used).
+		/// Enabling this may degrade performance depending on the implementation of the type resolver.
+		/// <seealso cref="NamedTypeResolver"/>.
+		/// </summary>
+		public bool NamedTypeResolverEnabled { get; set; } = false;
+
+		/// <summary>
 		/// Prevents multiple threads from creating more 
 		/// than one singleton instance.
 		/// Decreases performance if <c>true</c>.
@@ -856,13 +865,23 @@ namespace Calcium.InversionOfControl
 
 			/*  Not in the container? Try the Assembly. */
 			result = Type.GetType(key, false);
-
+			
 			if (result == null)
 			{
+				/* Attempt to find the full assembly qualified type name. */
 				string suffix = PlatformDetector.PlatformName;
 				if (suffix != null)
 				{
 					result = Type.GetType(key + "." + suffix, false);
+				}
+			}
+
+			if (result == null)
+			{
+				if (NamedTypeResolverEnabled)
+				{
+					var resolver = Resolve<INamedTypeResolver>();
+					resolver.TryResolveType(key, out result);
 				}
 			}
 
