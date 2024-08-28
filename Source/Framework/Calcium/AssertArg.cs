@@ -212,6 +212,13 @@ namespace Calcium
 			[CallerFilePath] string filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
+			if (value == null)
+			{
+				throw new ArgumentNullException(
+					$"Argument must not be null or white space. Method '{memberName}', File '{filePath}', Line '{lineNumber}'",
+					parameterName);
+			}
+
 			if (string.IsNullOrWhiteSpace(value))
 			{
 				throw new ArgumentException(
