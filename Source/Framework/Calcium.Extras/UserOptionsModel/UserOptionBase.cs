@@ -196,7 +196,7 @@ namespace Calcium.UserOptionsModel
 			set => Setting = (TSetting)value;
 		}
 
-		public TSetting Setting
+		public new TSetting Setting
 		{
 			get
 			{

@@ -142,6 +142,13 @@ namespace Calcium.Concurrency
 			}
 		}
 
+		public static UISynchronizationContext ForCurrentThread()
+		{
+			UISynchronizationContext result = new();
+			result.Initialize();
+			return result;
+		}
+
 		public void Initialize()
 		{
 			lock (initializationLock)
