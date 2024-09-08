@@ -218,6 +218,16 @@ namespace Calcium.UserOptionsModel
 			}
 		}
 
+		/// <summary>
+		/// This property allows binding where reflection ambiguity occurs.
+		/// Covariant return types will see this property made obsolete when this library is ported to .NET 5+.
+		/// </summary>
+		public TSetting SettingValue
+		{
+			get => Setting;
+			set => Setting = value;
+		}
+
 		TSetting lastSetting;
 		bool preventGetSettingFromBeingCalled;
 
