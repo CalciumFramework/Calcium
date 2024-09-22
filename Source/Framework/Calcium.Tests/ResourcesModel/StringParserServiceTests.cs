@@ -149,6 +149,15 @@ namespace Calcium.ResourcesModel
 			Assert.AreEqual("This is Replacement1 some text.", result1);
 		}
 
+		[TestMethod]
+		public void ParseWithDollarSignPresentInContent()
+		{
+			var service = new StringParserService();
+			string content1 = "string getUrl = $\"https://api.github.com/repos/{repoOwner}/{repoName}/contents/{filePath}\";";
+			var result1 = service.Parse(content1);
+			Assert.AreEqual(content1, result1);
+		}
+
 		public class MockConverter : IConverter
 		{
 			readonly string conversionResult;

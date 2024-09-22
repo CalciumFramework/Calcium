@@ -95,6 +95,7 @@ namespace Calcium.ResourcesModel
 
 				if (text[i] != '{')
 				{
+					sb.Append('$');
 					sb.Append(text[i]);
 					continue;
 				}
