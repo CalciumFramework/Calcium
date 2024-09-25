@@ -12,6 +12,8 @@
 */
 #endregion
 
+#nullable enable
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -27,8 +29,7 @@ namespace Calcium.Collections
 	/// </summary>
 	/// <typeparam name="TTo">The type of objects that the collection will contain.</typeparam>
 	/// <typeparam name="TFrom">The type of objects contained in the source collection.</typeparam>
-	public class ReadOnlyAdaptiveCollection<TTo, TFrom> : IEnumerable<TTo>,
-														  IReadOnlyList<TTo>,
+	public class ReadOnlyAdaptiveCollection<TTo, TFrom> : IReadOnlyList<TTo>,
 														  INotifyCollectionChanged,
 														  INotifyPropertyChanged,
 														  IDisposable where TFrom : notnull
