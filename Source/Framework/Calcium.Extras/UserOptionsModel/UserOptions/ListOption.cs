@@ -13,6 +13,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ using Calcium.Reflection;
 namespace Calcium.UserOptionsModel
 {
 	/// <summary>
-	/// This option is usually materialized as a drop down box
+	/// This option is usually materialized as a dropdown box
 	/// or a selectable list.
 	/// </summary>
 	/// <typeparam name="TSetting">
@@ -132,5 +133,17 @@ namespace Calcium.UserOptionsModel
 
 		public IUserOptionReaderWriter ProvidedItem => 
 					new ListOptionReaderWriter<TSetting>(this);
+
+		#region Non-generic IListOption implementation
+
+		IEnumerable IListOption.Options => Options;
+
+		object IListOption.SelectedValue
+		{
+			get => SettingValue;
+			set => SettingValue = (TSetting)value;
+		}
+
+		#endregion
 	}
 }

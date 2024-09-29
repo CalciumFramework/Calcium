@@ -114,8 +114,15 @@ namespace Calcium.UserOptionsModel
 			((IListOption<TSetting>)UserOption).Options;
 	}
 
-	public interface IListOption<TSetting>
+	public interface IListOption<TSetting> : IListOption
 	{
-		ObservableCollection<TSetting> Options { get; }
+		new ObservableCollection<TSetting> Options { get; }
+	}
+
+	public interface IListOption : IUserOption
+	{
+		System.Collections.IEnumerable Options { get; }
+
+		object SelectedValue { get; set; }
 	}
 }
