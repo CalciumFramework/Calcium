@@ -331,6 +331,34 @@ namespace Calcium
 
 		/// <summary>
 		/// Throws an exception if the specified value is not greater 
+		/// than zero.
+		/// </summary>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">The name of the member.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">
+		/// Compiler populated parameter that provides 
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is not greater 
+		/// than the expected value.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		[DebuggerStepThrough]
+		public static int IsGreaterThanZero(
+			int value, string parameterName,
+			[CallerMemberName] string memberName = null,
+			[CallerFilePath] string filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+		{
+			return IsGreaterThan(0, value, parameterName, memberName, filePath, lineNumber);
+		}
+
+		/// <summary>
+		/// Throws an exception if the specified value is not greater 
 		/// than the specified expected value.
 		/// </summary>
 		/// <param name="expected">
