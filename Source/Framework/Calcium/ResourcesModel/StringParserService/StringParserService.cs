@@ -12,6 +12,7 @@
 */
 #endregion
 
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,12 +30,15 @@ namespace Calcium.ResourcesModel
 	/// You can register a tag with its replacement text,
 	/// or you can register an <see cref="IConverter"/>
 	/// that is used to replace the text.
+	/// The strings representing the start '${' and end '}' can be changed
+	/// via the <see cref="TagDelimiters"/> class.
 	/// </summary>
 	public class StringParserService : Services.IStringParserService
 	{
-		readonly Dictionary<string, IConverter> converters 
-			= new Dictionary<string, IConverter>();
-		readonly ReaderWriterLockSlim convertersLock = new ReaderWriterLockSlim();
+		readonly Dictionary<string, IConverter> converters = new();
+		readonly ReaderWriterLockSlim convertersLock = new();
+
+		public TagDelimiters DefaultDelimiters { get; set; } = TagDelimiters.Default;
 
 		public void RegisterConverter(
 			string tagName, Func<object, object> convertFunc)
@@ -65,64 +69,61 @@ namespace Calcium.ResourcesModel
 			}
 		}
 
-		public string Parse(string text)
+		public string Parse(string text, TagDelimiters? delimiters = null)
 		{
-			return Parse(text, null);
+			return Parse(text, null, delimiters);
 		}
 
-		public string Parse(string text, IDictionary<string, string> tagValues)
+		public string Parse(string text, 
+							IDictionary<string, string>? tagValues, 
+							TagDelimiters? delimiters = null)
 		{
 			AssertArg.IsNotNull(text, nameof(text));
 
-			int textLength = text.Length;
+			delimiters ??= DefaultDelimiters;
+			string? startDelimiter = delimiters.Start;
+			string? endDelimiter = delimiters.End;
 
-			var sb = new StringBuilder(textLength);
+			StringBuilder sb = new(text.Length);
+			int i = 0;
 
-			for (int i = 0; i < textLength; i++)
+			while (i < text.Length)
 			{
-				if (text[i] != '$')
+				// Find the next occurrence of the start delimiter using IndexOf
+				int startIndex = text.IndexOf(startDelimiter, i, StringComparison.Ordinal);
+				if (startIndex == -1)
 				{
-					sb.Append(text[i]);
-					continue;
-				}
-
-				int start = i;
-
-				if (++i >= textLength)
-				{
+					// No more start delimiters; append the rest of the text and break
+					sb.Append(text, i, text.Length - i);
 					break;
 				}
 
-				if (text[i] != '{')
-				{
-					sb.Append('$');
-					sb.Append(text[i]);
-					continue;
-				}
+				// Append text before the start delimiter
+				sb.Append(text, i, startIndex - i);
+				int tagStart = startIndex     + startDelimiter.Length;
 
-				int end;
-				for (end = ++i; end < textLength; end++)
+				int endIndex = text.IndexOf(endDelimiter, tagStart, StringComparison.Ordinal);
+				if (endIndex == -1)
 				{
-					if (text[end] == '}')
-					{
-						break;
-					}
-				}
-
-				string replacement;
-				if (end == textLength
-					|| (replacement = Replace(text.Substring(i, end - i), tagValues)) == null)
-				{
-					sb.Append(text.Substring(start, end - start + 1));
+					// If no end delimiter is found, append unmodified text
+					sb.Append(text, startIndex, text.Length - startIndex);
 					break;
 				}
+
+				string tag = text.Substring(tagStart, endIndex - tagStart);
+
+				string replacement = Replace(tag, tagValues) 
+									 ?? text.Substring(startIndex, (endIndex + endDelimiter.Length) - startIndex);
 
 				sb.Append(replacement);
-				i = end;
+
+				// Move the index past the end delimiter
+				i = endIndex + endDelimiter.Length;
 			}
 
 			return sb.ToString();
 		}
+
 
 		bool GetConverter(string tagName, out IConverter converter)
 		{
@@ -146,9 +147,9 @@ namespace Calcium.ResourcesModel
 #endif
 		}
 
-		string Replace(string tagContent, IDictionary<string, string> customTags)
+		string? Replace(string tagContent, IDictionary<string, string>? customTags)
 		{
-			string result = null;
+			string? result = null;
 
 			switch (tagContent)
 			{
@@ -166,7 +167,7 @@ namespace Calcium.ResourcesModel
 					break;
 				default:
 					string tagName;
-					string tagArgs = null;
+					string? tagArgs = null;
 					int indexOfArg = tagContent.IndexOf(':');
 					if (indexOfArg > 0)
 					{

@@ -12,6 +12,7 @@
 */
 #endregion
 
+#nullable enable
 using System;
 using System.Collections.Generic;
 
@@ -44,14 +45,14 @@ namespace Calcium.Services
 		/// then the value in the dictionary will be substituted in the string.
 		/// </param>
 		/// <returns>The parsed string.</returns>
-		string Parse(string text, IDictionary<string, string> tagValues);
+		string Parse(string text, IDictionary<string, string> tagValues, TagDelimiters? delimiters = null);
 
 		/// <summary>
 		/// Parses the specified text. Resolves string tags within the text.
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <returns></returns>
-		string Parse(string text);
+		string Parse(string text, TagDelimiters? delimiters = null);
 
 		/// <summary>
 		/// Registers a converter with the specified tag name. 

@@ -74,6 +74,9 @@
     <Compile Include="InversionOfControl\Containers\WeakReferencingContainerTests\WeakReferencingContainerTests.cs" />
     <Compile Include="Messaging\DelegateSubscriberTests.cs" />
     <Compile Include="Reflection\AssemblyBuildTimeTests.cs" />
+    <Compile Include="ResourcesModel\StringParserServiceTests.EdgeCases.cs" />
+    <Compile Include="ResourcesModel\StringParserServiceTests.NonDefaultDelimiters.cs" />
+    <Compile Include="ResourcesModel\StringParserServiceTests.Performance.cs" />
     <Compile Include="UIModel\Input\Commands\CompositeCommandTests.cs" />
     <Compile Include="UIModel\Input\Commands\UICommandTests.cs" />
     <Compile Include="UIModel\Input\Commands\ActionCommandTests.cs" />

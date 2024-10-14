@@ -12,7 +12,9 @@
 */
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.Text;
 using Calcium.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,7 +24,7 @@ namespace Calcium.ResourcesModel
 	/// <see cref="StringParserService"/> Tests.
 	/// </summary>
 	[TestClass]
-	public class StringParserServiceTests
+	public partial class StringParserServiceTests
 	{
 		[TestMethod]
 		public void TestTagShouldReturnValue()
@@ -36,7 +38,7 @@ namespace Calcium.ResourcesModel
 		public void ShouldReturnTagWhenUnknown()
 		{
 			var service = new StringParserService();
-			string text = "${l:Enum_ThisIsADummyEnumThatDoesntExist_Auto}";
+			string text = "${l:Enum_ThisIsADummyEnumThatDoesNotExist_Auto}";
 			var result = service.Parse(text);
 			Assert.AreEqual(text, result);
 		}
@@ -147,6 +149,20 @@ namespace Calcium.ResourcesModel
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			Assert.AreEqual("This is Replacement1 some text.", result1);
+		}
+
+		[TestMethod]
+		public void ParseWithCodeInContent()
+		{
+			var service = new StringParserService();
+			
+			string input = @"
+P ${currentPrice}\n"";
+
+if 
+";
+			var result = service.Parse(input);
+			Assert.AreEqual(input, result);
 		}
 
 		[TestMethod]
