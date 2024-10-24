@@ -12,85 +12,83 @@
 */
 #endregion
 
-using System.Threading.Tasks;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.UIModel.Input
 {
-	[TestClass]
 	public class UICommandTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetTextSynchronous()
 		{
-			var command = new UICommand(o => { });
+			UICommand command = new(_ => { });
 
-			Assert.IsTrue(string.IsNullOrEmpty(command.Text));
+			command.Text.Should().BeNullOrEmpty();
 
 			string newText = "NewText";
 
-			command.TextFunc = o => newText;
+			command.TextFunc = _ => newText;
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(newText, command.Text);
+			command.Text.Should().Be(newText);
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetTextAsynchronous()
 		{
-			var command = new UICommand(o => {});
+			UICommand command = new(_ => { });
 
-			Assert.IsTrue(string.IsNullOrEmpty(command.Text));
+			command.Text.Should().BeNullOrEmpty();
 
-			string[] newText = {"NewText"};
+			string[] newText = { "NewText" };
 
-			command.TextFunc = o => newText[0];
+			command.TextFunc = _ => newText[0];
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(newText[0], command.Text);
+			command.Text.Should().Be(newText[0]);
 
 			const string newText2 = "NewText2";
 			newText[0] = newText2;
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(newText2, command.Text);
+			command.Text.Should().Be(newText2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetVisibleAsynchronous()
 		{
-			var command = new UICommand(o => {});
-			bool[] newVisibility = {false};
-			command.IsVisibleFunc = o => newVisibility[0];
+			UICommand command = new(_ => { });
+			bool[] newVisibility = { false };
+			command.IsVisibleFunc = _ => newVisibility[0];
 
 			await command.RefreshAsync();
-			Assert.AreEqual(false, command.Visible);
+			command.Visible.Should().BeFalse();
 
 			newVisibility[0] = true;
 			await command.RefreshAsync();
-			Assert.AreEqual(true, command.Visible);
+			command.Visible.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldSetEnabledAsynchronous()
 		{
-			bool[] newEnabled = {false};
-			var command = new UICommand( 
-				o => {},
-				o => newEnabled[0]);
+			bool[] newEnabled = { false };
+
+			UICommand command = new(
+				_ => { },
+				_ => newEnabled[0]);
 
 			await command.RefreshAsync();
 
-			Assert.AreEqual(false, command.Enabled);
+			command.Enabled.Should().BeFalse();
 
 			newEnabled[0] = true;
 			await command.RefreshAsync();
 
-			Assert.AreEqual(true, command.Enabled);
+			command.Enabled.Should().BeTrue();
 		}
 	}
 }

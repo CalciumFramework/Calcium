@@ -12,19 +12,16 @@
 */
 #endregion
 
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Reflection
 {
-	[TestClass]
 	public partial class ReflectionCacheTests
 	{
-		[TestMethod]
+		[Fact]
 		public void GetPropertyFuncGenericAndRetrieveValue()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -36,23 +33,21 @@ namespace Calcium.Reflection
 			{
 				var func = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
 
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
 				const string expectedValue1 = "Foo";
 				foo.Property1 = expectedValue1;
 
 				var property1 = func(foo);
-
-				Assert.AreEqual(expectedValue1, property1, mode.ToString());
+				property1.Should().Be(expectedValue1, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetPropertyFuncAndRetrieveValue()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -64,23 +59,21 @@ namespace Calcium.Reflection
 			{
 				var func = reflectionCache.GetPropertyGetter(propertyInfo, mode);
 
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
 				const string expectedValue1 = "Foo";
 				foo.Property1 = expectedValue1;
 
 				var property1 = func(foo);
-
-				Assert.AreEqual(expectedValue1, property1, mode.ToString());
+				property1.Should().Be(expectedValue1, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetterFuncCached()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -91,19 +84,18 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetPropertyGetter(propertyInfo, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetPropertyGetter(propertyInfo, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetterGenericFuncCached()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -114,19 +106,18 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetPropertyGetter<string>(propertyInfo, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void SetterFuncCached()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -137,19 +128,18 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetPropertySetter(propertyInfo, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetPropertySetter(propertyInfo, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void SetterFuncCachedGeneric()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -160,19 +150,18 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetPropertyFuncAndSetValue()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -184,21 +173,20 @@ namespace Calcium.Reflection
 			{
 				var func = reflectionCache.GetPropertySetter(propertyInfo, mode);
 
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
 				const string expectedValue1 = "Foo";
 				func(foo, expectedValue1);
 
-				Assert.AreEqual(expectedValue1, foo.Property1, mode.ToString());
+				foo.Property1.Should().Be(expectedValue1, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetPropertyFuncGenericAndSetValue()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var propertyInfo = typeof(Foo).GetProperty(nameof(Foo.Property1));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -210,20 +198,19 @@ namespace Calcium.Reflection
 			{
 				var func = reflectionCache.GetPropertySetter<string>(propertyInfo, mode);
 
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
 				const string expectedValue1 = "Foo";
 				func(foo, expectedValue1);
 
-				Assert.AreEqual(expectedValue1, foo.Property1, mode.ToString());
+				foo.Property1.Should().Be(expectedValue1, mode.ToString());
 			}
 		}
-		
 
 		class Foo
 		{
-			public string Property1 { get; set; }
+			public string? Property1 { get; set; }
 
 			internal bool MethodVoid0ArgsCalled;
 			internal bool MethodVoid1ArgCalled;
@@ -235,9 +222,9 @@ namespace Calcium.Reflection
 			internal bool Method2ArgsCalled;
 			internal bool Method3ArgsCalled;
 
-			internal string Arg1;
-			internal string Arg2;
-			internal string Arg3;
+			internal string? Arg1;
+			internal string? Arg2;
+			internal string? Arg3;
 
 			public void MethodVoid0Args()
 			{
@@ -270,7 +257,6 @@ namespace Calcium.Reflection
 			public string Method0Args()
 			{
 				Method0ArgsCalled = true;
-
 				return Method0ArgsResult;
 			}
 
@@ -278,7 +264,6 @@ namespace Calcium.Reflection
 			{
 				Method1ArgCalled = true;
 				Arg1 = arg1;
-
 				return arg1;
 			}
 
@@ -287,7 +272,6 @@ namespace Calcium.Reflection
 				Method2ArgsCalled = true;
 				Arg1 = arg1;
 				Arg2 = arg2;
-
 				return arg1;
 			}
 
@@ -297,7 +281,6 @@ namespace Calcium.Reflection
 				Arg1 = arg1;
 				Arg2 = arg2;
 				Arg3 = arg3;
-
 				return arg1;
 			}
 		}

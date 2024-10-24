@@ -12,22 +12,23 @@
 */
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.InversionOfControl.Containers
 {
-	class ContainerDefaultTypeTests
+	public class ContainerDefaultTypeTests
 	{
 		internal void ShouldResolveDefaultType(IContainer container)
 		{
 			var r1 = container.Resolve<IHaveDefaultType>();
 
-			Assert.IsInstanceOfType(r1, typeof(ClassForResolvingViaDefaultType));
+			r1.Should().BeOfType<ClassForResolvingViaDefaultType>();
 		}
 
 		internal void ShouldNotResolveNonDefaultType(IContainer container)
 		{
-			var r1 = container.Resolve<IDontHaveDefaultType>();
+			// This would throw an exception as the type does not have a default resolution
+			Assert.Throws<ResolutionException>(() => container.Resolve<IDontHaveDefaultType>());
 		}
 
 		[DefaultType(typeof(ClassForResolvingViaDefaultType))]

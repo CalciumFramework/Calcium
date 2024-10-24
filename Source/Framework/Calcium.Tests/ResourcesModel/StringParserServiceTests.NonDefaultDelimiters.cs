@@ -1,15 +1,27 @@
-using System.Collections.Generic;
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2024, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://calciumframework.com), 
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2024-10-20 05:03:12Z</CreationDate>
+</File>
+*/
+#endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.ResourcesModel
 {
-	partial class StringParserServiceTests
+	public partial class StringParserServiceTests
 	{
-		[TestMethod]
+		[Fact]
 		public void ParseWithCustomDelimiters_ShouldReturnValue()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%>";
@@ -17,13 +29,13 @@ namespace Calcium.ResourcesModel
 
 			var result = service.Parse(content, substitutions, customDelimiters);
 
-			Assert.AreEqual("CustomReplacement", result);
+			result.Should().Be("CustomReplacement");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithCustomDelimiters_MultipleSubstitutions()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%> <%=Tag2%>";
@@ -35,20 +47,20 @@ namespace Calcium.ResourcesModel
 
 			var result = service.Parse(content, substitutions, customDelimiters);
 
-			Assert.AreEqual("CustomReplacement1 CustomReplacement2", result);
+			result.Should().Be("CustomReplacement1 CustomReplacement2");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithCustomDelimiters_ShouldReturnOriginalTextForUnknownTags()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=UnknownTag%>";
 
 			var result = service.Parse(content, new Dictionary<string, string>(), customDelimiters);
 
-			Assert.AreEqual(content, result); // Should return the original text if the tag is unknown
+			result.Should().Be(content); // Should return the original text if the tag is unknown
 		}
 	}
 }

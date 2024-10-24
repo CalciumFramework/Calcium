@@ -1,28 +1,26 @@
 #region File and License Information
+
 /*
 <File>
 	<License>
 		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
-		This file is part of Calcium (http://CalciumFramework.com), 
+		This file is part of Calcium (http://CalciumFramework.com),
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
 	</License>
 	<CreationDate>2017-03-13 18:22:01Z</CreationDate>
 </File>
 */
+
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Collections
 {
 	/// <summary>
-	/// <see cref="CollectionComparer"/> Tests. 
+	///     <see cref="CollectionComparer" /> Tests.
 	/// </summary>
-	[TestClass]
 	public class CollectionComparerTests
 	{
 		Dictionary<string, object> CreateDummyDictionary()
@@ -34,168 +32,167 @@ namespace Calcium.Collections
 
 			var dictionary = new Dictionary<string, object>
 			{
-				{s1, o1}, {s2, o2}
+				{ s1, o1 }, { s2, o2 }
 			};
 
 			return dictionary;
 		}
 
 		#region AreEqualDictionariesGeneric
-		[TestMethod]
-		public void AreEqualDictionariesGenericShouldReturnTrueIfEqual()
+
+		[Fact]
+		public void AreEqualDictionariesGeneric_ShouldReturnTrueIfEqual()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 
-			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(
-								dictionary1, dictionary2);
-			Assert.IsTrue(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(dictionary1, dictionary2);
+			areEqual.Should().BeTrue();
 		}
 
-		[TestMethod]
-		public void AreEqualDictionariesGenericShouldReturnFalseIfContainsMoreElements()
+		[Fact]
+		public void AreEqualDictionariesGeneric_ShouldReturnFalseIfContainsMoreElements()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 			dictionary2.Add("Foo2", new object());
 
-			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(
-								dictionary1, dictionary2);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(dictionary1, dictionary2);
+			areEqual.Should().BeFalse();
 		}
 
-		[TestMethod]
-		public void AreEqualDictionariesGenericShouldReturnFalseIfValueDifferent()
+		[Fact]
+		public void AreEqualDictionariesGeneric_ShouldReturnFalseIfValueDifferent()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
-			var firstKey = dictionary1.First().Key;
+			string firstKey = dictionary1.First().Key;
 			dictionary1[firstKey] = new object();
 
-			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(
-								dictionary1, dictionary2);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionariesGeneric(dictionary1, dictionary2);
+			areEqual.Should().BeFalse();
 		}
+
 		#endregion
 
 		#region AreEqualDictionaries
-		[TestMethod]
-		public void AreEqualDictionariesShouldReturnTrueIfEqual()
+
+		[Fact]
+		public void AreEqualDictionaries_ShouldReturnTrueIfEqual()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 
-			bool areEqual = CollectionComparer.AreEqualDictionaries(
-								dictionary1, dictionary2);
-			Assert.IsTrue(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionaries(dictionary1, dictionary2);
+			areEqual.Should().BeTrue();
 		}
 
-		[TestMethod]
-		public void AreEqualDictionariesShouldReturnFalseIfContainsMoreElements()
+		[Fact]
+		public void AreEqualDictionaries_ShouldReturnFalseIfContainsMoreElements()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 			dictionary2.Add("Foo2", new object());
 
-			bool areEqual = CollectionComparer.AreEqualDictionaries(
-								dictionary1, dictionary2);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionaries(dictionary1, dictionary2);
+			areEqual.Should().BeFalse();
 		}
 
-		[TestMethod]
-		public void AreEqualDictionariesShouldReturnFalseIfValueDifferent()
+		[Fact]
+		public void AreEqualDictionaries_ShouldReturnFalseIfValueDifferent()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
-			var firstKey = dictionary1.First().Key;
+			string firstKey = dictionary1.First().Key;
 			dictionary1[firstKey] = new object();
 
-			bool areEqual = CollectionComparer.AreEqualDictionaries(
-								dictionary1, dictionary2);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.AreEqualDictionaries(dictionary1, dictionary2);
+			areEqual.Should().BeFalse();
 		}
+
 		#endregion
 
 		#region HaveSameElements
-		[TestMethod]
-		public void HaveSameElementsShouldReturnTrueIfEqual()
+
+		[Fact]
+		public void HaveSameElements_ShouldReturnTrueIfEqual()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 
-			bool areEqual = CollectionComparer.HaveSameElements(
-								dictionary1.Values, dictionary2.Values);
-			Assert.IsTrue(areEqual);
+			bool areEqual = CollectionComparer.HaveSameElements(dictionary1.Values, dictionary2.Values);
+			areEqual.Should().BeTrue();
 		}
 
-		[TestMethod]
-		public void HaveSameElementsShouldReturnFalseIfContainsMoreElements()
+		[Fact]
+		public void HaveSameElements_ShouldReturnFalseIfContainsMoreElements()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 			dictionary2.Add("Foo2", new object());
 
-			bool areEqual = CollectionComparer.HaveSameElements(
-								dictionary1.Values, dictionary2.Values);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.HaveSameElements(dictionary1.Values, dictionary2.Values);
+			areEqual.Should().BeFalse();
 		}
 
-		[TestMethod]
-		public void HaveSameElementsShouldReturnFalseIfValueDifferent()
+		[Fact]
+		public void HaveSameElements_ShouldReturnFalseIfValueDifferent()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
-			var firstKey = dictionary1.First().Key;
+			string firstKey = dictionary1.First().Key;
 			dictionary1[firstKey] = new object();
 
-			bool areEqual = CollectionComparer.HaveSameElements(
-								dictionary1.Values, dictionary2.Values);
-			Assert.IsFalse(areEqual);
+			bool areEqual = CollectionComparer.HaveSameElements(dictionary1.Values, dictionary2.Values);
+			areEqual.Should().BeFalse();
 		}
+
 		#endregion
 
 		#region AreEqualLists
-		[TestMethod]
-		public void AreEqualListsShouldReturnTrueIfEqual()
+
+		[Fact]
+		public void AreEqualLists_ShouldReturnTrueIfEqual()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 
-			var list1 = new List<object>(dictionary1.Values);
-			var list2 = new List<object>(dictionary2.Values);
+			List<object> list1 = new(dictionary1.Values);
+			List<object> list2 = new(dictionary2.Values);
 
 			bool areEqual = CollectionComparer.AreEqualLists(list1, list2);
-			Assert.IsTrue(areEqual);
+			areEqual.Should().BeTrue();
 		}
 
-		[TestMethod]
-		public void AreEqualListsShouldReturnFalseIfContainsMoreElements()
+		[Fact]
+		public void AreEqualLists_ShouldReturnFalseIfContainsMoreElements()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
 			dictionary2.Add("Foo2", new object());
 
-			var list1 = new List<object>(dictionary1.Values);
-			var list2 = new List<object>(dictionary2.Values);
+			List<object> list1 = new(dictionary1.Values);
+			List<object> list2 = new(dictionary2.Values);
 
 			bool areEqual = CollectionComparer.AreEqualLists(list1, list2);
-			Assert.IsFalse(areEqual);
+			areEqual.Should().BeFalse();
 		}
 
-		[TestMethod]
-		public void AreEqualListsShouldReturnFalseIfValueDifferent()
+		[Fact]
+		public void AreEqualLists_ShouldReturnFalseIfValueDifferent()
 		{
 			var dictionary1 = CreateDummyDictionary();
 			var dictionary2 = CreateDummyDictionary();
-			var firstKey = dictionary1.First().Key;
+			string firstKey = dictionary1.First().Key;
 			dictionary1[firstKey] = new object();
 
-			var list1 = new List<object>(dictionary1.Values);
-			var list2 = new List<object>(dictionary2.Values);
+			List<object> list1 = new(dictionary1.Values);
+			List<object> list2 = new(dictionary2.Values);
 
 			bool areEqual = CollectionComparer.AreEqualLists(list1, list2);
-			Assert.IsFalse(areEqual);
+			areEqual.Should().BeFalse();
 		}
+
 		#endregion
 	}
 }

@@ -13,45 +13,42 @@
 #endregion
 
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calcium.InversionOfControl.Containers
 {
-	[TestClass]
 	public class WeakReferencingContainerDefaultTypeNameTests
 	{
-		readonly ContainerDefaultTypeNameTests sharedTests 
-						= new ContainerDefaultTypeNameTests();
+		readonly ContainerDefaultTypeNameTests sharedTests = new();
 
 		[DebuggerStepThrough]
 		IContainer CreateContainer() => new WeakReferencingContainer();
 
 		/* These are raising an InvalidCastException in Release builds
 		 * when using the MS Test runner.
-		 * It would appear that the interface type is being loaded 
-		 * in a different App domain, cause the type mismatch. It's rather strange.
+		 * It would appear that the interface type is being loaded
+		 * in a different App domain, causing the type mismatch. It's rather strange.
 		 * That's just a guess. */
 #if DEBUG
-		[TestMethod]
+		[Fact]
 		public void ShouldResolveDefaultTypeByName()
 		{
 			sharedTests.ShouldResolveDefaultTypeByName(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldFallbackToDefaultType()
 		{
 			sharedTests.ShouldFallbackToDefaultType(CreateContainer());
 		}
 #endif
-		[TestMethod]
+
+		[Fact]
 		public void ShouldFallbackToType()
 		{
 			sharedTests.ShouldFallbackToType(CreateContainer());
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ResolutionException))]
+		[Fact]
 		public void ShouldNotResolveNonDefaultType()
 		{
 			sharedTests.ShouldNotResolveNonDefaultType(CreateContainer());

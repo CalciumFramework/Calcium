@@ -1,6 +1,20 @@
-using System;
+#region File and License Information
+
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://CalciumFramework.com),
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2017-03-13 18:22:15Z</CreationDate>
+</File>
+*/
+
+#endregion
+
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace Calcium.Concurrency
 {
@@ -8,18 +22,18 @@ namespace Calcium.Concurrency
 	{
 		public void Post(
 			Action action,
-			[CallerMemberName] string memberName = null,
-			[CallerFilePath] string filePath = null,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
 			action();
 		}
 
 		public Task PostAsync(
-			Action action, 
-			bool ignoreExceptionHandler = false, 
-			[CallerMemberName] string memberName = null, 
-			[CallerFilePath] string filePath = null, 
+			Action action,
+			bool ignoreExceptionHandler = false,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
 			action();
@@ -29,18 +43,18 @@ namespace Calcium.Concurrency
 
 		public void Send(
 			Action action,
-			[CallerMemberName] string memberName = null,
-			[CallerFilePath] string filePath = null,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
 			action();
 		}
 
 		public async Task SendAsync(
-			Func<Task> action, 
+			Func<Task> action,
 			bool ignoreExceptionHandler = false,
-			[CallerMemberName] string memberName = null,
-			[CallerFilePath] string filePath = null,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
 			[CallerLineNumber] int lineNumber = 0)
 		{
 			await action();
@@ -52,14 +66,20 @@ namespace Calcium.Concurrency
 		{
 		}
 
-		public Task PostAsync(Action action, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
+		public Task PostAsync(Action action, 
+							  [CallerMemberName] string? memberName = null,
+							  [CallerFilePath] string? filePath = null, 
+							  [CallerLineNumber] int lineNumber = 0)
 		{
 			action();
 
 			return Task.CompletedTask;
 		}
 
-		public Task SendAsync(Func<Task> action, [CallerMemberName] string memberName = null, [CallerFilePath] string filePath = null, [CallerLineNumber] int lineNumber = 0)
+		public Task SendAsync(Func<Task> action, 
+							  [CallerMemberName] string? memberName = null,
+							  [CallerFilePath] string? filePath = null, 
+							  [CallerLineNumber] int lineNumber = 0)
 		{
 			action();
 

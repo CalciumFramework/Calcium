@@ -12,39 +12,36 @@
 */
 #endregion
 
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Messaging
 {
-	[TestClass]
 	public class MessengerTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task ShouldRegisterAndResolveTypes()
 		{
-			var messenger = new Messenger();
+			Messenger messenger = new();
 			var m1 = new MessageSubscriberMock1();
 			messenger.Subscribe(m1);
 
 			var message1 = new MessageDefinition1();
 			await messenger.PublishAsync(message1);
 
-			Assert.AreEqual(message1, m1.Message);
+			m1.Message.Should().Be(message1);
 
 			messenger.Unsubscribe(m1);
 
 			var message2 = new MessageDefinition1();
 			await messenger.PublishAsync(message2);
 
-			Assert.AreEqual(message1, m1.Message, 
-				"Message should be the same as before the unsubscription.");
+			m1.Message.Should().Be(message1, "Message should be the same as before the unsubscription.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldDirectMessageToType()
 		{
-			var messenger = new Messenger();
+			Messenger messenger = new();
 
 			var m1 = new MessageSubscriberMock1();
 			messenger.Subscribe(m1);
@@ -55,37 +52,34 @@ namespace Calcium.Messaging
 			var message1 = new MessageDefinition1();
 			await messenger.PublishAsync(message1);
 
-			Assert.AreEqual(message1, m1.Message);
-			Assert.AreEqual(message1, m2.Message);
+			m1.Message.Should().Be(message1);
+			m2.Message.Should().Be(message1);
 
 			var message2 = new MessageDefinition1();
-			await messenger.PublishAsync(message2, 
-				recipientType:typeof(MessageSubscriberMock1));
+			await messenger.PublishAsync(message2, recipientType: typeof(MessageSubscriberMock1));
 
-			Assert.AreEqual(message2, m1.Message);
-			Assert.AreEqual(message1, m2.Message);
+			m1.Message.Should().Be(message2);
+			m2.Message.Should().Be(message1);
 		}
 
 		class MessageSubscriberMock1 : IMessageSubscriber<MessageDefinition1>
 		{
-			public MessageDefinition1 Message { get; set; }
+			public MessageDefinition1? Message { get; set; }
 
 			public Task ReceiveMessageAsync(MessageDefinition1 message)
 			{
 				Message = message;
-
 				return Task.CompletedTask;
 			}
 		}
 
 		class MessageSubscriberMock2 : IMessageSubscriber<MessageDefinition1>
 		{
-			public MessageDefinition1 Message { get; set; }
+			public MessageDefinition1? Message { get; set; }
 
 			public Task ReceiveMessageAsync(MessageDefinition1 message)
 			{
 				Message = message;
-
 				return Task.CompletedTask;
 			}
 		}

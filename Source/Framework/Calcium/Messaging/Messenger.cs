@@ -77,7 +77,7 @@ namespace Calcium.Messaging
 
 			if (subscriptionInterfaces == null)
 			{
-				/* No IMessageSubscriber interfaces implemented by the subsciber type. */
+				/* No IMessageSubscriber interfaces implemented by the subscriber type. */
 				return;
 			}
 

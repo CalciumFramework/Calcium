@@ -1,30 +1,44 @@
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2020, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://CalciumFramework.com),
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2020-01-02 23:25:23Z</CreationDate>
+</File>
+*/
+#endregion
+
+using FluentAssertions;
+// ReSharper disable InconsistentNaming
 
 namespace Calcium.InversionOfControl.Containers
 {
-	class ContainerTests
+	public class ContainerTests
 	{
 		internal void RegisterAndResolveTypes(IContainer container)
 		{
 			container.Register<IClass1, Class1a>();
 
-			Assert.IsTrue(container.IsRegistered<IClass1>());
-			Assert.IsTrue(container.IsRegistered(typeof(IClass1)));
+			container.IsRegistered<IClass1>().Should().BeTrue();
+			container.IsRegistered(typeof(IClass1)).Should().BeTrue();
 
 			container.Register<IClass1, Class1b>(false, "Class1b");
-			Assert.IsTrue(container.IsRegistered<IClass1>());
-			Assert.IsTrue(container.IsRegistered<IClass1>("Class1b"));
+			container.IsRegistered<IClass1>().Should().BeTrue();
+			container.IsRegistered<IClass1>("Class1b").Should().BeTrue();
 
 			var class1s = container.ResolveAll<IClass1>();
-			Assert.AreEqual(2, class1s.Count());
+			class1s.Count().Should().Be(2);
 
 			container.Register<IClass2, Class2a>(true);
-			Assert.IsTrue(container.IsRegistered<IClass2>());
+			container.IsRegistered<IClass2>().Should().BeTrue();
 
 			var class2Instance1 = container.Resolve<IClass2>();
 			var class2Instance2 = container.Resolve<IClass2>();
-			Assert.AreEqual(class2Instance1, class2Instance2);
+			class2Instance1.Should().Be(class2Instance2);
 		}
 
 		internal void RegisterAndResolveTypesWithKeys(IContainer container)
@@ -35,12 +49,12 @@ namespace Calcium.InversionOfControl.Containers
 			container.Register<IClass2, Class2a>(true, "Class2a");
 			var c2 = container.Resolve<IClass2>("Class2a");
 
-			Assert.AreNotEqual(class2Instance1, c2);
+			class2Instance1.Should().NotBe(c2);
 
 			container.Register<IClass3>(new Class3a());
 			var c3a = container.Resolve<IClass3>();
 			var c3b = container.Resolve<IClass3>();
-			Assert.AreEqual(c3a, c3b);
+			c3a.Should().Be(c3b);
 		}
 
 		internal void RegisterAndResolveSingletons(IContainer container)
@@ -48,7 +62,7 @@ namespace Calcium.InversionOfControl.Containers
 			container.Register<IClass3>(new Class3a());
 			var c3a = container.Resolve<IClass3>();
 			var c3b = container.Resolve<IClass3>();
-			Assert.AreEqual(c3a, c3b);
+			c3a.Should().Be(c3b);
 		}
 
 		internal void RegisterAndResolveSingletonsWithKeys(IContainer container)
@@ -56,7 +70,7 @@ namespace Calcium.InversionOfControl.Containers
 			container.Register<IClass3>(new Class3a(), "Class3a");
 			var c3a = container.Resolve<IClass3>("Class3a");
 			var c3b = container.Resolve<IClass3>("Class3a");
-			Assert.AreEqual(c3a, c3b);
+			c3a.Should().Be(c3b);
 		}
 
 		internal void RegisterAndResolveFuncs(IContainer container)
@@ -64,31 +78,31 @@ namespace Calcium.InversionOfControl.Containers
 			container.Register<IClass1>(() => new Class1a());
 
 			{
-				Assert.IsTrue(container.IsRegistered<IClass1>());
-				Assert.IsTrue(container.IsRegistered(typeof(IClass1)));
+				container.IsRegistered<IClass1>().Should().BeTrue();
+				container.IsRegistered(typeof(IClass1)).Should().BeTrue();
 				var c1a = container.Resolve<IClass1>();
 				var c1b = container.Resolve<IClass1>();
-				Assert.AreNotEqual(c1a, c1b);
+				c1a.Should().NotBe(c1b);
 			}
 
 			container.Register<IClass2>(() => new Class2a(), true);
 
 			{
-				Assert.IsTrue(container.IsRegistered<IClass2>());
-				Assert.IsTrue(container.IsRegistered(typeof(IClass2)));
+				container.IsRegistered<IClass2>().Should().BeTrue();
+				container.IsRegistered(typeof(IClass2)).Should().BeTrue();
 				var c2a = container.Resolve<IClass2>();
 				var c2b = container.Resolve<IClass2>();
-				Assert.AreEqual(c2a, c2b);
+				c2a.Should().Be(c2b);
 			}
 
 			container.Register<Class2a>(() => new Class2a(), true);
 
 			{
-				Assert.IsTrue(container.IsRegistered<Class2a>());
-				Assert.IsTrue(container.IsRegistered(typeof(Class2a)));
+				container.IsRegistered<Class2a>().Should().BeTrue();
+				container.IsRegistered(typeof(Class2a)).Should().BeTrue();
 				var c2a = container.Resolve<Class2a>();
 				var c2b = container.Resolve<Class2a>();
-				Assert.AreEqual(c2a, c2b);
+				c2a.Should().Be(c2b);
 			}
 		}
 
@@ -98,10 +112,10 @@ namespace Calcium.InversionOfControl.Containers
 			container.Register<CrossDependentB>(() => new CrossDependentB(container), true);
 
 			{
-				Assert.IsTrue(container.IsRegistered<CrossDependentA>());
-				Assert.IsTrue(container.IsRegistered(typeof(CrossDependentA)));
-				Assert.IsTrue(container.IsRegistered<CrossDependentB>());
-				Assert.IsTrue(container.IsRegistered(typeof(CrossDependentB)));
+				container.IsRegistered<CrossDependentA>().Should().BeTrue();
+				container.IsRegistered(typeof(CrossDependentA)).Should().BeTrue();
+				container.IsRegistered<CrossDependentB>().Should().BeTrue();
+				container.IsRegistered(typeof(CrossDependentB)).Should().BeTrue();
 				var a = container.Resolve<CrossDependentA>();
 			}
 		}
@@ -113,7 +127,7 @@ namespace Calcium.InversionOfControl.Containers
 			{
 				var c1 = container.Resolve<IClass1>();
 				var c2 = container.Resolve<IClass1>();
-				Assert.AreNotEqual(c1, c2);
+				c1.Should().NotBe(c2);
 			}
 
 			container.Register<IClass3>(() => new Class3a(), true);
@@ -121,14 +135,14 @@ namespace Calcium.InversionOfControl.Containers
 			{
 				var c1 = container.Resolve<IClass3>();
 				var c2 = container.Resolve<IClass3>();
-				Assert.AreEqual(c1, c2);
+				c1.Should().Be(c2);
 			}
 
 			container.Register<IClass3>(() => new Class3a(), true, "Class2a");
 
 			{
 				var types = container.ResolveAll<IClass3>();
-				Assert.AreEqual(2, types.Count());
+				types.Count().Should().Be(2);
 			}
 		}
 
@@ -138,24 +152,24 @@ namespace Calcium.InversionOfControl.Containers
 
 			{
 				var c1 = container.Resolve<IClass1>();
-				Assert.IsNotNull(c1);
+				c1.Should().NotBeNull();
 				container.Register<IClass1, Class1b>();
 
 				var c2 = container.Resolve<IClass1>();
 
-				Assert.IsTrue(c2 is Class1b);
+				c2.Should().BeOfType<Class1b>();
 			}
 
 			container.Register<IClass1, Class1a>(true);
 
 			{
 				var c1 = container.Resolve<IClass1>();
-				Assert.IsNotNull(c1);
+				c1.Should().NotBeNull();
 				container.Register<IClass1, Class1b>(true);
 
 				var c2 = container.Resolve<IClass1>();
 
-				Assert.IsTrue(c2 is Class1b);
+				c2.Should().BeOfType<Class1b>();
 			}
 
 			IClass1 c4 = new Class1a();
@@ -163,12 +177,12 @@ namespace Calcium.InversionOfControl.Containers
 
 			{
 				var c1 = container.Resolve<IClass1>();
-				Assert.AreEqual(c4, c1);
+				c1.Should().Be(c4);
 				container.Register<IClass1, Class1b>(true);
 
 				var c2 = container.Resolve<IClass1>();
 
-				Assert.IsTrue(c2 is Class1b);
+				c2.Should().BeOfType<Class1b>();
 			}
 
 			{
@@ -176,12 +190,12 @@ namespace Calcium.InversionOfControl.Containers
 				container.Register<IClass1>(() => c5, false, "Class5");
 
 				var c1 = container.Resolve<IClass1>("Class5");
-				Assert.AreEqual(c5, c1);
+				c1.Should().Be(c5);
 				container.Register<IClass1, Class1b>(true);
 
 				var c2 = container.Resolve<IClass1>();
 
-				Assert.IsTrue(c2 is Class1b);
+				c2.Should().BeOfType<Class1b>();
 			}
 		}
 
@@ -189,24 +203,25 @@ namespace Calcium.InversionOfControl.Containers
 		{
 			container.Register<Class1a, Class1a>();
 
-			Assert.IsTrue(container.IsRegistered<Class1a>());
-			Assert.IsTrue(container.IsRegistered(typeof(Class1a)));
+			container.IsRegistered<Class1a>().Should().BeTrue();
+			container.IsRegistered(typeof(Class1a)).Should().BeTrue();
 
 			var c1 = container.Resolve<Class1a>();
 			var c2 = container.Resolve<Class1a>();
-			Assert.AreNotEqual(c1, c2);
+			c1.Should().NotBe(c2);
 			container.Register<Class1b, Class1b>(false, "Class1b");
-			Assert.IsFalse(container.IsRegistered<Class1b>());
+			container.IsRegistered<Class1b>().Should().BeFalse();
 			container.Register<Class1b, Class1b>(false);
-			Assert.IsTrue(container.IsRegistered<Class1b>());
-			Assert.IsTrue(container.IsRegistered<Class1b>("Class1b"));
+			container.IsRegistered<Class1b>().Should().BeTrue();
+			container.IsRegistered<Class1b>("Class1b").Should().BeTrue();
 
 			var class1s = container.ResolveAll<Class1b>();
-			Assert.AreEqual(2, class1s.Count());
+			class1s.Count().Should().Be(2);
 		}
 
 		internal void ShouldResolveDefaultTypes(IContainer container)
 		{
+			// Implementation or call to resolve default types would go here
 		}
 
 		class Class1a : IClass1

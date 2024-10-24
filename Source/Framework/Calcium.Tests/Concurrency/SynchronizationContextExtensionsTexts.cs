@@ -1,59 +1,68 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://CalciumFramework.com),
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2017-03-13 18:22:15Z</CreationDate>
+</File>
+*/
+#endregion
+
+using FluentAssertions;
 
 namespace Calcium.Concurrency
 {
-	[TestClass]
-	public class SynchronizationContextExtensionsTexts
+	public class SynchronizationContextExtensionsTests
 	{
-		[TestMethod]
+		[Fact]
 		public async Task PostActionAfterDelay()
 		{
-			var context = new SynchronizationContextForTests();
+			SynchronizationContextForTests context = new();
 
 			bool executed = false;
 			DateTime startTime = DateTime.UtcNow;
 			const int delayMs = 1000;
-			
-			await context.PostWithDelayAsync(() =>
-			{
-				executed = true;
-			}, delayMs);
 
-			Assert.IsTrue(executed, "Action was not executed.");
+			await context.PostWithDelayAsync(() =>
+											 {
+												 executed = true;
+											 }, delayMs);
+
+			executed.Should().BeTrue("Action was not executed.");
 			var timeDifference = DateTime.UtcNow - startTime;
 
-			Assert.IsTrue(
-				timeDifference.TotalMilliseconds >= delayMs,
-				"Action should have been executed after delay.");
+			timeDifference.TotalMilliseconds.Should().BeGreaterOrEqualTo(delayMs,
+				"Action should have been executed after the delay.");
 		}
 
-//		[TestMethod]
-//		public async Task PostActionAtDepth()
-//		{
-//			var context = new UISynchronizationContext();
-//
-//			bool executed = false;
-//			
-//			const int depth = 5;
-//
-//			context.PostWithDeferralAsync(() =>
-//			{
-//				executed = true;
-//			}, depth);
-//
-//			for (int i = 0; i < depth; i++)
-//			{
-//				Assert.IsFalse(executed, 
-//					"Action should not have been executed yet. " + i);
-//				await Task.Yield();
-//			}
-//			
-//			await Task.Yield();
-//			await Task.Yield();
-//
-//			Assert.IsTrue(executed, "Action should have been executed.");
-//		}
+		//        [Fact]
+		//        public async Task PostActionAtDepth()
+		//        {
+		//            var context = new UISynchronizationContext();
+		//
+		//            bool executed = false;
+		//
+		//            const int depth = 5;
+		//
+		//            context.PostWithDeferralAsync(() =>
+		//            {
+		//                executed = true;
+		//            }, depth);
+		//
+		//            for (int i = 0; i < depth; i++)
+		//            {
+		//                executed.Should().BeFalse("Action should not have been executed yet. " + i);
+		//                await Task.Yield();
+		//            }
+		//
+		//            await Task.Yield();
+		//            await Task.Yield();
+		//
+		//            executed.Should().BeTrue("Action should have been executed.");
+		//        }
 	}
 }

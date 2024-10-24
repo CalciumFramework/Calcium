@@ -12,367 +12,321 @@
 */
 #endregion
 
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium
 {
-	/// <summary>
-	/// Test methods for the <see cref="AssertArg"/> class.
-	/// </summary>
-	[TestClass]
-	public  class AssertArgTests
+	public class AssertArgTests
 	{
 		#region IsNotNull
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
+		[Fact]
 		public void IsNotNullShouldRaiseExceptionIfNull()
 		{
-			object foo = null;
-			AssertArg.IsNotNull(foo, nameof(IsNotNullShouldRaiseExceptionIfNull));
+			object? foo = null;
+			Action action = () => AssertArg.IsNotNull(foo, nameof(IsNotNullShouldRaiseExceptionIfNull));
+
+			action.Should().Throw<ArgumentNullException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsNotNullShouldNotRaiseExceptionIfNotNull()
 		{
-			object foo = new object();
-			var result = AssertArg.IsNotNull(foo, nameof(foo));
-			
-			Assert.AreEqual(foo, result);
-		}
+			object foo = new();
+			object result = AssertArg.IsNotNull(foo, nameof(foo));
 
+			result.Should().Be(foo);
+		}
 		#endregion
 
 		#region IsNotNullOrEmpty
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
+		[Fact]
 		public void IsNotNullOrEmptyShouldRaiseExceptionIfNull()
 		{
-			string foo = null;
-			AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+			string? foo = null;
+			Action action = () => AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentNullException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsNotNullOrEmptyShouldRaiseExceptionIfEmpty()
 		{
 			string foo = string.Empty;
-			AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+			Action action = () => AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsNotNullOrEmptyShouldNotRaiseExceptionIfNotNullOrEmpty()
 		{
 			string foo = "foo";
-			var result = AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+			string result = AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsNotNullOrWhiteSpace
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsNotNullOrWhiteSpaceShouldRaiseExceptionIfNull()
 		{
-			string foo = null;
-			AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo));
+			string? foo = null;
+			Action action = () => AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsNotNullOrWhiteSpaceShouldRaiseExceptionIfWhiteSpace()
 		{
 			string foo = "  ";
-			AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo));
+			Action action = () => AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo));
 
-			string foo2 = "";
-			AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo2));
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsNotNullOrWhiteSpaceShouldNotRaiseExceptionIfNotNullOrWhiteSpace()
 		{
 			string foo = "foo";
-			var result = AssertArg.IsNotNullOrEmpty(foo, nameof(foo));
+			var result = AssertArg.IsNotNullOrWhiteSpace(foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsNotEmpty
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsNotEmptyShouldRaiseExceptionIfEmpty()
 		{
 			Guid foo = Guid.Empty;
-			AssertArg.IsNotEmpty(foo, nameof(foo));
+			Action action = () => AssertArg.IsNotEmpty(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsNotEmptyShouldNotRaiseExceptionIfNotEmpty()
 		{
 			Guid foo = Guid.NewGuid();
 			var result = AssertArg.IsNotEmpty(foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsGreaterThan Int
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterIntThanShouldRaiseExceptionIfLessThan()
 		{
-			AssertArg.IsGreaterThan(1, 0, "None");
+			Action action = () => AssertArg.IsGreaterThan(1, 0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterIntThanShouldRaiseExceptionIfEqual()
 		{
-			AssertArg.IsGreaterThan(1, 1, "None");
+			Action action = () => AssertArg.IsGreaterThan(1, 1, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterIntThanShouldNotRaiseExceptionIfGreaterThan()
 		{
-			var foo = 5;
-			var result = AssertArg.IsGreaterThan(1, foo, nameof(foo));
+			int foo = 5;
+			int result = AssertArg.IsGreaterThan(1, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsGreaterThan Double
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterDoubleThanShouldRaiseExceptionIfLessThan()
 		{
-			AssertArg.IsGreaterThan(1.0, 0.0, "None");
+			Action action = () => AssertArg.IsGreaterThan(1.0, 0.0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterDoubleThanShouldRaiseExceptionIfEqual()
 		{
-			AssertArg.IsGreaterThan(1.0, 1.0, "None");
+			Action action = () => AssertArg.IsGreaterThan(1.0, 1.0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterDoubleThanShouldNotRaiseExceptionIfGreaterThan()
 		{
-			var foo = 5;
-			var result = AssertArg.IsGreaterThan(1, foo, nameof(foo));
+			int foo = 5;
+			int result = AssertArg.IsGreaterThan(1, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsGreaterThanOrEqual Int
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterThanOrEqualIntShouldRaiseExceptionIfLessThan()
 		{
-			AssertArg.IsGreaterThanOrEqual(1, 0, "None");
+			Action action = () => AssertArg.IsGreaterThanOrEqual(1, 0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterThanOrEqualIntShouldNotRaiseExceptionIfGreaterThan()
 		{
-			var foo = 5;
-			var result = AssertArg.IsGreaterThanOrEqual(1, foo, nameof(foo));
+			int foo = 5;
+			int result = AssertArg.IsGreaterThanOrEqual(1, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterThanOrEqualIntShouldNotRaiseExceptionIfEqual()
 		{
-			var foo = 5;
-			var result = AssertArg.IsGreaterThanOrEqual(5, foo, nameof(foo));
+			int foo = 5;
+			int result = AssertArg.IsGreaterThanOrEqual(5, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsGreaterThanOrEqual Double
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsGreaterThanOrEqualDoubleShouldRaiseExceptionIfLessThan()
 		{
-			AssertArg.IsGreaterThanOrEqual(1.0, 0.0, "None");
+			Action action = () => AssertArg.IsGreaterThanOrEqual(1.0, 0.0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterThanOrEqualDoubleShouldNotRaiseExceptionIfGreaterThan()
 		{
-			var foo = 5.0;
-			var result = AssertArg.IsGreaterThanOrEqual(1.0, foo, nameof(foo));
+			double foo = 5.0;
+			double result = AssertArg.IsGreaterThanOrEqual(1.0, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsGreaterThanOrEqualDoubleShouldNotRaiseExceptionIfEqual()
 		{
-			var foo = 5.0;
-			var result = AssertArg.IsGreaterThanOrEqual(5.0, foo, nameof(foo));
+			double foo = 5.0;
+			double result = AssertArg.IsGreaterThanOrEqual(5.0, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsLessThan Int
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsLessThanIntShouldRaiseExceptionIfNotLessThan()
 		{
-			AssertArg.IsLessThan(0, 1, "None");
+			Action action = () => AssertArg.IsLessThan(0, 1, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsLessThanIntShouldRaiseExceptionIfEqual()
 		{
-			AssertArg.IsLessThan(1, 1, "None");
+			Action action = () => AssertArg.IsLessThan(1, 1, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsLessThanIntShouldNotRaiseExceptionIfLessThan()
 		{
-			var foo = 5;
-			var result = AssertArg.IsLessThan(6, foo, nameof(foo));
+			double foo = 5;
+			double result = AssertArg.IsLessThan(6, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsLessThan Double
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsLessThanDoubleShouldRaiseExceptionIfNotLessThan()
 		{
-			AssertArg.IsLessThan(0.0, 1.0, "None");
+			Action action = () => AssertArg.IsLessThan(0.0, 1.0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Fact]
 		public void IsLessThanDoubleShouldRaiseExceptionIfEqual()
 		{
-			AssertArg.IsLessThan(1.0, 1.0, "None");
+			Action action = () => AssertArg.IsLessThan(1.0, 1.0, "None");
+
+			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsLessThanDoubleShouldNotRaiseExceptionIfLessThan()
 		{
-			var foo = 5.0;
-			var result = AssertArg.IsLessThan(6.0, foo, nameof(foo));
+			double foo = 5.0;
+			double result = AssertArg.IsLessThan(6.0, foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
-		}
-		#endregion
-
-		#region IsLessThanOrEqual Int
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void IsLessThanOrEqualIntShouldRaiseExceptionIfNotLessThan()
-		{
-			AssertArg.IsLessThan(0, 1, "None");
-		}
-
-		[TestMethod]
-		public void IsLessThanOrEqualIntShouldNotRaiseExceptionIfEqual()
-		{
-			var foo = 5;
-			var result = AssertArg.IsLessThanOrEqual(5, foo, nameof(foo));
-
-			Assert.AreEqual(foo, result);
-		}
-
-		[TestMethod]
-		public void IsLessThanOrEqualIntShouldNotRaiseExceptionIfLessThanOrEqual()
-		{
-			var foo = 5;
-			var result = AssertArg.IsLessThanOrEqual(6, foo, nameof(foo));
-
-			Assert.AreEqual(foo, result);
-		}
-		#endregion
-
-		#region IsLessThanOrEqual Double
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void IsLessThanOrEqualDoubleShouldRaiseExceptionIfNotLessThan()
-		{
-			AssertArg.IsLessThan(0.0, 1.0, "None");
-		}
-
-		[TestMethod]
-		public void IsLessThanOrEqualDoubleShouldNotRaiseExceptionIfEqual()
-		{
-			var foo = 5.0;
-			var result = AssertArg.IsLessThanOrEqual(5.0, foo, nameof(foo));
-
-			Assert.AreEqual(foo, result);
-		}
-
-		[TestMethod]
-		public void IsLessThanOrEqualDoubleShouldNotRaiseExceptionIfLessThanOrEqual()
-		{
-			var foo = 5.0;
-			var result = AssertArg.IsLessThanOrEqual(6.0, foo, nameof(foo));
-
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
 		#endregion
 
 		#region IsOfType
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsOfTypeShouldRaiseExceptionIfNotOfType()
 		{
-			object foo = new object();
-			AssertArg.IsOfType<string>(foo, nameof(foo));
+			object foo = new();
+			Action action = () => AssertArg.IsOfType<string>(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsOfTypeShouldNotRaiseExceptionIfNotNull()
 		{
-			object foo = new object();
-			var result = AssertArg.IsOfType<object>(foo, nameof(foo));
+			object foo = new();
+			object result = AssertArg.IsOfType<object>(foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
-
 		#endregion
 
 		#region IsNotNullAndOfType
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
+		[Fact]
 		public void IsNotNullAndOfTypeShouldRaiseExceptionIfNull()
 		{
-			object foo = null;
-			AssertArg.IsNotNullAndOfType<object>(foo, nameof(foo));
+			object? foo = null;
+			Action action = () => AssertArg.IsNotNullAndOfType<object>(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentNullException>();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[Fact]
 		public void IsNotNullAndOfTypeShouldRaiseExceptionIfNotOfType()
 		{
-			object foo = new object();
-			AssertArg.IsNotNullAndOfType<string>(foo, nameof(foo));
+			object foo = new();
+			Action action = () => AssertArg.IsNotNullAndOfType<string>(foo, nameof(foo));
+
+			action.Should().Throw<ArgumentException>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void IsNotNullAndOfTypeShouldNotRaiseExceptionIfNotNull()
 		{
-			object foo = new object();
-			var result = AssertArg.IsNotNullAndOfType<object>(foo, nameof(foo));
+			object foo = new();
+			object result = AssertArg.IsNotNullAndOfType<object>(foo, nameof(foo));
 
-			Assert.AreEqual(foo, result);
+			result.Should().Be(foo);
 		}
-
 		#endregion
 	}
 }

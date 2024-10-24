@@ -12,19 +12,17 @@
 */
 #endregion
 
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Messaging
 {
-	[TestClass]
 	public class DelegateSubscriberTests
 	{
 		class TestMessage
 		{
 		}
 
-		[TestMethod]
+		[Fact]
 		public async Task ShouldReceiveMessage()
 		{
 			bool receivedMessage = false;
@@ -40,7 +38,7 @@ namespace Calcium.Messaging
 			messenger.Subscribe(subscriber);
 			await messenger.PublishAsync(new TestMessage());
 
-			Assert.IsTrue(receivedMessage, "Did not receive message back from messenger.");
+			receivedMessage.Should().BeTrue("Did not receive message back from messenger.");
 		}
 	}
 }

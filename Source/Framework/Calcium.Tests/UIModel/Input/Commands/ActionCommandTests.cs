@@ -12,87 +12,91 @@
 */
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.UIModel.Input
 {
-	[TestClass]
 	public class ActionCommandTests
 	{
-		[TestMethod]
+		[Fact]
 		public void ShouldRaiseCanExecuteChangedSynchronous()
 		{
 			bool canExecuteCalled = false;
-			ActionCommand command = new ActionCommand(o => {}, o =>
-			{
-				canExecuteCalled = true;
-				return true;
-			});
+			ActionCommand command
+				= new(_ => { }, _ =>
+								{
+									canExecuteCalled = true;
+									return true;
+								});
 
 			command.Refresh();
 
-			Assert.IsTrue(canExecuteCalled);
+			canExecuteCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldRaiseCanExecuteChangedGenericSynchronous()
 		{
 			bool canExecuteCalled = false;
-			var command = new ActionCommand<int>(o => { }, o =>
-			{
-				canExecuteCalled = true;
-				return true;
-			});
+			ActionCommand<int> command
+				= new(_ => { },
+					_ =>
+					{
+						canExecuteCalled = true;
+						return true;
+					});
 
 			command.Refresh();
 
-			Assert.IsTrue(canExecuteCalled);
+			canExecuteCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldExecuteSynchronous()
 		{
 			bool executeCalled = false;
-			var command = new ActionCommand<int>(o =>
-			{
-				executeCalled = true;
-			});
+			ActionCommand<int> command
+				= new(_ =>
+					  {
+						  executeCalled = true;
+					  });
 
 			command.Execute();
 
-			Assert.IsTrue(executeCalled);
+			executeCalled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldSetEnabledToFalseSynchronous()
 		{
-			var command = new ActionCommand<int>(o => {}, o => false);
+			ActionCommand<int> command = new(_ => { }, _ => false);
 			command.Refresh();
 
-			Assert.IsFalse(command.Enabled);
+			command.Enabled.Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldInitializeEnabledToTrueSynchronous()
 		{
-			var command = new ActionCommand<int>(o => { }, o => true);
+			ActionCommand<int> command = new(_ => { }, _ => true);
 
-			Assert.IsTrue(command.Enabled);
+			command.Enabled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldReceiveParameterSynchronous()
 		{
 			int receivedParameter = 0;
-			var command = new ActionCommand<int>(o =>
-			{
-				receivedParameter = o;
-			});
+			ActionCommand<int> command 
+				= new(o =>
+					  {
+						  receivedParameter = o;
+					  });
 
 			int parameterValue = 5;
 			command.Execute(parameterValue);
 
-			Assert.AreEqual(parameterValue, receivedParameter);
+			receivedParameter.Should().Be(parameterValue);
 		}
 	}
 }

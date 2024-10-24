@@ -13,30 +13,27 @@
 #endregion
 
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calcium.InversionOfControl.Containers
 {
-	[TestClass]
 	public class WeakReferencingContainerDefaultTypeTests
 	{
-		readonly ContainerDefaultTypeTests sharedTests 
-						= new ContainerDefaultTypeTests();
+		readonly ContainerDefaultTypeTests sharedTests = new ContainerDefaultTypeTests();
 
 		[DebuggerStepThrough]
 		IContainer CreateContainer() => new WeakReferencingContainer();
 
-		[TestMethod]
+		[Fact]
 		public void ShouldResolveDefaultType()
 		{
 			sharedTests.ShouldResolveDefaultType(CreateContainer());
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ResolutionException))]
+		[Fact]
 		public void ShouldNotResolveNonDefaultType()
 		{
 			sharedTests.ShouldNotResolveNonDefaultType(CreateContainer());
 		}
 	}
 }
+

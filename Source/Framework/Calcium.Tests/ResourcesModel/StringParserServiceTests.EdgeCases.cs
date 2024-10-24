@@ -1,15 +1,27 @@
-using System.Collections.Generic;
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2024, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://calciumframework.com),
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2024-10-20 05:03:12Z</CreationDate>
+</File>
+*/
+#endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.ResourcesModel
 {
 	public partial class StringParserServiceTests
 	{
-		[TestMethod]
+		[Fact]
 		public void ParseWithMissingEndDelimiter_ShouldReturnUnmodifiedText()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=T1";  // Missing the closing %>
@@ -22,13 +34,13 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// Since the end delimiter is missing, it should return the content as-is.
-			Assert.AreEqual(content, result);
+			result.Should().Be(content);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithEmptyString_ShouldReturnEmptyString()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = string.Empty;  // Empty input string
@@ -40,13 +52,13 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// The result should be empty since the input is empty.
-			Assert.AreEqual(string.Empty, result);
+			result.Should().Be(string.Empty);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithoutDelimiters_ShouldReturnUnmodifiedText()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "This is just plain text without any tags.";  // No tags or delimiters
@@ -59,13 +71,13 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// Since no delimiters are present, the content should remain the same.
-			Assert.AreEqual(content, result);
+			result.Should().Be(content);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithEmptyTags_ShouldReturnUnmodifiedTag()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=   %>";  // Tag with only spaces inside
@@ -74,13 +86,13 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// Since the tag is just spaces, the parser should return the tag itself.
-			Assert.AreEqual(content, result);
+			result.Should().Be(content);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithSpecialCharacters_ShouldHandleCorrectly()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%> \"Quoted Text\" \n Escape \\ Sequences & Symbols!";
@@ -92,13 +104,13 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// The tag should be replaced but the special characters should remain unmodified.
-			Assert.AreEqual("SpecialValue \"Quoted Text\" \n Escape \\ Sequences & Symbols!", result);
+			result.Should().Be("SpecialValue \"Quoted Text\" \n Escape \\ Sequences & Symbols!");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithConsecutiveTags_ShouldReplaceCorrectly()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%><%=Tag2%>";
@@ -111,67 +123,67 @@ namespace Calcium.ResourcesModel
 			var result = service.Parse(content, substitutions, customDelimiters);
 
 			// Both tags should be replaced correctly even though they're consecutive.
-			Assert.AreEqual("Replacement1Replacement2", result);
+			result.Should().Be("Replacement1Replacement2");
 		}
 
 		#region Recursive Tags (Not yet supported)
 
-		//[TestMethod]
-		//public void ParseWithNestedTags_ShouldReplaceNestedTagAndReturnUnmodifiedOuterText()
-		//{
-		//	var service = new StringParserService();
-		//	var customDelimiters = new TagDelimiters("<%=", "%>");
+		// [Fact]
+		// public void ParseWithNestedTags_ShouldReplaceNestedTagAndReturnUnmodifiedOuterText()
+		// {
+		//     var service = new StringParserService();
+		//     var customDelimiters = new TagDelimiters("<%=", "%>");
 
-		//	string content = "<%=Tag1<%=Tag2%>%>"; // A nested tag, which should be treated as raw text
-		//	var substitutions = new Dictionary<string, string>
-		//	{
-		//		{ "Tag1", "Replacement1" },
-		//		{ "Tag2", "Replacement2" }
-		//	};
+		//     string content = "<%=Tag1<%=Tag2%>%>"; // A nested tag, which should be treated as raw text
+		//     var substitutions = new Dictionary<string, string>
+		//     {
+		//         { "Tag1", "Replacement1" },
+		//         { "Tag2", "Replacement2" }
+		//     };
 
-		//	var result = service.Parse(content, substitutions, customDelimiters);
+		//     var result = service.Parse(content, substitutions, customDelimiters);
 
-		//	// Since there's no proper way to handle nested tags, it should return the input as is.
-		//	Assert.AreEqual("<%=Tag1Replacement2%>", result);
-		//}
+		//     // Since there's no proper way to handle nested tags, it should return the input as is.
+		//     result.Should().Be("<%=Tag1Replacement2%>");
+		// }
 
-		//[TestMethod]
-		//public void ParseWithUnclosedTagFollowedByValidTag_ShouldHandleCorrectly()
-		//{
-		//	var service = new StringParserService();
-		//	var customDelimiters = new TagDelimiters("<%=", "%>");
+		// [Fact]
+		// public void ParseWithUnclosedTagFollowedByValidTag_ShouldHandleCorrectly()
+		// {
+		//     var service = new StringParserService();
+		//     var customDelimiters = new TagDelimiters("<%=", "%>");
 
-		//	string content = "<%=T1 <%=T2%>";
-		//	var substitutions = new Dictionary<string, string>
-		//	{
-		//		{ "T1", "Replacement1" },
-		//		{ "T2", "Replacement2" }
-		//	};
+		//     string content = "<%=T1 <%=T2%>";
+		//     var substitutions = new Dictionary<string, string>
+		//     {
+		//         { "T1", "Replacement1" },
+		//         { "T2", "Replacement2" }
+		//     };
 
-		//	var result = service.Parse(content, substitutions, customDelimiters);
+		//     var result = service.Parse(content, substitutions, customDelimiters);
 
-		//	// The unclosed tag should be left unmodified, but the valid tag should be replaced.
-		//	Assert.AreEqual("<%=T1 Replacement2%>", result);
-		//}
+		//     // The unclosed tag should be left unmodified, but the valid tag should be replaced.
+		//     result.Should().Be("<%=T1 Replacement2%>");
+		// }
 
-		//[TestMethod]
-		//public void ParseWithNestedTags_ShouldHandleCorrectly()
-		//{
-		//	var service = new StringParserService();
-		//	var customDelimiters = new TagDelimiters("<%=", "%>");
+		// [Fact]
+		// public void ParseWithNestedTags_ShouldHandleCorrectly()
+		// {
+		//     var service = new StringParserService();
+		//     var customDelimiters = new TagDelimiters("<%=", "%>");
 
-		//	string content = "<%=T<%=T2%>%>";
-		//	var substitutions = new Dictionary<string, string>
-		//	{
-		//		{ "T1", "Replacement1" },
-		//		{ "T2", "1" }
-		//	};
+		//     string content = "<%=T<%=T2%>%>";
+		//     var substitutions = new Dictionary<string, string>
+		//     {
+		//         { "T1", "Replacement1" },
+		//         { "T2", "1" }
+		//     };
 
-		//	var result = service.Parse(content, substitutions, customDelimiters);
+		//     var result = service.Parse(content, substitutions, customDelimiters);
 
-		//	// Tag2 should be replaced with Replacement2, and then Tag1 should be replaced with Replacement1.
-		//	Assert.AreEqual("Replacement1", result);
-		//}
+		//     // Tag2 should be replaced with Replacement2, and then Tag1 should be replaced with Replacement1.
+		//     result.Should().Be("Replacement1");
+		// }
 
 		#endregion
 	}

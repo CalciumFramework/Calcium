@@ -12,44 +12,44 @@
 */
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.InversionOfControl.Containers
 {
-	class ContainerDefaultTypeNameTests
+	public class ContainerDefaultTypeNameTests
 	{
 		/* These are raising an InvalidCastException in Release builds
-			 * when using the MS Test runner.
-			 * It would appear that the interface type is being loaded 
-			 * in a different App domain, cause the type mismatch. It's rather strange.
-			 * That's just a guess. */
+         * when using the MS Test runner.
+         * It would appear that the interface type is being loaded 
+         * in a different App domain, causing the type mismatch. It's rather strange.
+         * That's just a guess. */
 #if DEBUG
 		internal void ShouldResolveDefaultTypeByName(IContainer container)
 		{
 			var r1 = container.Resolve<IHaveDefaultTypeAndName>();
 
-			Assert.IsInstanceOfType(r1, typeof(Class2));
+			r1.Should().BeOfType<Class2>();
 		}
 
 		internal void ShouldFallbackToDefaultType(IContainer container)
 		{
 			var r1 = container.Resolve<IHaveDefaultTypeName>();
 
-			Assert.IsInstanceOfType(r1, typeof(ClassForResolvingViaDefaultTypeName));
+			r1.Should().BeOfType<ClassForResolvingViaDefaultTypeName>();
 		}
 #endif
 		internal void ShouldFallbackToType(IContainer container)
 		{
 			var r1 = container.Resolve<IHaveDefaultTypeAndWrongName>();
 
-			Assert.IsInstanceOfType(r1, typeof(Class3));
+			r1.Should().BeOfType<Class3>();
 		}
 
 		internal void ShouldNotResolveNonDefaultType(IContainer container)
 		{
-			string typeName = typeof(ClassForResolvingViaDefaultTypeName).AssemblyQualifiedName;
+			//string? typeName = typeof(ClassForResolvingViaDefaultTypeName).AssemblyQualifiedName;
 
-			var r1 = container.Resolve<IDontHaveDefaultTypeName>();
+			Assert.Throws<ResolutionException>(() => container.Resolve<IDontHaveDefaultTypeName>());
 		}
 
 		//[DefaultTypeName(nameof(ContainerDefaultTypeNameTests) + "+" + nameof(ClassForResolvingViaDefaultTypeName))]

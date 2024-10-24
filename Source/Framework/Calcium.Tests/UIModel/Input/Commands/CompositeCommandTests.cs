@@ -12,59 +12,60 @@
 */
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.UIModel.Input
 {
-	[TestClass]
 	public class CompositeCommandTests
 	{
-		[TestMethod]
+		[Fact]
 		public void ShouldResolveTextFromCorrectCommand()
 		{
-			UICommand activeCommand;
-			UICommand c1 = null, c2 = null, c3 = null;
-			c1 = new UICommand(o =>
+			UICommand? activeCommand;
+			UICommand? c1 = null, c2 = null, c3 = null;
+			c1 = new UICommand(_ =>
 			{
 				activeCommand = c1;
-			}) { Text = "c1" };
+			})
+			{ Text = "c1" };
 
-			c2 = new UICommand(o =>
+			c2 = new UICommand(_ =>
 			{
 				activeCommand = c2;
-			}) { Text = "c2" };
+			})
+			{ Text = "c2" };
 
-			c3 = new UICommand(o =>
+			c3 = new UICommand(_ =>
 			{
 				activeCommand = c3;
-			}) { Text = "c3" };
+			})
+			{ Text = "c3" };
 
 			var command = new UICompositeCommand(c1, c2, c3);
 
-			Assert.AreEqual("c1", command.Text);
+			command.Text.Should().Be("c1");
 
 			command.SelectedCommandIndex = 1;
 
-			Assert.AreEqual("c2", command.Text);
+			command.Text.Should().Be("c2");
 
 			command.SelectedCommand = c3;
 
-			Assert.AreEqual("c3", command.Text);
+			command.Text.Should().Be("c3");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldRaisePropertyChangedEvents()
 		{
-			var c1 = new UICommand(o => { }) { Text = "c1" };
+			var c1 = new UICommand(_ => { }) { Text = "c1" };
+			var c2 = new UICommand(_ => { }) { Text = "c2" };
+			var c3 = new UICommand(_ => { }) { Text = "c3" };
 
-			var c2 = new UICommand(o => { }) { Text = "c2" };
+			string? newText = null;
 
-			var c3 = new UICommand(o => { }) { Text = "c3" };
+			UICompositeCommand command = new(c1, c2, c3);
 
-			string newText = null;
-
-			var command = new UICompositeCommand(c1, c2, c3);
-			command.PropertyChanged += (sender, args) =>
+			command.PropertyChanged += (_, args) =>
 			{
 				if (args.PropertyName == nameof(UICompositeCommand.Text))
 				{
@@ -75,13 +76,14 @@ namespace Calcium.UIModel.Input
 			const string updatedText1 = "UpdatedText1";
 			c1.Text = updatedText1;
 
-			Assert.AreEqual(updatedText1, newText);
+			newText.Should().Be(updatedText1);
 
 			command.SelectedCommandIndex = 1;
 
 			const string updatedText2 = "UpdatedText2";
 			c2.Text = updatedText2;
-			Assert.AreEqual(updatedText2, newText);
+
+			newText.Should().Be(updatedText2);
 		}
 	}
 }

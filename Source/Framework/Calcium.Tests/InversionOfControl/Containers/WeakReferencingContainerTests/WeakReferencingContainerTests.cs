@@ -13,77 +13,75 @@
 #endregion
 
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calcium.InversionOfControl.Containers
 {
 	/// <summary>
 	/// Unit tests for <see cref="WeakReferencingContainer"/>.
 	/// </summary>
-	[TestClass]
 	public class WeakReferencingContainerTests
 	{
-		readonly ContainerTests sharedTests = new ContainerTests();
+		readonly ContainerTests sharedTests = new();
 
 		[DebuggerStepThrough]
 		IContainer CreateContainer() => new WeakReferencingContainer();
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveTypes()
 		{
 			sharedTests.RegisterAndResolveTypes(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveTypesWithKeys()
 		{
 			sharedTests.RegisterAndResolveTypesWithKeys(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveSingletons()
 		{
 			sharedTests.RegisterAndResolveSingletons(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveSingletonsWithKeys()
 		{
 			sharedTests.RegisterAndResolveSingletonsWithKeys(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveFuncs()
 		{
 			sharedTests.RegisterAndResolveFuncs(CreateContainer());
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(ResolutionException), "Cycle detected.")]
+		[Fact]
 		public void DetectCircularDependence()
 		{
-			sharedTests.DetectCircularDependence(CreateContainer());
+			// Replaces ExpectedException attribute
+			Assert.Throws<ResolutionException>(() => sharedTests.DetectCircularDependence(CreateContainer()));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterAndResolveFuncsWithKeys()
 		{
 			sharedTests.RegisterAndResolveFuncsWithKeys(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ReplaceTypes()
 		{
 			sharedTests.ReplaceTypes(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void RegisterConcreteTypes()
 		{
 			sharedTests.RegisterConcreteTypes(CreateContainer());
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldResolveDefaultTypes()
 		{
 			sharedTests.ShouldResolveDefaultTypes(CreateContainer());

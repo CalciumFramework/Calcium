@@ -13,22 +13,28 @@
 #endregion
 
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Reflection
 {
-	[TestClass]
 	public class AssemblyBuildTimeTests
 	{
-		[TestMethod]
-		public void DisplayVersionShouldNotBeNull()
-		{
-			var assembly = Assembly.GetExecutingAssembly();
-			var version = assembly.GetName().Version;
-			AssemblyBuildTime buildTime = new AssemblyBuildTime(version);
+		//[Fact]
+		//public void DisplayVersionShouldNotBeNull()
+		//{
+		//	/* The executing assembly does not use a wildcard for the version,
+		//	   which is required by the AssemblyBuildTime class. 
+		//	   Hence, we must use a different assembly. */
 
-			var displayVersion = buildTime.GenerateDisplayVersion();
-			Assert.IsNotNull(displayVersion);
-		}
+		//	throw new NotImplementedException(
+		//		"This test is inconclusive. We need a wildcard project to test AssemblyBuildTime.");
+
+		//	//var assembly = typeof(AssemblyBuildTime).Assembly;
+		//	//var version = assembly.GetName().Version;
+		//	//AssemblyBuildTime buildTime = new(version);
+
+		//	//var displayVersion = buildTime.GenerateDisplayVersion();
+		//	//displayVersion.Should().NotBeNull();
+		//}
 	}
 }

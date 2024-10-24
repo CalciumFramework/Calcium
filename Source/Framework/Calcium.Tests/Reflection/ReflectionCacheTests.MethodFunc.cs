@@ -12,21 +12,19 @@
 */
 #endregion
 
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 namespace Calcium.Reflection
 {
 	public partial class ReflectionCacheTests
 	{
-		static readonly IList<DelegateCreationMode> delegateCreationModes 
+		static readonly IList<DelegateCreationMode> delegateCreationModes
 			= EnumToListConverter.CreateEnumValueList<DelegateCreationMode>();
 
-		[TestMethod]
+		[Fact]
 		public void GetMethodFuncWithNoArgsAndCallIt()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method0Args));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -37,24 +35,20 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
+				var funcResult = func(foo, []);
 
-				var funcResult = func(foo, new object[] { });
-			
-				Assert.IsTrue(foo.Method0ArgsCalled, mode.ToString());
-				Assert.AreEqual(Foo.Method0ArgsResult, funcResult, 
-					"Func didn't return the expected value." + mode);
+				foo.Method0ArgsCalled.Should().BeTrue(mode.ToString());
+				funcResult.Should().Be(Foo.Method0ArgsResult, $"Func didn't return the expected value. {mode}");
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetMethodFuncGenericWithNoArgsAndCallIt()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method0Args));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -65,24 +59,20 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker<string>(info, mode);
-
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
+				var funcResult = func(foo, []);
 
-				var funcResult = func(foo, new object[] { });
-
-				Assert.IsTrue(foo.Method0ArgsCalled, mode.ToString());
-				Assert.AreEqual(Foo.Method0ArgsResult, funcResult,
-					"Func didn't return the expected value. " + mode);
+				foo.Method0ArgsCalled.Should().BeTrue(mode.ToString());
+				funcResult.Should().Be(Foo.Method0ArgsResult, $"Func didn't return the expected value. {mode}");
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetMethodFuncWithOneArgAndCallIt()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method1Arg));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -93,27 +83,22 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
-
 				const string expectedValue1 = "Foo";
-				var funcResult = func(foo, new object[] {expectedValue1});
+				var funcResult = func(foo, [expectedValue1]);
 
-				Assert.IsTrue(foo.Method1ArgCalled, mode.ToString());
-				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
-
-				Assert.AreEqual(expectedValue1, funcResult,
-					"Func didn't return the expected value. " + mode);
+				foo.Method1ArgCalled.Should().BeTrue(mode.ToString());
+				foo.Arg1.Should().Be(expectedValue1, mode.ToString());
+				funcResult.Should().Be(expectedValue1, $"Func didn't return the expected value. {mode}");
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetMethodFuncWithTwoArgsAndCallIt()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method2Args));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -124,34 +109,26 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
-
 				const string expectedValue1 = "One";
 				const string expectedValue2 = "Two";
+				var funcResult = func(foo, [expectedValue1, expectedValue2]);
 
-				var funcResult = func(foo, new object[]
-				{
-					expectedValue1, expectedValue2
-				});
-
-				Assert.IsTrue(foo.Method2ArgsCalled, mode.ToString());
-				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
-				Assert.AreEqual(expectedValue2, foo.Arg2, mode.ToString());
-
-				Assert.AreEqual(expectedValue1, funcResult,
-					"Func didn't return the expected value. " + mode);
+				foo.Method2ArgsCalled.Should().BeTrue(mode.ToString());
+				foo.Arg1.Should().Be(expectedValue1, mode.ToString());
+				foo.Arg2.Should().Be(expectedValue2, mode.ToString());
+				funcResult.Should().Be(expectedValue1, $"Func didn't return the expected value. {mode}");
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void GetMethodFuncWithThreeArgsAndCallIt()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method3Args));
+
 			foreach (DelegateCreationMode mode in delegateCreationModes)
 			{
 				InvokeUsingMode(mode);
@@ -160,35 +137,26 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 
 				var foo = new Foo();
-
 				const string expectedValue1 = "One";
 				const string expectedValue2 = "Two";
 				const string expectedValue3 = "Two";
+				var funcResult = func(foo, [expectedValue1, expectedValue2, expectedValue3]);
 
-				var funcResult = func(foo, new object[]
-				{
-					expectedValue1, expectedValue2, expectedValue3
-				});
-
-				Assert.IsTrue(foo.Method3ArgsCalled, mode.ToString());
-				Assert.AreEqual(expectedValue1, foo.Arg1, mode.ToString());
-				Assert.AreEqual(expectedValue2, foo.Arg2, mode.ToString());
-				Assert.AreEqual(expectedValue3, foo.Arg3, mode.ToString());
-
-				Assert.AreEqual(expectedValue1, funcResult,
-					"Func didn't return the expected value." + mode);
+				foo.Method3ArgsCalled.Should().BeTrue(mode.ToString());
+				foo.Arg1.Should().Be(expectedValue1, mode.ToString());
+				foo.Arg2.Should().Be(expectedValue2, mode.ToString());
+				foo.Arg3.Should().Be(expectedValue3, mode.ToString());
+				funcResult.Should().Be(expectedValue1, $"Func didn't return the expected value. {mode}");
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void FuncZeroArgsCached()
 		{
-			var reflectionCache = new ReflectionCache();
-
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method0Args));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -199,18 +167,18 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetMethodInvoker(info, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void FuncOneArgCached()
 		{
-			var reflectionCache = new ReflectionCache();
+			ReflectionCache reflectionCache = new();
 			var info = typeof(Foo).GetMethod(nameof(Foo.Method1Arg));
 
 			foreach (DelegateCreationMode mode in delegateCreationModes)
@@ -221,11 +189,11 @@ namespace Calcium.Reflection
 			void InvokeUsingMode(DelegateCreationMode mode)
 			{
 				var func = reflectionCache.GetMethodInvoker(info, mode);
-				Assert.IsNotNull(func, mode.ToString());
+				func.Should().NotBeNull(mode.ToString());
 				var func2 = reflectionCache.GetMethodInvoker(info, mode);
-				Assert.IsNotNull(func2, mode.ToString());
+				func2.Should().NotBeNull(mode.ToString());
 
-				Assert.AreEqual(func, func2, mode.ToString());
+				func.Should().Be(func2, mode.ToString());
 			}
 		}
 	}

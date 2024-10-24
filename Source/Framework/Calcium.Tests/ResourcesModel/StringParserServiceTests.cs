@@ -12,43 +12,39 @@
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FluentAssertions;
 using Calcium.ComponentModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calcium.ResourcesModel
 {
 	/// <summary>
 	/// <see cref="StringParserService"/> Tests.
 	/// </summary>
-	[TestClass]
 	public partial class StringParserServiceTests
 	{
-		[TestMethod]
+		[Fact]
 		public void TestTagShouldReturnValue()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			var result = service.Parse("${" + StringParserService.TestTag + "}");
-			Assert.AreEqual(StringParserService.TestTagResult, result);
+			result.Should().Be(StringParserService.TestTagResult);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ShouldReturnTagWhenUnknown()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string text = "${l:Enum_ThisIsADummyEnumThatDoesNotExist_Auto}";
 			var result = service.Parse(text);
-			Assert.AreEqual(text, result);
+			result.Should().Be(text);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ConverterShouldReturnValue()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string tagValue = "Foo";
-			var converter = new MockConverter(tagValue);
+			MockConverter converter = new(tagValue);
 
 			const string tagName = nameof(StringParserServiceTests);
 			service.RegisterConverter(tagName, converter);
@@ -59,15 +55,15 @@ namespace Calcium.ResourcesModel
 
 			var expectedResult = string.Format(format, tagValue);
 
-			Assert.AreEqual(expectedResult, result);
+			result.Should().Be(expectedResult);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ArgsShouldBePassedToConverter()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string tagValue = "Foo";
-			var converter = new MockConverter(tagValue);
+			MockConverter converter = new(tagValue);
 
 			string arg = "Bah";
 
@@ -76,40 +72,39 @@ namespace Calcium.ResourcesModel
 			string tag = $"${{" + tagName + $":{arg}}}";
 			string format = $"This '{{0}}' should be replaced by '" + tagValue + "'.";
 			var stringToParse = string.Format(format, tag);
-			var result = service.Parse(stringToParse);
+			string result = service.Parse(stringToParse);
 
-			var expectedResult = string.Format(format, tagValue);
+			string expectedResult = string.Format(format, tagValue);
 
-			Assert.AreEqual(expectedResult, result);
+			result.Should().Be(expectedResult);
 
-			Assert.AreEqual(arg, converter.Args, 
-				"Tag argument was not correctly passed to converter.");
+			converter.Args.Should().Be(arg, "Tag argument was not correctly passed to converter.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithSubstitutionsOnlyTag()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual("Replacement1", result1);
+			result1.Should().Be("Replacement1");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseMultipleSubstitutions()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "${Tag1} ${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual("Replacement1 Replacement1", result1);
+			result1.Should().Be("Replacement1 Replacement1");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseMultipleSubstitutionsWithMultipleTags()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "${Tag1} ${Tag2} ${Tag3}";
 			var substitutions = new Dictionary<string, string>
 			{
@@ -118,60 +113,60 @@ namespace Calcium.ResourcesModel
 				{ "Tag3", "Replacement3" }
 			};
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual("Replacement1 Replacement2 Replacement3", result1);
+			result1.Should().Be("Replacement1 Replacement2 Replacement3");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithSubstitutionsSpaceAtStart()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = " ${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual(" Replacement1", result1);
+			result1.Should().Be(" Replacement1");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithSubstitutionsSpaceAtEnd()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "${Tag1} ";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual("Replacement1 ", result1);
+			result1.Should().Be("Replacement1 ");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithSubstitutionsOtherContent()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "This is ${Tag1} some text.";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
-			Assert.AreEqual("This is Replacement1 some text.", result1);
+			result1.Should().Be("This is Replacement1 some text.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithCodeInContent()
 		{
-			var service = new StringParserService();
-			
+			StringParserService service = new();
+
 			string input = @"
-P ${currentPrice}\n"";
+P ${currentPrice}\n""; 
 
 if 
 ";
 			var result = service.Parse(input);
-			Assert.AreEqual(input, result);
+			result.Should().Be(input);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ParseWithDollarSignPresentInContent()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 			string content1 = "string getUrl = $\"https://api.github.com/repos/{repoOwner}/{repoName}/contents/{filePath}\";";
 			var result1 = service.Parse(content1);
-			Assert.AreEqual(content1, result1);
+			result1.Should().Be(content1);
 		}
 
 		public class MockConverter : IConverter
@@ -190,7 +185,7 @@ if
 				return conversionResult;
 			}
 
-			public object Args { get; private set; }
+			public object? Args { get; private set; }
 		}
 	}
 }

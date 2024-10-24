@@ -1,20 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2024, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://calciumframework.com),
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2024-10-20 05:03:12Z</CreationDate>
+</File>
+*/
+#endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text;
+using System.Diagnostics;
+
+using FluentAssertions;
+
+using Xunit.Abstractions;
 
 namespace Calcium.ResourcesModel
 {
-	partial class StringParserServiceTests
+	public partial class StringParserServiceTests
 	{
-		[TestMethod]
+		readonly ITestOutputHelper testOutputHelper;
+
+		public StringParserServiceTests(ITestOutputHelper testOutputHelper)
+		{
+			this.testOutputHelper = testOutputHelper 
+									?? throw new ArgumentNullException(nameof(testOutputHelper));
+		}
+
+		[Fact]
 		public void ParsePerformanceTest_LargeInput()
 		{
-			var service = new StringParserService();
+			StringParserService service = new();
 
 			// Generate a large input string
-			StringBuilder largeInputBuilder = new StringBuilder();
+			StringBuilder largeInputBuilder = new();
 			var substitutions = new Dictionary<string, string>();
 
 			for (int i = 1; i <= 10000; i++)
@@ -27,19 +50,19 @@ namespace Calcium.ResourcesModel
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			// Measure the performance
-			var stopwatch = new System.Diagnostics.Stopwatch();
+			var stopwatch = new Stopwatch();
 			stopwatch.Start();
 
 			var result = service.Parse(largeInput, substitutions, customDelimiters);
 
 			stopwatch.Stop();
 
-			// Check time and result validity
-			Console.WriteLine($"Performance Test Execution Time: {stopwatch.ElapsedMilliseconds} ms");
+			// Log execution time
+			testOutputHelper.WriteLine($"Performance Test Execution Time: {stopwatch.ElapsedMilliseconds} ms");
 
 			// Ensure the result contains expected replacements
-			Assert.IsTrue(result.Contains("Replacement1"));
-			Assert.IsTrue(result.Contains("Replacement10000"));
+			result.Should().Contain("Replacement1");
+			result.Should().Contain("Replacement10000");
 		}
 	}
 }
