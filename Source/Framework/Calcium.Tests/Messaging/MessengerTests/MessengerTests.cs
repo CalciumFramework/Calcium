@@ -16,6 +16,8 @@
 
 // ReSharper disable ExplicitCallerInfoArgument
 
+using Calcium.Services;
+
 using FluentAssertions;
 
 using Xunit.Abstractions;
@@ -31,10 +33,12 @@ namespace Calcium.Messaging
 			this.testOutputHelper = testOutputHelper;
 		}
 
+		IMessenger GetMessenger() => new Messenger();
+
 		[Fact]
 		public async Task ShouldRegisterAndResolveTypes()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 m1 = new();
 			messenger.Subscribe(m1);
 
@@ -88,7 +92,7 @@ namespace Calcium.Messaging
 		public async Task ShouldNotThrowWhenPublishingWithoutSubscribers()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 
 			MessageDefinition1 message = new();
 

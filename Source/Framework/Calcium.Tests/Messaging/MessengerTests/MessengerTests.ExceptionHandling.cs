@@ -12,12 +12,14 @@
 */
 #endregion
 
+// ReSharper disable ExplicitCallerInfoArgument
+
 using Calcium.ComponentModel;
+using Calcium.Services;
 
 using FluentAssertions;
 
 using Moq;
-// ReSharper disable ExplicitCallerInfoArgument
 
 namespace Calcium.Messaging
 {
@@ -35,10 +37,8 @@ namespace Calcium.Messaging
 									   It.IsAny<int>()))
 							.Returns(false); // Do not rethrow
 
-			Messenger messenger = new()
-			{
-				ExceptionHandler = exceptionHandler.Object
-			};
+			IMessenger messenger = GetMessenger();
+			messenger.ExceptionHandler = exceptionHandler.Object;
 
 			MessageSubscriberMock1 m1 = new();
 			ThrowingMessageSubscriberMock m2 = new();
@@ -73,10 +73,8 @@ namespace Calcium.Messaging
 									   It.IsAny<int>()))
 							.Returns(true); // Force rethrow
 
-			Messenger messenger = new()
-			{
-				ExceptionHandler = exceptionHandler.Object
-			};
+			IMessenger messenger = GetMessenger();
+			messenger.ExceptionHandler = exceptionHandler.Object;
 
 			ThrowingMessageSubscriberMock m1 = new();
 

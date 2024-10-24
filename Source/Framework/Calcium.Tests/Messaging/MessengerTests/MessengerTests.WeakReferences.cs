@@ -12,6 +12,7 @@
 */
 #endregion
 
+using Calcium.Services;
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -21,7 +22,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public async Task ShouldRemoveSubscriberWhenGarbageCollected()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 
 			WeakReference weakReference
 				= new Func<WeakReference>(() =>
@@ -45,7 +46,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public async Task ShouldNotRetainMemoryForCollectedSubscribers()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 
 			WeakReference weakReference
 				= new Func<WeakReference>(() =>

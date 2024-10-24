@@ -13,6 +13,7 @@
 #endregion
 
 using Calcium.Concurrency;
+using Calcium.Services;
 
 using FluentAssertions;
 
@@ -27,7 +28,7 @@ namespace Calcium.Messaging
 		public async Task ShouldPublishMessageOnUIThreadWhenRequired()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 subscriber = new();
 			messenger.Subscribe(subscriber);
 
@@ -66,7 +67,7 @@ namespace Calcium.Messaging
 		public async Task ShouldNotRequireUIThreadIfFlagIsFalse()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 subscriber = new();
 			messenger.Subscribe(subscriber);
 

@@ -12,6 +12,8 @@
 */
 #endregion
 
+using Calcium.Services;
+
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -21,7 +23,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public async Task ShouldNotReceiveMessagesAfterUnsubscribing()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 m1 = new();
 
 			messenger.Subscribe(m1);
@@ -36,7 +38,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public void ShouldNotThrowWhenUnsubscribingWithoutSubscription()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 m1 = new();
 
 			// Unsubscribing without prior subscription
@@ -46,7 +48,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public void ShouldNotThrowWhenUnsubscribingTwice()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 m1 = new();
 
 			messenger.Subscribe(m1);

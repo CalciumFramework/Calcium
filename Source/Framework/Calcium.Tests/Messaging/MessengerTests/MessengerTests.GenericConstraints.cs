@@ -12,6 +12,8 @@
 */
 #endregion
 
+using Calcium.Services;
+
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -22,7 +24,7 @@ namespace Calcium.Messaging
 		public async Task ShouldHandleMultipleIMessageSubscriberInterfaces()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MultiTypeMessageSubscriberMock subscriber = new();
 			messenger.Subscribe(subscriber);
 
@@ -66,7 +68,7 @@ namespace Calcium.Messaging
 		public async Task ShouldHandleGenericTypeConstraintsCorrectly()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			ConstrainedMessageSubscriberMock subscriber = new();
 			messenger.Subscribe(subscriber);
 

@@ -12,6 +12,7 @@
 */
 #endregion
 
+using Calcium.Services;
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -22,7 +23,7 @@ namespace Calcium.Messaging
 		public async Task ShouldReceiveMessagesInOrderPublished()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 subscriber = new();
 			messenger.Subscribe(subscriber);
 

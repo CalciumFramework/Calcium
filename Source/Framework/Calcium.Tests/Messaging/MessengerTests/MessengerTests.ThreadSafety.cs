@@ -12,6 +12,8 @@
 */
 #endregion
 
+using Calcium.Services;
+
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -21,7 +23,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public void ShouldHandleConcurrentSubscriptions()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			List<MessageSubscriberMock1> subscribers = new();
 
 			Parallel.ForEach(Enumerable.Range(0, 100), _ =>
@@ -40,7 +42,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public void ShouldHandleConcurrentUnsubscriptions()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			List<MessageSubscriberMock1> subscribers = new();
 
 			// Subscribe 100 subscribers
@@ -63,7 +65,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public void ShouldHandleConcurrentPublishing()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			List<MessageSubscriberMock1> subscribers = new();
 
 			// Subscribe 100 subscribers

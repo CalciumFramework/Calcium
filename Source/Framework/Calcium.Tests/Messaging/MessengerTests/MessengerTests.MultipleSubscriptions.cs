@@ -12,6 +12,7 @@
 */
 #endregion
 
+using Calcium.Services;
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -21,7 +22,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public async Task ShouldSubscribeToMultipleMessageTypes()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MultipleMessageSubscriberMock m1 = new();
 
 			messenger.Subscribe(m1);
@@ -39,7 +40,7 @@ namespace Calcium.Messaging
 		[Fact]
 		public async Task ShouldSendMessagesToMultipleSubscribersOfSameType()
 		{
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			MessageSubscriberMock1 m1 = new();
 			MessageSubscriberMock1 m2 = new();
 

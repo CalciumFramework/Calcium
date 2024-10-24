@@ -14,6 +14,8 @@
 
 using System.Diagnostics;
 
+using Calcium.Services;
+
 using FluentAssertions;
 
 namespace Calcium.Messaging
@@ -24,7 +26,7 @@ namespace Calcium.Messaging
 		public async Task ShouldHandleLargeNumberOfSubscribersEfficiently()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			int numberOfSubscribers = 10000;
 			List<MessageSubscriberMock1> subscribers = new();
 
@@ -56,7 +58,7 @@ namespace Calcium.Messaging
 		public async Task ShouldHandleDuplicateSubscriptionsEfficiently()
 		{
 			// Arrange
-			Messenger messenger = new();
+			IMessenger messenger = GetMessenger();
 			int numberOfSubscribers = 10000;
 			List<MessageSubscriberMock1> subscribers = new();
 
