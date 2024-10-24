@@ -1,3 +1,17 @@
+#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2024, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://calciumframework.com), 
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2024-10-24 13:44:18Z</CreationDate>
+</File>
+*/
+#endregion
+
 using FluentAssertions;
 
 namespace Calcium.Messaging
