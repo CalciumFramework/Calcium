@@ -33,27 +33,23 @@ namespace Calcium.Messaging
 	[Preserve(AllMembers = true)]
 	public class Messenger : IMessenger
 	{
-		readonly Dictionary<Type, List<WeakReference>> subscriberLists 
-			= new Dictionary<Type, List<WeakReference>>();
+		readonly Dictionary<Type, List<WeakReference>> subscriberLists = new();
 
-		readonly Dictionary<Type, List<Type>> registeredTypes 
-			= new Dictionary<Type, List<Type>>();
+		readonly Dictionary<Type, List<Type>> registeredTypes = new();
 
-		readonly ReaderWriterLockSlim lockSlim = new ReaderWriterLockSlim();
+		readonly ReaderWriterLockSlim lockSlim = new();
 
-		readonly Dictionary<Type, List<Type>> typeInterfaceCache 
-			= new Dictionary<Type, List<Type>>();
+		readonly Dictionary<Type, List<Type>> typeInterfaceCache = new();
 
 		public void Subscribe(object subscriber)
 		{
 			AssertArg.IsNotNull(subscriber, nameof(subscriber));
 
-			var weakReference = new WeakReference(subscriber);
+			WeakReference weakReference = new(subscriber);
 
 			Type subscriberType = subscriber.GetType();
 
-			List<Type> subscriptionInterfaces;
-			if (!typeInterfaceCache.TryGetValue(subscriberType, out subscriptionInterfaces))
+			if (!typeInterfaceCache.TryGetValue(subscriberType, out var subscriptionInterfaces))
 			{
 				var implementedInterfaces = subscriberType.GetTypeInfo().ImplementedInterfaces;
 				
@@ -87,8 +83,8 @@ namespace Calcium.Messaging
 				foreach (Type interfaceType in subscriptionInterfaces)
 				{
 					bool possibleDuplicate = false;
-					List<Type> typesForThisMessage;
-					if (registeredTypes.TryGetValue(interfaceType, out typesForThisMessage))
+
+					if (registeredTypes.TryGetValue(interfaceType, out var typesForThisMessage))
 					{
 						if (typesForThisMessage.Contains(subscriberType))
 						{
@@ -108,7 +104,7 @@ namespace Calcium.Messaging
 					if (possibleDuplicate)
 					{
 						/* We may want to improve search complexity here for large sets; 
-						* perhaps using a ConditionalWeakTable. */
+						 * perhaps using a ConditionalWeakTable. */
 						foreach (WeakReference reference in subscribers)
 						{
 							if (reference.Target == subscriber)
@@ -252,9 +248,7 @@ namespace Calcium.Messaging
 
 		List<WeakReference> GetSubscribersNonLocking(Type subscriberType)
 		{
-			List<WeakReference> subscribers;
-
-			if (!subscriberLists.TryGetValue(subscriberType, out subscribers))
+			if (!subscriberLists.TryGetValue(subscriberType, out var subscribers))
 			{
 				subscribers = new List<WeakReference>();
 				subscriberLists.Add(subscriberType, subscribers);
