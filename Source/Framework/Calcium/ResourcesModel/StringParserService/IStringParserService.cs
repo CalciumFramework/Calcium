@@ -40,10 +40,10 @@ namespace Calcium.Services
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <param name="tagValues">The custom tag values. 
-		/// If a tag is found in the specified text 
-		/// which matches one in the this parameter, 
-		/// then the value in the dictionary will be substituted in the string.
+		/// If a matching tag is found in the specified text, 
+		/// then the tag will be substituted for the dictionary value.
 		/// </param>
+		/// <param name="delimiters">An override for the default <see cref="TagDelimiters"/>.</param>
 		/// <returns>The parsed string.</returns>
 		string Parse(string text, IDictionary<string, string> tagValues, TagDelimiters? delimiters = null);
 
@@ -51,6 +51,7 @@ namespace Calcium.Services
 		/// Parses the specified text. Resolves string tags within the text.
 		/// </summary>
 		/// <param name="text">The text.</param>
+		/// <param name="delimiters">An override for the default <see cref="TagDelimiters"/>.</param>
 		/// <returns></returns>
 		string Parse(string text, TagDelimiters? delimiters = null);
 
