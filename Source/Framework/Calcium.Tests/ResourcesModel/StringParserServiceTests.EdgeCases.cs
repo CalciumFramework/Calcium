@@ -12,16 +12,17 @@
 */
 #endregion
 
+using Calcium.Services;
 using FluentAssertions;
 
 namespace Calcium.ResourcesModel
 {
 	public partial class StringParserServiceTests
 	{
-		[Fact]
-		public void ParseWithMissingEndDelimiter_ShouldReturnUnmodifiedText()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithMissingEndDelimiter_ShouldReturnUnmodifiedText(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=T1";  // Missing the closing %>
@@ -37,10 +38,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be(content);
 		}
 
-		[Fact]
-		public void ParseWithEmptyString_ShouldReturnEmptyString()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithEmptyString_ShouldReturnEmptyString(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = string.Empty;  // Empty input string
@@ -55,10 +56,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be(string.Empty);
 		}
 
-		[Fact]
-		public void ParseWithoutDelimiters_ShouldReturnUnmodifiedText()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithoutDelimiters_ShouldReturnUnmodifiedText(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "This is just plain text without any tags.";  // No tags or delimiters
@@ -74,10 +75,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be(content);
 		}
 
-		[Fact]
-		public void ParseWithEmptyTags_ShouldReturnUnmodifiedTag()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithEmptyTags_ShouldReturnUnmodifiedTag(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=   %>";  // Tag with only spaces inside
@@ -89,10 +90,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be(content);
 		}
 
-		[Fact]
-		public void ParseWithSpecialCharacters_ShouldHandleCorrectly()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithSpecialCharacters_ShouldHandleCorrectly(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%> \"Quoted Text\" \n Escape \\ Sequences & Symbols!";
@@ -107,10 +108,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be("SpecialValue \"Quoted Text\" \n Escape \\ Sequences & Symbols!");
 		}
 
-		[Fact]
-		public void ParseWithConsecutiveTags_ShouldReplaceCorrectly()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithConsecutiveTags_ShouldReplaceCorrectly(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%><%=Tag2%>";

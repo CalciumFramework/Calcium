@@ -18,6 +18,7 @@ using System.Diagnostics;
 using FluentAssertions;
 
 using Xunit.Abstractions;
+using Calcium.Services;
 
 namespace Calcium.ResourcesModel
 {
@@ -31,16 +32,15 @@ namespace Calcium.ResourcesModel
 									?? throw new ArgumentNullException(nameof(testOutputHelper));
 		}
 
-		[Fact]
-		public void ParsePerformanceTest_LargeInput()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParsePerformanceTest_LargeInput(IStringParserService service)
 		{
-			StringParserService service = new();
-
 			// Generate a large input string
 			StringBuilder largeInputBuilder = new();
 			var substitutions = new Dictionary<string, string>();
 
-			for (int i = 1; i <= 10000; i++)
+			for (int i = 1; i <= 100000; i++)
 			{
 				largeInputBuilder.Append($"<%=Tag{i}%> ");
 				substitutions[$"Tag{i}"] = $"Replacement{i}";

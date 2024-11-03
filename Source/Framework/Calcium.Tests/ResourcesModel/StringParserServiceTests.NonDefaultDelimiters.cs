@@ -12,16 +12,17 @@
 */
 #endregion
 
+using Calcium.Services;
 using FluentAssertions;
 
 namespace Calcium.ResourcesModel
 {
 	public partial class StringParserServiceTests
 	{
-		[Fact]
-		public void ParseWithCustomDelimiters_ShouldReturnValue()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithCustomDelimiters_ShouldReturnValue(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%>";
@@ -32,10 +33,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be("CustomReplacement");
 		}
 
-		[Fact]
-		public void ParseWithCustomDelimiters_MultipleSubstitutions()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithCustomDelimiters_MultipleSubstitutions(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=Tag1%> <%=Tag2%>";
@@ -50,10 +51,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be("CustomReplacement1 CustomReplacement2");
 		}
 
-		[Fact]
-		public void ParseWithCustomDelimiters_ShouldReturnOriginalTextForUnknownTags()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithCustomDelimiters_ShouldReturnOriginalTextForUnknownTags(IStringParserService service)
 		{
-			StringParserService service = new();
 			var customDelimiters = new TagDelimiters("<%=", "%>");
 
 			string content = "<%=UnknownTag%>";

@@ -1,4 +1,18 @@
-﻿using System.Diagnostics;
+﻿#region File and License Information
+/*
+<File>
+	<License>
+		Copyright © 2009 - 2024, Daniel Vaughan. All rights reserved.
+		This file is part of Calcium (http://calciumframework.com), 
+		which is released under the MIT License.
+		See file /Documentation/License.txt for details.
+	</License>
+	<CreationDate>2024-11-03 23:38:37Z</CreationDate>
+</File>
+*/
+#endregion
+
+using System.Diagnostics;
 
 using Calcium.ResourcesModel.Experimental;
 
@@ -22,7 +36,7 @@ namespace Calcium.ResourcesModel
 
 			tokenizer.Setup(t => t.Tokenize(It.IsAny<string>(), It.IsAny<TagDelimiters>()))
 					 .Returns(new List<TagSegment>
-						 { new() { Index = 5, Length = 6, TagName = "Tag", TagValue = "Hello" } });
+						 { new() { Index = 5, Length = 6, TagName = "Tag", TagValue = "Hello", Tag = "Tag:Hello"} });
 
 			string input = "Text ${Tag} here.";
 

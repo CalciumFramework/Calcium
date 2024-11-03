@@ -142,6 +142,15 @@ namespace Calcium.ResourcesModel
 #endif
 		}
 
+		string GetShortTimeString(DateTime dateTime)
+		{
+#if NETFX_CORE
+			return dateTime.ToString(System.Globalization.DateTimeFormatInfo.CurrentInfo.ShortTimePattern);
+#else
+			return dateTime.ToString("HH:mm:ss");
+#endif
+		}
+
 		string? Replace(string tagContent, IDictionary<string, string>? customTags)
 		{
 			string? result = null;
@@ -152,10 +161,10 @@ namespace Calcium.ResourcesModel
 					result = GetShortDateString(DateTime.Today);
 					break;
 				case "time":
-					result = GetShortDateString(DateTime.Now);
+					result = GetShortTimeString(DateTime.Now);
 					break;
 				case "timeUtc":
-					result = GetShortDateString(DateTime.UtcNow);
+					result = GetShortTimeString(DateTime.UtcNow);
 					break;
 				case TestTag:
 					result = TestTagResult;

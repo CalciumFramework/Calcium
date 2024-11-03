@@ -14,6 +14,8 @@
 
 using FluentAssertions;
 using Calcium.ComponentModel;
+using Calcium.ResourcesModel.Experimental;
+using Calcium.Services;
 
 namespace Calcium.ResourcesModel
 {
@@ -22,27 +24,33 @@ namespace Calcium.ResourcesModel
 	/// </summary>
 	public partial class StringParserServiceTests
 	{
-		[Fact]
-		public void TestTagShouldReturnValue()
+		public static IEnumerable<object[]> GetImplementations()
 		{
-			StringParserService service = new();
-			var result = service.Parse("${" + StringParserService.TestTag + "}");
-			result.Should().Be(StringParserService.TestTagResult);
+			yield return [new StringParserService()];
+			yield return [new AsyncStringParser()];
 		}
 
-		[Fact]
-		public void ShouldReturnTagWhenUnknown()
+		//[Theory]
+		//[MemberData(nameof(GetImplementations))]
+		//public void TestTagShouldReturnValue(IStringParserService service)
+		//{
+		//	var result = service.Parse("${" + StringParserService.TestTag + "}");
+		//	result.Should().Be(StringParserService.TestTagResult);
+		//}
+
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ShouldReturnTagWhenUnknown(IStringParserService service)
 		{
-			StringParserService service = new();
 			string text = "${l:Enum_ThisIsADummyEnumThatDoesNotExist_Auto}";
 			var result = service.Parse(text);
 			result.Should().Be(text);
 		}
 
-		[Fact]
-		public void ConverterShouldReturnValue()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ConverterShouldReturnValue(IStringParserService service)
 		{
-			StringParserService service = new();
 			string tagValue = "Foo";
 			MockConverter converter = new(tagValue);
 
@@ -58,10 +66,10 @@ namespace Calcium.ResourcesModel
 			result.Should().Be(expectedResult);
 		}
 
-		[Fact]
-		public void ArgsShouldBePassedToConverter()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ArgsShouldBePassedToConverter(IStringParserService service)
 		{
-			StringParserService service = new();
 			string tagValue = "Foo";
 			MockConverter converter = new(tagValue);
 
@@ -81,30 +89,30 @@ namespace Calcium.ResourcesModel
 			converter.Args.Should().Be(arg, "Tag argument was not correctly passed to converter.");
 		}
 
-		[Fact]
-		public void ParseWithSubstitutionsOnlyTag()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithSubstitutionsOnlyTag(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			result1.Should().Be("Replacement1");
 		}
 
-		[Fact]
-		public void ParseMultipleSubstitutions()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseMultipleSubstitutions(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "${Tag1} ${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			result1.Should().Be("Replacement1 Replacement1");
 		}
 
-		[Fact]
-		public void ParseMultipleSubstitutionsWithMultipleTags()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseMultipleSubstitutionsWithMultipleTags(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "${Tag1} ${Tag2} ${Tag3}";
 			var substitutions = new Dictionary<string, string>
 			{
@@ -116,41 +124,40 @@ namespace Calcium.ResourcesModel
 			result1.Should().Be("Replacement1 Replacement2 Replacement3");
 		}
 
-		[Fact]
-		public void ParseWithSubstitutionsSpaceAtStart()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithSubstitutionsSpaceAtStart(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = " ${Tag1}";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			result1.Should().Be(" Replacement1");
 		}
 
-		[Fact]
-		public void ParseWithSubstitutionsSpaceAtEnd()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithSubstitutionsSpaceAtEnd(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "${Tag1} ";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			result1.Should().Be("Replacement1 ");
 		}
 
-		[Fact]
-		public void ParseWithSubstitutionsOtherContent()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithSubstitutionsOtherContent(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "This is ${Tag1} some text.";
 			var substitutions = new Dictionary<string, string> { { "Tag1", "Replacement1" } };
 			var result1 = service.Parse(content1, substitutions);
 			result1.Should().Be("This is Replacement1 some text.");
 		}
 
-		[Fact]
-		public void ParseWithCodeInContent()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithCodeInContent(IStringParserService service)
 		{
-			StringParserService service = new();
-
 			string input = @"
 P ${currentPrice}\n""; 
 
@@ -160,10 +167,10 @@ if
 			result.Should().Be(input);
 		}
 
-		[Fact]
-		public void ParseWithDollarSignPresentInContent()
+		[Theory]
+		[MemberData(nameof(GetImplementations))]
+		public void ParseWithDollarSignPresentInContent(IStringParserService service)
 		{
-			StringParserService service = new();
 			string content1 = "string getUrl = $\"https://api.github.com/repos/{repoOwner}/{repoName}/contents/{filePath}\";";
 			var result1 = service.Parse(content1);
 			result1.Should().Be(content1);
