@@ -73,6 +73,22 @@ namespace Calcium.ResourcesModel.Experimental
 				return text;
 			}
 
+			IList<TagSegment> filteredSegments = ProcessOverrides(overriddenValues, segments);
+
+			Dictionary<string, ISet<TagSegment>> tagNameToSegments = ToTagNameSegments(filteredSegments);
+
+			if (tagsProcessor != null)
+			{
+				await tagsProcessor.SetTagValuesAsync(tagNameToSegments, cancellationToken);
+			}
+
+			ProcessSegmentSets(tagNameToSegments);
+
+			return BuildFinalString(segments, text);
+		}
+
+		IList<TagSegment> ProcessOverrides(IDictionary<string, string>? overriddenValues, IList<TagSegment> segments)
+		{
 			IList<TagSegment> filteredSegments;
 
 			if (overriddenValues != null)
@@ -95,24 +111,11 @@ namespace Calcium.ResourcesModel.Experimental
 				filteredSegments = segments;
 			}
 
-			Dictionary<string, ISet<TagSegment>> tagNameToSegments 
-				= filteredSegments.GroupBy(x => x.TagName).ToDictionary(
-					x => x.Key, 
-					x => (ISet<TagSegment>)new HashSet<TagSegment>(x));
+			return filteredSegments;
+		}
 
-			if (tagsProcessor != null)
-			{
-				/* 
-				   Some example text that might get processed:
-				   ```
-				   Today's date is <%=Date%> and 
-				   the secret email password value is <%=Secret:EmailPassword%>
-				   ```
-				*/
-
-				await tagsProcessor.SetTagValuesAsync(tagNameToSegments, cancellationToken);
-			}
-
+		void ProcessSegmentSets(Dictionary<string, ISet<TagSegment>> tagNameToSegments)
+		{
 			foreach (var pair in tagNameToSegments)
 			{
 				string tagName = pair.Key;
@@ -128,27 +131,6 @@ namespace Calcium.ResourcesModel.Experimental
 					}
 				}
 			}
-
-			StringBuilder sb = new();
-
-			int lastIndex = 0;
-
-			foreach (TagSegment tagSegment in segments)
-			{
-				// Append the text before the current segment
-				sb.Append(text, lastIndex, (int)tagSegment.Index - lastIndex);
-
-				// Append the tag value if it exists, otherwise the original tag
-				sb.Append(tagSegment.TagValue?.ToString() ?? text.Substring((int)tagSegment.Index, (int)tagSegment.Length));
-
-				lastIndex = (int)(tagSegment.Index + tagSegment.Length);
-			}
-
-			// Append any remaining text after the last tag
-			sb.Append(text, lastIndex, text.Length - lastIndex);
-
-
-			return sb.ToString();
 		}
 
 		#region Implementation of IStringParserService
@@ -158,43 +140,25 @@ namespace Calcium.ResourcesModel.Experimental
 							TagDelimiters? delimiters = null)
 		{
 			IList<TagSegment> segments = tokenizer.Tokenize(text, delimiters ?? DefaultDelimiters);
-			List<TagSegment> filteredSegments = new();
 
-			if (overriddenValues != null)
-			{
-				foreach (TagSegment segment in segments)
-				{
-					if (overriddenValues.TryGetValue(segment.Tag, out string? value) && value != null)
-					{
-						segment.TagValue = value;
-						continue;
-					}
+			IEnumerable<TagSegment> filteredSegments = ProcessOverrides(overriddenValues, segments);
 
-					filteredSegments.Add(segment);
-				}
-			}
+			Dictionary<string, ISet<TagSegment>> tagNameToSegments = ToTagNameSegments(filteredSegments);
 
-			Dictionary<string, ISet<TagSegment>> tagNameToSegments
-				= filteredSegments.GroupBy(x => x.TagName).ToDictionary(
-					x => x.Key,
-					x => (ISet<TagSegment>)new HashSet<TagSegment>(x));
+			ProcessSegmentSets(tagNameToSegments);
+			
+			return BuildFinalString(segments, text);
+		}
 
-			foreach (var pair in tagNameToSegments)
-			{
-				string tagName = pair.Key;
+		Dictionary<string, ISet<TagSegment>> ToTagNameSegments(IEnumerable<TagSegment> segments)
+		{
+			return segments.GroupBy(x => x.TagName).ToDictionary(
+				x => x.Key,
+				x => (ISet<TagSegment>)new HashSet<TagSegment>(x));
+		}
 
-				if (converterRegistry.TryGetConverter(tagName, out var converter) && converter != null)
-				{
-					foreach (TagSegment tagSegment in pair.Value)
-					{
-						if (tagSegment.TagValue == null)
-						{
-							tagSegment.TagValue = converter.Convert(tagSegment.TagArg);
-						}
-					}
-				}
-			}
-
+		string BuildFinalString(IEnumerable<TagSegment> segments, string originalText)
+		{
 			StringBuilder sb = new();
 
 			int lastIndex = 0;
@@ -202,17 +166,16 @@ namespace Calcium.ResourcesModel.Experimental
 			foreach (TagSegment tagSegment in segments)
 			{
 				// Append the text before the current segment
-				sb.Append(text, lastIndex, (int)tagSegment.Index - lastIndex);
+				sb.Append(originalText, lastIndex, (int)tagSegment.Index - lastIndex);
 
 				// Append the tag value if it exists, otherwise the original tag
-				sb.Append(tagSegment.TagValue?.ToString() ?? text.Substring((int)tagSegment.Index, (int)tagSegment.Length));
+				sb.Append(tagSegment.TagValue?.ToString() ?? originalText.Substring((int)tagSegment.Index, (int)tagSegment.Length));
 
 				lastIndex = (int)(tagSegment.Index + tagSegment.Length);
 			}
 
 			// Append any remaining text after the last tag
-			sb.Append(text, lastIndex, text.Length - lastIndex);
-
+			sb.Append(originalText, lastIndex, originalText.Length - lastIndex);
 
 			return sb.ToString();
 		}

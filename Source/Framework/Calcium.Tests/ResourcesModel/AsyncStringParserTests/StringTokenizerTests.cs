@@ -554,5 +554,6 @@ namespace Calcium.ResourcesModel
 		}
 
 		#endregion
+
 	}
 }

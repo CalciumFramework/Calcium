@@ -1,4 +1,6 @@
-﻿using Calcium.ResourcesModel.Experimental;
+﻿using System.Diagnostics;
+
+using Calcium.ResourcesModel.Experimental;
 
 using FluentAssertions;
 
@@ -293,7 +295,7 @@ namespace Calcium.ResourcesModel
 			string input = "Test ${NonBlockingTag}.";
 
 			// Act
-			Task<string> task = asyncParser.ParseAsync(input, tagsProcessor.Object);
+			var task = asyncParser.ParseAsync(input, tagsProcessor.Object);
 
 			// Assert
 			task.Status.Should().Be(TaskStatus.WaitingForActivation); // Ensures it runs asynchronously
@@ -820,6 +822,59 @@ namespace Calcium.ResourcesModel
 
 			// Assert
 			result.Should().Be("Input ProcessedValue with text.");
+		}
+
+		#endregion
+
+		#region Performance Tests
+
+		[Fact]
+		public void ParseAsync_PerformanceTest_LargeInput()
+		{
+			// Arrange
+			Mock<IStringTokenizer> tokenizer = new();
+			Mock<IConverterRegistry> converterRegistry = new();
+			AsyncStringParser asyncParser = new(converterRegistry.Object, tokenizer.Object);
+
+			string largeInput = string.Concat(Enumerable.Repeat("This is a test ${Tag} ", 10000));
+			tokenizer.Setup(t => t.Tokenize(It.IsAny<string>(), It.IsAny<TagDelimiters>()))
+					 .Returns(Enumerable.Range(0, 10000)
+										.Select(i => new TagSegment
+													{ Index = (uint)(i * 18), Length = 7, TagName = "Tag" }).ToList());
+
+			// Act
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			var task = asyncParser.ParseAsync(largeInput);
+			task.Wait();
+			stopwatch.Stop();
+
+			// Assert
+			Assert.True(stopwatch.ElapsedMilliseconds < 3000,
+				$"Performance test took too long: {stopwatch.ElapsedMilliseconds} ms");
+		}
+
+		[Fact]
+		public void ParseAsync_PerformanceTest_MultipleConcurrentCalls()
+		{
+			// Arrange
+			Mock<IStringTokenizer> tokenizer = new();
+			Mock<IConverterRegistry> converterRegistry = new();
+			AsyncStringParser asyncParser = new(converterRegistry.Object, tokenizer.Object);
+
+			tokenizer.Setup(t => t.Tokenize(It.IsAny<string>(), It.IsAny<TagDelimiters>()))
+					 .Returns(new List<TagSegment> { new() { Index = 5, Length = 6, TagName = "Tag" } });
+
+			string input = "Test ${Tag}";
+
+			// Act
+			var tasks = Enumerable.Range(0, 100).Select(_ => asyncParser.ParseAsync(input)).ToArray();
+			Task.WaitAll(tasks);
+
+			// Assert
+			foreach (var task in tasks)
+			{
+				Assert.True(task.IsCompletedSuccessfully);
+			}
 		}
 
 		#endregion
