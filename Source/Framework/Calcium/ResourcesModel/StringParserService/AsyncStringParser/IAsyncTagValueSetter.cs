@@ -26,6 +26,7 @@ namespace Calcium.ResourcesModel.Experimental
 		/// Today's date is ${Date} and 
 		/// the secret email password value is ${Secret:EmailPassword}
 		/// ```</param>
+		/// <param name="token">Used to cancel the asynchronous operation.</param>
 		Task SetTagValuesAsync(IDictionary<string, ISet<TagSegment>> tagArgs, CancellationToken token);
 	}
 
