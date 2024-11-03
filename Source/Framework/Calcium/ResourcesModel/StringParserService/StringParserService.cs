@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+
 using Calcium.ComponentModel;
 
 namespace Calcium.ResourcesModel
@@ -40,8 +41,7 @@ namespace Calcium.ResourcesModel
 
 		public TagDelimiters DefaultDelimiters { get; set; } = TagDelimiters.Default;
 
-		public void RegisterConverter(
-			string tagName, Func<object, object> convertFunc)
+		public void RegisterConverter(string tagName, Func<object, object> convertFunc)
 		{
 			AssertArg.IsNotNull(tagName, nameof(tagName));
 			AssertArg.IsNotNull(convertFunc, nameof(convertFunc));
@@ -68,14 +68,9 @@ namespace Calcium.ResourcesModel
 				convertersLock.ExitWriteLock();
 			}
 		}
-
-		public string Parse(string text, TagDelimiters? delimiters = null)
-		{
-			return Parse(text, null, delimiters);
-		}
-
+		
 		public string Parse(string text, 
-							IDictionary<string, string>? tagValues, 
+							IDictionary<string, string>? tagValues = null, 
 							TagDelimiters? delimiters = null)
 		{
 			AssertArg.IsNotNull(text, nameof(text));

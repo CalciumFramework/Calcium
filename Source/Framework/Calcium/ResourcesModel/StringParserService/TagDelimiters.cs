@@ -9,13 +9,20 @@ namespace Calcium.ResourcesModel
 
 		public TagDelimiters(string start, string end)
 		{
-			if (string.IsNullOrEmpty(start)) throw new ArgumentNullException(nameof(start));
-			if (string.IsNullOrEmpty(end)) throw new ArgumentNullException(nameof(end));
+			if (string.IsNullOrEmpty(start))
+			{
+				throw new ArgumentNullException(nameof(start));
+			}
+
+			if (string.IsNullOrEmpty(end))
+			{
+				throw new ArgumentNullException(nameof(end));
+			}
 
 			Start = start;
 			End   = end;
 		}
 
-		public static TagDelimiters Default => new TagDelimiters("${", "}"); // Default delimiters
+		public static TagDelimiters Default => new("${", "}"); // Default delimiters
 	}
 }

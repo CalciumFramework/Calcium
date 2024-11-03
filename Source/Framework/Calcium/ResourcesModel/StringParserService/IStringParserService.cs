@@ -45,15 +45,9 @@ namespace Calcium.Services
 		/// </param>
 		/// <param name="delimiters">An override for the default <see cref="TagDelimiters"/>.</param>
 		/// <returns>The parsed string.</returns>
-		string Parse(string text, IDictionary<string, string> tagValues, TagDelimiters? delimiters = null);
-
-		/// <summary>
-		/// Parses the specified text. Resolves string tags within the text.
-		/// </summary>
-		/// <param name="text">The text.</param>
-		/// <param name="delimiters">An override for the default <see cref="TagDelimiters"/>.</param>
-		/// <returns></returns>
-		string Parse(string text, TagDelimiters? delimiters = null);
+		string Parse(string text, 
+					 IDictionary<string, string>? tagValues = null, 
+					 TagDelimiters? delimiters = null);
 
 		/// <summary>
 		/// Registers a converter with the specified tag name. 
