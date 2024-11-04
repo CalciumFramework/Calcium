@@ -14,51 +14,18 @@
 
 #nullable enable
 
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
 using Calcium.ComponentModel;
+using Calcium.ComponentModel.Experimental;
 using Calcium.InversionOfControl;
 
 namespace Calcium.ResourcesModel.Experimental
 {
 	[DefaultType(typeof(ConverterRegistry), Singleton = true)]
-	public interface IConverterRegistry
+	public interface IConverterRegistry : IRegistry<string, IConverter>
 	{
-		void SetConverter(string tagName, IConverter converter);
-		bool TryGetConverter(string tagName, out IConverter? converter);
-		bool TryRemoveConverter(string tagName, out IConverter? converter);
 	}
 
-	public class ConverterRegistry : IConverterRegistry
+	public class ConverterRegistry : Registry<string, IConverter>, IConverterRegistry
 	{
-		readonly ConcurrentDictionary<string, IConverter> converters = new();
-
-		public IConverter this[string tagName] => converters[tagName];
-
-		readonly ReadOnlyDictionary<string, IConverter> readOnlyDictionary;
-
-		public ConverterRegistry()
-		{
-			readOnlyDictionary = new(converters);
-		}
-
-		public IReadOnlyDictionary<string, IConverter> ReadOnlyDictionary => readOnlyDictionary;
-
-		public void SetConverter(string tagName, IConverter converter)
-		{
-			converters[tagName] = converter;
-		}
-
-		public bool TryGetConverter(string tagName, out IConverter? converter)
-		{
-			return converters.TryGetValue(tagName, out converter);
-		}
-
-		public bool TryRemoveConverter(string tagName, out IConverter? converter)
-		{
-			return converters.TryRemove(tagName, out converter);
-		}
 	}
 }

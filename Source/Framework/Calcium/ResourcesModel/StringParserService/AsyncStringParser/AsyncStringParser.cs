@@ -158,7 +158,7 @@ namespace Calcium.ResourcesModel.Experimental
 			{
 				string tagName = pair.Key;
 
-				if (converterRegistry.TryGetConverter(tagName, out var converter) && converter != null)
+				if (converterRegistry.TryGetValue(tagName, out var converter) && converter != null)
 				{
 					foreach (TagSegment tagSegment in pair.Value)
 					{
@@ -223,13 +223,13 @@ namespace Calcium.ResourcesModel.Experimental
 		/// <inheritdoc />
 		public void RegisterConverter(string tagName, IConverter converter)
 		{
-			converterRegistry.SetConverter(tagName, converter);
+			converterRegistry.SetValue(tagName, converter);
 		}
 
 		/// <inheritdoc />
 		public void RegisterConverter(string tagName, Func<object, object> convertFunc)
 		{
-			converterRegistry.SetConverter(tagName, new DelegateConverter(convertFunc));
+			converterRegistry.SetValue(tagName, new DelegateConverter(convertFunc));
 		}
 
 		#endregion
@@ -272,7 +272,7 @@ namespace Calcium.ResourcesModel.Experimental
 		{
 			foreach (var entry in builtInConverters)
 			{
-				converterRegistry.SetConverter(entry.Key, entry.Value);
+				converterRegistry.SetValue(entry.Key, entry.Value);
 			}
 		}
 
@@ -280,7 +280,7 @@ namespace Calcium.ResourcesModel.Experimental
 		{
 			foreach (var key in builtInConverters.Keys)
 			{
-				converterRegistry.TryRemoveConverter(key, out _);
+				converterRegistry.TryRemove(key, out _);
 			}
 		}
 
