@@ -49,26 +49,6 @@ namespace Calcium.ResourcesModel.Experimental
 		Task SetTagValuesAsync(IDictionary<string, ISet<TagSegment>> tagArgs, CancellationToken token);
 	}
 
-	//public interface ITagsProcessor<in TContext>
-	//{
-	//	/// <summary>
-	//	/// Sets the <see cref="TagSegment.TagValue"/> property
-	//	/// of each <see cref="TagSegment"/> in the specified dictionary.
-	//	/// </summary>
-	//	/// <param name="tagArgs">
-	//	/// A dictionary whose key is the 'tag name' and the value
-	//	/// is the set of 'tag args' for each occurrence of the tag in the input text.
-	//	/// Consider the following input text:
-	//	/// ```
-	//	/// Today's date is ${Date} and 
-	//	/// the secret email password value is ${Secret:EmailPassword}
-	//	/// ```</param>
-	//	/// <param name="context">A context object that is passed
-	//	/// to <see cref="IAsyncTagValueSetter&lt;TContext&gt;"/> instances.</param>
-	//	/// <param name="token">Used to cancel the asynchronous operation.</param>
-	//	Task SetTagValuesAsync(IDictionary<string, ISet<TagSegment>> tagArgs, TContext context, CancellationToken token);
-	//}
-
 	public class TagsProcessor : ITagsProcessor
 	{
 		readonly IReadOnlyDictionary<string, IAsyncTagValueSetter> converters;
@@ -92,7 +72,7 @@ namespace Calcium.ResourcesModel.Experimental
 		}
 	}
 
-	public class TagsProcessor<TContext> : /*ITagsProcessor<TContext>,*/ ITagsProcessor
+	public class TagsProcessor<TContext> : ITagsProcessor
 	{
 		readonly IReadOnlyDictionary<string, IAsyncTagValueSetter<TContext>> converters;
 		readonly TContext context;
