@@ -50,7 +50,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(text, nameof(text));
 			AssertArg.IsNotNull(privateKey, nameof(privateKey));
 
-			string signatureText = await signer.CreateBase64SignatureAsync(text, privateKey, Encoding);
+			string signatureText = await signer.CreateBase64SignatureAsync(text, privateKey, Encoding).ConfigureAwait(false);
 
 			string result = $"{text}<![CDATA[{SignatureIndicator}{signatureText}]]>";
 			return result;
@@ -75,7 +75,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(text, nameof(text));
 			AssertArg.IsNotNull(privateKey, nameof(privateKey));
 
-			string signatureText = await signer.CreateBase64SignatureAsync(text, privateKey, Encoding);
+			string signatureText = await signer.CreateBase64SignatureAsync(text, privateKey, Encoding).ConfigureAwait(false);
 
 			string result = $"<![CDATA[{SignatureIndicator}{signatureText}]]>";
 			return result;

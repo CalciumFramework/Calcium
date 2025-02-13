@@ -56,7 +56,7 @@ namespace Calcium.Cryptography.Implementation
 				var deriveBytes = new Rfc2898DeriveBytes(password, salt);
 				aes.Key = deriveBytes.GetBytes(128 / 8);
 				aes.IV = aes.Key;
-				await outputStream.WriteAsync(salt, 0, SaltLength);
+				await outputStream.WriteAsync(salt, 0, SaltLength).ConfigureAwait(false);
 
 				/* A temporary stream is used because CryptoStream automatically closes
 				 * the output stream. This behaviour is changable in .NET 4.7.2,
@@ -67,23 +67,24 @@ namespace Calcium.Cryptography.Implementation
 					using (var cryptoStream = new CryptoStream(
 						tempStream, aes.CreateEncryptor(), CryptoStreamMode.Write))
 					{
-						await plainStream.CopyToAsync(cryptoStream);
+						await plainStream.CopyToAsync(cryptoStream).ConfigureAwait(false);
 						cryptoStream.FlushFinalBlock();
 						tempStream.Position = 0;
-						await tempStream.CopyToAsync(outputStream);
+						await tempStream.CopyToAsync(outputStream).ConfigureAwait(false);
 					}
 				}
 			}
 		}
 
-		public async Task DecryptAsync(
-			Stream encryptedStream, string password, Stream outputStream)
+		public async Task DecryptAsync(Stream encryptedStream, 
+									   string password, 
+									   Stream outputStream)
 		{
 			AssertArg.IsNotNull(encryptedStream, nameof(encryptedStream));
 			AssertArg.IsNotNull(password, nameof(password));
 
 			byte[] salt = new byte[SaltLength];
-			await encryptedStream.ReadAsync(salt, 0, SaltLength);
+			await encryptedStream.ReadAsync(salt, 0, SaltLength).ConfigureAwait(false);
 
 			using (Aes aes = Aes.Create())
 			{
@@ -100,10 +101,10 @@ namespace Calcium.Cryptography.Implementation
 					using (var cryptoStream = new CryptoStream(
 						tempStream, aes.CreateDecryptor(), CryptoStreamMode.Write))
 					{
-						await encryptedStream.CopyToAsync(cryptoStream);
+						await encryptedStream.CopyToAsync(cryptoStream).ConfigureAwait(false);
 						cryptoStream.FlushFinalBlock();
 						tempStream.Position = 0;
-						await tempStream.CopyToAsync(outputStream);
+						await tempStream.CopyToAsync(outputStream).ConfigureAwait(false);
 					}
 				}
 			}

@@ -41,10 +41,10 @@ namespace Calcium.Services
 				for (int i = 0; i < repetitions + 1; i++)
 				{
 					vibrateController.Start(durationTimeSpan);
-					await Task.Delay(durationTimeSpan);
+					await Task.Delay(durationTimeSpan).ConfigureAwait(false);
 					if (intervalMS > 0)
 					{
-						await Task.Delay((int)intervalMS);
+						await Task.Delay((int)intervalMS).ConfigureAwait(false);
 					}
 				}
 			});

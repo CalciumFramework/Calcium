@@ -35,14 +35,16 @@ namespace Calcium.Cryptography
 		/// <exception cref="System.ArgumentNullException">
 		/// Occurs if any of the arguments are null.</exception>
 		public static async Task EncryptAsync(this IEncryptor encryptor,
-			byte[] plainBytes, string password, Stream outputStream)
+											  byte[] plainBytes, 
+											  string password, 
+											  Stream outputStream)
 		{
 			AssertArg.IsNotNull(encryptor, nameof(encryptor));
 			AssertArg.IsNotNull(plainBytes, nameof(plainBytes));
 			AssertArg.IsNotNull(password, nameof(password));
 			AssertArg.IsNotNull(outputStream, nameof(outputStream));
 
-			await EncryptCoreAsync(encryptor, plainBytes, password, outputStream);
+			await EncryptCoreAsync(encryptor, plainBytes, password, outputStream).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -57,24 +59,26 @@ namespace Calcium.Cryptography
 		/// <returns>An array of encrypted bytes.</returns>
 		/// <exception cref="System.ArgumentNullException">
 		/// Occurs if any of the arguments are null.</exception>
-		public static async Task<byte[]> EncryptAsync(this IEncryptor encryptor,
-			byte[] plainBytes, string password)
+		public static async Task<byte[]> EncryptAsync(this IEncryptor encryptor, 
+													  byte[] plainBytes, 
+													  string password)
 		{
 			AssertArg.IsNotNull(encryptor, nameof(encryptor));
 			AssertArg.IsNotNull(plainBytes, nameof(plainBytes));
 			AssertArg.IsNotNull(password, nameof(password));
 
-			return await EncryptCoreAsync(encryptor, plainBytes, password);
+			return await EncryptCoreAsync(encryptor, plainBytes, password).ConfigureAwait(false);
 		}
 
 		static async Task<byte[]> EncryptCoreAsync(IEncryptor encryptor,
-			byte[] plainBytes, string password)
+												   byte[] plainBytes, 
+												   string password)
 		{
 			using (var outputStream = new MemoryStream())
 			{
 				using (var inputStream = new MemoryStream(plainBytes))
 				{
-					await encryptor.EncryptAsync(inputStream, password, outputStream);
+					await encryptor.EncryptAsync(inputStream, password, outputStream).ConfigureAwait(false);
 
 				}
 
@@ -83,12 +87,14 @@ namespace Calcium.Cryptography
 			}
 		}
 
-		static async Task EncryptCoreAsync(IEncryptor encryptor,
-			byte[] plainBytes, string password, Stream outputStream)
+		static async Task EncryptCoreAsync(IEncryptor encryptor, 
+										   byte[] plainBytes, 
+										   string password, 
+										   Stream outputStream)
 		{
 			using (var inputStream = new MemoryStream(plainBytes))
 			{
-				await encryptor.EncryptAsync(inputStream, password, outputStream);
+				await encryptor.EncryptAsync(inputStream, password, outputStream).ConfigureAwait(false);
 			}
 		}
 
@@ -110,7 +116,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(encryptedBytes, nameof(encryptedBytes));
 			AssertArg.IsNotNull(password, nameof(password));
 
-			return await DecryptCoreAsync(encryptor, encryptedBytes, password);
+			return await DecryptCoreAsync(encryptor, encryptedBytes, password).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -135,7 +141,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(password, nameof(password));
 			AssertArg.IsNotNull(outputStream, nameof(outputStream));
 
-			await DecryptCoreAsync(encryptor, encryptedBytes, password, outputStream);
+			await DecryptCoreAsync(encryptor, encryptedBytes, password, outputStream).ConfigureAwait(false);
 		}
 
 		static async Task<byte[]> DecryptCoreAsync(IEncryptor encryptor,
@@ -143,7 +149,7 @@ namespace Calcium.Cryptography
 		{
 			using (var outputStream = new MemoryStream())
 			{
-				await DecryptCoreAsync(encryptor, encryptedBytes, password, outputStream);
+				await DecryptCoreAsync(encryptor, encryptedBytes, password, outputStream).ConfigureAwait(false);
 
 				byte[] decryptedBytes = outputStream.ToArray();
 				return decryptedBytes;
@@ -155,7 +161,7 @@ namespace Calcium.Cryptography
 		{
 			using (var encryptedStream = new MemoryStream(encryptedBytes))
 			{
-				await encryptor.DecryptAsync(encryptedStream, password, outputStream);
+				await encryptor.DecryptAsync(encryptedStream, password, outputStream).ConfigureAwait(false);
 			}
 		}
 	}

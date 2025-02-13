@@ -48,11 +48,13 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(text, nameof(text));
 			AssertArg.IsNotNull(privateKey, nameof(privateKey));
 
-			var signatureBytes = await CreateSignatureCoreAsync(signer, text, privateKey, encoding);
+			var signatureBytes = await CreateSignatureCoreAsync(signer, text, privateKey, encoding).ConfigureAwait(false);
+
 			if (encoding == null)
 			{
 				encoding = defaultEncoding;
 			}
+
 			string signatureText = encoding.GetString(signatureBytes);
 
 			return signatureText;
@@ -85,7 +87,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(text, nameof(text));
 			AssertArg.IsNotNull(privateKey, nameof(privateKey));
 			
-			var signatureBytes = await CreateSignatureCoreAsync(signer, text, privateKey, encoding);
+			var signatureBytes = await CreateSignatureCoreAsync(signer, text, privateKey, encoding).ConfigureAwait(false);
 			string signatureText = Convert.ToBase64String(signatureBytes);
 
 			return signatureText;
@@ -101,9 +103,10 @@ namespace Calcium.Cryptography
 
 			var textBytes = encoding.GetBytes(text);
 			byte[] signatureBytes;
+
 			using (var ms = new MemoryStream(textBytes))
 			{
-				signatureBytes = await signer.CreateSignatureAsync(ms, privateKey);
+				signatureBytes = await signer.CreateSignatureAsync(ms, privateKey).ConfigureAwait(false);
 			}
 
 			return signatureBytes;
@@ -149,7 +152,7 @@ namespace Calcium.Cryptography
 			var textBytes = encoding.GetBytes(text);
 			var signatureBytes = encoding.GetBytes(signature);
 
-			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey);
+			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -192,7 +195,7 @@ namespace Calcium.Cryptography
 			var textBytes = encoding.GetBytes(text);
 			var signatureBytes = Convert.FromBase64String(base64Signature);
 
-			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey);
+			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -234,7 +237,7 @@ namespace Calcium.Cryptography
 
 			var textBytes = encoding.GetBytes(text);
 
-			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey);
+			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -266,7 +269,7 @@ namespace Calcium.Cryptography
 			AssertArg.IsNotNull(signatureBytes, nameof(signatureBytes));
 			AssertArg.IsNotNull(publicKey, nameof(publicKey));
 
-			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey);
+			return await VerifySignatureCoreAsync(signer, textBytes, signatureBytes, publicKey).ConfigureAwait(false);
 		}
 
 		static async Task<bool> VerifySignatureCoreAsync(
@@ -274,7 +277,7 @@ namespace Calcium.Cryptography
 		{
 			using (var dataStream = new MemoryStream(textBytes))
 			{
-				bool result = await signer.VerifySignatureAsync(dataStream, signatureBytes, publicKey);
+				bool result = await signer.VerifySignatureAsync(dataStream, signatureBytes, publicKey).ConfigureAwait(false);
 				return result;
 			}
 		}
