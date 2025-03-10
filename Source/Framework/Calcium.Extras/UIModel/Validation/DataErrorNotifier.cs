@@ -39,7 +39,7 @@ namespace Calcium.UIModel.Validation
 		readonly IValidateData validator;
 
 		readonly object errorsLock = new object();
-		Dictionary<string, ObservableCollection<DataValidationError>> errorsField;
+		Dictionary<string, ObservableCollection<IDataValidationError>> errorsField;
 
 		readonly object propertyDictionaryLock = new object();
 		readonly IDictionary<string, Func<object>> propertyDictionary
@@ -160,7 +160,7 @@ namespace Calcium.UIModel.Validation
 			{
 				if (!errorsTemp.ContainsKey(name))
 				{
-					errorsTemp[name] = new ObservableCollection<DataValidationError>();
+					errorsTemp[name] = new ObservableCollection<IDataValidationError>();
 				}
 			}
 		}
@@ -183,13 +183,13 @@ namespace Calcium.UIModel.Validation
 			}
 		}
 
-		ReadOnlyDictionary<string, ObservableCollection<DataValidationError>> readonlyErrors;
+		ReadOnlyDictionary<string, ObservableCollection<IDataValidationError>> readonlyErrors;
 
 		/// <summary>
 		/// A dictionary of validation errors that is populated 
 		/// when one of the validation methods is called.
 		/// </summary>
-		public ReadOnlyDictionary<string, ObservableCollection<DataValidationError>> ValidationErrors
+		public ReadOnlyDictionary<string, ObservableCollection<IDataValidationError>> ValidationErrors
 		{
 			get
 			{
@@ -201,10 +201,10 @@ namespace Calcium.UIModel.Validation
 						{
 							if (errorsField == null)
 							{
-								errorsField = new Dictionary<string, ObservableCollection<DataValidationError>>();
+								errorsField = new Dictionary<string, ObservableCollection<IDataValidationError>>();
 							}
 
-							readonlyErrors = new ReadOnlyDictionary<string, ObservableCollection<DataValidationError>>(errorsField);
+							readonlyErrors = new ReadOnlyDictionary<string, ObservableCollection<IDataValidationError>>(errorsField);
 						}
 					}
 				}
@@ -217,7 +217,7 @@ namespace Calcium.UIModel.Validation
 		/// Gets the validation errors for all properties.
 		/// </summary>
 		/// <value>The errors.</value>
-		Dictionary<string, ObservableCollection<DataValidationError>> Errors
+		Dictionary<string, ObservableCollection<IDataValidationError>> Errors
 		{
 			get
 			{
@@ -227,7 +227,7 @@ namespace Calcium.UIModel.Validation
 					{
 						if (errorsField == null)
 						{
-							errorsField = new Dictionary<string, ObservableCollection<DataValidationError>>();
+							errorsField = new Dictionary<string, ObservableCollection<IDataValidationError>>();
 						}
 					}
 				}
@@ -299,7 +299,7 @@ namespace Calcium.UIModel.Validation
 		/// <returns>
 		/// The validation errors for the property or object.
 		/// </returns>
-		public IEnumerable<DataValidationError> GetDataValidationErrors(
+		public IEnumerable<IDataValidationError> GetDataValidationErrors(
 			string propertyName)
 		{
 			if (string.IsNullOrEmpty(propertyName))
@@ -308,7 +308,7 @@ namespace Calcium.UIModel.Validation
 				{
 					if (errorsField == null)
 					{
-						return new List<DataValidationError>();
+						return new List<IDataValidationError>();
 					}
 
 					var result = from list in errorsField.Values
@@ -322,9 +322,9 @@ namespace Calcium.UIModel.Validation
 			{
 				if (errorsField == null || !errorsField.TryGetValue(propertyName,
 						// ReSharper disable once CollectionNeverUpdated.Local
-						out ObservableCollection<DataValidationError> propertyErrors))
+						out ObservableCollection<IDataValidationError> propertyErrors))
 				{
-					return new ObservableCollection<DataValidationError>();
+					return new ObservableCollection<IDataValidationError>();
 				}
 
 				return propertyErrors.ToList();
@@ -357,7 +357,7 @@ namespace Calcium.UIModel.Validation
 		/// </summary>
 		/// <param name="propertyName">Name of the property.</param>
 		/// <param name="errorCode">The error code.</param>
-		public void RemovePropertyError(string propertyName, int errorCode)
+		public void RemovePropertyError(string propertyName, Guid errorCode)
 		{
 			bool raiseEvent = false;
 
@@ -368,10 +368,10 @@ namespace Calcium.UIModel.Validation
 					return;
 				}
 
-				ObservableCollection<DataValidationError> list 
+				ObservableCollection<IDataValidationError> list 
 					= errorsField[propertyName];
 
-				DataValidationError dataValidationError
+				IDataValidationError dataValidationError
 					= list.SingleOrDefault(e => e.Id == errorCode);
 
 				if (dataValidationError != null)
@@ -395,10 +395,10 @@ namespace Calcium.UIModel.Validation
 		/// <param name="propertyName">Name of the property.</param>
 		/// <param name="dataValidationError">The data validation error.</param>
 		public void AddPropertyError(
-			string propertyName, DataValidationError dataValidationError)
+			string propertyName, IDataValidationError dataValidationError)
 		{
 			SetPropertyErrors(propertyName,
-				new List<DataValidationError> { dataValidationError });
+				new List<IDataValidationError> { dataValidationError });
 		}
 
 		/// <summary>
@@ -426,7 +426,7 @@ namespace Calcium.UIModel.Validation
 		/// <param name="propertyName">Name of the property.</param>
 		/// <param name="dataErrors">The data errors.</param>
 		public void SetPropertyErrors(
-			string propertyName, IEnumerable<DataValidationError> dataErrors)
+			string propertyName, IEnumerable<IDataValidationError> dataErrors)
 		{
 			AssertArg.IsNotNullOrEmpty(propertyName, nameof(propertyName));
 
@@ -435,7 +435,7 @@ namespace Calcium.UIModel.Validation
 			{
 				bool created = false;
 
-				var errorsArray = dataErrors as DataValidationError[] ?? dataErrors?.ToArray();
+				var errorsArray = dataErrors as IDataValidationError[] ?? dataErrors?.ToArray();
 				int paramErrorCount = errorsArray?.Length ?? 0;
 
 				if ((errorsField == null || errorsField.Count < 1)
@@ -446,15 +446,15 @@ namespace Calcium.UIModel.Validation
 
 				if (errorsField == null)
 				{
-					errorsField = new Dictionary<string, ObservableCollection<DataValidationError>>();
-					created = true;
+					errorsField = new Dictionary<string, ObservableCollection<IDataValidationError>>();
+					created     = true;
 				}
 
 				bool listFound = false;
 				if (created || !(listFound = errorsField.TryGetValue(propertyName, 
-									out ObservableCollection<DataValidationError> list)))
+									out ObservableCollection<IDataValidationError> list)))
 				{
-					list = new ObservableCollection<DataValidationError>();
+					list = new ObservableCollection<IDataValidationError>();
 				}
 
 				if (paramErrorCount < 1)
@@ -467,7 +467,7 @@ namespace Calcium.UIModel.Validation
 				}
 				else
 				{
-					var tempList = new List<DataValidationError>();
+					var tempList = new List<IDataValidationError>();
 
 					if (errorsArray != null)
 					{

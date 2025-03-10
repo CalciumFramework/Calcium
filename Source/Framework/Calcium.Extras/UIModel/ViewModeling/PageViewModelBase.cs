@@ -122,7 +122,7 @@ namespace Calcium.UIModel
 			string propertyName, object value)
 		{
 			return Task.FromResult(new ValidationCompleteEventArgs(
-										propertyName, new List<DataValidationError>()));
+										propertyName, new List<IDataValidationError>()));
 		}
 
 		#endregion

@@ -38,7 +38,7 @@ namespace Calcium.UIModel.Validation
 		/// during validation. This list can be displayed
 		/// to the user.
 		/// </summary>
-		public IEnumerable<DataValidationError> Errors { get; private set; }
+		public IEnumerable<IDataValidationError> Errors { get; private set; }
 
 		public ValidationCompleteEventArgs(string propertyName)
 		{
@@ -47,7 +47,7 @@ namespace Calcium.UIModel.Validation
 		}
 
 		public ValidationCompleteEventArgs(
-			string propertyName, IEnumerable<DataValidationError> errors)
+			string propertyName, IEnumerable<IDataValidationError> errors)
 			: this(propertyName)
 		{
 			Errors = errors;
