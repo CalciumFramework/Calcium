@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 // ReSharper disable ExplicitCallerInfoArgument
 
 namespace Calcium

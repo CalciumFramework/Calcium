@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);CORE;NETSTANDARD</DefineConstants>
@@ -12,7 +13,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>..\..\..\Bin\NetStandard\$(Configuration)\Calcium.xml</DocumentationFile>
-    <LangVersion>latest</LangVersion>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 	<PropertyGroup>
@@ -23,7 +23,6 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<AssemblyOriginatorKeyFile>../Calcium.snk</AssemblyOriginatorKeyFile>
-		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
