@@ -991,5 +991,27 @@ namespace Calcium
 				throw new ArgumentNullException("The following arguments cannot be null: " + nulls);
 			}
 		}
+
+		public static ICollection<TItem> IsNotNullOrEmpty<TItem>(
+			ICollection<TItem> arg,
+			string argName = null)
+		{
+			return IsNotNullOrEmpty<ICollection<TItem>, TItem>(arg, argName);
+		}
+
+		public static TCollection IsNotNullOrEmpty<TCollection, TItem>(
+			TCollection arg,
+			string argName = null)
+			where TCollection : class, ICollection<TItem>
+		{
+			IsNotNull(arg, argName);
+
+			if (arg!.Count < 1)
+			{
+				throw new ArgumentNullException($"{argName} cannot be empty.");
+			}
+
+			return arg;
+		}
 	}
 }
