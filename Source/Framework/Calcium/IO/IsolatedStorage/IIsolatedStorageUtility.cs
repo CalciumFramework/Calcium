@@ -25,7 +25,7 @@ namespace Calcium.IO
 	public interface IIsolatedStorageUtility
 	{
 		/// <summary>
-		/// Asynchonously copies a resource to a specified
+		/// Asynchronously copies a resource to a specified
 		/// isolated storage folder.
 		/// </summary>
 		/// <param name="inResourceName"></param>
