@@ -319,9 +319,9 @@ namespace Calcium.SettingsModel
 
 							entry = d;
 						}
-						else if (entryString.StartsWith(SerializationContants.Base64EncodingPrefix))
+						else if (entryString.StartsWith(SerializationConstants.Base64EncodingPrefix))
 						{
-							int lengthOfPrefix = SerializationContants.Base64EncodingPrefix.Length;
+							int lengthOfPrefix = SerializationConstants.Base64EncodingPrefix.Length;
 							var dataPart = entryString.Substring(lengthOfPrefix, entryString.Length - lengthOfPrefix);
 							entry = Convert.FromBase64String(dataPart);
 						}
