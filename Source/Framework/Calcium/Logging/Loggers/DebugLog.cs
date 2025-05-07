@@ -77,34 +77,42 @@ namespace Calcium.Logging.Loggers
 //				return Task.CompletedTask;
 //			}
 
-			string exceptionMessage = exception != null ? exception.ToString() : string.Empty;
-			string logMessage;
+			string exceptionText = exception != null ? exception.ToString() : string.Empty;
+			var locationPrefix = $"{filePath}({lineNumber})";
 
-			if (!string.IsNullOrEmpty(exceptionMessage))
+			string entry;
+
+			if (!string.IsNullOrEmpty(exceptionText))
 			{
-				logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4} exception:{5}",
-					logLevel, message, memberName, filePath,
-					lineNumber.ToString(CultureInfo.InvariantCulture),
-					exceptionMessage);
+				entry = string.Format(
+					"{0}: {1:G} {2} member:{3} exception:{4}",
+					locationPrefix,
+					logLevel,
+					message,
+					memberName,
+					exceptionText);
 			}
 			else
 			{
-				logMessage = string.Format("Log {0:G} - {1} member:{2} file:{3} line:{4}",
-					logLevel, message, memberName, filePath,
-					lineNumber.ToString(CultureInfo.InvariantCulture));
+				entry = string.Format(
+					"{0}: {1:G} {2} member:{3}",
+					locationPrefix,
+					logLevel,
+					message,
+					memberName);
 			}
 
 #if NETSTANDARD || NETFX_CORE
 			if (useConsole)
 			{
-				Console.WriteLine("{0:G} {1}", logLevel, logMessage);
+				Console.WriteLine(entry);
 			}
 			else
 			{
-				System.Diagnostics.Debug.WriteLine("{0:G} {1}", logLevel, logMessage);
+				System.Diagnostics.Debug.WriteLine(entry);
 			}
 #else
-			Debugger.Log((int)logLevel, logLevel.ToString("G"), logMessage);
+			Debugger.Log((int)logLevel, logLevel.ToString("G"), entry);
 #endif
 			return Task.CompletedTask;
 		}
