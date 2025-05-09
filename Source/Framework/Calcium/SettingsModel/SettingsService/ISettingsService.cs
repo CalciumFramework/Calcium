@@ -93,7 +93,7 @@ namespace Calcium.Services
 		/// <returns>
 		///   <c>true</c> if a setting exists with the specified key; otherwise, <c>false</c>.
 		/// </returns>
-		bool ContainsSetting<TSetting>(string key);
+		bool ContainsSetting<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSetting>(string key);
 
 		/// <summary>
 		/// Records the setting using the specified key as a unique identifier.

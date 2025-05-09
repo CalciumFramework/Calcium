@@ -620,7 +620,7 @@ namespace Calcium.InversionOfControl
 			return list;
 		}
 
-		public bool TryResolve<T>(out T result, string key = null)
+		public bool TryResolve<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(out T result, string key = null)
 		{
 			Type type = typeof(T);
 

@@ -65,7 +65,7 @@ namespace Calcium.Reflection
 		}
 
 		static readonly Regex typeWithAssemblyRegex = new Regex(
-			@"^(?<type>.*?)(?<assemblyDetails>, Version=[^\]]*?)(?<end>\].*$|\s*$)", RegexOptions.Compiled);
+			@"^(?<type>.*?)(?<assemblyDetails>, Version=[^\]]*?)(?<end>\].*$|\s*$)"/*, RegexOptions.Compiled (commented for AoT)*/);
 
 		static string StripAssemblyVersion(string typeName)
 		{
