@@ -1175,7 +1175,8 @@ namespace Calcium.InversionOfControl
 #if NETFX_CORE
 			var constructors = type.GetTypeInfo().DeclaredConstructors.Where(x => !x.IsStatic && x.IsPublic).ToArray();
 #else
-			var constructors = type.GetTypeInfo().DeclaredConstructors;
+			var constructors = type.GetTypeInfo().DeclaredConstructors
+								   .Where(info => !info.IsStatic && !info.IsPrivate).ToArray();
 #endif
 
 			ConstructorInfo constructor = null;
@@ -1222,7 +1223,7 @@ namespace Calcium.InversionOfControl
 				ConstructorInfo bestMatch = null;
 				int biggestLength = -1;
 
-				constructors = type.GetTypeInfo().DeclaredConstructors.Where(x => !x.IsStatic && x.IsPrivate);
+				constructors = type.GetTypeInfo().DeclaredConstructors.Where(x => !x.IsStatic && x.IsPrivate).ToArray();
 
 				foreach (ConstructorInfo constructorInfo in constructors)
 				{
