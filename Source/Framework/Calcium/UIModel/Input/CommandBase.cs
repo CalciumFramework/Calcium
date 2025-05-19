@@ -22,6 +22,7 @@ using System.Windows.Input;
 using Calcium.ComponentModel;
 using Calcium.Concurrency;
 using Calcium.Reflection;
+// ReSharper disable ExplicitCallerInfoArgument
 
 namespace Calcium.UIModel.Input
 {
@@ -31,26 +32,41 @@ namespace Calcium.UIModel.Input
 	/// for all commands.
 	/// </summary>
 	/// <typeparam name="TParameter"></typeparam>
-	public abstract class CommandBase<TParameter> : 
-		ICommand,
-		ICommandBase,
-		INotifyPropertyChanged,
-		ISuspendChangeNotification
+	public abstract class CommandBase<TParameter> : ICommand,
+													ICommandBase,
+													INotifyPropertyChanged,
+													ISuspendChangeNotification
 	{
-		readonly bool parameterPrimitive 
-			= typeof(TParameter).GetTypeInfo().IsPrimitive;
+		static bool IsPrimitiveParameter<T>()
+		{
+			TypeInfo typeInfo = typeof(T).GetTypeInfo();
+			return typeInfo.IsPrimitive || typeInfo.IsEnum;
+		}
+
+		readonly bool parameterPrimitive = IsPrimitiveParameter<TParameter>();
+		bool hasDefault;
 
 		readonly string creationFilePath;
 		readonly int creationLineNumber;
+
+		TParameter defaultParameter;
 
 		/// <summary>
 		/// This value is supplied to the <c>Execute</c>
 		/// and <c>CanExecute</c> methods if no value is 
 		/// specified when calling those methods.
-		/// It's most useful in scenarious when binding
+		/// It's most useful in scenarios when binding
 		/// does not support the notion of parameters. 
 		/// </summary>
-		public TParameter DefaultParameter { get; set; }
+		public TParameter DefaultParameter
+		{
+			get => defaultParameter;
+			set
+			{
+				defaultParameter = value;
+				hasDefault       = true;
+			}
+		}
 
 		protected CommandBase(
 			[CallerFilePath] string filePath = null,
@@ -79,18 +95,13 @@ namespace Calcium.UIModel.Input
 			TParameter result;
 			if (parameter == null)
 			{
-				result = DefaultParameter;
+				result = hasDefault ? defaultParameter : default;
 			}
 			else
 			{
 				result = (TParameter)CoerceParameterToType(parameter);
 
-				if (!parameterPrimitive 
-					&& EqualityComparer<TParameter>.Default.Equals(
-							DefaultParameter, default(TParameter)))
-				{
-					DefaultParameter = result;
-				}
+				DefaultParameter = result;
 			}
 
 			return result;
@@ -98,23 +109,22 @@ namespace Calcium.UIModel.Input
 
 		protected TParameter ProcessParameter(TParameter parameter)
 		{
-			TParameter result;
-			if (EqualityComparer<TParameter>.Default.Equals(
-					parameter, default(TParameter)))
-			{
-				result = DefaultParameter;
-			}
-			else
-			{
-				result = parameter;
+			bool missing =
+				EqualityComparer<TParameter>.Default.Equals(parameter, default(TParameter))
+				&& !parameterPrimitive;
 
-				if (!parameterPrimitive && EqualityComparer<TParameter>.Default.Equals(DefaultParameter, default(TParameter)))
-				{
-					DefaultParameter = parameter;
-				}
+			if (missing)
+			{
+				// no parameter supplied — fall back on whatever we remembered
+				return DefaultParameter;
 			}
 
-			return result;
+			// Here, the caller *did* supply a parameter (even if it happens
+			//    to be default(T) for a primitive or enum)
+			// so we update our memory
+			DefaultParameter = parameter;
+
+			return parameter;
 		}
 
 		protected void Set<TField>(
@@ -208,7 +218,7 @@ namespace Calcium.UIModel.Input
 
 		IExceptionHandler settableExceptionHandler;
 		bool attemptedToRetrieveHandler;
-
+		
 		/// <summary>
 		/// When an exception occurs during execution or during evaluating 
 		/// if the command can execute, then the exception is passed to the exception manager.
