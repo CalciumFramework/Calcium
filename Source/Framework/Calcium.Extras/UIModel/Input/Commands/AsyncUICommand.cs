@@ -2,6 +2,8 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
+using Calcium.ComponentModel;
+
 namespace Calcium.UIModel.Input
 {
 	/// <summary>
@@ -218,7 +220,13 @@ namespace Calcium.UIModel.Input
 		public Func<TParameter, Task<bool>> IsVisibleFunc
 		{
 			get => isVisibleFunc;
-			set => Set(ref isVisibleFunc, value, true);
+			set
+			{
+				if (Set(ref isVisibleFunc, value, true) == AssignmentResult.Success)
+				{
+					_ = RefreshVisibilityAsync();
+				}
+			}
 		}
 
 		bool visible = true;

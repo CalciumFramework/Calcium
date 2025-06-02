@@ -127,7 +127,7 @@ namespace Calcium.UIModel.Input
 			return parameter;
 		}
 
-		protected void Set<TField>(
+		protected AssignmentResult Set<TField>(
 					ref TField oldValue,
 					TField newValue,
 					bool raiseOnCanExecuteChanged,
@@ -147,7 +147,11 @@ namespace Calcium.UIModel.Input
 						OnCanExecuteChanged(EventArgs.Empty);
 					}
 				}
+
+				return AssignmentResult.Success;
 			}
+
+			return AssignmentResult.AlreadyAssigned;
 		}
 
 		protected virtual void OnCanExecuteChanged(EventArgs e)
