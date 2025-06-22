@@ -23,7 +23,7 @@ namespace Calcium.DialogModel
 
 		string ValidationExpression { get; }
 		string ValidationFailedMessage { get; }
-		string RestictionExpression { get; }
+		string RestrictionExpression { get; }
 		InputScopeNameValue InputScope { get; }
 	}
 }

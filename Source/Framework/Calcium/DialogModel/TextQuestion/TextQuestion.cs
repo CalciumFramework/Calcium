@@ -26,12 +26,13 @@ namespace Calcium.DialogModel
 		/// The body text of the question.
 		/// </summary>
 		public string Question { get; set; }
+
 		string ITextDialogParameters.Body => Question;
 
 		/// <summary>
 		/// A regular expression that restricts the text entered. 
 		/// </summary>
-		public string RestictionExpression { get; }
+		public string RestrictionExpression { get; }
 
 		/// <summary>
 		/// The type of software keyboard to display.
