@@ -47,6 +47,8 @@ namespace Calcium.UIModel.Validation
 
 		readonly INotifyPropertyChanged owner;
 
+		public bool Enabled { get; set; } = true;
+
 		/// <summary>
 		/// Initializes a new instance 
 		/// of the <see cref="DataErrorNotifier"/> class.
@@ -253,6 +255,11 @@ namespace Calcium.UIModel.Validation
 		/// </returns>
 		public IEnumerable GetErrors(string propertyName)
 		{
+			if (!Enabled)
+			{
+				return Array.Empty<IDataValidationError>();
+			}
+
 			return GetDataValidationErrors(propertyName);
 		}
 
@@ -266,6 +273,11 @@ namespace Calcium.UIModel.Validation
 		{
 			get
 			{
+				if (!Enabled)
+				{
+					return false;
+				}
+
 				lock (errorsLock)
 				{
 					if (errorsField == null || Errors.Count < 1)
@@ -338,6 +350,11 @@ namespace Calcium.UIModel.Validation
 		/// for which the list of errors changed.</param>
 		protected virtual void OnErrorsChanged(string property)
 		{
+			if (!Enabled)
+			{
+				return;
+			}
+
 			SynchronizationContext.Send(
 				() => ErrorsChanged?.Invoke(
 						this, new DataErrorsChangedEventArgs(property)));
