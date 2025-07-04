@@ -23,7 +23,7 @@ using Calcium.Logging.Loggers;
 namespace Calcium.Logging
 {
 	/// <summary>
-	/// Represents a output channel 
+	/// Represents an output channel 
 	/// for storing or transmitting log messages.
 	/// </summary>
 	[DefaultTypeName(AssemblyConstants.Namespace + "." + nameof(Logging) + "." + nameof(Logging.Loggers)
