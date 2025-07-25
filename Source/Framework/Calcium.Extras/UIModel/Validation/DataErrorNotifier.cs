@@ -12,6 +12,8 @@
 */
 #endregion
 
+#nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +41,7 @@ namespace Calcium.UIModel.Validation
 		readonly IValidateData validator;
 
 		readonly object errorsLock = new object();
-		Dictionary<string, ObservableCollection<IDataValidationError>> errorsField;
+		Dictionary<string, ObservableCollection<IDataValidationError>>? errorsField;
 
 		readonly object propertyDictionaryLock = new object();
 		readonly IDictionary<string, Func<object>> propertyDictionary
@@ -442,12 +444,13 @@ namespace Calcium.UIModel.Validation
 		/// </summary>
 		/// <param name="propertyName">Name of the property.</param>
 		/// <param name="dataErrors">The data errors.</param>
-		public void SetPropertyErrors(
-			string propertyName, IEnumerable<IDataValidationError> dataErrors)
+		public void SetPropertyErrors(string propertyName, 
+									  IEnumerable<IDataValidationError> dataErrors)
 		{
 			AssertArg.IsNotNullOrEmpty(propertyName, nameof(propertyName));
 
 			bool raiseEvent = false;
+
 			lock (errorsLock)
 			{
 				bool created = false;
@@ -468,8 +471,9 @@ namespace Calcium.UIModel.Validation
 				}
 
 				bool listFound = false;
+
 				if (created || !(listFound = errorsField.TryGetValue(propertyName, 
-									out ObservableCollection<IDataValidationError> list)))
+									out ObservableCollection<IDataValidationError>? list)))
 				{
 					list = new ObservableCollection<IDataValidationError>();
 				}
@@ -484,23 +488,37 @@ namespace Calcium.UIModel.Validation
 				}
 				else
 				{
-					var tempList = new List<IDataValidationError>();
-
-					if (errorsArray != null)
+					if (list == null)
 					{
-						foreach (var dataError in errorsArray)
-						{
-							if (created || list.SingleOrDefault(
-									e => e.Id == dataError.Id) == null)
-							{
-								tempList.Add(dataError);
-								raiseEvent = true;
-							}
-						}
+						throw new InvalidOperationException("list should have been created above.");
 					}
 
-					list.AddRange(tempList);
-					errorsField[propertyName] = list;
+					// 1) Snapshot original IDs
+					HashSet<Guid> originalIds = new(list.Select(e => e.Id));
+
+					Dictionary<Guid, IDataValidationError> incomingErrors 
+						= (errorsArray ?? Enumerable.Empty<IDataValidationError>()).ToDictionary(error => error.Id);
+
+					// 2) Figure out what's going away and what's new
+					List<IDataValidationError> toRemove 
+						= list.Where(error => !incomingErrors.ContainsKey(error.Id)).ToList();
+
+					List<IDataValidationError> toAdd 
+						= incomingErrors.Values.Where(error => !originalIds.Contains(error.Id)).ToList();
+
+					// 3) Detect any change
+					if (toRemove.Any() || toAdd.Any())
+					{
+						raiseEvent = true;
+					}
+
+					list.RemoveRange(toRemove);
+					list.AddRange(toAdd);
+
+					if (!listFound)
+					{
+						errorsField[propertyName] = list;
+					}
 				}
 			}
 

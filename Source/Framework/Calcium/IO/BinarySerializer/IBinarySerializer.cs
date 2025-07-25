@@ -2,7 +2,7 @@
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		Copyright © 2009 - 2025, Daniel Vaughan. All rights reserved.
 		This file is part of Calcium (http://CalciumFramework.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
@@ -12,6 +12,9 @@
 */
 #endregion
 
+#nullable enable
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Calcium.InversionOfControl;
@@ -83,14 +86,21 @@ namespace Calcium.IO
 
 		/// <summary>
 		/// Converts the specified <c>Stream</c>
-		/// to an object of type <c>T</c>.
+		/// to an object.
 		/// This is the inverse operation to 
 		/// <see cref="Serialize(object, Stream)"/>
 		/// </summary>
 		/// <param name="inputStream">
 		/// The serialized object stream.</param>
-		/// <returns>The object represented by the specified stream.
-		/// </returns>
-		object Deserialize(Stream inputStream/*, object instance = null*/);
+		/// <param name="targetType">The type of the original object.
+		/// If not specified, the type will be determined
+		/// by an internally stored type indicator depending
+		/// on the actual serializer implementation.
+		/// In the case of the Silverlight Serializer,
+		/// the type name is stored in the stream.
+		/// By specifying the type name, you may prevent type
+		/// or namespace changes breaking deserialization.</param>
+		/// <returns>The object represented by the specified stream.</returns>
+		object Deserialize(Stream inputStream, Type? targetType = null);
 	}
 }

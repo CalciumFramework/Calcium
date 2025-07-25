@@ -12,6 +12,7 @@
 */
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Calcium.IO.Serialization;
@@ -49,9 +50,9 @@ namespace Calcium.IO
 			return (T)SilverlightSerializer.Deserialize(stream);
 		}
 
-		public object Deserialize(Stream inputStream)
+		public object Deserialize(Stream inputStream, Type targetType = null)
 		{
-			return SilverlightSerializer.Deserialize(inputStream);
+			return SilverlightSerializer.DeserializeObjectToType(inputStream, targetType);
 		}
 
 		public void Serialize(object item, Stream outputStream)

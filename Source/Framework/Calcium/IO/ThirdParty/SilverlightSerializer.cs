@@ -69,7 +69,7 @@ namespace Calcium.IO.Serialization
 	///   Silverlight/.NET compatible binary serializer with suppression support
 	///   produces compact representations, suitable for further compression
 	/// </summary>
-	static class SilverlightSerializer
+	static partial class SilverlightSerializer
 	{
 		private static readonly Dictionary<Type, IEnumerable<FieldInfo>> FieldLists = new Dictionary<Type, IEnumerable<FieldInfo>>();
 		private static readonly Dictionary<string, IEnumerable<PropertyInfo>> PropertyLists = new Dictionary<string, IEnumerable<PropertyInfo>>();
