@@ -44,8 +44,8 @@ namespace Calcium.UIModel.Validation
 		Dictionary<string, ObservableCollection<IDataValidationError>>? errorsField;
 
 		readonly object propertyDictionaryLock = new object();
-		readonly IDictionary<string, Func<object>> propertyDictionary
-									= new Dictionary<string, Func<object>>();
+		readonly IDictionary<string, Func<object?>> propertyDictionary
+									= new Dictionary<string, Func<object?>>();
 
 		readonly INotifyPropertyChanged owner;
 
@@ -111,7 +111,7 @@ namespace Calcium.UIModel.Validation
 
 		async Task<ValidationCompleteEventArgs> BeginGetPropertyErrorsFromValidator(string propertyName)
 		{
-			Func<object> propertyFunc;
+			Func<object?> propertyFunc;
 			lock (propertyDictionaryLock)
 			{
 				if (!propertyDictionary.TryGetValue(propertyName, out propertyFunc))
@@ -151,7 +151,7 @@ namespace Calcium.UIModel.Validation
 		/// <param name="name">The name of the property.</param>
 		/// <param name="property">The <c>Func</c> to 
 		/// retrieve the property.</param>
-		public void AddValidationProperty(string name, Func<object> property)
+		public void AddValidationProperty(string name, Func<object?> property)
 		{
 			lock (propertyDictionaryLock)
 			{
@@ -179,7 +179,7 @@ namespace Calcium.UIModel.Validation
 				return;
 			}
 
-			foreach (KeyValuePair<string, Func<object>> pair in propertyDictionary)
+			foreach (KeyValuePair<string, Func<object?>> pair in propertyDictionary)
 			{
 				string propertyName = pair.Key;
 				var validateResult = await validator.ValidateAsync(propertyName, pair.Value());
@@ -528,12 +528,12 @@ namespace Calcium.UIModel.Validation
 			}
 		}
 
-		ISynchronizationContext synchronizationContext;
+		ISynchronizationContext? synchronizationContext;
 
 		/// <summary>
 		/// Use this property to override the current synchronization context.
 		/// </summary>
-		public ISynchronizationContext SynchronizationContext
+		public ISynchronizationContext? SynchronizationContext
 		{
 			get => synchronizationContext ?? (synchronizationContext = UIContext.Instance);
 			set => synchronizationContext = value;
