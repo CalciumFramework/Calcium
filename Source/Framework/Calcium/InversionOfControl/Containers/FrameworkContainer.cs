@@ -840,6 +840,18 @@ namespace Calcium.InversionOfControl
 				return resolver.GetObject();
 			}
 
+			if (IsValueLike(type))
+			{
+				if (raiseExceptionIfNotResolved)
+				{
+					throw new ResolutionException(
+						$"No registration for value type '{type.FullName}'. "
+						+ "Register it explicitly if you want it injected.");
+				}
+
+				return null;
+			}
+
 			return BuildUp(type, key);
 		}
 
@@ -1112,13 +1124,29 @@ namespace Calcium.InversionOfControl
 			var constructorParameters = info.ParameterInfos;
 			var length = constructorParameters.Length;
 			var parametersList = new object[length];
+
 			for (int i = 0; i < length; i++)
 			{
 				ParameterInfo parameterInfo = constructorParameters[i];
 				object parameter;
+
 				try
 				{
-					parameter = Resolve(parameterInfo.ParameterType);
+					/* Try DI first, but do not throw if it cannot be resolved. */
+					parameter = ResolveCore(parameterInfo.ParameterType, null, raiseExceptionIfNotResolved: false);
+
+					if (parameter == null)
+					{
+						if (parameterInfo.IsOptional)
+						{
+							parameter = GetOptionalParameterDefaultValue(parameterInfo);
+						}
+						else
+						{
+							throw new ResolutionException(
+								$"Failed to instantiate non-optional parameter '{parameterInfo.Name}' in constructor for type '{info.Constructor?.DeclaringType}'");
+						}
+					}
 				}
 				catch (Exception ex)
 				{
@@ -1289,6 +1317,47 @@ namespace Calcium.InversionOfControl
 			}
 
 			return key;
+		}
+
+		static object GetOptionalParameterDefaultValue(ParameterInfo parameterInfo)
+		{
+			AssertArg.IsNotNull(parameterInfo, nameof(parameterInfo));
+
+			object defaultValue = parameterInfo.DefaultValue;
+
+			if (defaultValue == DBNull.Value || defaultValue == Type.Missing)
+			{
+				Type parameterType = parameterInfo.ParameterType;
+
+				if (parameterType.IsValueType)
+				{
+					return Activator.CreateInstance(parameterType);
+				}
+
+				return null;
+			}
+
+			return defaultValue;
+		}
+
+		static bool IsValueLike(Type type)
+		{
+			if (type == typeof(string))
+			{
+				return true;
+			}
+
+			if (type.GetTypeInfo().IsPrimitive)
+			{
+				return true;
+			}
+
+			if (type.GetTypeInfo().IsEnum)
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
