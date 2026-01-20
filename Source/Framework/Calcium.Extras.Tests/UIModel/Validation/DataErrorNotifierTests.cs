@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Calcium.ComponentModel;
 
 using Calcium.Concurrency;
@@ -29,7 +27,7 @@ namespace Calcium.UIModel.Validation
 			await notifier.ValidateAllAsync();
 			notifier.HasErrors.Should().BeFalse();
 			
-			var e1 = new List<DataValidationError> {new DataValidationError {ErrorMessage = "Failed Validation 1"}};
+			var e1 = new List<DataValidationError> {new DataValidationError(Guid.NewGuid(), "Failed Validation 1")};
 			validator.Result = new ValidationCompleteEventArgs(nameof(SimpleValidatable1.Text1), e1);
 			await notifier.ValidateAllAsync();
 			notifier.HasErrors.Should().BeTrue();

@@ -12,8 +12,7 @@
 
 	<ItemGroup>
 		<Compile Include="..\Calcium.ApiProfiling\UI\Data\ViewModelTestClass.cs" Link="ViewModelTestClass.cs" />
-		<Compile Include="..\Calcium.Tests\Concurrency\SynchronizationContexts\SynchronizationContextForTests.cs"
-		         Link="SynchronizationContextForTests.cs" />
+		<Compile Include="..\Calcium.Tests\Concurrency\SynchronizationContexts\SynchronizationContextForTests.cs" Link="SynchronizationContextForTests.cs" />
 	</ItemGroup>
 
 	<PropertyGroup>
