@@ -13,12 +13,35 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 
 namespace Calcium.ComponentModel
 {
 	public static class Disposable
 	{
-		public static IDisposable Create(Action disposeAction) => new DisposableAction(disposeAction);
+		public static IDisposable Empty { get; } = NoOpDisposable.Instance;
+
+		public static IDisposable Create(Action disposeAction)
+			=> new DisposableAction(disposeAction);
+
+		public static IDisposable Combine(params IDisposable[] items)
+			=> new CompositeDisposable(items);
+
+		public static IDisposable Combine(IList<IDisposable> items)
+			=> new CompositeDisposable(items);
+	}
+
+	sealed class NoOpDisposable : IDisposable
+	{
+		public static NoOpDisposable Instance { get; } = new();
+
+		NoOpDisposable()
+		{
+		}
+
+		public void Dispose()
+		{
+		}
 	}
 
 	class DisposableAction : IDisposable
@@ -29,7 +52,7 @@ namespace Calcium.ComponentModel
 		public DisposableAction(Action disposeAction)
 		{
 			this.disposeAction = disposeAction 
-			                     ?? throw new ArgumentNullException(nameof(disposeAction));
+								 ?? throw new ArgumentNullException(nameof(disposeAction));
 		}
 
 		public void Dispose()
