@@ -1,0 +1,206 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:Calcium.LogViewer.UI"
+			 xmlns:local="clr-namespace:Calcium.Logging;assembly=Calcium"
+			 mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="450"
+			 x:Class="Calcium.LogViewer.UI.MainView"
+			 x:DataType="vm:MainVM">
+	<UserControl.Styles>
+		<Style Selector="TextBox">
+			<Setter Property="Padding" Value="8,6" />
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="Margin" Value="0" />
+		</Style>
+
+		<Style Selector="TextBlock.logCell">
+			<Setter Property="FontSize" Value="12" />
+			<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+			<Setter Property="MaxLines" Value="1" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+	</UserControl.Styles>
+
+	<UserControl.Resources>
+		<vm:IntToEnumConverter x:Key="IntToEnumConverter" />
+	</UserControl.Resources>
+
+	<Grid RowDefinitions="Auto,Auto,*,Auto"
+	      Margin="16"
+	      RowSpacing="12">
+
+		<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+			  ColumnSpacing="8">
+
+			<TextBlock Text="Port" VerticalAlignment="Center"/>
+			<TextBox Grid.Column="1" Width="120" Text="{Binding Port}" Watermark="17888"/>
+
+			<Button Grid.Column="2" Command="{Binding StartCommand}" Content="Start"/>
+			<Button Grid.Column="3" Command="{Binding StopCommand}" Content="Stop"/>
+
+			<CheckBox Grid.Column="4" IsChecked="{Binding AutoScroll}" Content="Auto-scroll" VerticalAlignment="Center"/>
+
+			<Button Grid.Column="5" Command="{Binding ClearCommand}" Content="Clear"/>
+		</Grid>
+
+		<TextBlock Grid.Row="1"
+				   Text="{Binding StatusText}"
+				   Opacity="0.85"
+				   TextWrapping="Wrap"/>
+
+		<Grid Grid.Row="2" Grid.IsSharedSizeScope="True" RowDefinitions="Auto,*" RowSpacing="6">
+
+			<!-- Header -->
+			<Border Padding="4" BorderThickness="0,0,0,1" Opacity="0.9">
+				<Grid x:Name="headerGrid" ColumnSpacing="12">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colTime" />
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colLevel" />
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colSource" />
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colSession" />
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colSeq" />
+
+						<ColumnDefinition Width="{Binding MessageColumnWidth, Mode=TwoWay}" SharedSizeGroup="colMessage" />
+
+						<ColumnDefinition Width="6" />
+
+						<ColumnDefinition Width="{Binding ExceptionColumnWidth, Mode=TwoWay}" SharedSizeGroup="colException" />
+
+						<ColumnDefinition Width="6" />
+
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Text="Time (UTC)" Opacity="0.75"/>
+					<TextBlock Grid.Column="1" Text="Level" Opacity="0.75"/>
+					<TextBlock Grid.Column="2" Text="Source" Opacity="0.75"/>
+					<TextBlock Grid.Column="3" Text="Session" Opacity="0.75"/>
+					<TextBlock Grid.Column="4" Text="Seq" Opacity="0.75" HorizontalAlignment="Right"/>
+					<TextBlock Grid.Column="5" Text="Message" Opacity="0.75"/>
+					<TextBlock Grid.Column="7" Text="Exception" Opacity="0.75"/>
+
+					<GridSplitter x:Name="messageExceptionSplitter"
+					              Grid.Column="6"
+					              ResizeDirection="Columns"
+					              HorizontalAlignment="Stretch"
+					              VerticalAlignment="Stretch"
+					              Cursor="SizeWestEast"
+					              Width="2"
+					              Background="Gray" />
+
+					<GridSplitter x:Name="exceptionFillerSplitter"
+					              Grid.Column="8"
+					              ResizeDirection="Columns"
+					              HorizontalAlignment="Stretch"
+					              VerticalAlignment="Stretch"
+					              Cursor="SizeWestEast" 
+					              Width="2"
+					              Background="Gray" />
+				</Grid>
+			</Border>
+
+			<ListBox x:Name="listBox" Grid.Row="1" ItemsSource="{Binding LogEntries}"
+			         SelectedItem="{Binding SelectedEntry}">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VirtualizingStackPanel />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Padding="4" Margin="0,0,0,4" CornerRadius="6">
+							<Grid ColumnSpacing="12">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colTime" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colLevel" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colSource" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colSession" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colSeq" />
+									<ColumnDefinition Width="{Binding ((vm:MainVM)DataContext).MessageColumnWidth, RelativeSource={RelativeSource AncestorType=UserControl}, FallbackValue=*}"
+									                  SharedSizeGroup="colMessage" />
+									<ColumnDefinition Width="6" />
+									
+									<ColumnDefinition Width="{Binding ((vm:MainVM)DataContext).ExceptionColumnWidth, RelativeSource={RelativeSource AncestorType=UserControl}, FallbackValue=*}"
+									                  SharedSizeGroup="colException" />
+									<ColumnDefinition Width="6" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Classes="logCell" Text="{Binding TimestampUtc}" Opacity="0.75"/>
+								<TextBlock Classes="logCell" Grid.Column="1" Text="{Binding Level, Converter={StaticResource IntToEnumConverter}, ConverterParameter={x:Type local:LogLevel}}" Opacity="0.9">
+									<TextBlock.Styles>
+										<Style Selector="TextBlock">
+											<Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+										</Style>
+
+										<!--<Style Selector="TextBlock[Text=Debug]">
+											<Setter Property="Foreground" Value="DodgerBlue" />
+										</Style>-->
+
+										<!--<Style Selector="TextBlock[Text=Info]">
+											<Setter Property="Foreground" Value="Green" />
+										</Style>-->
+
+										<Style Selector="TextBlock[Text=Error]">
+											<Setter Property="Foreground" Value="Red" />
+										</Style>
+
+										<Style Selector="TextBlock[Text=Fatal]">
+											<Setter Property="Foreground" Value="Red" />
+										</Style>
+
+										<Style Selector="TextBlock[Text=Warn]">
+											<Setter Property="Foreground" Value="Orange" />
+										</Style>
+									</TextBlock.Styles>
+								</TextBlock>
+								<TextBlock Classes="logCell" Grid.Column="2" Text="{Binding Source}" Opacity="0.75"/>
+								<TextBlock Classes="logCell" Grid.Column="3" Text="{Binding SessionId}" Opacity="0.6"/>
+								<TextBlock Classes="logCell" Grid.Column="4" Text="{Binding Sequence}" Opacity="0.6" HorizontalAlignment="Right"/>
+								<TextBlock Classes="logCell" Grid.Column="5" Text="{Binding Message}" TextTrimming="CharacterEllipsis" MaxLines="1" />
+								<TextBlock Classes="logCell" Grid.Column="7" Text="{Binding Exception}" Opacity="0.75" TextTrimming="CharacterEllipsis" MaxLines="1" />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+
+		</Grid>
+
+		<Border Grid.Row="3" Padding="10" CornerRadius="8" BorderThickness="1">
+			<Grid RowDefinitions="Auto,Auto,Auto,*" ColumnDefinitions="Auto,*" ColumnSpacing="12" RowSpacing="8">
+
+				<TextBlock Text="Selected" Opacity="0.8" />
+
+				<TextBlock Grid.Row="0" Grid.Column="1"
+				           Text="{Binding SelectedEntry.Source, FallbackValue=''}"
+				           Opacity="0.9"
+				           TextWrapping="NoWrap"
+				           TextTrimming="CharacterEllipsis"/>
+
+				<TextBlock Grid.Column="0" Grid.Row="1" Text="Message" Opacity="0.8" VerticalAlignment="Top"/>
+				<TextBox Grid.Row="1" Grid.Column="1"
+				         Text="{Binding SelectedEntry.Message, FallbackValue=''}"
+				         IsReadOnly="True"
+				         AcceptsReturn="True"
+				         TextWrapping="Wrap"
+				         MinHeight="80"
+				         />
+
+				<TextBlock Grid.Column="0" Grid.Row="2" Text="Exception" Opacity="0.8" VerticalAlignment="Top"/>
+				<TextBox Grid.Row="2" Grid.Column="1"
+				         Text="{Binding SelectedEntry.Exception, FallbackValue=''}"
+				         IsReadOnly="True"
+				         AcceptsReturn="True"
+				         TextWrapping="Wrap"
+				         MinHeight="80" />
+
+			</Grid>
+		</Border>
+
+	</Grid>
+</UserControl>

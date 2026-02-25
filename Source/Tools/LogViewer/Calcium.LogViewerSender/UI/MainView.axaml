@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="clr-namespace:Calcium.LogViewerSender.UI"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Calcium.LogViewerSender.UI.MainView"
+			 x:DataType="ui:MainVM">
+	
+	<UserControl.Styles>
+	<Style Selector="TextBox, ComboBox">
+		<Setter Property="MinWidth" Value="220" />
+	</Style>
+
+	<Style Selector="TextBox">
+		<Setter Property="Padding" Value="8,6" />
+	</Style>
+
+	<Style Selector="TextBlock.label">
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="0,2,8,2" />
+	</Style>
+</UserControl.Styles>
+
+<Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
+	  Margin="16"
+	  ColumnDefinitions="Auto,*,Auto,*"
+	  RowSpacing="12"
+	  ColumnSpacing="12">
+
+	<TextBlock Classes="label" Text="Host"/>
+	<TextBox Grid.Row="0" Grid.Column="1"
+			 Text="{Binding Host}"
+			 Watermark="127.0.0.1" />
+
+	<TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="Port"/>
+	<TextBox Grid.Row="0" Grid.Column="3"
+			 Text="{Binding Port}"
+			 Watermark="17888"/>
+
+	<TextBlock Grid.Row="1" Grid.Column="0" Classes="label" Text="Level"/>
+	<ComboBox Grid.Row="1" Grid.Column="1"
+			  ItemsSource="{Binding LogLevels}"
+			  SelectedItem="{Binding LogLevel}"/>
+
+	<TextBlock Grid.Row="2" Grid.Column="0" Classes="label" Text="Message"/>
+	<TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+			 Text="{Binding MessageText}"
+			 Watermark="Type a message to send to the viewer..."/>
+
+	<TextBlock Grid.Row="3" Grid.Column="0" Classes="label" Text="Exception"/>
+	<TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"
+			 Text="{Binding ExceptionString}"
+			 AcceptsReturn="True"
+			 TextWrapping="Wrap"
+			 MinHeight="120"
+			 Watermark="Optional. If set, a new Exception(ExceptionString) will be sent."/>
+
+	<Button Grid.Row="4" Grid.Column="3"
+			Command="{Binding SendMessageCommand}"
+			HorizontalAlignment="Right"
+			Content="Send"/>
+
+	<TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
+			 Text="{Binding FeedbackText}"
+			 IsReadOnly="True"
+			 TextWrapping="Wrap"
+			 AcceptsReturn="True"
+			 MinHeight="90"
+			 Watermark="Feedback will appear here..."/>
+</Grid>
+
+</UserControl>

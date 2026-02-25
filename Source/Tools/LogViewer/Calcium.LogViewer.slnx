@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/CoreProjects/">
+    <Project Path="../../Framework/Calcium.Extras/Calcium.Extras.csproj" />
+    <Project Path="../../Framework/Calcium.Logging/Calcium.Logging.csproj" />
+    <Project Path="../../Framework/Calcium/Calcium.csproj" />
+  </Folder>
+  <Folder Name="/ExampleSender/">
+    <Project Path="Calcium.LogViewerSender.Desktop/Calcium.LogViewerSender.Desktop.csproj" />
+    <Project Path="Calcium.LogViewerSender/Calcium.LogViewerSender.csproj" />
+  </Folder>
+  <Folder Name="/Viewer/">
+    <Project Path="Calcium.LogViewer.Desktop/Calcium.LogViewer.Desktop.csproj" />
+    <Project Path="Calcium.LogViewer/Calcium.LogViewer.csproj" />
+  </Folder>
+</Solution>
