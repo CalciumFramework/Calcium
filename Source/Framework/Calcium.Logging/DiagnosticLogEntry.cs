@@ -21,46 +21,66 @@ namespace Calcium.Logging
 		[JsonPropertyName("v")]
 		public int Version { get; set; } = 1;
 
-		/* ISO-8601 UTC timestamp */
+		/// <summary>
+		/// ISO-8601 UTC timestamp
+		/// </summary>
 		[JsonPropertyName("ts")]
 		public DateTime TimestampUtc { get; set; }
 
 		[JsonPropertyName("lvl")]
 		public int Level { get; set; }
 
-		/* Component / class / subsystem */
+		/// <summary>
+		/// Component / class / subsystem
+		/// </summary>
 		[JsonPropertyName("src")]
 		public string? Source { get; set; }
 
-		/* Human-readable message */
+		/// <summary>
+		/// Human-readable message
+		/// </summary>
 		[JsonPropertyName("msg")]
 		public required string Message { get; set; }
 
-		/* Optional exception summary */
+		/// <summary>
+		/// Optional exception summary
+		/// </summary>
 		[JsonPropertyName("ex")]
 		public string? Exception { get; set; }
 
-		/* Arbitrary structured data */
+		/// <summary>
+		/// Arbitrary structured data
+		/// </summary>
 		[JsonPropertyName("props")]
 		public IDictionary<string, object>? Properties { get; set; }
 
-		/* Process ID */
+		/// <summary>
+		/// Process ID
+		/// </summary>
 		[JsonPropertyName("pid")]
 		public int ProcessId { get; set; }
 
-		/* Managed thread ID */
+		/// <summary>
+		/// Managed thread ID
+		/// </summary>
 		[JsonPropertyName("tid")]
 		public int ThreadId { get; set; }
 
-		/* Application name */
+		/// <summary>
+		/// Application name
+		/// </summary>
 		[JsonPropertyName("app")]
 		public required string Application { get; set; }
 
-		/* Machine name */
+		/// <summary>
+		/// Machine name
+		/// </summary>
 		[JsonPropertyName("host")]
 		public required string Host { get; set; }
 
-		/* Optional correlation ID */
+		/// <summary>
+		/// Optional correlation ID
+		/// </summary>
 		[JsonPropertyName("cid")]
 		public string? CorrelationId { get; set; }
 

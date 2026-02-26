@@ -60,6 +60,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" SharedSizeGroup="colTime" />
 						<ColumnDefinition Width="Auto" SharedSizeGroup="colLevel" />
+						<ColumnDefinition Width="Auto" SharedSizeGroup="colApp" />
 						<ColumnDefinition Width="Auto" SharedSizeGroup="colSource" />
 						<ColumnDefinition Width="Auto" SharedSizeGroup="colSession" />
 						<ColumnDefinition Width="Auto" SharedSizeGroup="colSeq" />
@@ -77,14 +78,15 @@
 
 					<TextBlock Text="Time (UTC)" Opacity="0.75"/>
 					<TextBlock Grid.Column="1" Text="Level" Opacity="0.75"/>
-					<TextBlock Grid.Column="2" Text="Source" Opacity="0.75"/>
-					<TextBlock Grid.Column="3" Text="Session" Opacity="0.75"/>
-					<TextBlock Grid.Column="4" Text="Seq" Opacity="0.75" HorizontalAlignment="Right"/>
-					<TextBlock Grid.Column="5" Text="Message" Opacity="0.75"/>
-					<TextBlock Grid.Column="7" Text="Exception" Opacity="0.75"/>
+					<TextBlock Grid.Column="2" Text="App" Opacity="0.75"/>
+					<TextBlock Grid.Column="3" Text="Source" Opacity="0.75"/>
+					<TextBlock Grid.Column="4" Text="Session" Opacity="0.75"/>
+					<TextBlock Grid.Column="5" Text="Seq" Opacity="0.75" HorizontalAlignment="Right"/>
+					<TextBlock Grid.Column="6" Text="Message" Opacity="0.75"/>
+					<TextBlock Grid.Column="8" Text="Exception" Opacity="0.75"/>
 
 					<GridSplitter x:Name="messageExceptionSplitter"
-					              Grid.Column="6"
+					              Grid.Column="7"
 					              ResizeDirection="Columns"
 					              HorizontalAlignment="Stretch"
 					              VerticalAlignment="Stretch"
@@ -93,7 +95,7 @@
 					              Background="Gray" />
 
 					<GridSplitter x:Name="exceptionFillerSplitter"
-					              Grid.Column="8"
+					              Grid.Column="9"
 					              ResizeDirection="Columns"
 					              HorizontalAlignment="Stretch"
 					              VerticalAlignment="Stretch"
@@ -118,6 +120,7 @@
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" SharedSizeGroup="colTime" />
 									<ColumnDefinition Width="Auto" SharedSizeGroup="colLevel" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="colApp" />
 									<ColumnDefinition Width="Auto" SharedSizeGroup="colSource" />
 									<ColumnDefinition Width="Auto" SharedSizeGroup="colSession" />
 									<ColumnDefinition Width="Auto" SharedSizeGroup="colSeq" />
@@ -158,11 +161,12 @@
 										</Style>
 									</TextBlock.Styles>
 								</TextBlock>
-								<TextBlock Classes="logCell" Grid.Column="2" Text="{Binding Source}" Opacity="0.75"/>
-								<TextBlock Classes="logCell" Grid.Column="3" Text="{Binding SessionId}" Opacity="0.6"/>
-								<TextBlock Classes="logCell" Grid.Column="4" Text="{Binding Sequence}" Opacity="0.6" HorizontalAlignment="Right"/>
-								<TextBlock Classes="logCell" Grid.Column="5" Text="{Binding Message}" TextTrimming="CharacterEllipsis" MaxLines="1" />
-								<TextBlock Classes="logCell" Grid.Column="7" Text="{Binding Exception}" Opacity="0.75" TextTrimming="CharacterEllipsis" MaxLines="1" />
+								<TextBlock Classes="logCell" Grid.Column="2" Text="{Binding Application}" Opacity="0.75"/>
+								<TextBlock Classes="logCell" Grid.Column="3" Text="{Binding Source}" Opacity="0.75"/>
+								<TextBlock Classes="logCell" Grid.Column="4" Text="{Binding SessionId}" Opacity="0.6"/>
+								<TextBlock Classes="logCell" Grid.Column="5" Text="{Binding Sequence}" Opacity="0.6" HorizontalAlignment="Right"/>
+								<TextBlock Classes="logCell" Grid.Column="6" Text="{Binding Message}" TextTrimming="CharacterEllipsis" MaxLines="1" />
+								<TextBlock Classes="logCell" Grid.Column="8" Text="{Binding Exception}" Opacity="0.75" TextTrimming="CharacterEllipsis" MaxLines="1" />
 							</Grid>
 						</Border>
 					</DataTemplate>

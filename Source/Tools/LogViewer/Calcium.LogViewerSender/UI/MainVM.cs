@@ -175,7 +175,7 @@ namespace Calcium.LogViewerSender.UI
 				return udpLog;
 			}
 
-			udpLog = new UdpLog(Host, Port)
+			udpLog = new UdpLog(Port)
 			{
 				/* Sender tool should be chatty. Viewer can filter. */
 				MinimumLogLevel = LogLevel.All

@@ -23,6 +23,8 @@ namespace Calcium.Logging.Loggers
 {
 	public sealed class UdpLog : LogBase, IDisposable
 	{
+		const int portDefault = 17888;
+
 		static readonly JsonSerializerOptions serializerOptions = new()
 		{
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -46,13 +48,8 @@ namespace Calcium.Logging.Loggers
 
 		public int DroppedMessageCount => Volatile.Read(ref droppedMessageCount);
 
-		public UdpLog(string host, int port, string? sessionId = null)
+		public UdpLog(int port = portDefault, string? sessionId = null, string? host = null)
 		{
-			if (string.IsNullOrWhiteSpace(host))
-			{
-				throw new ArgumentException("Host must be provided.", nameof(host));
-			}
-
 			if (port <= 0 || port > 65535)
 			{
 				throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 1 and 65535.");
