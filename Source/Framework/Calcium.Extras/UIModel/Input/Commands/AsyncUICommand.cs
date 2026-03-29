@@ -33,7 +33,7 @@ namespace Calcium.UIModel.Input
 	/// <typeparam name="TParameter">The parameter type,
 	/// which may be used when executing the command,
 	/// evaluating if the command can execute,
-	/// and evaluting the various properties.</typeparam>
+	/// and evaluating the various properties.</typeparam>
 	public class AsyncUICommand<TParameter> : AsyncActionCommand<TParameter>,
 		IUICommand
 	{
