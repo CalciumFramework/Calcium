@@ -46,7 +46,7 @@ namespace Calcium.UIModel
 	/// &lt;TextBlock Text="{Binding Path=FullName.Value}" /&gt;
 	/// </example>
 	/// <typeparam name="T">The type of result returned from executing the specified expression.</typeparam>
-	public class ComputedObservable<T> : INotifyPropertyChanged, IDisposable
+	public class ComputedObservable<T> : IObservableValue<T>, IDisposable
 	{
 		readonly Dictionary<PropertyChangedEventHandler, WeakReference> handlers
 					= new Dictionary<PropertyChangedEventHandler, WeakReference>();

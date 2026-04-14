@@ -44,7 +44,7 @@ namespace Calcium.UIModel
 	/// </example>
 	/// <typeparam name="T">
 	/// The type of field that is managed by this object.</typeparam>
-	public sealed class Observable<T> : INotifyPropertyChanged
+	public sealed class Observable<T> : INotifyPropertyChanged, IObservableValue<T>
 	{
 		T valueField;
 
