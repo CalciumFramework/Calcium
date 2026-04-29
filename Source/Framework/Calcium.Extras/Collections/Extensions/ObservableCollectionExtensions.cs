@@ -33,5 +33,11 @@ namespace Calcium.Collections
 
 			return itemsToRemove.Count;
 		}
+
+		public static ReadOnlyObservableCollection<T> AsReadOnly<T>(
+			this ObservableCollection<T> collection)
+		{
+			return new ReadOnlyObservableCollection<T>(collection);
+		}
 	}
 }
