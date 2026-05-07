@@ -12,6 +12,8 @@
 */
 #endregion
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 
@@ -19,16 +21,61 @@ namespace Calcium.ComponentModel
 {
 	public static class Disposable
 	{
+		public delegate void DisposeExceptionHandler(IDisposable disposable,
+													 int index,
+													 Exception exception);
+
 		public static IDisposable Empty { get; } = NoOpDisposable.Instance;
 
 		public static IDisposable Create(Action disposeAction)
 			=> new DisposableAction(disposeAction);
 
+		/// <summary>
+		/// Creates an <see cref="IDisposable"/> that disposes
+		/// the supplied items in reverse order.
+		/// </summary>
+		/// <remarks>
+		/// The last item supplied is disposed first.
+		/// If an item throws during disposal, the exception is allowed
+		/// to propagate and any remaining undisposed items are not disposed.
+		/// </remarks>
 		public static IDisposable Combine(params IDisposable[] items)
 			=> new CompositeDisposable(items);
 
-		public static IDisposable Combine(IList<IDisposable> items)
-			=> new CompositeDisposable(items);
+		/// <summary>
+		/// Creates an <see cref="IDisposable"/> that disposes
+		/// the supplied items in reverse order.
+		/// </summary>
+		/// <remarks>
+		/// The last item supplied is disposed first.
+		/// If an item throws during disposal, the exception is passed
+		/// to <paramref name="onDisposeException"/>,
+		/// and disposal continues with the remaining items.
+		/// Exceptions thrown by <paramref name="onDisposeException"/> are ignored.
+		/// </remarks>
+		public static IDisposable Combine(
+			DisposeExceptionHandler onDisposeException,
+			params IDisposable[] items)
+			=> new CompositeDisposable(items, onDisposeException);
+
+		/// <summary>
+		/// Creates an <see cref="IDisposable"/> that disposes
+		/// the supplied items in reverse order.
+		/// </summary>
+		/// <remarks>
+		/// The last item in the list is disposed first.
+		/// If <paramref name="onDisposeException"/> is supplied,
+		/// disposal exceptions are passed to it and disposal continues
+		/// with the remaining items. Exceptions
+		/// thrown by <paramref name="onDisposeException"/> are ignored.
+		/// If <paramref name="onDisposeException"/> is <see langword="null"/>,
+		/// disposal exceptions are allowed to propagate
+		/// and any remaining undisposed items are not disposed.
+		/// </remarks>
+		public static IDisposable Combine(
+			IList<IDisposable> items,
+			DisposeExceptionHandler? onDisposeException = null)
+			=> new CompositeDisposable(items, onDisposeException);
 	}
 
 	sealed class NoOpDisposable : IDisposable
