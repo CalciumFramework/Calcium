@@ -24,6 +24,12 @@ namespace Calcium
 {
 	/// <summary>
 	/// Utility class for validating method arguments.
+	/// <remarks>
+	/// For C# 10.0 and later, consider using <see cref="RequireArg"/>
+	/// instead of this class for argument validation.
+	/// <see cref="RequireArg"/> uses the <see cref="CallerArgumentExpressionAttribute"/>
+	/// to capture the argument expression as a string.
+	/// </remarks>
 	/// </summary>
 	public static class AssertArg
 	{
