@@ -37,9 +37,9 @@ namespace Calcium
 			= "\u001fCallerArgumentExpression unavailable\u001f";
 
 		static void RequireParameterName(string? parameterName,
-										   string? memberName,
-										   string? filePath,
-										   int lineNumber)
+										 string? memberName,
+										 string? filePath,
+										 int     lineNumber)
 		{
 			if (parameterName == null)
 			{
@@ -60,7 +60,7 @@ namespace Calcium
 
 		static string FormatCallerParts(string? memberName,
 										string? filePath,
-										int lineNumber)
+										int     lineNumber)
 		{
 			return $"Method '{memberName}', File '{filePath}', Line '{lineNumber}'";
 		}
@@ -229,35 +229,7 @@ namespace Calcium
 			return value;
 		}
 
-		/// <summary>
-		/// Throws an exception if the specified value
-		/// is <code>null</code> or empty (a zero length string).
-		/// </summary>
-		/// <param name="value">The value to test.</param>
-		/// <param name="parameterName">Name of the parameter.</param>
-		/// <param name="memberName">
-		/// Compiler populated parameter
-		/// that provides the caller member name.
-		/// </param>
-		/// <param name="filePath">
-		/// Compiler populated parameter
-		/// that provides the file path to the caller.
-		/// </param>
-		/// <param name="lineNumber">
-		/// Compiler populated parameter that provides
-		/// the line number of where the method was called.
-		/// </param>
-		/// <returns>The specified value.</returns>
-		/// <exception cref="ArgumentNullException">
-		/// Occurs if the specified value
-		/// is <code>null</code> or empty (a zero length string).
-		/// </exception>
-		/// <example>
-		/// public DoSomething(string message)
-		/// {
-		///     this.message = AssertArg.IsNotNullOrEmpty(message, nameof(message));
-		/// }
-		/// </example>
+		/// <summary>/// Throws an exception if the specified value/// is <code>null</code> or empty (a zero length string)./// </summary>/// <param name="value">The value to test.</param>/// <param name="parameterName">Name of the parameter.</param>/// <param name="memberName">/// Compiler populated parameter/// that provides the caller member name./// </param>/// <param name="filePath">/// Compiler populated parameter/// that provides the file path to the caller./// </param>/// <param name="lineNumber">/// Compiler populated parameter that provides/// the line number of where the method was called./// </param>/// <returns>The specified value.</returns>/// <exception cref="ArgumentNullException">/// Occurs if the specified value/// is <code>null</code> or empty (a zero length string)./// </exception>/// <example>/// public DoSomething(string message)/// {/// this.message = AssertArg.IsNotNullOrEmpty(message, nameof(message));/// }/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static string IsNotNullOrEmpty(
@@ -1255,7 +1227,7 @@ namespace Calcium
 			if (value == null)
 			{
 				throw new ArgumentNullException(parameterName,
-					$"Argument must not be null. "
+					"Argument must not be null. "
 					+ FormatCallerParts(memberName, filePath, lineNumber));
 			}
 
