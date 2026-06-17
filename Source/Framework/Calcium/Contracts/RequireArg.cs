@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -100,7 +101,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static T IsNotNull<T>(
-			T? value,
+			[NotNull] T? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -153,7 +154,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static T IsNotNull<T>(
-			T? value,
+			[NotNull] T? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -207,8 +208,9 @@ namespace Calcium
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
+		[return: NotNull]
 		public static T IsNotDefault<T>(
-			T value,
+			[NotNull] T value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -218,10 +220,17 @@ namespace Calcium
 		{
 			RequireParameterName(parameterName, memberName, filePath, lineNumber);
 
+			if (value is null)
+			{
+				throw new ArgumentNullException(parameterName,
+					"Argument must not be null. "
+					+ FormatCallerParts(memberName, filePath, lineNumber));
+			}
+
 			if (EqualityComparer<T>.Default.Equals(value, default!))
 			{
 				throw new ArgumentException(
-					$"{parameterName} of type {typeof(T)} is null or default. "
+					$"{parameterName} of type {typeof(T)} must not be the default value. "
 					+ FormatCallerParts(memberName, filePath, lineNumber),
 					parameterName);
 			}
@@ -229,11 +238,31 @@ namespace Calcium
 			return value;
 		}
 
-		/// <summary>/// Throws an exception if the specified value/// is <code>null</code> or empty (a zero length string)./// </summary>/// <param name="value">The value to test.</param>/// <param name="parameterName">Name of the parameter.</param>/// <param name="memberName">/// Compiler populated parameter/// that provides the caller member name./// </param>/// <param name="filePath">/// Compiler populated parameter/// that provides the file path to the caller./// </param>/// <param name="lineNumber">/// Compiler populated parameter that provides/// the line number of where the method was called./// </param>/// <returns>The specified value.</returns>/// <exception cref="ArgumentNullException">/// Occurs if the specified value/// is <code>null</code> or empty (a zero length string)./// </exception>/// <example>/// public DoSomething(string message)/// {/// this.message = AssertArg.IsNotNullOrEmpty(message, nameof(message));/// }/// </example>
+		/// <summary>Throws an exception if the specified value
+		/// is <code>null</code> or empty (a zero length string)
+		/// </summary>
+		/// <param name="value">The value to test.</param>
+		/// <param name="parameterName">Name of the parameter.</param>
+		/// <param name="memberName">Compiler populated parameter
+		/// that provides the caller member name.</param>
+		/// <param name="filePath">Compiler populated parameter
+		/// that provides the file path to the caller.</param>
+		/// <param name="lineNumber">Compiler populated parameter that provides
+		/// the line number of where the method was called.</param>
+		/// <returns>The specified value.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// Occurs if the specified value is <code>null</code>
+		/// or empty (a zero length string)</exception>
+		/// <example>
+		/// public DoSomething(string message)
+		/// {
+		///   this.message = AssertArg.IsNotNullOrEmpty(message, nameof(message));
+		/// }
+		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static string IsNotNullOrEmpty(
-			string? value,
+			[NotNull] string? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -287,7 +316,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static string IsNotNullOrWhiteSpace(
-			string? value,
+			[NotNull] string? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -389,7 +418,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static Guid IsNotNullOrEmpty(
-			Guid? value,
+			[NotNull] Guid? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -561,7 +590,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static int IsGreaterThanZero(
-			int? value,
+			[NotNull] int? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -1214,7 +1243,7 @@ namespace Calcium
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
 		public static T IsNotNullAndOfType<T>(
-			object? value,
+			[NotNull] object? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -1273,8 +1302,9 @@ namespace Calcium
 		/// </exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
+		[return: NotNull]
 		public static T IsOfType<T>(
-			object value,
+			[NotNull] object? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -1284,25 +1314,27 @@ namespace Calcium
 		{
 			RequireParameterName(parameterName, memberName, filePath, lineNumber);
 
-			T result;
-			try
+			if (value == null)
 			{
-				result = (T)value;
-			}
-			catch (InvalidCastException)
-			{
-				throw new ArgumentException(
-					$"Argument must be of type {typeof(T)}, but was {value.GetType()}. "
-					+ FormatCallerParts(memberName, filePath, lineNumber),
-					parameterName);
+				throw new ArgumentNullException(parameterName,
+					"Argument must not be null. "
+					+ FormatCallerParts(memberName, filePath, lineNumber));
 			}
 
-			return result;
+			if (value is T result)
+			{
+				return result;
+			}
+
+			throw new ArgumentException(
+				$"Argument must be of type {typeof(T)}, but was {value.GetType()}. "
+				+ FormatCallerParts(memberName, filePath, lineNumber),
+				parameterName);
 		}
 
 		public static void AreNotNull(
-			object arg1, string arg1Name,
-			object arg2, string arg2Name,
+			object? arg1, string arg1Name,
+			object? arg2, string arg2Name,
 			object? arg3 = null, string? arg3Name = null,
 			object? arg4 = null, string? arg4Name = null,
 			object? arg5 = null, string? arg5Name = null,
@@ -1345,7 +1377,7 @@ namespace Calcium
 		}
 
 		public static ICollection<TItem> IsNotNullOrEmpty<TItem>(
-			ICollection<TItem> value, 
+			[NotNull] ICollection<TItem>? value, 
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -1361,8 +1393,9 @@ namespace Calcium
 				memberName, filePath, lineNumber);
 		}
 
+		[return: NotNull]
 		public static TCollection IsNotNullOrEmpty<TCollection, TItem>(
-			TCollection? value,
+			[NotNull] TCollection? value,
 			[CallerArgumentExpression(nameof(value))]
 			string? parameterName = missingExpression,
 
@@ -1377,7 +1410,7 @@ namespace Calcium
 			IsNotNull(value, parameterName,
 					  memberName, filePath, lineNumber);
 
-			if (value!.Count < 1)
+			if (value.Count < 1)
 			{
 				throw new ArgumentException(
 					$"{parameterName} cannot be empty.",
