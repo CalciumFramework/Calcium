@@ -37,7 +37,7 @@ namespace Calcium
 		const string missingExpression
 			= "\u001fCallerArgumentExpression unavailable\u001f";
 
-		static void RequireParameterName(string? parameterName,
+		static void RequireParameterName([NotNull] string? parameterName,
 										 string? memberName,
 										 string? filePath,
 										 int     lineNumber)
@@ -100,6 +100,7 @@ namespace Calcium
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[DebuggerStepThrough]
+		[return: NotNull]
 		public static T IsNotNull<T>(
 			[NotNull] T? value,
 			[CallerArgumentExpression(nameof(value))]
