@@ -21,14 +21,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Calcium
 {
 	/// <summary>
 	/// Utility class for validating method arguments.
 	/// </summary>
-	public static class RequireArg
+	public static partial class RequireArg
 	{
 		/// <summary>
 		/// This value is used to detect when the C# 10+
@@ -1332,51 +1331,7 @@ namespace Calcium
 				+ FormatCallerParts(memberName, filePath, lineNumber),
 				parameterName);
 		}
-
-		public static void AreNotNull(
-			object? arg1, string arg1Name,
-			object? arg2, string arg2Name,
-			object? arg3 = null, string? arg3Name = null,
-			object? arg4 = null, string? arg4Name = null,
-			object? arg5 = null, string? arg5Name = null,
-			object? arg6 = null, string? arg6Name = null,
-			object? arg7 = null, string? arg7Name = null)
-		{
-			StringBuilder? nulls = null;
-
-			void AddIfNull(object? obj, string? name)
-			{
-				if (name != null && obj == null)
-				{
-					if (nulls == null)
-					{
-						nulls = new StringBuilder();
-					}
-					else
-					{
-						nulls.Append(", ");
-					}
-
-					nulls.Append(name);
-				}
-			}
-
-			AddIfNull(arg1, arg1Name);
-			AddIfNull(arg2, arg2Name);
-			AddIfNull(arg3, arg3Name);
-			AddIfNull(arg4, arg4Name);
-			AddIfNull(arg5, arg5Name);
-			AddIfNull(arg6, arg6Name);
-			AddIfNull(arg7, arg7Name);
-
-			if (nulls != null)
-			{
-				throw new ArgumentNullException(
-					nulls.ToString(),
-					"The arguments cannot be null");
-			}
-		}
-
+		
 		public static ICollection<TItem> IsNotNullOrEmpty<TItem>(
 			[NotNull] ICollection<TItem>? value, 
 			[CallerArgumentExpression(nameof(value))]
