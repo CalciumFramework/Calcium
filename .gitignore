@@ -287,3 +287,4 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /Source/Framework/AzurePipelines - Copy.yml
+/Source/Framework/.github/copilot-instructions.md
