@@ -51,8 +51,7 @@ namespace Calcium.InversionOfControl.Containers
 		[Fact]
 		public void ShouldNotResolveNonDefaultType()
 		{
-			// This replaces the ExpectedException attribute
-			Assert.Throws<ResolutionException>(() => sharedTests.ShouldNotResolveNonDefaultType(CreateContainer()));
+			sharedTests.ShouldNotResolveNonDefaultType(CreateContainer());
 		}
 	}
 }

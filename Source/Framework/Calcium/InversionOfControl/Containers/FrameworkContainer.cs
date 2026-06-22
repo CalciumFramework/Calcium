@@ -3,7 +3,7 @@
 /*
 <File>
 	<License>
-		Copyright © 2009 - 2017, Daniel Vaughan. All rights reserved.
+		Copyright © 2009 - 2026, Daniel Vaughan. All rights reserved.
 		This file is part of Calcium (http://CalciumFramework.com), 
 		which is released under the MIT License.
 		See file /Documentation/License.txt for details.
@@ -22,7 +22,6 @@ using System.Reflection;
 using System.Threading;
 using Calcium.Logging;
 using Calcium.Platform;
-using Calcium.Reflection;
 
 namespace Calcium.InversionOfControl
 {
@@ -58,6 +57,8 @@ namespace Calcium.InversionOfControl
 		readonly ReaderWriterLockSlim constructorDictionaryLockSlim
 			= new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
+		readonly object cycleDictionarySyncRoot = new object();
+
 		bool cacheEnabled = true;
 
 		public bool CacheEnabled
@@ -65,23 +66,46 @@ namespace Calcium.InversionOfControl
 			get => cacheEnabled;
 			set
 			{
-				if (cacheEnabled != value)
+				if (cacheEnabled == value)
 				{
-					cacheEnabled = value;
-					if (!cacheEnabled)
-					{
-						ClearCache();
-					}
+					return;
+				}
+
+				cacheEnabled = value;
+
+				if (!cacheEnabled)
+				{
+					ClearCache();
 				}
 			}
 		}
 
 		void ClearCache()
 		{
-			constructorDictionary.Clear();
-			injectablePropertyDictionary.Clear();
-			propertyActionDictionary.Clear();
-			propertyDictionary.Clear();
+			constructorDictionaryLockSlim.EnterWriteLock();
+
+			try
+			{
+				constructorDictionary.Clear();
+			}
+			finally
+			{
+				constructorDictionaryLockSlim.ExitWriteLock();
+			}
+
+			lockSlim.EnterWriteLock();
+
+			try
+			{
+				injectablePropertyDictionary.Clear();
+				propertyActionDictionary.Clear();
+				propertyDictionary.Clear();
+				typeCache.Clear();
+			}
+			finally
+			{
+				lockSlim.ExitWriteLock();
+			}
 		}
 
 		/// <summary>
@@ -97,9 +121,9 @@ namespace Calcium.InversionOfControl
 		/// Prevents multiple threads from creating more 
 		/// than one singleton instance.
 		/// Decreases performance if <c>true</c>.
-		/// Default value is <c>false</c>.
+		/// Default value is <c>true</c>.
 		/// </summary>
-		public bool ThreadSafe { get; set; }
+		public bool ThreadSafe { get; set; } = true;
 
 		/// <summary>
 		/// If <c>true</c> the container resolves values for properties 
@@ -117,30 +141,44 @@ namespace Calcium.InversionOfControl
 
 		sealed class Resolver
 		{
+			readonly object syncRoot = new object();
+
 			public Func<object> CreateInstanceFunc { get; set; }
+
 			public object Instance;
+
 			public bool Singleton;
 
 			public object GetObject()
 			{
-				if (Singleton)
+				if (!Singleton)
+				{
+					return CreateInstanceFunc();
+				}
+
+				if (Instance != null)
+				{
+					return Instance;
+				}
+
+				lock (syncRoot)
 				{
 					if (Instance != null)
 					{
 						return Instance;
 					}
 
-					Instance = CreateInstanceFunc();
+					object instance = CreateInstanceFunc();
 
-					if (Instance != null)
+					Instance = instance;
+
+					if (instance != null)
 					{
 						CreateInstanceFunc = null;
 					}
 
-					return Instance;
+					return instance;
 				}
-
-				return CreateInstanceFunc();
 			}
 		}
 
@@ -252,50 +290,59 @@ namespace Calcium.InversionOfControl
 
 				Resolver resolver = new Resolver { Singleton = singleton };
 
-				Func<object> getObjectFunc = () =>
+				object GetObjectLocal()
 				{
-					if (cycleDictionary.TryGetValue(type, out List<string> keys))
-					{
-						if (keys.Contains(key))
-						{
-							/* TODO: Rather than throwing an exception, 
-							 * we could Post the property set operation to the UI thread. */
-							throw new ResolutionException(
-								$"Cycle detected for {type} with key \"{key}\"");
-						}
+					List<string> keys;
 
-						keys.Add(key);
-					}
-					else
+					lock (cycleDictionarySyncRoot)
 					{
-						keys = new List<string> { key };
-						cycleDictionary.Add(type, keys);
+						if (cycleDictionary.TryGetValue(type, out keys))
+						{
+							if (keys.Contains(key))
+							{
+								/* TODO: Rather than throwing an exception,
+								 * we could Post the property set operation to the UI thread. */
+								throw new ResolutionException($"Cycle detected for {type} with key \"{key}\"");
+							}
+
+							keys.Add(key);
+						}
+						else
+						{
+							keys = new List<string> { key };
+							cycleDictionary.Add(type, keys);
+						}
 					}
 
 					T result;
+
 					try
 					{
 						result = getInstanceFunc();
 					}
 					finally
 					{
-						keys.Remove(key);
-						if (!keys.Any())
+						lock (cycleDictionarySyncRoot)
 						{
-							cycleDictionary.Remove(type);
+							keys.Remove(key);
+
+							if (!keys.Any())
+							{
+								cycleDictionary.Remove(type);
+							}
 						}
 					}
 
 					if (resolver.Singleton)
 					{
 						resolver.CreateInstanceFunc = null;
-						resolver.Instance = result;
+						resolver.Instance           = result;
 					}
 
 					return result;
-				};
+				}
 
-				resolver.CreateInstanceFunc = getObjectFunc;
+				resolver.CreateInstanceFunc = GetObjectLocal;
 				
 				resolverDictionary[key] = resolver;
 				keyDictionary[key] = type;
@@ -512,31 +559,10 @@ namespace Calcium.InversionOfControl
 		{
 			AssertArg.IsNotNull(key, nameof(key));
 
-			List<object> result = new List<object>();
-			
-			foreach (KeyValuePair<Type, ResolverDictionary> pair in typeDictionary)
-			{
-				var dictionary = pair.Value;
-				if (dictionary.TryGetValue(key, out Resolver resolver))
-				{
-					var item = resolver.Instance ?? resolver.CreateInstanceFunc?.Invoke();
-					result.Add(item);
-				}
-			}
-
-			return result;
-		}
-
-		public IEnumerable<object> ResolveAll([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType)
-		{
-			AssertArg.IsNotNull(fromType, nameof(fromType));
-
-			var list = new List<object>();
-
-			ResolverDictionary resolverDictionary;
-			bool retrievedValue;
+			List<Resolver> resolvers = new List<Resolver>();
 
 			bool useLock = ThreadSafe;
+
 			if (useLock)
 			{
 				lockSlim.EnterReadLock();
@@ -544,7 +570,15 @@ namespace Calcium.InversionOfControl
 
 			try
 			{
-				retrievedValue = typeDictionary.TryGetValue(fromType, out resolverDictionary);
+				foreach (KeyValuePair<Type, ResolverDictionary> pair in typeDictionary)
+				{
+					var dictionary = pair.Value;
+
+					if (dictionary.TryGetValue(key, out Resolver resolver))
+					{
+						resolvers.Add(resolver);
+					}
+				}
 			}
 			finally
 			{
@@ -553,6 +587,55 @@ namespace Calcium.InversionOfControl
 					lockSlim.ExitReadLock();
 				}
 			}
+
+			List<object> result = new List<object>();
+
+			foreach (Resolver resolver in resolvers)
+			{
+				object item = resolver.GetObject();
+
+				result.Add(item);
+			}
+
+			return result;
+		}
+
+		public IEnumerable<object> ResolveAll(
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type fromType)
+		{
+			AssertArg.IsNotNull(fromType, nameof(fromType));
+
+			List<Resolver> resolvers = new List<Resolver>();
+			bool retrievedValue;
+			ResolverDictionary resolverDictionary;
+
+			bool useLock = ThreadSafe;
+
+			if (useLock)
+			{
+				lockSlim.EnterReadLock();
+			}
+
+			try
+			{
+				retrievedValue = typeDictionary.TryGetValue(
+					fromType,
+					out resolverDictionary);
+
+				if (retrievedValue && resolverDictionary != null)
+				{
+					resolvers.AddRange(resolverDictionary.Values);
+				}
+			}
+			finally
+			{
+				if (useLock)
+				{
+					lockSlim.ExitReadLock();
+				}
+			}
+
+			List<object> list = new List<object>();
 
 			if (!retrievedValue)
 			{
@@ -562,33 +645,37 @@ namespace Calcium.InversionOfControl
 			if (resolverDictionary == null)
 			{
 				object builtObject = BuildUp(fromType, null);
+
 				if (builtObject != null)
 				{
 					list.Add(builtObject);
 				}
+
+				return list;
 			}
-			else
+
+			foreach (Resolver resolver in resolvers)
 			{
-				foreach (Resolver resolver in resolverDictionary.Values)
-				{
-					var item = resolver.GetObject();
-					list.Add(item);
-				}
+				object item = resolver.GetObject();
+
+				list.Add(item);
 			}
 
 			return list;
 		}
 
-		public IEnumerable<TFrom> ResolveAll<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>()
+		public IEnumerable<TFrom> ResolveAll<
+			[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TFrom>()
 			where TFrom : class
 		{
 			Type fromType = typeof(TFrom);
-			List<TFrom> list = new List<TFrom>();
 
-			ResolverDictionary dictionary;
+			List<Resolver> resolvers = new List<Resolver>();
+
 			bool retrieved;
 
 			bool useLock = ThreadSafe;
+
 			if (useLock)
 			{
 				lockSlim.EnterReadLock();
@@ -596,7 +683,14 @@ namespace Calcium.InversionOfControl
 
 			try
 			{
-				retrieved = typeDictionary.TryGetValue(fromType, out dictionary);
+				retrieved = typeDictionary.TryGetValue(
+					fromType,
+					out ResolverDictionary dictionary);
+
+				if (retrieved && dictionary != null)
+				{
+					resolvers.AddRange(dictionary.Values);
+				}
 			}
 			finally
 			{
@@ -605,15 +699,18 @@ namespace Calcium.InversionOfControl
 					lockSlim.ExitReadLock();
 				}
 			}
-			
+
+			List<TFrom> list = new List<TFrom>();
+
 			if (!retrieved)
 			{
 				return list;
 			}
 
-			foreach (var resolver in dictionary.Values)
+			foreach (Resolver resolver in resolvers)
 			{
 				var item = (TFrom)resolver.GetObject();
+
 				list.Add(item);
 			}
 
@@ -693,7 +790,7 @@ namespace Calcium.InversionOfControl
 				}
 				else
 				{
-					if (type.IsInterface())
+					if (IsInterfaceType(type))
 					{
 						var typeInfo = type.GetTypeInfo();
 						var typeNameAttribute = typeInfo.GetCustomAttribute<DefaultTypeNameAttribute>();
@@ -710,7 +807,7 @@ namespace Calcium.InversionOfControl
 							}
 							else
 							{
-								if (defaultType.IsInterface())
+								if (IsInterfaceType(defaultType))
 								{
 									throw new ResolutionException(
 										$"Invalid default type mapping. Type \'{type}\' " +
@@ -749,7 +846,7 @@ namespace Calcium.InversionOfControl
 									}
 								}
 
-								if (defaultType.IsInterface())
+								if (IsInterfaceType(defaultType))
 								{
 									throw new ResolutionException(
 										$"Invalid default type mapping. Type \'{type}\' " +
@@ -792,7 +889,7 @@ namespace Calcium.InversionOfControl
 								{
 									Type defaultType = defaultValueAttribute.Value as Type;
 
-									if (defaultType.IsInterface())
+									if (IsInterfaceType(defaultType))
 									{
 										throw new ResolutionException(
 											$"Invalid default value mapping. Type \'{type}\' " +
@@ -840,6 +937,18 @@ namespace Calcium.InversionOfControl
 				return resolver.GetObject();
 			}
 
+			if (IsInterfaceType(type))
+			{
+				if (raiseExceptionIfNotResolved)
+				{
+					throw new ResolutionException(
+						$"Interface type {type} has no registered type mapping,"
+						+ $" nor is there a default type mapping.");
+				}
+
+				return null;
+			}
+
 			if (IsValueLike(type))
 			{
 				if (raiseExceptionIfNotResolved)
@@ -865,23 +974,41 @@ namespace Calcium.InversionOfControl
 		Type ResolveType(string key)
 		{
 			Type result = GetTypeFromContainer(key);
+
 			if (result != null)
 			{
 				return result;
 			}
 
-			if (typeCache.TryGetValue(key, out result))
+			bool useLock = ThreadSafe;
+
+			if (useLock)
 			{
-				return result;
+				lockSlim.EnterReadLock();
 			}
 
-			/*  Not in the container? Try the Assembly. */
+			try
+			{
+				if (typeCache.TryGetValue(key, out result))
+				{
+					return result;
+				}
+			}
+			finally
+			{
+				if (useLock)
+				{
+					lockSlim.ExitReadLock();
+				}
+			}
+
+			/* Not in the container? Try the Assembly. */
 			result = Type.GetType(key, false);
-			
+
 			if (result == null)
 			{
-				/* Attempt to find the full assembly qualified type name. */
 				string suffix = PlatformDetector.PlatformName;
+
 				if (suffix != null)
 				{
 					result = Type.GetType(key + "." + suffix, false);
@@ -899,7 +1026,22 @@ namespace Calcium.InversionOfControl
 
 			if (result != null)
 			{
-				typeCache[key] = result;
+				if (useLock)
+				{
+					lockSlim.EnterWriteLock();
+				}
+
+				try
+				{
+					typeCache[key] = result;
+				}
+				finally
+				{
+					if (useLock)
+					{
+						lockSlim.ExitWriteLock();
+					}
+				}
 			}
 
 			return result;
@@ -907,20 +1049,8 @@ namespace Calcium.InversionOfControl
 
 		Type GetTypeFromContainer(string key)
 		{
-			if (!keyDictionary.TryGetValue(key, out Type result))
-			{
-				return null;
-			}
-
-			return result;
-		}
-
-		void ResolveProperties(object instance, Dictionary<string, object> resolvedObjects)
-		{
-			Type type = instance.GetType();
-			List<PropertyInfo> injectableProperties;
-
 			bool useLock = ThreadSafe;
+
 			if (useLock)
 			{
 				lockSlim.EnterReadLock();
@@ -928,48 +1058,12 @@ namespace Calcium.InversionOfControl
 
 			try
 			{
-				bool hasCachedInjectableProperties = injectablePropertyDictionary.TryGetValue(type, out injectableProperties);
-
-				if (!hasCachedInjectableProperties)
+				if (!keyDictionary.TryGetValue(key, out Type result))
 				{
-					bool hasCachedProperties = propertyDictionary.TryGetValue(type, 
-														out PropertyInfo[] properties);
-
-					if (!hasCachedProperties)
-					{
-#if NETSTANDARD || NETFX_CORE
-						properties = type.GetTypeInfo().DeclaredProperties.ToArray();
-#else
-						properties = type.GetProperties();
-#endif
-						if (cacheEnabled)
-						{
-							propertyDictionary[type] = properties;
-						}
-					}
-
-					injectableProperties = new List<PropertyInfo>();
-
-					foreach (PropertyInfo propertyInfo in properties)
-					{
-						var dependencyAttributes = propertyInfo.GetCustomAttributes(typeof(InjectDependenciesAttribute), false);
-#if NETSTANDARD || NETFX_CORE
-						if (!dependencyAttributes.Any())
-#else
-						if (dependencyAttributes.Length < 1) /* Faster than using LINQ. */
-#endif
-						{
-							continue;
-						}
-
-						injectableProperties.Add(propertyInfo);
-					}
-
-					if (cacheEnabled)
-					{
-						injectablePropertyDictionary[type] = injectableProperties;
-					}
+					return null;
 				}
+
+				return result;
 			}
 			finally
 			{
@@ -978,6 +1072,111 @@ namespace Calcium.InversionOfControl
 					lockSlim.ExitReadLock();
 				}
 			}
+		}
+
+		//		void ResolveProperties(object instance, Dictionary<string, object> resolvedObjects)
+		//		{
+		//			Type type = instance.GetType();
+		//			List<PropertyInfo> injectableProperties;
+
+		//			bool useLock = ThreadSafe;
+		//			if (useLock)
+		//			{
+		//				lockSlim.EnterReadLock();
+		//			}
+
+		//			try
+		//			{
+		//				bool hasCachedInjectableProperties = injectablePropertyDictionary.TryGetValue(type, out injectableProperties);
+
+		//				if (!hasCachedInjectableProperties)
+		//				{
+		//					bool hasCachedProperties = propertyDictionary.TryGetValue(type, 
+		//														out PropertyInfo[] properties);
+
+		//					if (!hasCachedProperties)
+		//					{
+		//#if NETSTANDARD || NETFX_CORE
+		//						properties = type.GetTypeInfo().DeclaredProperties.ToArray();
+		//#else
+		//						properties = type.GetProperties();
+		//#endif
+		//						if (cacheEnabled)
+		//						{
+		//							propertyDictionary[type] = properties;
+		//						}
+		//					}
+
+		//					injectableProperties = new List<PropertyInfo>();
+
+		//					foreach (PropertyInfo propertyInfo in properties)
+		//					{
+		//						var dependencyAttributes = propertyInfo.GetCustomAttributes(typeof(InjectDependenciesAttribute), false);
+		//#if NETSTANDARD || NETFX_CORE
+		//						if (!dependencyAttributes.Any())
+		//#else
+		//						if (dependencyAttributes.Length < 1) /* Faster than using LINQ. */
+		//#endif
+		//						{
+		//							continue;
+		//						}
+
+		//						injectableProperties.Add(propertyInfo);
+		//					}
+
+		//					if (cacheEnabled)
+		//					{
+		//						injectablePropertyDictionary[type] = injectableProperties;
+		//					}
+		//				}
+		//			}
+		//			finally
+		//			{
+		//				if (useLock)
+		//				{
+		//					lockSlim.ExitReadLock();
+		//				}
+		//			}
+
+		//			if (injectableProperties == null || injectableProperties.Count < 1)
+		//			{
+		//				return;
+		//			}
+
+		//			if (resolvedObjects == null)
+		//			{
+		//				resolvedObjects = new Dictionary<string, object>();
+		//			}
+
+		//			string typeName = type.FullName + ".";
+
+		//			foreach (PropertyInfo propertyInfo in injectableProperties)
+		//			{
+		//				string fullPropertyName = typeName + propertyInfo.Name;
+
+		//				object propertyValue = ResolveAux(propertyInfo.PropertyType, fullPropertyName, resolvedObjects);
+
+
+		//				if (!propertyActionDictionary.TryGetValue(fullPropertyName, 
+		//												out Action<object, object> setter))
+		//				{
+		//					var setMethod = propertyInfo.SetMethod;
+		//					setter = (owner, newValue) => setMethod.Invoke(owner, new[] { newValue });//ReflectionCompiler.CreatePropertySetter(propertyInfo);
+		//					if (cacheEnabled)
+		//					{
+		//						propertyActionDictionary[fullPropertyName] = setter;
+		//					}
+		//				}
+
+		//				setter(instance, propertyValue);
+		//			}
+		//		}
+
+		void ResolveProperties(object instance, Dictionary<string, object> resolvedObjects)
+		{
+			Type type = instance.GetType();
+
+			List<PropertyInfo> injectableProperties = GetInjectableProperties(type);
 
 			if (injectableProperties == null || injectableProperties.Count < 1)
 			{
@@ -995,24 +1194,182 @@ namespace Calcium.InversionOfControl
 			{
 				string fullPropertyName = typeName + propertyInfo.Name;
 
-				object propertyValue = ResolveAux(propertyInfo.PropertyType, fullPropertyName, resolvedObjects);
+				object propertyValue = ResolveAux(
+					propertyInfo.PropertyType,
+					fullPropertyName,
+					resolvedObjects);
 
-
-				if (!propertyActionDictionary.TryGetValue(fullPropertyName, 
-												out Action<object, object> setter))
-				{
-					var setMethod = propertyInfo.SetMethod;
-					setter = (owner, newValue) => setMethod.Invoke(owner, new[] { newValue });//ReflectionCompiler.CreatePropertySetter(propertyInfo);
-					if (cacheEnabled)
-					{
-						propertyActionDictionary[fullPropertyName] = setter;
-					}
-				}
+				Action<object, object> setter = GetPropertySetter(
+					fullPropertyName,
+					propertyInfo);
 
 				setter(instance, propertyValue);
 			}
 		}
-		
+
+		List<PropertyInfo> GetInjectableProperties(Type type)
+		{
+			bool useLock = ThreadSafe;
+
+			if (useLock)
+			{
+				lockSlim.EnterUpgradeableReadLock();
+			}
+
+			try
+			{
+				if (injectablePropertyDictionary.TryGetValue(
+						type,
+						out List<PropertyInfo> injectableProperties))
+				{
+					return injectableProperties;
+				}
+
+				PropertyInfo[] properties;
+
+				if (!propertyDictionary.TryGetValue(type, out properties))
+				{
+#if NETSTANDARD || NETFX_CORE
+					properties = type.GetTypeInfo().DeclaredProperties.ToArray();
+#else
+			properties = type.GetProperties();
+#endif
+
+					if (cacheEnabled)
+					{
+						if (useLock)
+						{
+							lockSlim.EnterWriteLock();
+						}
+
+						try
+						{
+							propertyDictionary[type] = properties;
+						}
+						finally
+						{
+							if (useLock)
+							{
+								lockSlim.ExitWriteLock();
+							}
+						}
+					}
+				}
+
+				injectableProperties = new List<PropertyInfo>();
+
+				foreach (PropertyInfo propertyInfo in properties)
+				{
+					var dependencyAttributes = propertyInfo.GetCustomAttributes(
+						typeof(InjectDependenciesAttribute),
+						false);
+
+#if NETSTANDARD || NETFX_CORE
+					if (!dependencyAttributes.Any())
+#else
+			if (dependencyAttributes.Length < 1)
+#endif
+					{
+						continue;
+					}
+
+					injectableProperties.Add(propertyInfo);
+				}
+
+				if (cacheEnabled)
+				{
+					if (useLock)
+					{
+						lockSlim.EnterWriteLock();
+					}
+
+					try
+					{
+						injectablePropertyDictionary[type] = injectableProperties;
+					}
+					finally
+					{
+						if (useLock)
+						{
+							lockSlim.ExitWriteLock();
+						}
+					}
+				}
+
+				return injectableProperties;
+			}
+			finally
+			{
+				if (useLock)
+				{
+					lockSlim.ExitUpgradeableReadLock();
+				}
+			}
+		}
+
+		Action<object, object> GetPropertySetter(
+			string fullPropertyName,
+			PropertyInfo propertyInfo)
+		{
+			bool useLock = ThreadSafe;
+
+			if (useLock)
+			{
+				lockSlim.EnterUpgradeableReadLock();
+			}
+
+			try
+			{
+				if (propertyActionDictionary.TryGetValue(
+						fullPropertyName,
+						out Action<object, object> setter))
+				{
+					return setter;
+				}
+
+				var setMethod = propertyInfo.SetMethod;
+
+				if (setMethod == null)
+				{
+					throw new ResolutionException(
+						$"Property '{fullPropertyName}' does not have a setter.");
+				}
+
+				setter = (owner, newValue) => setMethod.Invoke(
+							 owner,
+							 new[] { newValue });
+
+				if (cacheEnabled)
+				{
+					if (useLock)
+					{
+						lockSlim.EnterWriteLock();
+					}
+
+					try
+					{
+						propertyActionDictionary[fullPropertyName] = setter;
+					}
+					finally
+					{
+						if (useLock)
+						{
+							lockSlim.ExitWriteLock();
+						}
+					}
+				}
+
+				return setter;
+			}
+			finally
+			{
+				if (useLock)
+				{
+					lockSlim.ExitUpgradeableReadLock();
+				}
+			}
+		}
+
 		object BuildUp(Type type, string key)
 		{
 			if (type == null)
@@ -1358,6 +1715,11 @@ namespace Calcium.InversionOfControl
 			}
 
 			return false;
+		}
+
+		static bool IsInterfaceType(Type type)
+		{
+			return type.GetTypeInfo().IsInterface;
 		}
 	}
 }
