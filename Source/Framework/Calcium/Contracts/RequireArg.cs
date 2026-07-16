@@ -1237,7 +1237,7 @@ namespace Calcium
 		/// <example>
 		/// public DoSomething(object message)
 		/// {
-		/// this.message = AssertArg.IsNotNullAndOfType&lt;string&gt;(message, nameof(message));
+		///   this.message = AssertArg.IsNotNullAndOfType&lt;string&gt;(message, nameof(message));
 		/// }
 		/// </example>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

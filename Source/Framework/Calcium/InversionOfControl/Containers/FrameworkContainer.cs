@@ -917,6 +917,23 @@ namespace Calcium.InversionOfControl
 							}
 						}
 					}
+					else // Not an interface
+					{
+						TypeInfo typeInfo = type.GetTypeInfo();
+
+						RegistrationAttribute attribute 
+							= typeInfo.GetCustomAttribute<RegistrationAttribute>(
+								inherit: false);
+
+						if (attribute != null)
+						{
+							bool singleton = attribute.Lifetime == Lifetime.Singleton;
+
+							Register(type, type, singleton);
+
+							newTypeRegistered = true;
+						}
+					}
 				}
 			}
 			finally
