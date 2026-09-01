@@ -1378,5 +1378,47 @@ namespace Calcium
 
 		// Re-enable Resharper's formatting.
 		// @formatter:on
+
+		public static TEnum IsDefined<TEnum>(
+			TEnum value,
+			[CallerArgumentExpression(nameof(value))]
+			string? parameterName = missingExpression,
+
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+			where TEnum : struct, Enum
+		{
+			RequireParameterName(parameterName, memberName, filePath, lineNumber);
+
+			if (!Enum.IsDefined(typeof(TEnum), value))
+			{
+				throw new ArgumentException(
+					$"{parameterName} value {value} is not defined. "
+					+ FormatCallerParts(memberName, filePath, lineNumber),
+					parameterName);
+			}
+
+			return value;
+		}
+
+		public static TEnum IsNotNullAndDefined<TEnum>(
+			[NotNull] TEnum? value,
+			[CallerArgumentExpression(nameof(value))]
+			string? parameterName = missingExpression,
+
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? filePath = null,
+			[CallerLineNumber] int lineNumber = 0)
+			where TEnum : struct, Enum
+		{
+			RequireParameterName(parameterName, memberName, filePath, lineNumber);
+
+			IsNotNull(value, parameterName,
+					  memberName, filePath, lineNumber);
+
+			return IsDefined(value.Value,
+							 parameterName, memberName, filePath, lineNumber);
+		}
 	}
 }
