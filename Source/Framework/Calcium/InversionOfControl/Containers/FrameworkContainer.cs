@@ -1524,10 +1524,15 @@ namespace Calcium.InversionOfControl
 				}
 				catch (Exception ex)
 				{
+					string underlyingMessage = GetUnderlyingExceptionMessage(ex);
+
 					throw new ResolutionException(
-						$"Failed to resolve parameter '{parameterInfo.Name}' in constructor for type '{info.Constructor?.DeclaringType}'", ex);
+						$"Failed to resolve parameter '{parameterInfo.Name}' in constructor for type "
+						+ $"'{info.Constructor?.DeclaringType}'. "
+						+ $"Reason: {underlyingMessage}",
+						ex);
 				}
-				
+
 				if (parameter == null && !parameterInfo.IsOptional)
 				{
 					throw new ResolutionException(
@@ -1544,8 +1549,12 @@ namespace Calcium.InversionOfControl
 			}
 			catch (Exception ex)
 			{
-				throw new ResolutionException("Failed to resolve " 
-					+ info.Constructor.DeclaringType, ex);
+				string underlyingMessage = GetUnderlyingExceptionMessage(ex);
+
+				throw new ResolutionException(
+					$"Failed to resolve '{info.Constructor.DeclaringType}'. "
+					+ $"Reason: {underlyingMessage}",
+					ex);
 			}
 		}
 
@@ -1681,6 +1690,20 @@ namespace Calcium.InversionOfControl
 			}
 
 			return Instantiate(invokeInfo);
+		}
+
+		static string GetUnderlyingExceptionMessage(Exception exception)
+		{
+			AssertArg.IsNotNull(exception, nameof(exception));
+
+			Exception currentException = exception;
+
+			while (currentException.InnerException != null)
+			{
+				currentException = currentException.InnerException;
+			}
+
+			return currentException.Message;
 		}
 
 		static string GetKeyValueOrDefault(string key)
